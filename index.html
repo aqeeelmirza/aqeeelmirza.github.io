@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aqeel - CV</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .header:hover {
+            transform: translateY(-5px);
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .name {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .title {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #555;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item:hover {
+            color: #667eea;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: #764ba2;
+            transition: width 0.3s ease;
+        }
+
+        .section:hover .section-title::after {
+            width: 100px;
+        }
+
+        .about-text {
+            font-size: 1.1em;
+            color: #555;
+            text-align: justify;
+        }
+
+        .experience-item, .education-item, .publication-item {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 0 10px 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        .experience-item:hover, .education-item:hover, .publication-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            transform: translateX(5px);
+        }
+
+        .item-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .item-subtitle {
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .item-date {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .item-description {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-category {
+            background: rgba(102, 126, 234, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            background: rgba(102, 126, 234, 0.2);
+            transform: scale(1.05);
+        }
+
+        .skill-category h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .skill-list {
+            color: #555;
+        }
+
+        .publication-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .publication-link:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .name {
+                font-size: 2em;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header fade-in">
+            <div class="profile-img">A</div>
+            <h1 class="name">Aqeel</h1>
+            <p class="title">Your Professional Title Here</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📧</span>
+                    <span>your.email@example.com</span>
+                </div>
+                <div class="contact-item">
+                    <span>📱</span>
+                    <span>+1 (555) 123-4567</span>
+                </div>
+                <div class="contact-item">
+                    <span>🌐</span>
+                    <span>linkedin.com/in/yourprofile</span>
+                </div>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span>Your City, Country</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Me Section -->
+        <div class="section fade-in">
+            <h2 class="section-title">About Me</h2>
+            <p class="about-text">
+                Write a compelling summary about yourself here. Describe your professional background, 
+                key achievements, and what drives you in your field. This should be 2-3 paragraphs 
+                that give visitors a clear understanding of who you are as a professional and what 
+                unique value you bring to your field.
+            </p>
+        </div>
+
+        <!-- Experience Section -->
+        <div class="section fade-in">
+            <h2 class="section-title">Professional Experience</h2>
+            
+            <div class="experience-item">
+                <div class="item-title">Senior Position Title</div>
+                <div class="item-subtitle">Company Name</div>
+                <div class="item-date">January 2022 - Present</div>
+                <div class="item-description">
+                    Describe your key responsibilities and achievements in this role. 
+                    Include specific metrics or outcomes where possible to demonstrate your impact.
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="item-title">Previous Position Title</div>
+                <div class="item-subtitle">Previous Company</div>
+                <div class="item-date">June 2020 - December 2021</div>
+                <div class="item-description">
+                    Detail your responsibilities and accomplishments in this position. 
+                    Focus on transferable skills and notable projects you completed.
+                </div>
+            </div>
+        </div>
+
+        <!-- Education Section -->
+        <div class="section fade-in">
+            <h2 class="section-title">Education</h2>
+            
+            <div class="education-item">
+                <div class="item-title">Degree Name</div>
+                <div class="item-subtitle">University Name</div>
+                <div class="item-date">Graduation Year</div>
+                <div class="item-description">
+                    Relevant coursework, honors, or notable projects during your studies.
+                </div>
+            </div>
+        </div>
+
+        <!-- Publications Section -->
+        <div class="section fade-in">
+            <h2 class="section-title">Publications</h2>
+            
+            <div class="publication-item">
+                <div class="item-title">
+                    <a href="#" class="publication-link">Publication Title Here</a>
+                </div>
+                <div class="item-subtitle">Journal/Conference Name</div>
+                <div class="item-date">Publication Year</div>
+                <div class="item-description">
+                    Brief description of the publication, its significance, and your contribution.
+                </div>
+            </div>
+
+            <div class="publication-item">
+                <div class="item-title">
+                    <a href="#" class="publication-link">Another Publication Title</a>
+                </div>
+                <div class="item-subtitle">Journal/Conference Name</div>
+                <div class="item-date">Publication Year</div>
+                <div class="item-description">
+                    Description of this publication and its impact in your field.
+                </div>
+            </div>
+        </div>
+
+        <!-- Skills Section -->
+        <div class="section fade-in">
+            <h2 class="section-title">Skills & Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>Technical Skills</h4>
+                    <div class="skill-list">Programming, Data Analysis, Research Methods</div>
+                </div>
+                <div class="skill-category">
+                    <h4>Tools & Software</h4>
+                    <div class="skill-list">Python, R, MATLAB, LaTeX</div>
+                </div>
+                <div class="skill-category">
+                    <h4>Languages</h4>
+                    <div class="skill-list">English (Fluent), Arabic (Native)</div>
+                </div>
+                <div class="skill-category">
+                    <h4>Soft Skills</h4>
+                    <div class="skill-list">Leadership, Communication, Problem Solving</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add smooth hover effects
+        document.querySelectorAll('.section').forEach(section => {
+            section.addEventListener('mouseenter', () => {
+                section.style.transform = 'translateY(-3px)';
+            });
+            
+            section.addEventListener('mouseleave', () => {
+                section.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
