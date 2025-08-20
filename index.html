@@ -271,19 +271,18 @@
             border-bottom-color: var(--accent);
         }
 
-        /* Replace lines 264-271 with this: */
-        .contact-label::before {
-            margin-right: 8px;
-            font-size: 1rem;
-            color: var(--text-muted);  /* Grey color for icons */
-            display: inline-block;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        /* Icon styling */
+        .icon {
+            width: 16px;
+            height: 16px;
+            color: #666;  /* Grey color for icons */
+            opacity: 0.7;  /* Adjust opacity if needed */
         }
         
-        .contact-row:nth-child(1) .contact-label::before { content: '✉'; }
-        .contact-row:nth-child(2) .contact-label::before { content: '☎'; }
-        .contact-row:nth-child(3) .contact-label::before { content: '🔗'; }
-        .contact-row:nth-child(4) .contact-label::before { content: '📍'; }
+        /* Optional: Make icons slightly more visible on hover */
+        .icon:hover {
+            opacity: 1;
+        }
 
         .edu-item {
             margin-bottom: 25px;
