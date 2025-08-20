@@ -165,7 +165,7 @@
             font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
-            color: var(--text-muted);
+            color: #0891b2;
             margin-bottom: 20px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
@@ -201,7 +201,8 @@
         }
 
         .contact-item a:hover {
-            border-bottom-color: var(--text-primary);
+            border-bottom-color: #0891b2;  /* Change to accent color */
+            color: #0891b2;  /* Add color change on hover */
         }
 
         .education-section {
@@ -253,10 +254,6 @@
             margin-bottom: 15px;
         }
 
-        .section-label {
-            color: #0891b2;  /* Use accent color for labels */
-        }
-
         .experience-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -268,6 +265,7 @@
             border: 1px solid var(--border-light);
             padding: 35px;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);  /* Add subtle default shadow */
         }
 
         .exp-card:hover {
@@ -320,6 +318,7 @@
             padding: 45px;
             transition: all 0.3s ease;
             border: 1px solid var(--border-light);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);  /* Add subtle default shadow */
         }
 
         .pub-card:hover {
