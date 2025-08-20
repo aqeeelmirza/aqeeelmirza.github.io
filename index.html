@@ -12,15 +12,15 @@
         }
 
         :root {
-            --bg-primary: #e8e0d5;
-            --bg-secondary: #f5f0e8;
-            --bg-white: #ffffff;
-            --bg-card: #fdfcfa;
-            --text-primary: #2c2c2c;
-            --text-secondary: #5a5a5a;
-            --text-muted: #8a8a8a;
-            --accent: #3d3d3d;
-            --border-light: rgba(0, 0, 0, 0.08);
+            --bg-primary: #ffffff;        /* Changed from #e8e0d5 */
+            --bg-secondary: #f8fafc;      /* Changed from #f5f0e8 */
+            --bg-white: #ffffff;          /* Stays the same */
+            --bg-card: #ffffff;           /* Changed from #fdfcfa */
+            --text-primary: #1e293b;      /* Changed from #2c2c2c */
+            --text-secondary: #475569;    /* Changed from #5a5a5a */
+            --text-muted: #94a3b8;        /* Changed from #8a8a8a */
+            --accent: #0891b2;            /* Changed from #3d3d3d */
+            --border-light: rgba(0, 0, 0, 0.06); /* Slightly lighter */
         }
 
         html {
@@ -40,8 +40,9 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(232, 224, 213, 0.85);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             z-index: 1000;
             border-bottom: 1px solid var(--border-light);
         }
@@ -79,7 +80,8 @@
         }
 
         .nav-link:hover {
-            opacity: 0.6;
+            color: #0891b2;  /* Use accent color instead of opacity */
+            opacity: 1;
         }
 
         /* Hero Section */
@@ -87,7 +89,7 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            background: var(--bg-secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
             padding: 120px 3rem 80px;
         }
 
@@ -109,7 +111,7 @@
         height: 120px;
         border-radius: 50%;
         overflow: hidden;
-        border: 4px solid #fff;
+        border: 4px solid #0891b2;
         box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         background-color: #f0f0f0; /* Temporary background to see the container */
         }
@@ -251,6 +253,10 @@
             margin-bottom: 15px;
         }
 
+        .section-label {
+            color: #0891b2;  /* Use accent color for labels */
+        }
+
         .experience-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
@@ -266,7 +272,7 @@
 
         .exp-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 40px rgba(8, 145, 178, 0.1); /* Teal shadow */
         }
 
         .exp-period {
@@ -407,19 +413,19 @@
 
         .pub-link {
             padding: 12px 24px;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            background: #f8fafc;
+            color: #0891b2;
             text-decoration: none;
             font-size: 0.95rem;
             transition: all 0.3s ease;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            border: 1px solid var(--border-light);
+            border: 2px solid #0891b2;
         }
 
         .pub-link:hover {
-            background: var(--accent);
-            color: var(--bg-white);
-            border-color: var(--accent);
+            background: #0891b2; /* Changed from var(--accent) */
+            color: #ffffff;
+            border-color: #0891b2;
         }
 
         /* Skills Section */
