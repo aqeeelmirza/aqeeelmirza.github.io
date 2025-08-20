@@ -271,6 +271,17 @@
             border-bottom-color: var(--accent);
         }
 
+        /* ADD ICON STYLES HERE (after line 262) */
+        .contact-label::before {
+            margin-right: 8px;
+            font-size: 1rem;
+        }
+        
+        .contact-row:nth-child(1) .contact-label::before { content: '✉'; }
+        .contact-row:nth-child(2) .contact-label::before { content: '☎'; }
+        .contact-row:nth-child(3) .contact-label::before { content: '🔗'; }
+        .contact-row:nth-child(4) .contact-label::before { content: '📍'; }
+
         .edu-item {
             margin-bottom: 25px;
         }
