@@ -21,12 +21,12 @@
             --text-primary: #1e293b;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
-            --accent: #0891b2;
-            --accent-light: #06b6d4;
-            --accent-dark: #0e7490;
+            --accent: #0077a3;  /* Darker, more saturated blue */
+            --accent-light: #0891b2;
+            --accent-dark: #005577;  /* Even darker for better contrast */
             --border-light: rgba(0, 0, 0, 0.06);
             --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 10px 40px rgba(8, 145, 178, 0.1);
+            --shadow-md: 0 10px 40px rgba(0, 119, 163, 0.15);  /* Updated shadow color */
             --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
             --icon-grey: #6b7280;
         }
@@ -218,74 +218,60 @@
             text-justify: inter-word;
         }
 
-        .contact-section {
-            padding-bottom: 30px;
-        }
-        
-        .contact-list {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-        
-        .contact-row {
-            display: flex;
-            align-items: center;
-            padding: 12px 16px;
-            background: rgba(248, 250, 252, 0.8);
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            border-left: 3px solid transparent;
-            gap: 12px;
-        }
-        
-        .contact-row:hover {
-            background: rgba(255, 255, 255, 1);
-            border-left-color: var(--accent);
-            transform: translateX(5px);
-            box-shadow: 0 2px 8px rgba(8, 145, 178, 0.1);
-        }
-
-        .contact-icon {
-            width: 18px;
-            height: 18px;
-            flex-shrink: 0;
-            color: var(--icon-grey);
-        }
-
-        .contact-icon svg {
-            width: 100%;
-            height: 100%;
-            fill: var(--icon-grey);
-        }
-        
-        .contact-label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            min-width: 85px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-        
-        .contact-value {
-            color: var(--text-primary);
-            font-size: 0.95rem;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            flex: 1;
-        }
-        
-        .contact-value a {
-            color: var(--text-primary);
+        .about-text a {
+            color: var(--accent);
             text-decoration: none;
             border-bottom: 1px solid transparent;
             transition: all 0.3s ease;
         }
-        
-        .contact-value a:hover {
-            color: var(--accent);
+
+        .about-text a:hover {
             border-bottom-color: var(--accent);
+        }
+
+        /* Fixed Contact Icons Section */
+        .contact-section {
+            padding-bottom: 30px;
+        }
+
+        .contact-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .contact-icon-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(248, 250, 252, 0.8);
+            color: var(--icon-grey);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: 1px solid var(--border-light);
+        }
+
+        .contact-icon-link:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 119, 163, 0.3);
+            border-color: var(--accent);
+        }
+
+        .contact-icon-link svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2;
+        }
+
+        /* Special styling for Google Scholar icon */
+        .scholar-icon {
+            fill: currentColor;
+            stroke: none;
         }
 
         /* Education Section Styling */
@@ -312,7 +298,7 @@
             background: rgba(255, 255, 255, 1);
             border-left-color: var(--accent);
             transform: translateX(5px);
-            box-shadow: 0 2px 8px rgba(8, 145, 178, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 119, 163, 0.15);
         }
 
         .edu-year {
@@ -363,7 +349,7 @@
 
         .section-header {
             margin-bottom: 60px;
-            background: linear-gradient(135deg, rgba(8, 145, 178, 0.05) 0%, rgba(14, 116, 144, 0.03) 100%);
+            background: linear-gradient(135deg, rgba(0, 119, 163, 0.05) 0%, rgba(0, 85, 119, 0.03) 100%);
             padding: 30px;
             border-radius: 10px;
         }
@@ -520,7 +506,7 @@
             background: var(--accent);
             color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(8, 145, 178, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 119, 163, 0.3);
         }
 
         /* Skills Section */
@@ -640,6 +626,10 @@
             .skills-grid {
                 grid-template-columns: 1fr;
             }
+
+            .contact-icons {
+                justify-content: center;
+            }
         }
 
         @media (max-width: 600px) {
@@ -665,17 +655,12 @@
                 font-size: 1.4rem;
             }
             
-            .contact-row {
-                padding: 10px 12px;
+            .contact-icon-link {
+                width: 32px;
+                height: 32px;
             }
-            .contact-label {
-                min-width: 70px;
-                font-size: 0.8rem;
-            }
-            .contact-value {
-                font-size: 0.9rem;
-            }
-            .contact-icon {
+            
+            .contact-icon-link svg {
                 width: 16px;
                 height: 16px;
             }
@@ -717,14 +702,14 @@
                     <div class="section-label">About</div>
                     <p class="about-text">
                         I graduated with my PhD in Computer Science from the University of Verona, Italy (2025), 
-                        under the supervision of <a href="http://www.franzsetti.info/" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: none; ">Francesco Setti</a>,
+                        under the supervision of <a href="http://www.franzsetti.info/" target="_blank" rel="noopener noreferrer">Francesco Setti</a>,
                         where I specialized in developing advanced anomaly detection algorithms for industrial manufacturing environments.
                         My doctoral research focused on creating robust deep learning architectures that can automatically identify defects, 
                         irregularities, and quality issues in real-time production settings, addressing critical challenges in industrial 
                         automation and quality control. This work involved designing novel convolutional neural networks and unsupervised learning 
                         approaches that achieve high accuracy while maintaining computational efficiency suitable for deployment in resource-constrained 
                         industrial systems. I received my Master's degree in Computer Science from Beijing University of Posts and Telecommunications (2019-2021), 
-                        under the supervision of <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: none; ">Xiaohong Liu</a>,
+                        under the supervision of <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener noreferrer">Xiaohong Liu</a>,
                         where my research centered on Natural Language Processing with a particular focus on sentiment analysis, 
                         exploring innovative methods for understanding and classifying emotional content in text data. 
                         I graduated with my Bachelor's degree in Computer Science from PMAS Arid Agriculture University Rawalpindi, Pakistan (2013-2017), 
@@ -741,18 +726,18 @@
                         <div class="section-label">Connect</div>
                         <div class="contact-icons">
                             <a href="mailto:muhammad.aqeel@univr.it" class="contact-icon-link" title="Email" target="_blank" rel="noopener noreferrer">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                     <polyline points="22,6 12,13 2,6"></polyline>
                                 </svg>
                             </a>
                             <a href="https://wa.me/8618210133275" class="contact-icon-link" title="WhatsApp" target="_blank" rel="noopener noreferrer">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
                                 </svg>
                             </a>
                             <a href="https://www.linkedin.com/in/muhammad-aqeel-4378b9170" class="contact-icon-link" title="LinkedIn" target="_blank" rel="noopener noreferrer">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                                     <rect x="2" y="9" width="4" height="12"></rect>
                                     <circle cx="4" cy="4" r="2"></circle>
