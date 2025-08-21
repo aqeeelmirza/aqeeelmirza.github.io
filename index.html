@@ -28,6 +28,7 @@
             --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
             --shadow-md: 0 10px 40px rgba(8, 145, 178, 0.1);
             --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
+            --icon-grey: #6b7280;
         }
 
         html {
@@ -112,6 +113,8 @@
             align-items: center;
             background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
             padding: 120px 3rem 80px;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-container {
@@ -233,6 +236,7 @@
             border-radius: 8px;
             transition: all 0.3s ease;
             border-left: 3px solid transparent;
+            gap: 12px;
         }
         
         .contact-row:hover {
@@ -240,6 +244,19 @@
             border-left-color: var(--accent);
             transform: translateX(5px);
             box-shadow: 0 2px 8px rgba(8, 145, 178, 0.1);
+        }
+
+        .contact-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            color: var(--icon-grey);
+        }
+
+        .contact-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--icon-grey);
         }
         
         .contact-label {
@@ -271,47 +288,72 @@
             border-bottom-color: var(--accent);
         }
 
-        /* Icon styling */
-        .icon {
-            width: 16px;
-            height: 16px;
-            color: #666;  /* Grey color for icons */
-            opacity: 0.7;  /* Adjust opacity if needed */
+        /* Education Section Styling */
+        .education-section {
+            padding-bottom: 30px;
         }
-        
-        /* Optional: Make icons slightly more visible on hover */
-        .icon:hover {
-            opacity: 1;
+
+        .edu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
         }
 
         .edu-item {
-            margin-bottom: 25px;
+            padding: 16px;
+            background: rgba(248, 250, 252, 0.8);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            cursor: pointer;
+        }
+
+        .edu-item:hover {
+            background: rgba(255, 255, 255, 1);
+            border-left-color: var(--accent);
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(8, 145, 178, 0.1);
         }
 
         .edu-year {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin-bottom: 5px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 6px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
         }
 
         .edu-degree {
             font-size: 1.1rem;
             font-weight: 400;
             color: var(--text-primary);
-            margin-bottom: 3px;
+            margin-bottom: 4px;
         }
 
         .edu-institution {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--text-secondary);
             font-style: italic;
+        }
+
+        .edu-institution a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .edu-item:hover .edu-institution a {
+            color: var(--accent);
         }
 
         /* Experience Section */
         .experience-section {
             padding: 100px 3rem;
             background: var(--bg-secondary);
+            position: relative;
+            z-index: 2;
         }
 
         .section-container {
@@ -623,7 +665,6 @@
                 font-size: 1.4rem;
             }
             
-            /* Add these new rules for contact section */
             .contact-row {
                 padding: 10px 12px;
             }
@@ -633,6 +674,10 @@
             }
             .contact-value {
                 font-size: 0.9rem;
+            }
+            .contact-icon {
+                width: 16px;
+                height: 16px;
             }
         }
     </style>
@@ -694,22 +739,46 @@
                         <div class="section-label">Contact</div>
                         <div class="contact-list">
                             <div class="contact-row">
+                                <div class="contact-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                                        <path d="m22 7-10 5L2 7"></path>
+                                    </svg>
+                                </div>
                                 <span class="contact-label">Email</span>
                                 <span class="contact-value">
                                     <a href="mailto:muhammad.aqeel@univr.it">muhammad.aqeel@univr.it</a>
                                 </span>
                             </div>
                             <div class="contact-row">
+                                <div class="contact-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                    </svg>
+                                </div>
                                 <span class="contact-label">Phone</span>
                                 <span class="contact-value">+86 182 1013 3275</span>
                             </div>
                             <div class="contact-row">
+                                <div class="contact-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                        <rect x="2" y="9" width="4" height="12"></rect>
+                                        <circle cx="4" cy="4" r="2"></circle>
+                                    </svg>
+                                </div>
                                 <span class="contact-label">LinkedIn</span>
                                 <span class="contact-value">
-                                    <a href="https://linkedin.com/in/muhammad-aqeel">LinkedIn Profile</a>
+                                    <a href="www.linkedin.com/in/muhammad-aqeel-4378b9170">LinkedIn Profile</a>
                                 </span>
                             </div>
                             <div class="contact-row">
+                                <div class="contact-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                </div>
                                 <span class="contact-label">Location</span>
                                 <span class="contact-value">Ljubljana, Slovenia</span>
                             </div>
@@ -718,20 +787,28 @@
 
                     <div class="education-section">
                         <div class="section-label">Education</div>
-                        <div class="edu-item">
-                            <div class="edu-year">2022 - 2025</div>
-                            <div class="edu-degree">PhD in Computer Science</div>
-                            <div class="edu-institution">University of Verona, Italy</div>
-                        </div>
-                        <div class="edu-item">
-                            <div class="edu-year">2019 - 2021</div>
-                            <div class="edu-degree">Master in Computer Science</div>
-                            <div class="edu-institution">Beijing University of Posts and Telecomunnications, China</div>
-                        </div>
-                        <div class="edu-item">
-                            <div class="edu-year">2013 - 2017</div>
-                            <div class="edu-degree">BS in Computer Science</div>
-                            <div class="edu-institution">PMAS Arid Agriculture University Rawalpindi, Pakistan</div>
+                        <div class="edu-list">
+                            <div class="edu-item">
+                                <div class="edu-year">2022 - 2025</div>
+                                <div class="edu-degree">PhD in Computer Science</div>
+                                <div class="edu-institution">
+                                    <a href="https://www.univr.it" target="_blank" rel="noopener noreferrer">University of Verona, Italy</a>
+                                </div>
+                            </div>
+                            <div class="edu-item">
+                                <div class="edu-year">2019 - 2021</div>
+                                <div class="edu-degree">Master in Computer Science</div>
+                                <div class="edu-institution">
+                                    <a href="https://www.bupt.edu.cn" target="_blank" rel="noopener noreferrer">Beijing University of Posts and Telecommunications, China</a>
+                                </div>
+                            </div>
+                            <div class="edu-item">
+                                <div class="edu-year">2013 - 2017</div>
+                                <div class="edu-degree">BS in Computer Science</div>
+                                <div class="edu-institution">
+                                    <a href="https://www.uaar.edu.pk" target="_blank" rel="noopener noreferrer">PMAS Arid Agriculture University Rawalpindi, Pakistan</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -831,7 +908,6 @@
                         <a href="https://arxiv.org/abs/2508.02293" class="pub-link" target="_blank">Paper</a>
                     </div>
                 </article>
-            </div>
 
                 <article class="pub-card fade-in">
                     <div class="pub-header">
@@ -1043,17 +1119,8 @@
             observer.observe(el);
         });
 
-        // Parallax effect for hero section
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const heroSection = document.querySelector('.hero-section');
-            const speed = 0.3;
-            
-            if (heroSection && scrolled < window.innerHeight) {
-                heroSection.style.transform = `translateY(${scrolled * speed}px)`;
-            }
-        });
-
+        // Removed parallax effect to prevent overlap issues
+        
         // Try multiple image sources for better compatibility
         window.addEventListener('DOMContentLoaded', () => {
             const img = document.querySelector('.profile-image img');
