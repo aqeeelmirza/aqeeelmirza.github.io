@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muhammad Aqeel - Researcher</title>
+    <!-- Include jsPDF for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -21,12 +23,12 @@
             --text-primary: #1e293b;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
-            --accent: #0891b2;  /* Darker, more saturated blue */
+            --accent: #0891b2;
             --accent-light: #0891b2;
-            --accent-dark: #0e7490;  /* Even darker for better contrast */
+            --accent-dark: #0e7490;
             --border-light: rgba(0, 0, 0, 0.06);
             --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 10px 40px rgba(0, 119, 163, 0.15);  /* Updated shadow color */
+            --shadow-md: 0 10px 40px rgba(0, 119, 163, 0.15);
             --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
             --icon-grey: #6b7280;
         }
@@ -104,6 +106,65 @@
             right: 0;
             height: 2px;
             background: var(--accent);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-primary);
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 3px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-6px, -6px);
+        }
+
+        /* CV Download Button */
+        .cv-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            border: 2px solid var(--accent);
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 25px;
+        }
+
+        .cv-download-btn:hover {
+            background: var(--accent-dark);
+            border-color: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 119, 163, 0.3);
+        }
+
+        .cv-download-btn svg {
+            width: 18px;
+            height: 18px;
         }
 
         /* Hero Section */
@@ -229,7 +290,7 @@
             border-bottom-color: var(--accent);
         }
 
-        /* Fixed Contact Icons Section */
+        /* Contact Section */
         .contact-section {
             padding-bottom: 30px;
         }
@@ -268,13 +329,12 @@
             stroke-width: 2;
         }
 
-        /* Special styling for Google Scholar icon */
         .scholar-icon {
             fill: currentColor;
             stroke: none;
         }
 
-        /* Education Section Styling */
+        /* Education Section */
         .education-section {
             padding-bottom: 30px;
         }
@@ -350,7 +410,7 @@
         .section-header {
             margin-bottom: 60px;
             background: linear-gradient(135deg, rgba(8, 145, 178, 0.15) 0%, rgba(14, 116, 144, 0.1) 100%);
-            border-left: 4px solid var(--accent);  /* Added accent border */
+            border-left: 4px solid var(--accent);
             padding: 30px;
             border-radius: 10px;
         }
@@ -579,8 +639,32 @@
 
         /* Mobile responsive */
         @media (max-width: 968px) {
+            .hamburger {
+                display: flex;
+            }
+
             .nav-menu {
-                display: none;
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: var(--bg-nav);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 2rem 0;
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid var(--border-light);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-link {
+                padding: 1rem 0;
+                display: block;
             }
 
             .hero-content-grid {
@@ -631,6 +715,11 @@
             .contact-icons {
                 justify-content: center;
             }
+
+            .cv-download-btn {
+                width: 100%;
+                justify-content: center;
+            }
         }
 
         @media (max-width: 600px) {
@@ -673,7 +762,12 @@
     <nav>
         <div class="nav-container">
             <div class="nav-brand">Muhammad Aqeel</div>
-            <ul class="nav-menu">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#publications" class="nav-link">Publications</a></li>
@@ -720,6 +814,16 @@
                         with a current focus on advancing industrial AI through scalable and interpretable anomaly detection systems
                         that can transform manufacturing quality assurance and enable predictive maintenance strategies.
                     </p>
+                    
+                    <!-- CV Download Button -->
+                    <button class="cv-download-btn" onclick="generatePDF()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download CV
+                    </button>
                 </div>
 
                <div class="hero-right">
@@ -1053,6 +1157,23 @@
     </footer>
 
     <script>
+        // Hamburger Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
         // Smooth scroll navigation highlighting
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
@@ -1108,6 +1229,151 @@
                 });
             }
         });
+
+        // PDF Generation Function
+        function generatePDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Set font styles
+            doc.setFont("helvetica");
+            
+            // Header - Name and Title
+            doc.setFontSize(24);
+            doc.setFont("helvetica", "bold");
+            doc.text("Muhammad Aqeel", 105, 20, { align: "center" });
+            
+            doc.setFontSize(14);
+            doc.setFont("helvetica", "normal");
+            doc.text("PhD Researcher in Computer Science", 105, 28, { align: "center" });
+            
+            // Contact Information
+            doc.setFontSize(10);
+            doc.text("Email: muhammad.aqeel@univr.it | WhatsApp: +86 182 1013 3275", 105, 36, { align: "center" });
+            doc.text("LinkedIn: muhammad-aqeel-4378b9170 | Google Scholar: ZPUihX0AAAAJ", 105, 42, { align: "center" });
+            
+            // Horizontal line
+            doc.setLineWidth(0.5);
+            doc.line(20, 46, 190, 46);
+            
+            // Education Section
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("EDUCATION", 20, 56);
+            
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "normal");
+            
+            doc.setFont("helvetica", "bold");
+            doc.text("PhD in Computer Science", 20, 64);
+            doc.setFont("helvetica", "normal");
+            doc.text("(2022-2025)", 150, 64);
+            doc.text("University of Verona, Italy", 20, 70);
+            doc.text("Supervisor: Francesco Setti | Focus: Anomaly Detection in Industrial Manufacturing", 20, 76);
+            
+            doc.setFont("helvetica", "bold");
+            doc.text("Master in Computer Science", 20, 86);
+            doc.setFont("helvetica", "normal");
+            doc.text("(2019-2021)", 150, 86);
+            doc.text("Beijing University of Posts and Telecommunications, China", 20, 92);
+            doc.text("Supervisor: Xiaohong Liu | Focus: Natural Language Processing & Sentiment Analysis", 20, 98);
+            
+            doc.setFont("helvetica", "bold");
+            doc.text("Bachelor in Computer Science", 20, 108);
+            doc.setFont("helvetica", "normal");
+            doc.text("(2013-2017)", 150, 108);
+            doc.text("PMAS Arid Agriculture University Rawalpindi, Pakistan", 20, 114);
+            
+            // Professional Experience Section
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("PROFESSIONAL EXPERIENCE", 20, 128);
+            
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "normal");
+            
+            const experiences = [
+                { title: "Visiting Researcher", period: "June 2025 - Present", org: "University of Ljubljana, Slovenia" },
+                { title: "Teaching Assistant", period: "2023-2025", org: "University of Verona, Italy" },
+                { title: "Research Assistant", period: "2021-2022", org: "Huazhong University of Science and Technology, China" },
+                { title: "Software Quality Assurance", period: "2018-2019", org: "UIIT, Arid Agriculture University, Pakistan" },
+                { title: "Software Developer", period: "2017-2018", org: "eConceptions (Pvt) Ltd. Pakistan" }
+            ];
+            
+            let yPos = 136;
+            experiences.forEach(exp => {
+                doc.setFont("helvetica", "bold");
+                doc.text(exp.title, 20, yPos);
+                doc.setFont("helvetica", "normal");
+                doc.text(exp.period, 150, yPos);
+                doc.text(exp.org, 20, yPos + 6);
+                yPos += 14;
+            });
+            
+            // Selected Publications Section
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("SELECTED PUBLICATIONS", 20, yPos + 8);
+            
+            doc.setFontSize(9);
+            doc.setFont("helvetica", "normal");
+            yPos += 16;
+            
+            const publications = [
+                "• Semantic Parsing for Aspect Based Sentiment Analysis - IEEE Access 2025",
+                "• Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning - ICCV 2025",
+                "• Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection - ECCVW 2024",
+                "• RoadFusion: Latent Diffusion Model for Pavement Defect Detection - ICIAP 2025",
+                "• ExDD: Explicit Dual Distribution Learning for Surface Defect Detection - ICIAP 2025"
+            ];
+            
+            publications.forEach(pub => {
+                const lines = doc.splitTextToSize(pub, 170);
+                doc.text(lines, 20, yPos);
+                yPos += lines.length * 4 + 2;
+            });
+            
+            // Check if we need a second page
+            if (yPos > 240) {
+                doc.addPage();
+                yPos = 20;
+            }
+            
+            // Technical Skills Section
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("TECHNICAL SKILLS", 20, yPos + 8);
+            
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "normal");
+            yPos += 16;
+            
+            doc.text("Research Areas: Machine Learning, Computer Vision, Anomaly Detection, NLP", 20, yPos);
+            yPos += 6;
+            doc.text("Programming: Python, C++, JavaScript, Bash/Shell Scripting", 20, yPos);
+            yPos += 6;
+            doc.text("Frameworks: PyTorch, TensorFlow, Scikit-learn, OpenCV", 20, yPos);
+            yPos += 6;
+            doc.text("Tools: Git/GitHub, LaTeX, Jupyter Notebooks, Linux/Unix", 20, yPos);
+            
+            // Research Summary
+            yPos += 14;
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("RESEARCH SUMMARY", 20, yPos);
+            
+            doc.setFontSize(9);
+            doc.setFont("helvetica", "normal");
+            yPos += 8;
+            
+            const summary = "Specialized in developing advanced anomaly detection algorithms for industrial manufacturing environments, with expertise in deep learning architectures for real-time defect detection. Research contributions span computer vision and NLP, with 9+ peer-reviewed publications in top-tier conferences including ICCV, ECCV, and ICIAP. Focus on creating scalable, interpretable AI systems for quality control and predictive maintenance in industrial settings.";
+            
+            const summaryLines = doc.splitTextToSize(summary, 170);
+            doc.text(summaryLines, 20, yPos);
+            
+            // Save the PDF
+            doc.save("Muhammad_Aqeel_CV.pdf");
+        }
     </script>
 </body>
 </html>
