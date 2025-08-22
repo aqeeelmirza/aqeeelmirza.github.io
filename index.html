@@ -781,10 +781,8 @@
         <div class="hero-container fade-in">
             <div class="hero-header">
                 <div class="profile-image">
-                    <span class="profile-initials">MA</span>
-                    <img src="PPP.jpg" alt="Muhammad Aqeel" 
-                         onerror="this.style.display='none'"
-                         onload="this.style.display='block'; this.previousElementSibling.style.display='none'">
+                    <span class="profile-initials" style="display: flex; align-items: center; justify-content: center;">MA</span>
+                    <img src="PPP.jpg" alt="Muhammad Aqeel" style="display: none;">
                 </div>
                 <div class="hero-titles">
                     <h1 class="hero-name">Muhammad Aqeel</h1>
@@ -1217,16 +1215,44 @@
         // Try multiple image sources for better compatibility
         window.addEventListener('DOMContentLoaded', () => {
             const img = document.querySelector('.profile-image img');
-            const sources = ['PPP.jpg', 'PPP.JPG', './PPP.jpg', './PPP.JPG'];
+            const sources = ['PPP.jpg', 'PPP.JPG', './PPP.jpg', './PPP.JPG', 'ppp.jpg', 'profile.jpg'];
             let currentIndex = 0;
             
             if (img) {
+                // First attempt to load the image
+                img.style.display = 'none'; // Hide initially
+                
+                const tryLoadImage = () => {
+                    if (currentIndex < sources.length) {
+                        img.src = sources[currentIndex];
+                    }
+                };
+                
+                img.addEventListener('load', function() {
+                    // Image loaded successfully
+                    this.style.display = 'block';
+                    const initials = document.querySelector('.profile-initials');
+                    if (initials) {
+                        initials.style.display = 'none';
+                    }
+                });
+                
                 img.addEventListener('error', function() {
                     currentIndex++;
                     if (currentIndex < sources.length) {
-                        this.src = sources[currentIndex];
+                        tryLoadImage();
+                    } else {
+                        // All attempts failed, show initials
+                        this.style.display = 'none';
+                        const initials = document.querySelector('.profile-initials');
+                        if (initials) {
+                            initials.style.display = 'flex';
+                        }
                     }
                 });
+                
+                // Start loading
+                tryLoadImage();
             }
         });
 
@@ -1235,22 +1261,54 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
-            // Set font styles
-            doc.setFont("helvetica");
+            // Try to add profile image
+            const profileImg = document.querySelector('.profile-image img');
+            let imageAdded = false;
+            let imageYOffset = 0;
+            
+            if (profileImg && profileImg.src && !profileImg.src.includes('data:') && profileImg.style.display !== 'none') {
+                try {
+                    // Add profile picture (positioned at top right)
+                    const imgData = profileImg.src;
+                    doc.addImage(imgData, 'JPEG', 165, 10, 30, 30);
+                    imageAdded = true;
+                } catch (e) {
+                    console.log('Could not add image to PDF');
+                }
+            }
             
             // Header - Name and Title
             doc.setFontSize(24);
             doc.setFont("helvetica", "bold");
-            doc.text("Muhammad Aqeel", 105, 20, { align: "center" });
+            doc.text("Muhammad Aqeel", 20, 20);
             
             doc.setFontSize(14);
             doc.setFont("helvetica", "normal");
-            doc.text("PhD Researcher in Computer Science", 105, 28, { align: "center" });
+            doc.text("PhD Researcher in Computer Science", 20, 28);
             
-            // Contact Information
+            // Contact Information with clickable links
             doc.setFontSize(10);
-            doc.text("Email: muhammad.aqeel@univr.it | WhatsApp: +86 182 1013 3275", 105, 36, { align: "center" });
-            doc.text("LinkedIn: muhammad-aqeel-4378b9170 | Google Scholar: ZPUihX0AAAAJ", 105, 42, { align: "center" });
+            doc.setTextColor(0, 0, 0);
+            doc.text("Email: ", 20, 36);
+            doc.setTextColor(8, 145, 178);
+            doc.textWithLink("muhammad.aqeel@univr.it", 35, 36, { url: "mailto:muhammad.aqeel@univr.it" });
+            
+            doc.setTextColor(0, 0, 0);
+            doc.text(" | WhatsApp: ", 100, 36);
+            doc.setTextColor(8, 145, 178);
+            doc.textWithLink("+86 182 1013 3275", 128, 36, { url: "https://wa.me/8618210133275" });
+            
+            doc.setTextColor(0, 0, 0);
+            doc.text("LinkedIn: ", 20, 42);
+            doc.setTextColor(8, 145, 178);
+            doc.textWithLink("muhammad-aqeel-4378b9170", 38, 42, { url: "https://www.linkedin.com/in/muhammad-aqeel-4378b9170" });
+            
+            doc.setTextColor(0, 0, 0);
+            doc.text(" | Scholar: ", 108, 42);
+            doc.setTextColor(8, 145, 178);
+            doc.textWithLink("Google Scholar Profile", 128, 42, { url: "https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en" });
+            
+            doc.setTextColor(0, 0, 0);
             
             // Horizontal line
             doc.setLineWidth(0.5);
@@ -1310,34 +1368,133 @@
                 yPos += 14;
             });
             
-            // Selected Publications Section
+            // Research Publications Section (All publications with full author lists)
             doc.setFontSize(12);
             doc.setFont("helvetica", "bold");
-            doc.text("SELECTED PUBLICATIONS", 20, yPos + 8);
+            doc.text("RESEARCH PUBLICATIONS", 20, yPos + 8);
             
             doc.setFontSize(9);
             doc.setFont("helvetica", "normal");
             yPos += 16;
             
-            const publications = [
-                "• Semantic Parsing for Aspect Based Sentiment Analysis - IEEE Access 2025",
-                "• Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning - ICCV 2025",
-                "• Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection - ECCVW 2024",
-                "• RoadFusion: Latent Diffusion Model for Pavement Defect Detection - ICIAP 2025",
-                "• ExDD: Explicit Dual Distribution Learning for Surface Defect Detection - ICIAP 2025"
+            const allPublications = [
+                {
+                    title: "Semantic Parsing for Aspect Based Sentiment Analysis",
+                    authors: ["Muhammad Aqeel", "Francesco Setti"],
+                    venue: "IEEE Access 2025",
+                    link: "https://ieeexplore.ieee.org/abstract/document/11078252"
+                },
+                {
+                    title: "Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning",
+                    authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
+                    venue: "ICCV 2025",
+                    link: "https://arxiv.org/abs/2508.02293"
+                },
+                {
+                    title: "Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection",
+                    authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
+                    venue: "ECCVW 2024",
+                    link: "https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28"
+                },
+                {
+                    title: "RoadFusion: Latent Diffusion Model for Pavement Defect Detection",
+                    authors: ["Muhammad Aqeel", "Kidus Dagnaw Bellete", "Francesco Setti"],
+                    venue: "ICIAP 2025",
+                    link: "https://arxiv.org/abs/2507.15346"
+                },
+                {
+                    title: "ExDD: Explicit Dual Distribution Learning for Surface Defect Detection",
+                    authors: ["Muhammad Aqeel", "Federico Leonardi", "Francesco Setti"],
+                    venue: "ICIAP 2025",
+                    link: "https://arxiv.org/abs/2507.15335"
+                },
+                {
+                    title: "Latent Space Synergy: Text-Guided Data Augmentation",
+                    authors: ["Muhammad Aqeel", "Maham Nazir", "Zanxi Ruan", "Francesco Setti"],
+                    venue: "ICIAP 2025",
+                    link: "https://arxiv.org/abs/2507.15361"
+                },
+                {
+                    title: "Self-Supervised Iterative Refinement for Anomaly Detection",
+                    authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
+                    venue: "VISAPP 2025",
+                    link: "https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912"
+                },
+                {
+                    title: "Self-supervised Learning for Robust Surface Defect Detection",
+                    authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
+                    venue: "DeLTA 2024",
+                    link: "https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11"
+                },
+                {
+                    title: "Diffusion-based Image Generation for Surface Defect Detection",
+                    authors: ["Luigi Capogrosso", "Federico Girella", "Francesco Taioli", "Michele Dalla Chiara", "Muhammad Aqeel", "Franco Fummi", "Francesco Setti", "Marco Cristani"],
+                    venue: "VISAPP 2024",
+                    link: "https://www.scitepress.org/Link.aspx?doi=10.5220/0012350400003660"
+                }
             ];
             
-            publications.forEach(pub => {
-                const lines = doc.splitTextToSize(pub, 170);
-                doc.text(lines, 20, yPos);
-                yPos += lines.length * 4 + 2;
+            allPublications.forEach((pub, index) => {
+                // Check if we need a new page
+                if (yPos > 250) {
+                    doc.addPage();
+                    yPos = 20;
+                }
+                
+                // Publication number and title as link
+                doc.setFont("helvetica", "normal");
+                doc.setTextColor(0, 0, 0);
+                doc.text(`${index + 1}. `, 20, yPos);
+                
+                // Make title clickable
+                doc.setTextColor(8, 145, 178);
+                const titleLines = doc.splitTextToSize(pub.title, 140);
+                doc.textWithLink(titleLines[0], 25, yPos, { url: pub.link });
+                if (titleLines.length > 1) {
+                    yPos += 4;
+                    doc.textWithLink(titleLines[1], 25, yPos, { url: pub.link });
+                }
+                yPos += 4;
+                
+                // Authors with highlighting
+                doc.setTextColor(0, 0, 0);
+                let authorsText = "    ";
+                pub.authors.forEach((author, i) => {
+                    if (i > 0) authorsText += ", ";
+                    if (author === "Muhammad Aqeel") {
+                        authorsText += "**" + author + "**";
+                    } else {
+                        authorsText += author;
+                    }
+                });
+                
+                // Split authors text and handle highlighting
+                const authorLines = doc.splitTextToSize(authorsText, 165);
+                authorLines.forEach(line => {
+                    let xPos = 20;
+                    const parts = line.split(/(\*\*Muhammad Aqeel\*\*)/);
+                    parts.forEach(part => {
+                        if (part === "**Muhammad Aqeel**") {
+                            doc.setFont("helvetica", "bold");
+                            doc.setTextColor(14, 116, 144);
+                            doc.text("Muhammad Aqeel", xPos, yPos);
+                            xPos += doc.getTextWidth("Muhammad Aqeel");
+                            doc.setFont("helvetica", "normal");
+                            doc.setTextColor(0, 0, 0);
+                        } else if (part) {
+                            doc.text(part, xPos, yPos);
+                            xPos += doc.getTextWidth(part);
+                        }
+                    });
+                    yPos += 4;
+                });
+                
+                // Venue
+                doc.setFont("helvetica", "italic");
+                doc.setTextColor(64, 64, 64);
+                doc.text(`    ${pub.venue}`, 20, yPos);
+                yPos += 6;
             });
-            
-            // Check if we need a second page
-            if (yPos > 240) {
-                doc.addPage();
-                yPos = 20;
-            }
             
             // Technical Skills Section
             doc.setFontSize(12);
@@ -1356,20 +1513,20 @@
             yPos += 6;
             doc.text("Tools: Git/GitHub, LaTeX, Jupyter Notebooks, Linux/Unix", 20, yPos);
             
-            // Research Summary
+            // Research Interests (changed from Research Summary)
             yPos += 14;
             doc.setFontSize(12);
             doc.setFont("helvetica", "bold");
-            doc.text("RESEARCH SUMMARY", 20, yPos);
+            doc.text("RESEARCH INTERESTS", 20, yPos);
             
             doc.setFontSize(9);
             doc.setFont("helvetica", "normal");
             yPos += 8;
             
-            const summary = "Specialized in developing advanced anomaly detection algorithms for industrial manufacturing environments, with expertise in deep learning architectures for real-time defect detection. Research contributions span computer vision and NLP, with 9+ peer-reviewed publications in top-tier conferences including ICCV, ECCV, and ICIAP. Focus on creating scalable, interpretable AI systems for quality control and predictive maintenance in industrial settings.";
+            const interests = "Specialized in developing advanced anomaly detection algorithms for industrial manufacturing environments, with expertise in deep learning architectures for real-time defect detection. Research contributions span computer vision and NLP, with 9+ peer-reviewed publications in top-tier conferences including ICCV, ECCV, and ICIAP. Focus on creating scalable, interpretable AI systems for quality control and predictive maintenance in industrial settings.";
             
-            const summaryLines = doc.splitTextToSize(summary, 170);
-            doc.text(summaryLines, 20, yPos);
+            const interestLines = doc.splitTextToSize(interests, 170);
+            doc.text(interestLines, 20, yPos);
             
             // Save the PDF
             doc.save("Muhammad_Aqeel_CV.pdf");
