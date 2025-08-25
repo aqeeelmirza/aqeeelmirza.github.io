@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -394,6 +395,56 @@
             color: var(--accent);
         }
 
+        /* References Section */
+        .references-section {
+            padding-bottom: 30px;
+        }
+
+        .ref-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .ref-item {
+            padding: 16px;
+            background: rgba(248, 250, 252, 0.8);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .ref-item:hover {
+            background: rgba(255, 255, 255, 1);
+            border-left-color: var(--accent);
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0, 119, 163, 0.15);
+        }
+
+        .ref-name {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .ref-affiliation {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .ref-email {
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .ref-email:hover {
+            text-decoration: underline;
+        }
+
         /* Experience Section */
         .experience-section {
             padding: 100px 3rem;
@@ -545,6 +596,14 @@
             font-style: italic;
         }
 
+        .pub-oral {
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
         .pub-links {
             display: flex;
             gap: 20px;
@@ -554,20 +613,20 @@
         .pub-link {
             padding: 12px 24px;
             background: transparent;
-            color: var(--accent);
+            color: var(--text-primary);
             text-decoration: none;
             font-size: 0.95rem;
             transition: all 0.3s ease;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            border: 2px solid var(--accent);
+            border: 2px solid var(--text-primary);
             font-weight: 500;
         }
 
         .pub-link:hover {
-            background: var(--accent);
+            background: var(--text-primary);
             color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 119, 163, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         /* Skills Section */
@@ -880,6 +939,22 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="references-section">
+                        <div class="section-label">References</div>
+                        <div class="ref-list">
+                            <div class="ref-item">
+                                <div class="ref-name">Francesco Setti</div>
+                                <div class="ref-affiliation">University of Verona, Italy</div>
+                                <a href="mailto:francesco.setti@univr.it" class="ref-email">francesco.setti@univr.it</a>
+                            </div>
+                            <div class="ref-item">
+                                <div class="ref-name">Xiaohong Liu</div>
+                                <div class="ref-affiliation">Beijing University of Posts and Telecommunications, China</div>
+                                <a href="mailto:xiaohong.liu@bupt.edu.cn" class="ref-email">xiaohong.liu@bupt.edu.cn</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -978,7 +1053,7 @@
                     <p class="pub-authors">
                         <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
                     </p>
-                    <p class="pub-venue">ICCV 2025 - International Conference on Computer Vision</p>
+                    <p class="pub-venue">ICCV 2025 - International Conference on Computer Vision <span class="pub-oral">(ORAL)</span></p>
                     
                     <div class="pub-links">
                         <a href="https://arxiv.org/abs/2508.02293" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
@@ -1010,7 +1085,7 @@
                     <p class="pub-authors">
                         <span class="highlight">Muhammad Aqeel</span>, Kidus Dagnaw Bellete, Francesco Setti
                     </p>
-                    <p class="pub-venue">ICIAP 2025 - International Conference on Image Analysis and Processing</p>
+                    <p class="pub-venue">ICIAP 2025 - International Conference on Image Analysis and Processing <span class="pub-oral">(ORAL)</span></p>
                     
                     <div class="pub-links">
                         <a href="https://arxiv.org/abs/2507.15346" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
@@ -1026,7 +1101,7 @@
                     <p class="pub-authors">
                         <span class="highlight">Muhammad Aqeel</span>, Federico Leonardi, Francesco Setti
                     </p>
-                    <p class="pub-venue">ICIAP 2025 - International Conference on Image Analysis and Processing</p>
+                    <p class="pub-venue">ICIAP 2025 - International Conference on Image Analysis and Processing <span class="pub-oral">(ORAL)</span></p>
                     
                     <div class="pub-links">
                         <a href="https://arxiv.org/abs/2507.15335" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
@@ -1058,7 +1133,7 @@
                     <p class="pub-authors">
                         <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
                     </p>
-                    <p class="pub-venue">VISAPP 2025 - International Joint Conference on Computer Vision, Imaging and Computer Graphics Theory and Applications</p>
+                    <p class="pub-venue">VISAPP 2025 - International Joint Conference on Computer Vision, Imaging and Computer Graphics Theory and Applications <span class="pub-oral">(ORAL)</span></p>
                     
                     <div class="pub-links">
                         <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
@@ -1074,7 +1149,7 @@
                     <p class="pub-authors">
                         <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
                     </p>
-                    <p class="pub-venue">DeLTA 2024- International Conference on Deep Learning Theory and Applications</p>
+                    <p class="pub-venue">DeLTA 2024 - International Conference on Deep Learning Theory and Applications <span class="pub-oral">(ORAL)</span></p>
                     
                     <div class="pub-links">
                         <a href="https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
@@ -1100,7 +1175,6 @@
             </div>
         </div>
     </section>
-
 
 <!-- Skills Section -->
     <section class="skills-section" id="skills">
@@ -1261,21 +1335,19 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             
-            // Try to add profile image
-            const profileImg = document.querySelector('.profile-image img');
-            let imageAdded = false;
-            let imageYOffset = 0;
-            
-            if (profileImg && profileImg.src && !profileImg.src.includes('data:') && profileImg.style.display !== 'none') {
-                try {
-                    // Add profile picture (positioned at top right)
-                    const imgData = profileImg.src;
-                    doc.addImage(imgData, 'JPEG', 165, 10, 30, 30);
-                    imageAdded = true;
-                } catch (e) {
-                    console.log('Could not add image to PDF');
-                }
+            // Helper function to draw circular image placeholder
+            function drawCircularPlaceholder(x, y, radius) {
+                doc.setFillColor(8, 145, 178);
+                doc.circle(x + radius, y + radius, radius, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(14);
+                doc.setFont("helvetica", "bold");
+                doc.text("MA", x + radius, y + radius + 4, { align: 'center' });
+                doc.setTextColor(0, 0, 0);
             }
+            
+            // Draw circular placeholder for profile image
+            drawCircularPlaceholder(165, 10, 15);
             
             // Header - Name and Title
             doc.setFontSize(24);
@@ -1286,29 +1358,20 @@
             doc.setFont("helvetica", "normal");
             doc.text("PhD Researcher in Computer Science", 20, 28);
             
-            // Contact Information with clickable links
+            // Contact Information - black text with clickable links
             doc.setFontSize(10);
             doc.setTextColor(0, 0, 0);
             doc.text("Email: ", 20, 36);
-            doc.setTextColor(8, 145, 178);
             doc.textWithLink("muhammad.aqeel@univr.it", 35, 36, { url: "mailto:muhammad.aqeel@univr.it" });
             
-            doc.setTextColor(0, 0, 0);
-            doc.text(" | WhatsApp: ", 100, 36);
-            doc.setTextColor(8, 145, 178);
-            doc.textWithLink("+86 182 1013 3275", 128, 36, { url: "https://wa.me/8618210133275" });
+            doc.text("WhatsApp: ", 20, 42);
+            doc.textWithLink("+86 182 1013 3275", 45, 42, { url: "https://wa.me/8618210133275" });
             
-            doc.setTextColor(0, 0, 0);
-            doc.text("LinkedIn: ", 20, 42);
-            doc.setTextColor(8, 145, 178);
-            doc.textWithLink("muhammad-aqeel-4378b9170", 38, 42, { url: "https://www.linkedin.com/in/muhammad-aqeel-4378b9170" });
+            doc.text("LinkedIn: ", 105, 36);
+            doc.textWithLink("muhammad-aqeel-4378b9170", 123, 36, { url: "https://www.linkedin.com/in/muhammad-aqeel-4378b9170" });
             
-            doc.setTextColor(0, 0, 0);
-            doc.text(" | Scholar: ", 108, 42);
-            doc.setTextColor(8, 145, 178);
-            doc.textWithLink("Google Scholar Profile", 128, 42, { url: "https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en" });
-            
-            doc.setTextColor(0, 0, 0);
+            doc.text("Scholar: ", 105, 42);
+            doc.textWithLink("Google Scholar Profile", 123, 42, { url: "https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en" });
             
             // Horizontal line
             doc.setLineWidth(0.5);
@@ -1327,25 +1390,23 @@
             doc.setFont("helvetica", "normal");
             doc.text("(2022-2025)", 150, 64);
             doc.text("University of Verona, Italy", 20, 70);
-            doc.text("Supervisor: Francesco Setti | Focus: Anomaly Detection in Industrial Manufacturing", 20, 76);
             
             doc.setFont("helvetica", "bold");
-            doc.text("Master in Computer Science", 20, 86);
+            doc.text("Master in Computer Science", 20, 80);
             doc.setFont("helvetica", "normal");
-            doc.text("(2019-2021)", 150, 86);
-            doc.text("Beijing University of Posts and Telecommunications, China", 20, 92);
-            doc.text("Supervisor: Xiaohong Liu | Focus: Natural Language Processing & Sentiment Analysis", 20, 98);
+            doc.text("(2019-2021)", 150, 80);
+            doc.text("Beijing University of Posts and Telecommunications, China", 20, 86);
             
             doc.setFont("helvetica", "bold");
-            doc.text("Bachelor in Computer Science", 20, 108);
+            doc.text("Bachelor in Computer Science", 20, 96);
             doc.setFont("helvetica", "normal");
-            doc.text("(2013-2017)", 150, 108);
-            doc.text("PMAS Arid Agriculture University Rawalpindi, Pakistan", 20, 114);
+            doc.text("(2013-2017)", 150, 96);
+            doc.text("PMAS Arid Agriculture University Rawalpindi, Pakistan", 20, 102);
             
             // Professional Experience Section
             doc.setFontSize(12);
             doc.setFont("helvetica", "bold");
-            doc.text("PROFESSIONAL EXPERIENCE", 20, 128);
+            doc.text("PROFESSIONAL EXPERIENCE", 20, 116);
             
             doc.setFontSize(10);
             doc.setFont("helvetica", "normal");
@@ -1358,7 +1419,7 @@
                 { title: "Software Developer", period: "2017-2018", org: "eConceptions (Pvt) Ltd. Pakistan" }
             ];
             
-            let yPos = 136;
+            let yPos = 124;
             experiences.forEach(exp => {
                 doc.setFont("helvetica", "bold");
                 doc.text(exp.title, 20, yPos);
@@ -1368,7 +1429,7 @@
                 yPos += 14;
             });
             
-            // Research Publications Section (All publications with full author lists)
+            // Research Publications Section
             doc.setFontSize(12);
             doc.setFont("helvetica", "bold");
             doc.text("RESEARCH PUBLICATIONS", 20, yPos + 8);
@@ -1387,7 +1448,7 @@
                 {
                     title: "Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning",
                     authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
-                    venue: "ICCV 2025",
+                    venue: "ICCV 2025 (ORAL)",
                     link: "https://arxiv.org/abs/2508.02293"
                 },
                 {
@@ -1399,13 +1460,13 @@
                 {
                     title: "RoadFusion: Latent Diffusion Model for Pavement Defect Detection",
                     authors: ["Muhammad Aqeel", "Kidus Dagnaw Bellete", "Francesco Setti"],
-                    venue: "ICIAP 2025",
+                    venue: "ICIAP 2025 (ORAL)",
                     link: "https://arxiv.org/abs/2507.15346"
                 },
                 {
                     title: "ExDD: Explicit Dual Distribution Learning for Surface Defect Detection",
                     authors: ["Muhammad Aqeel", "Federico Leonardi", "Francesco Setti"],
-                    venue: "ICIAP 2025",
+                    venue: "ICIAP 2025 (ORAL)",
                     link: "https://arxiv.org/abs/2507.15335"
                 },
                 {
@@ -1417,13 +1478,13 @@
                 {
                     title: "Self-Supervised Iterative Refinement for Anomaly Detection",
                     authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
-                    venue: "VISAPP 2025",
+                    venue: "VISAPP 2025 (ORAL)",
                     link: "https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912"
                 },
                 {
                     title: "Self-supervised Learning for Robust Surface Defect Detection",
                     authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
-                    venue: "DeLTA 2024",
+                    venue: "DeLTA 2024 (ORAL)",
                     link: "https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11"
                 },
                 {
