@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammad Aqeel - Researcher</title>
-    <!-- Include jsPDF for PDF generation -->
+    <title>Muhammad Aqeel - PhD Researcher</title>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous"></script>
     <style>
-        /* ========= YOUR ORIGINAL THEME (kept) ========= */
         * {
             margin: 0;
             padding: 0;
@@ -15,29 +13,29 @@
         }
 
         :root {
+            --primary-blue: #0891b2;
+            --primary-dark: #0e7490;
+            --primary-light: #22d3ee;
+            --accent-purple: #8b5cf6;
+            --accent-pink: #ec4899;
             --bg-primary: #ffffff;
             --bg-secondary: #f8fafc;
             --bg-tertiary: #f0f9ff;
-            --bg-nav: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            --bg-white: #ffffff;
-            --bg-card: #ffffff;
             --text-primary: #1e293b;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
-            --accent: #0891b2;
-            --accent-light: #0891b2;
-            --accent-dark: #0e7490;
             --border-light: rgba(0, 0, 0, 0.06);
-            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 10px 40px rgba(0, 119, 163, 0.15);
-            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
-            --icon-grey: #6b7280;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 10px 40px rgba(8, 145, 178, 0.12);
+            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.1);
         }
 
-        html { scroll-behavior: smooth; }
+        html { 
+            scroll-behavior: smooth; 
+        }
 
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
@@ -49,9 +47,9 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: var(--bg-nav);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
             z-index: 1000;
             border-bottom: 1px solid var(--border-light);
         }
@@ -65,195 +63,722 @@
             align-items: center;
         }
 
-        .nav-brand { font-size: 1.5rem; font-weight: 400; letter-spacing: -0.02em; color: var(--text-primary); }
+        .nav-brand { 
+            font-size: 1.5rem; 
+            font-weight: 600; 
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+        }
 
-        .nav-menu { display: flex; gap: 3rem; list-style: none; }
+        .nav-menu { 
+            display: flex; 
+            gap: 2.5rem; 
+            list-style: none; 
+        }
 
         .nav-link {
             color: var(--text-primary);
             text-decoration: none;
             font-size: 0.95rem;
-            font-weight: 400;
+            font-weight: 500;
             transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
             position: relative;
+            padding: 0.5rem 0;
         }
 
-        .nav-link:hover { color: var(--accent); }
-        .nav-link.active { color: var(--accent); }
+        .nav-link:hover { 
+            color: var(--primary-blue); 
+        }
+
+        .nav-link.active { 
+            color: var(--primary-blue); 
+        }
+
         .nav-link.active::after {
             content: '';
             position: absolute;
-            bottom: -5px; left: 0; right: 0; height: 2px; background: var(--accent);
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-purple));
         }
 
         /* Hamburger Menu */
-        .hamburger { display: none; flex-direction: column; cursor: pointer; z-index: 1001; }
-        .hamburger span { width: 25px; height: 3px; background: var(--text-primary); margin: 3px 0; transition: 0.3s; border-radius: 3px; }
-        .hamburger.active span:nth-child(1) { transform: rotate(-45deg) translate(-6px, 6px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-6px, -6px); }
-
-        /* CV Download Button */
-        .cv-download-btn {
-            display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px;
-            background: var(--accent); color: white; text-decoration: none; font-size: 0.95rem;
-            transition: all 0.3s ease; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            border: 2px solid var(--accent); font-weight: 500; cursor: pointer; margin-top: 25px;
+        .hamburger { 
+            display: none; 
+            flex-direction: column; 
+            cursor: pointer; 
+            z-index: 1001; 
         }
-        .cv-download-btn:hover { background: var(--accent-dark); border-color: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,119,163,0.3); }
-        .cv-download-btn svg { width: 18px; height: 18px; }
+
+        .hamburger span { 
+            width: 25px; 
+            height: 3px; 
+            background: var(--text-primary); 
+            margin: 3px 0; 
+            transition: 0.3s; 
+            border-radius: 3px; 
+        }
+
+        .hamburger.active span:nth-child(1) { 
+            transform: rotate(-45deg) translate(-6px, 6px); 
+        }
+
+        .hamburger.active span:nth-child(2) { 
+            opacity: 0; 
+        }
+
+        .hamburger.active span:nth-child(3) { 
+            transform: rotate(45deg) translate(-6px, -6px); 
+        }
 
         /* Hero Section */
         .hero-section {
-            min-height: 100vh; display: flex; align-items: center;
-            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
-            padding: 120px 3rem 80px; position: relative; z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #f0f9ff 100%);
+            padding: 120px 3rem 80px;
+            position: relative;
         }
-        .hero-container { max-width: 1400px; margin: 0 auto; width: 100%; }
-        .hero-header { display: flex; align-items: flex-start; gap: 40px; margin-bottom: 50px; }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(8, 145, 178, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            width: 100%; 
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-header { 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 50px; 
+            margin-bottom: 60px; 
+        }
+
+        .profile-wrapper {
+            position: relative;
+        }
 
         .profile-image {
-            width: 120px; height: 120px; border-radius: 50%; overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            background: linear-gradient(135deg, var(--accent-light), var(--accent));
-            display: flex; align-items: center; justify-content: center; color: white;
-            font-size: 48px; font-weight: 300; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; position: relative;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            font-weight: 600;
+            position: relative;
+            border: 4px solid white;
         }
-        .profile-image img {
-            width: 100%; height: 100%; object-fit: cover; object-position: center;
-            display: block; position: absolute; top: 0; left: 0;
-        }
-        .profile-initials { z-index: 1; }
 
-        .hero-titles { padding-top: 20px; }
-        .hero-name { font-size: 3rem; font-weight: 300; margin-bottom: 10px; letter-spacing: -0.03em; line-height: 1.1; }
-        .hero-title { font-size: 1.35rem; color: var(--text-secondary); font-weight: 300; }
-        .hero-content-grid { display: flex; gap: 80px; align-items: flex-start; }
-        .about-section { flex: 1.8; min-width: 0; }
-        .hero-right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 50px; }
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple), var(--accent-pink));
+            z-index: -1;
+            opacity: 0.3;
+            filter: blur(20px);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-titles { 
+            padding-top: 20px; 
+            flex: 1;
+        }
+
+        .hero-name { 
+            font-size: 3.5rem; 
+            font-weight: 700; 
+            margin-bottom: 12px; 
+            letter-spacing: -0.03em; 
+            line-height: 1.1;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-title { 
+            font-size: 1.5rem; 
+            color: var(--text-secondary); 
+            font-weight: 400; 
+        }
+
+        .hero-content-grid { 
+            display: grid;
+            grid-template-columns: 1.8fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        /* About Section */
+        .about-section { 
+            min-width: 0; 
+        }
 
         .section-label {
-            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent);
-            margin-bottom: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--primary-blue);
+            margin-bottom: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
+
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-blue), transparent);
+            max-width: 100px;
+        }
+
         .about-text {
-            font-size: 1.2rem; line-height: 1.8; color: var(--text-primary); font-weight: 300;
-            text-align: justify; text-justify: inter-word;
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            text-align: justify;
+            margin-bottom: 2rem;
         }
-        .about-text a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.3s ease; }
-        .about-text a:hover { border-bottom-color: var(--accent); }
 
-        /* Contact */
-        .contact-section { padding-bottom: 30px; }
-        .contact-icons { display: flex; gap: 20px; align-items: center; }
+        .about-text a { 
+            color: var(--primary-blue); 
+            text-decoration: none; 
+            font-weight: 500;
+            border-bottom: 2px solid transparent; 
+            transition: all 0.3s ease; 
+        }
+
+        .about-text a:hover { 
+            border-bottom-color: var(--primary-blue); 
+        }
+
+        /* CV Buttons */
+        .cv-buttons-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .cv-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cv-download-btn {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: white;
+        }
+
+        .cv-download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(8, 145, 178, 0.3);
+        }
+
+        .cv-view-btn {
+            background: white;
+            color: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+
+        .cv-view-btn:hover {
+            background: var(--bg-tertiary);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(8, 145, 178, 0.15);
+        }
+
+        .cv-btn svg { 
+            width: 18px; 
+            height: 18px; 
+        }
+
+        /* Hero Right Side */
+        .hero-right { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 50px; 
+        }
+
+        /* Contact Section */
+        .contact-section { 
+            padding-bottom: 30px; 
+        }
+
+        .contact-icons { 
+            display: flex; 
+            gap: 16px; 
+            flex-wrap: wrap;
+        }
+
         .contact-icon-link {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 36px; height: 36px; border-radius: 50%;
-            background: rgba(248,250,252,0.8); color: var(--icon-grey);
-            transition: all 0.3s ease; text-decoration: none; border: 1px solid var(--border-light);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: white;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
-        .contact-icon-link:hover { background: var(--accent); color: white; transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,119,163,0.3); border-color: var(--accent); }
-        .contact-icon-link svg { width: 18px; height: 18px; stroke-width: 2; }
-        .scholar-icon { fill: currentColor; stroke: none; }
 
-        /* Education */
-        .education-section { padding-bottom: 30px; }
-        .edu-list { display: flex; flex-direction: column; gap: 14px; }
-        .edu-item { padding: 16px; background: rgba(248,250,252,0.8); border-radius: 8px; transition: all 0.3s ease; border-left: 3px solid transparent; cursor: pointer; }
-        .edu-item:hover { background: rgba(255,255,255,1); border-left-color: var(--accent); transform: translateX(5px); box-shadow: 0 2px 8px rgba(0,119,163,0.15); }
-        .edu-year { font-size: 0.85rem; color: var(--accent); margin-bottom: 6px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
-        .edu-degree { font-size: 1.1rem; font-weight: 400; color: var(--text-primary); margin-bottom: 4px; }
-        .edu-institution { font-size: 0.95rem; color: var(--text-secondary); font-style: italic; }
-        .edu-institution a { color: inherit; text-decoration: none; transition: color 0.3s ease; }
-        .edu-item:hover .edu-institution a { color: var(--accent); }
+        .contact-icon-link:hover {
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(8, 145, 178, 0.3);
+        }
 
-        /* Experience */
-        .experience-section { padding: 100px 3rem; background: var(--bg-secondary); position: relative; z-index: 2; }
-        .section-container { max-width: 1400px; margin: 0 auto; }
-        .section-header { margin-bottom: 60px; background: linear-gradient(135deg, rgba(8,145,178,0.15) 0%, rgba(14,116,144,0.1) 100%); border-left: 4px solid var(--accent); padding: 30px; border-radius: 10px; }
-        .section-title { font-size: 3rem; font-weight: 300; letter-spacing: -0.03em; margin-bottom: 0; color: var(--text-primary); }
-        .experience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; }
-        .exp-card { background: var(--bg-card); border: 1px solid var(--border-light); padding: 35px; transition: all 0.3s ease; box-shadow: var(--shadow-sm); }
-        .exp-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
-        .exp-period { font-size: 0.85rem; color: var(--accent); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 600; }
-        .exp-title { font-size: 1.5rem; font-weight: 400; color: var(--text-primary); margin-bottom: 8px; }
-        .exp-company { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 20px; font-style: italic; }
-        .exp-description { font-size: 1rem; color: var(--text-secondary); line-height: 1.7; }
+        .contact-icon-link svg { 
+            width: 20px; 
+            height: 20px; 
+        }
 
-        /* Publications */
-        .publications-section { padding: 100px 3rem; background: var(--bg-tertiary); }
-        .publications-grid { display: grid; gap: 30px; }
-        .pub-card { background: var(--bg-white); padding: 45px; transition: all 0.3s ease; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); }
-        .pub-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-        .pub-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 25px; }
-        .pub-type { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-        .pub-year { color: var(--text-muted); font-size: 0.9rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-        .pub-title { font-size: 1.75rem; font-weight: 400; color: var(--text-primary); margin-bottom: 20px; line-height: 1.4; }
-        .pub-authors { font-size: 1rem; color: var(--text-secondary); margin-bottom: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-        .pub-authors .highlight { color: var(--accent-dark); font-weight: 600; }
-        .pub-venue { font-size: 1.15rem; color: var(--text-primary); margin-bottom: 25px; font-style: italic; }
-        .pub-venue .oral-tag { font-style: normal; font-weight: 700; letter-spacing: .03em; }
-        .pub-links { display: flex; gap: 20px; margin-top: 25px; }
+        /* Education Section */
+        .education-section { 
+            padding-bottom: 30px; 
+        }
+
+        .edu-list { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 16px; 
+        }
+
+        .edu-item {
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            cursor: pointer;
+        }
+
+        .edu-item:hover {
+            border-left-color: var(--primary-blue);
+            transform: translateX(8px);
+            box-shadow: 0 4px 16px rgba(8, 145, 178, 0.12);
+        }
+
+        .edu-year {
+            font-size: 0.75rem;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .edu-degree {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .edu-institution {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .edu-institution a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .edu-item:hover .edu-institution a {
+            color: var(--primary-blue);
+        }
+
+        /* Experience Section */
+        .experience-section {
+            padding: 100px 3rem;
+            background: var(--bg-secondary);
+            position: relative;
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text-primary), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+        }
+
+        .experience-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 32px;
+        }
+
+        .exp-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exp-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-purple));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .exp-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .exp-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .exp-period {
+            font-size: 0.75rem;
+            color: var(--primary-blue);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+        }
+
+        .exp-title {
+            font-size: 1.375rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .exp-company {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        /* Publications Section */
+        .publications-section {
+            padding: 100px 3rem;
+            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+        }
+
+        .publications-grid {
+            display: grid;
+            gap: 32px;
+        }
+
+        .pub-card {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            position: relative;
+        }
+
+        .pub-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .pub-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 24px;
+        }
+
+        .pub-type {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent-purple);
+            font-weight: 700;
+            padding: 6px 12px;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 6px;
+        }
+
+        .pub-year {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .pub-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .pub-authors {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .pub-authors .highlight {
+            color: var(--primary-blue);
+            font-weight: 600;
+        }
+
+        .pub-venue {
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .oral-tag {
+            display: inline-block;
+            font-style: normal;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            margin-left: 8px;
+        }
+
+        .pub-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
         .pub-link {
-            padding: 12px 24px; background: transparent; color: var(--accent); text-decoration: none; font-size: 0.95rem;
-            transition: all 0.3s ease; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; border: 2px solid var(--accent); font-weight: 500;
+            padding: 10px 20px;
+            background: transparent;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 2px solid var(--primary-blue);
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
-        .pub-link:hover { background: var(--accent); color: #ffffff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 119, 163, 0.3); }
 
-        /* Skills */
-        .skills-section { padding: 100px 3rem; background: var(--bg-secondary); }
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; max-width: 1200px; margin: 0 auto; }
-        .skill-category h3 { font-size: 1.35rem; font-weight: 400; margin-bottom: 20px; color: var(--text-primary); padding-bottom: 10px; border-bottom: 2px solid var(--accent); }
-        .skill-items { display: flex; flex-direction: column; gap: 10px; }
-        .skill-item { color: var(--text-secondary); font-size: 1rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding-left: 20px; position: relative; }
-        .skill-item::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
+        .pub-link:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(8, 145, 178, 0.3);
+        }
+
+        /* Skills Section */
+        .skills-section {
+            padding: 100px 3rem;
+            background: var(--bg-secondary);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .skill-category h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--primary-blue);
+        }
+
+        .skill-items {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .skill-item {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            padding-left: 24px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .skill-item::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
 
         /* Footer */
         footer {
-            padding: 60px 3rem; background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
-            text-align: center; color: var(--text-muted); font-size: 0.9rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            padding: 60px 3rem;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
             border-top: 1px solid var(--border-light);
         }
 
         /* Animations */
-        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
 
-        /* Mobile responsive */
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 968px) {
             .hamburger { display: flex; }
+            
             .nav-menu {
-                position: fixed; left: -100%; top: 70px; flex-direction: column; background: var(--bg-nav);
-                width: 100%; text-align: center; transition: 0.3s; box-shadow: 0 10px 27px rgba(0,0,0,0.05);
-                padding: 2rem 0; backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-light);
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 2rem 0;
             }
+            
             .nav-menu.active { left: 0; }
-            .nav-link { padding: 1rem 0; display: block; }
-            .hero-content-grid { flex-direction: column; gap: 50px; }
-            .hero-header { flex-direction: column; align-items: center; text-align: center; }
-            .hero-titles { padding-top: 0; text-align: center; }
-            .about-section { text-align: center; }
-            .hero-right { gap: 40px; }
-            .hero-name { font-size: 2.5rem; }
-            .section-title { font-size: 2.25rem; }
-            .experience-grid { grid-template-columns: 1fr; }
-            .pub-link { padding: 10px 20px; font-size: 0.9rem; }
-            .skills-grid { grid-template-columns: 1fr; }
-            .contact-icons { justify-content: center; }
-            .cv-download-btn { width: 100%; justify-content: center; }
+            
+            .hero-content-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            
+            .hero-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .cv-buttons-group {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .cv-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .experience-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 600px) {
             .nav-container { padding: 1rem 1.5rem; }
             .hero-section { padding: 100px 1.5rem 60px; }
-            .hero-name { font-size: 2rem; }
+            .hero-name { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
             .experience-section, .publications-section, .skills-section { padding: 60px 1.5rem; }
-            .exp-card, .pub-card { padding: 25px; }
-            .pub-title { font-size: 1.4rem; }
-            .contact-icon-link { width: 32px; height: 32px; }
-            .contact-icon-link svg { width: 16px; height: 16px; }
+            .exp-card, .pub-card { padding: 24px; }
+            .pub-title { font-size: 1.25rem; }
         }
     </style>
 </head>
@@ -266,7 +791,7 @@
                 <span></span><span></span><span></span>
             </div>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#publications" class="nav-link">Publications</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
@@ -275,77 +800,78 @@
     </nav>
 
     <!-- Hero Section -->
-   <section class="hero-section" id="home">
+    <section class="hero-section" id="home">
         <div class="hero-container fade-in">
             <div class="hero-header">
-                <div class="profile-image">
-                    <span class="profile-initials" style="display: flex; align-items: center; justify-content: center;">MA</span>
-                    <img src="PPP.jpg" alt="Muhammad Aqeel" style="display: none;">
+                <div class="profile-wrapper">
+                    <div class="profile-image">
+                        <span class="profile-initials">MA</span>
+                        <img src="PPP.jpg" alt="Muhammad Aqeel" style="display: none;">
+                    </div>
                 </div>
                 <div class="hero-titles">
                     <h1 class="hero-name">Muhammad Aqeel</h1>
-                    <p class="hero-title">PhD Researcher</p>
+                    <p class="hero-title">PhD Researcher in Computer Science</p>
                 </div>
             </div>
 
             <div class="hero-content-grid">
                 <div class="about-section">
-                    <div class="section-label">About</div>
+                    <div class="section-label">About Me</div>
                     <p class="about-text">
-                        I am pursuing my PhD in Computer Science at University of Verona, Italy, 
-                        under the supervision of <a href="http://www.franzsetti.info/" target="_blank" rel="noopener noreferrer">Francesco Setti</a>,
-                        where I specialized in developing advanced anomaly detection algorithms for industrial manufacturing environments.
-                        My doctoral research focused on creating robust deep learning architectures that can automatically identify defects, 
-                        irregularities, and quality issues in real-time production settings, addressing critical challenges in industrial 
-                        automation and quality control. This work involved designing novel convolutional neural networks and unsupervised learning 
-                        approaches that achieve high accuracy while maintaining computational efficiency suitable for deployment in resource-constrained 
-                        industrial systems. I received my Master's degree in Computer Science from Beijing University of Posts and Telecommunications (2019-2021), 
-                        under the supervision of <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener noreferrer">Xiaohong Liu</a>,
-                        where my research centered on Natural Language Processing with a particular focus on sentiment analysis, 
-                        exploring innovative methods for understanding and classifying emotional content in text data. 
-                        I graduated with my Bachelor's degree in Computer Science from PMAS Arid Agriculture University Rawalpindi, Pakistan (2013-2017), 
-                        where I built a strong foundation in programming and algorithmic thinking. 
-                        My interdisciplinary background spanning from industrial computer vision to natural language understanding 
-                        enables me to approach complex machine learning challenges from multiple perspectives, 
-                        with a current focus on advancing industrial AI through scalable and interpretable anomaly detection systems
-                        that can transform manufacturing quality assurance and enable predictive maintenance strategies.
+                        I am a PhD researcher at the University of Verona, Italy, specializing in advanced anomaly detection algorithms for industrial manufacturing environments. Working under the supervision of <a href="http://www.franzsetti.info/" target="_blank" rel="noopener noreferrer">Francesco Setti</a>, my research focuses on developing robust deep learning architectures for real-time defect detection and quality control in industrial automation.
+                    </p>
+                    <p class="about-text">
+                        My interdisciplinary background spans computer vision, natural language processing, and industrial AI. I received my Master's degree from Beijing University of Posts and Telecommunications (2019-2021) under <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener noreferrer">Xiaohong Liu</a>, focusing on sentiment analysis and NLP. I hold a Bachelor's degree from PMAS Arid Agriculture University Rawalpindi (2013-2017).
+                    </p>
+                    <p class="about-text">
+                        With 9+ peer-reviewed publications in top-tier venues including ICCV, ECCV, and ICIAP, my current focus is on advancing industrial AI through scalable and interpretable anomaly detection systems that transform manufacturing quality assurance and enable predictive maintenance strategies.
                     </p>
 
-                    <!-- CV Download Button -->
-                    <button class="cv-download-btn" onclick="generatePDF()">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="7 10 12 15 17 10"></polyline>
-                            <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                        Download CV
-                    </button>
+                    <!-- CV Buttons -->
+                    <div class="cv-buttons-group">
+                        <button class="cv-btn cv-download-btn" onclick="generatePDF()">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Download CV
+                        </button>
+                        <button class="cv-btn cv-view-btn" onclick="viewPDF()">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            View CV
+                        </button>
+                    </div>
                 </div>
 
-               <div class="hero-right">
+                <div class="hero-right">
                     <div class="contact-section">
                         <div class="section-label">Connect</div>
                         <div class="contact-icons">
-                            <a href="mailto:muhammad.aqeel@univr.it" class="contact-icon-link" title="Email" target="_blank" rel="noopener noreferrer">
+                            <a href="mailto:muhammad.aqeel@univr.it" class="contact-icon-link" title="Email">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                     <polyline points="22,6 12,13 2,6"></polyline>
                                 </svg>
                             </a>
-                            <a href="https://wa.me/8618210133275" class="contact-icon-link" title="WhatsApp" target="_blank" rel="noopener noreferrer">
+                            <a href="https://wa.me/8618210133275" class="contact-icon-link" title="WhatsApp">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
                                 </svg>
                             </a>
-                            <a href="https://www.linkedin.com/in/muhammad-aqeel-4378b9170" class="contact-icon-link" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                            <a href="https://www.linkedin.com/in/muhammad-aqeel-4378b9170" class="contact-icon-link" title="LinkedIn">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                                     <rect x="2" y="9" width="4" height="12"></rect>
                                     <circle cx="4" cy="4" r="2"></circle>
                                 </svg>
                             </a>
-                            <a href="https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en" class="contact-icon-link" title="Google Scholar" target="_blank" rel="noopener noreferrer">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="scholar-icon">
+                            <a href="https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en" class="contact-icon-link" title="Google Scholar">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                                     <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/>
                                 </svg>
                             </a>
@@ -356,7 +882,7 @@
                         <div class="section-label">Education</div>
                         <div class="edu-list">
                             <div class="edu-item">
-                                <div class="edu-year">2022 - Present</div>
+                                <div class="edu-year">2022 - 2025</div>
                                 <div class="edu-degree">PhD in Computer Science</div>
                                 <div class="edu-institution">
                                     <a href="https://www.univr.it" target="_blank" rel="noopener noreferrer">University of Verona, Italy</a>
@@ -373,13 +899,13 @@
                                 <div class="edu-year">2013 - 2017</div>
                                 <div class="edu-degree">Bachelor in Computer Science</div>
                                 <div class="edu-institution">
-                                    <a href="https://www.uaar.edu.pk" target="_blank" rel="noopener noreferrer">PMAS Arid Agriculture University Rawalpindi, Pakistan</a>
+                                    <a href="https://www.uaar.edu.pk" target="_blank" rel="noopener noreferrer">PMAS Arid Agriculture University, Pakistan</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div><!-- hero-right -->
-            </div><!-- grid -->
+                </div>
+            </div>
         </div>
     </section>
 
@@ -388,49 +914,38 @@
         <div class="section-container">
             <div class="section-header fade-in">
                 <h2 class="section-title">Professional Experience</h2>
+                <p class="section-subtitle">Academic and Industry Positions</p>
             </div>
 
             <div class="experience-grid fade-in">
                 <div class="exp-card">
                     <div class="exp-period">June 2025 - Present</div>
-                    <div class="exp-title">Visiting Researcher (Mobility Period)</div>
+                    <div class="exp-title">Visiting Researcher</div>
                     <div class="exp-company">University of Ljubljana, Slovenia</div>
-                    <div class="exp-description"></div>
                 </div>
 
                 <div class="exp-card">
-                    <div class="exp-period">2024 - 2025</div>
+                    <div class="exp-period">2023 - 2025</div>
                     <div class="exp-title">Teaching Assistant</div>
                     <div class="exp-company">University of Verona, Italy</div>
-                    <div class="exp-description"></div>
-                </div>
-
-                <div class="exp-card">
-                    <div class="exp-period">2023 - 2024</div>
-                    <div class="exp-title">Teaching Assistant</div>
-                    <div class="exp-company">University of Verona, Italy</div>
-                    <div class="exp-description"></div>
                 </div>
 
                 <div class="exp-card">
                     <div class="exp-period">2021 - 2022</div>
                     <div class="exp-title">Research Assistant</div>
-                    <div class="exp-company">Huazhong University of Science and Technology, Wuhan, China</div>
-                    <div class="exp-description"></div>
+                    <div class="exp-company">Huazhong University of Science and Technology, China</div>
                 </div>
 
                 <div class="exp-card">
                     <div class="exp-period">2018 - 2019</div>
                     <div class="exp-title">Software Quality Assurance</div>
                     <div class="exp-company">UIIT, Arid Agriculture University, Pakistan</div>
-                    <div class="exp-description"></div>
                 </div>
 
                 <div class="exp-card">
                     <div class="exp-period">2017 - 2018</div>
-                    <div class="exp-title">Software Developers</div>
-                    <div class="exp-company">eConceptions (Pvt) Ltd. Pakistan</div>
-                    <div class="exp-description"></div>
+                    <div class="exp-title">Software Developer</div>
+                    <div class="exp-company">eConceptions (Pvt) Ltd., Pakistan</div>
                 </div>
             </div>
         </div>
@@ -441,6 +956,7 @@
         <div class="section-container">
             <div class="section-header fade-in">
                 <h2 class="section-title">Research Publications</h2>
+                <p class="section-subtitle">Peer-reviewed Papers in Top-tier Venues</p>
             </div>
 
             <div class="publications-grid">
@@ -455,7 +971,7 @@
                     </p>
                     <p class="pub-venue">IEEE Access 2025</p>
                     <div class="pub-links">
-                        <a href="https://ieeexplore.ieee.org/abstract/document/11078252" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <a href="https://ieeexplore.ieee.org/abstract/document/11078252" class="pub-link" target="_blank">Paper</a>
                     </div>
                 </article>
 
@@ -468,10 +984,9 @@
                     <p class="pub-authors">
                         <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
                     </p>
-                    <!-- ONLY web page change: add (ORAL) at venue end -->
-                    <p class="pub-venue">ICCV 2025 - International Conference on Computer Vision </p>
+                    <p class="pub-venue">ICCV 2025 - International Conference on Computer Vision</p>
                     <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2508.02293" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <a href="https://arxiv.org/abs/2508.02293" class="pub-link" target="_blank">Paper</a>
                     </div>
                 </article>
 
@@ -484,9 +999,9 @@
                     <p class="pub-authors">
                         <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
                     </p>
-                    <p class="pub-venue">ECCVW 2024 - VISION Workshop at European Conference on Computer Vision <span class="oral-tag">(ORAL)</span></p>
+                    <p class="pub-venue">ECCVW 2024 - VISION Workshop at European Conference on Computer Vision <span class="oral-tag">ORAL</span></p>
                     <div class="pub-links">
-                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28" class="pub-link" target="_blank">Paper</a>
                     </div>
                 </article>
 
@@ -499,9 +1014,9 @@
                     <p class="pub-authors">
                         <span class="highlight">Muhammad Aqeel</span>, Kidus Dagnaw Bellete, Francesco Setti
                     </p>
-                    <p class="pub-venue">ICIAP 2025 - International Conference on Image Analysis and Processing <span class="oral-tag">(ORAL)</span></p>
+                    <p class="pub-venue">ICIAP 2025 - International Conference on Image Analysis and Processing <span class="oral-tag">ORAL</span></p>
                     <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2507.15346" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <a href="https://arxiv.org/abs/2507.15346" class="pub-link" target="_blank">Paper</a>
                     </div>
                 </article>
 
@@ -516,7 +1031,7 @@
                     </p>
                     <p class="pub-venue">ICIAP 2025 - International Conference on Image Analysis and Processing</p>
                     <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2507.15335" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <a href="https://arxiv.org/abs/2507.15335" class="pub-link" target="_blank">Paper</a>
                     </div>
                 </article>
 
@@ -531,7 +1046,7 @@
                     </p>
                     <p class="pub-venue">ICIAP 2025 - International Conference on Image Analysis and Processing</p>
                     <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2507.15361" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <a href="https://arxiv.org/abs/2507.15361" class="pub-link" target="_blank">Paper</a>
                     </div>
                 </article>
 
@@ -544,9 +1059,9 @@
                     <p class="pub-authors">
                         <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
                     </p>
-                    <p class="pub-venue">VISAPP 2025 - International Joint Conference on Computer Vision, Imaging and Computer Graphics Theory and Applications <span class="oral-tag">(ORAL)</span></p>
+                    <p class="pub-venue">VISAPP 2025 - International Joint Conference on Computer Vision <span class="oral-tag">ORAL</span></p>
                     <div class="pub-links">
-                        <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912" class="pub-link" target="_blank">Paper</a>
                     </div>
                 </article>
 
@@ -559,9 +1074,9 @@
                     <p class="pub-authors">
                         <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
                     </p>
-                    <p class="pub-venue">DeLTA 2024- International Conference on Deep Learning Theory and Applications <span class="oral-tag">(ORAL)</span></p>
+                    <p class="pub-venue">DeLTA 2024 - International Conference on Deep Learning Theory and Applications <span class="oral-tag">ORAL</span></p>
                     <div class="pub-links">
-                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11" class="pub-link" target="_blank">Paper</a>
                     </div>
                 </article>
 
@@ -574,10 +1089,10 @@
                     <p class="pub-authors">
                         Luigi Capogrosso, Federico Girella, Francesco Taioli, Michele Dalla Chiara, <span class="highlight">Muhammad Aqeel</span>, Franco Fummi, Francesco Setti, Marco Cristani
                     </p>
-                    <p class="pub-venue">VISAPP 2024 - International Joint Conference on Computer Vision, Imaging and Computer Graphics Theory and Applications</p>
+                    <p class="pub-venue">VISAPP 2024 - International Joint Conference on Computer Vision</p>
                     <div class="pub-links">
-                        <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0012350400003660" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
-                        <a href="https://github.com/intelligolabs/in_and_out" class="pub-link" target="_blank" rel="noopener noreferrer">Code</a>
+                        <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0012350400003660" class="pub-link" target="_blank">Paper</a>
+                        <a href="https://github.com/intelligolabs/in_and_out" class="pub-link" target="_blank">Code</a>
                     </div>
                 </article>
             </div>
@@ -589,42 +1104,47 @@
         <div class="section-container">
             <div class="section-header fade-in">
                 <h2 class="section-title">Technical Expertise</h2>
+                <p class="section-subtitle">Core Competencies & Skills</p>
             </div>
             <div class="skills-grid fade-in">
                 <div class="skill-category">
                     <h3>Research Areas</h3>
                     <div class="skill-items">
-                        <div class="skill-item">Machine Learning</div>
+                        <div class="skill-item">Machine Learning & Deep Learning</div>
                         <div class="skill-item">Computer Vision</div>
                         <div class="skill-item">Anomaly Detection</div>
                         <div class="skill-item">Natural Language Processing</div>
+                        <div class="skill-item">Industrial AI & Quality Control</div>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3>Programming Languages</h3>
                     <div class="skill-items">
-                        <div class="skill-item">Python</div>
-                        <div class="skill-item">C++</div>
-                        <div class="skill-item">JavaScript</div>
+                        <div class="skill-item">Python (Expert)</div>
+                        <div class="skill-item">C++ (Proficient)</div>
+                        <div class="skill-item">JavaScript (Proficient)</div>
+                        <div class="skill-item">MATLAB (Intermediate)</div>
                         <div class="skill-item">Bash/Shell Scripting</div>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3>Frameworks & Libraries</h3>
                     <div class="skill-items">
-                        <div class="skill-item">PyTorch</div>
-                        <div class="skill-item">TensorFlow</div>
+                        <div class="skill-item">PyTorch & TensorFlow</div>
                         <div class="skill-item">Scikit-learn</div>
                         <div class="skill-item">OpenCV</div>
+                        <div class="skill-item">Hugging Face Transformers</div>
+                        <div class="skill-item">NumPy & Pandas</div>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3>Tools & Technologies</h3>
                     <div class="skill-items">
                         <div class="skill-item">Git/GitHub</div>
+                        <div class="skill-item">Docker & Kubernetes</div>
                         <div class="skill-item">LaTeX</div>
-                        <div class="skill-item">Jupyter Notebooks</div>
-                        <div class="skill-item">Linux/Unix</div>
+                        <div class="skill-item">Jupyter & Colab</div>
+                        <div class="skill-item">Linux/Unix Systems</div>
                     </div>
                 </div>
             </div>
@@ -637,16 +1157,15 @@
     </footer>
 
     <script>
-        // ==========================================
-        // UI SCRIPTS — YOUR ORIGINAL BEHAVIOUR
-        // ==========================================
-        // Hamburger
+        // Navigation functionality
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
+        
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
+
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
@@ -657,12 +1176,16 @@
         // Scroll active link
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
+        
         window.addEventListener('scroll', () => {
             let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (scrollY >= (sectionTop - 200)) { current = section.getAttribute('id'); }
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
             });
+            
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href').slice(1) === current) {
@@ -671,372 +1194,252 @@
             });
         });
 
-        // Fade-in observer
+        // Fade-in animation
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
         }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
+
         document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-        // Robust image source attempts
+        // Profile image handling
         window.addEventListener('DOMContentLoaded', () => {
             const img = document.querySelector('.profile-image img');
-            const sources = ['PPP.jpg', 'PPP.JPG', './PPP.jpg', './PPP.JPG', 'ppp.jpg', 'profile.jpg'];
+            const sources = ['PPP.jpg', 'PPP.JPG', './PPP.jpg', './PPP.JPG', 'profile.jpg'];
             let currentIndex = 0;
+            
             if (img) {
                 img.style.display = 'none';
-                const tryLoadImage = () => { if (currentIndex < sources.length) img.src = sources[currentIndex]; };
+                
+                const tryLoadImage = () => {
+                    if (currentIndex < sources.length) {
+                        img.src = sources[currentIndex];
+                    }
+                };
+                
                 img.addEventListener('load', function() {
                     this.style.display = 'block';
                     const initials = document.querySelector('.profile-initials');
                     if (initials) initials.style.display = 'none';
                 });
+                
                 img.addEventListener('error', function() {
                     currentIndex++;
-                    if (currentIndex < sources.length) tryLoadImage();
-                    else {
+                    if (currentIndex < sources.length) {
+                        tryLoadImage();
+                    } else {
                         this.style.display = 'none';
                         const initials = document.querySelector('.profile-initials');
                         if (initials) initials.style.display = 'flex';
                     }
                 });
+                
                 tryLoadImage();
             }
         });
 
-        // ==========================================
-        // PDF GENERATOR — CLEAN LAYOUT (CV-only)
-        // ==========================================
-
-        // Config toggles
-        const IMAGE_SHAPE = 'circle';    // 'circle' | 'square'  (true crop via canvas, no overlay)
-        const ORAL_PLACEMENT = 'afterVenue'; // 'afterVenue' | 'afterTitle'
-
-        // Publications data (with ORAL flag)
-        const allPublications = [
-            {
-                title: "Semantic Parsing for Aspect Based Sentiment Analysis",
-                authors: ["Muhammad Aqeel", "Francesco Setti"],
-                venue: "IEEE Access 2025",
-                link: "https://ieeexplore.ieee.org/abstract/document/11078252",
-                oral: false
-            },
-            {
-                title: "Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning",
-                authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
-                venue: "ICCV 2025 - International Conference on Computer Vision",
-                link: "https://arxiv.org/abs/2508.02293",
-                oral: false
-            },
-            {
-                title: "Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection in Industrial Inspection",
-                authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
-                venue: "ECCVW 2024 - VISION Workshop at European Conference on Computer Vision",
-                link: "https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28",
-                oral: true
-            },
-            {
-                title: "RoadFusion: Latent Diffusion Model for Pavement Defect Detection",
-                authors: ["Muhammad Aqeel", "Kidus Dagnaw Bellete", "Francesco Setti"],
-                venue: "ICIAP 2025 - International Conference on Image Analysis and Processing",
-                link: "https://arxiv.org/abs/2507.15346",
-                oral: true
-            },
-            {
-                title: "ExDD: Explicit Dual Distribution Learning for Surface Defect Detection via Diffusion Synthesis",
-                authors: ["Muhammad Aqeel", "Federico Leonardi", "Francesco Setti"],
-                venue: "ICIAP 2025 - International Conference on Image Analysis and Processing",
-                link: "https://arxiv.org/abs/2507.15335",
-                oral: false
-            },
-            {
-                title: "Latent Space Synergy: Text-Guided Data Augmentation for Direct Diffusion Biomedical Segmentation",
-                authors: ["Muhammad Aqeel", "Maham Nazir", "Zanxi Ruan", "Francesco Setti"],
-                venue: "ICIAP 2025 - International Conference on Image Analysis and Processing",
-                link: "https://arxiv.org/abs/2507.15361",
-                oral: false
-            },
-            {
-                title: "Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control",
-                authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
-                venue: "VISAPP 2025 - International Joint Conference on Computer Vision, Imaging and Computer Graphics Theory and Applications",
-                link: "https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912",
-                oral: true
-            },
-            {
-                title: "Self-supervised Learning for Robust Surface Defect Detection",
-                authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
-                venue: "DeLTA 2024 - International Conference on Deep Learning Theory and Applications",
-                link: "https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11",
-                oral: true
-            },
-            {
-                title: "Diffusion-based Image Generation for In-distribution Data Augmentation in Surface Defect Detection",
-                authors: ["Luigi Capogrosso", "Federico Girella", "Francesco Taioli", "Michele Dalla Chiara", "Muhammad Aqeel", "Franco Fummi", "Francesco Setti", "Marco Cristani"],
-                venue: "VISAPP 2024 - International Joint Conference on Computer Vision, Imaging and Computer Graphics Theory and Applications",
-                link: "https://www.scitepress.org/Link.aspx?doi=10.5220/0012350400003660",
-                oral: false
-            }
-        ];
-
-        // References (moved from supervisors)
-        const references = [
-            { name: "Francesco Setti", role: "Associate Professor, University of Verona, Italy", email: "francesco.setti@univr.it", phone: "(+39) 3491959381" },
-            { name: "Xiaohong Liu", role: "Professor, Beijing University of Posts and Telecommunications, China", email: "xiaohongliu@bupt.edu.cn", phone: "(+86) 13910396374" }
-        ];
-
-        // ===== Helper: circular/square masked PNG from <img> (no overlay) =====
-        async function getMaskedImageDataURL(imgEl, sizePx = 512, shape = 'circle') {
-            return new Promise(resolve => {
-                try {
-                    const cvs = document.createElement('canvas');
-                    cvs.width = cvs.height = sizePx;
-                    const ctx = cvs.getContext('2d');
-                    ctx.clearRect(0,0,sizePx,sizePx);
-
-                    if (shape === 'circle') {
-                        ctx.save();
-                        ctx.beginPath();
-                        ctx.arc(sizePx/2, sizePx/2, sizePx/2, 0, Math.PI * 2);
-                        ctx.closePath();
-                        ctx.clip();
-                    }
-
-                    // cover fit
-                    const iw = imgEl.naturalWidth || imgEl.width;
-                    const ih = imgEl.naturalHeight || imgEl.height;
-                    const r = Math.max(sizePx/iw, sizePx/ih);
-                    const nw = iw * r, nh = ih * r;
-                    const dx = (sizePx - nw) / 2, dy = (sizePx - nh) / 2;
-                    ctx.drawImage(imgEl, dx, dy, nw, nh);
-
-                    if (shape === 'circle') ctx.restore();
-                    resolve(cvs.toDataURL('image/png'));
-                } catch (e) {
-                    resolve(null);
-                }
-            });
+        // View PDF in new window
+        async function viewPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+            
+            // Generate the PDF content (simplified version for viewing)
+            generatePDFContent(doc);
+            
+            // Open PDF in new window
+            const pdfBlob = doc.output('blob');
+            const pdfURL = URL.createObjectURL(pdfBlob);
+            window.open(pdfURL, '_blank');
         }
 
-        // ===== Helper: draw divider line =====
-        function drawDivider(doc, x1, y, x2) {
-            doc.setLineWidth(0.4);
-            doc.line(x1, y, x2, y);
-        }
-
-        // ===== Helper: justified paragraph (manual), fallback to left if too narrow =====
-        function drawJustifiedParagraph(doc, text, x, y, width, lineHeight) {
-            // Split to lines greedily
-            const words = text.split(/\s+/);
-            let line = '', lines = [];
-            words.forEach(w => {
-                const test = line ? line + ' ' + w : w;
-                if (doc.getTextWidth(test) <= width) line = test;
-                else { lines.push(line); line = w; }
-            });
-            if (line) lines.push(line);
-
-            lines.forEach((ln, idx) => {
-                const isLast = idx === lines.length - 1;
-                if (isLast || !ln.includes(' ')) {
-                    doc.text(ln, x, y); // last line left-aligned
-                } else {
-                    // distribute extra space
-                    const parts = ln.split(' ');
-                    const wordsWidth = parts.reduce((acc, w) => acc + doc.getTextWidth(w), 0);
-                    const gaps = parts.length - 1;
-                    const extra = (width - wordsWidth) / gaps;
-                    let cx = x;
-                    parts.forEach((w, i) => {
-                        doc.text(w, cx, y);
-                        cx += doc.getTextWidth(w) + extra;
-                    });
-                }
-                y += lineHeight;
-            });
-            return y;
-        }
-
-        // ===== Helper: add wrapped clickable lines (black) =====
-        function addWrappedLink(doc, text, x, y, maxWidth, url) {
-            const lines = doc.splitTextToSize(text, maxWidth);
-            lines.forEach((ln, i) => {
-                doc.textWithLink(ln, x, y, { url });
-                y += 4;
-            });
-            return y;
-        }
-
-        // ===== PDF Generation Function (CV ONLY) =====
+        // Generate PDF for download
         async function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+            
+            // Generate the PDF content
+            generatePDFContent(doc);
+            
+            // Download the PDF
+            doc.save("Muhammad_Aqeel_CV.pdf");
+        }
 
-            // Constants
-            const ML = 20, MR = 20, TOP = 18;
-            const CONTENT_W = 210 - ML - MR;
-            const LEFT = ML, RIGHT = 210 - MR;
-            const LINE = 5;
+        // PDF content generation function
+        function generatePDFContent(doc) {
+            const pageWidth = 210;
+            const pageHeight = 297;
+            const margin = 20;
+            const contentWidth = pageWidth - (margin * 2);
+            let y = margin;
 
-            // All black text in the CV
-            const setBlack = () => doc.setTextColor(0, 0, 0);
+            // Colors
+            const primaryBlue = [8, 145, 178];
+            const textDark = [30, 41, 59];
+            const textGray = [71, 85, 105];
 
-            // Header: Name, Title
-            setBlack();
-            doc.setFont('helvetica', 'bold'); doc.setFontSize(22);
-            doc.text("Muhammad Aqeel", LEFT, TOP);
-
-            doc.setFont('helvetica', 'normal'); doc.setFontSize(12);
-            doc.text("PhD Researcher in Computer Science", LEFT, TOP + 8);
-
-            // Profile image (true crop)
-            const imgEl = document.querySelector('.profile-image img');
-            if (imgEl && imgEl.style.display !== 'none') {
-                try {
-                    const masked = await getMaskedImageDataURL(imgEl, 520, IMAGE_SHAPE);
-                    if (masked) {
-                        // top-right placement
-                        doc.addImage(masked, 'PNG', RIGHT - 30, TOP - 8, 30, 30);
-                    }
-                } catch(e) { /* ignore */ }
-            }
-
-            // Contact lines (clickable, black, NO pipes)
-            doc.setFontSize(10); setBlack();
-            let y = TOP + 20;
-            const linkLine = (label, text, url, x) => {
-                doc.text(label, x, y);
-                const w = doc.getTextWidth(label) + 1;
-                doc.textWithLink(text, x + w, y, { url });
-            };
-            linkLine("Email: ", "muhammad.aqeel@univr.it", "mailto:muhammad.aqeel@univr.it", LEFT);
-            linkLine("WhatsApp: ", "+86 182 1013 3275", "https://wa.me/8618210133275", LEFT + 85);
-            y += LINE;
-            linkLine("LinkedIn: ", "muhammad-aqeel-4378b9170", "https://www.linkedin.com/in/muhammad-aqeel-4378b9170", LEFT);
-            linkLine("Google Scholar: ", "Profile", "https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en", LEFT + 85);
-
+            // Header
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(24);
+            doc.setTextColor(...textDark);
+            doc.text("Muhammad Aqeel", margin, y);
+            
+            y += 10;
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(12);
+            doc.setTextColor(...primaryBlue);
+            doc.text("PhD Researcher in Computer Science", margin, y);
+            
+            y += 12;
+            doc.setFontSize(10);
+            doc.setTextColor(...textGray);
+            doc.text("Email: muhammad.aqeel@univr.it | WhatsApp: +86 182 1013 3275", margin, y);
+            y += 5;
+            doc.text("LinkedIn: muhammad-aqeel-4378b9170 | Google Scholar: ZPUihX0AAAAJ", margin, y);
+            
             // Divider
-            y += 4; drawDivider(doc, LEFT, y, RIGHT);
-
-            // EDUCATION (no supervisors here)
-            y += 8; doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.text("EDUCATION", LEFT, y);
-            y += 7; doc.setFont('helvetica','normal'); doc.setFontSize(10);
-
-            const edu = [
+            y += 8;
+            doc.setDrawColor(...primaryBlue);
+            doc.setLineWidth(0.5);
+            doc.line(margin, y, pageWidth - margin, y);
+            
+            // Education
+            y += 10;
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(14);
+            doc.setTextColor(...primaryBlue);
+            doc.text("EDUCATION", margin, y);
+            
+            y += 8;
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.setTextColor(...textDark);
+            
+            const education = [
                 { degree: "PhD in Computer Science", period: "2022–2025", inst: "University of Verona, Italy" },
                 { degree: "Master in Computer Science", period: "2019–2021", inst: "Beijing University of Posts and Telecommunications, China" },
-                { degree: "Bachelor in Computer Science", period: "2013–2017", inst: "PMAS Arid Agriculture University Rawalpindi, Pakistan" }
+                { degree: "Bachelor in Computer Science", period: "2013–2017", inst: "PMAS Arid Agriculture University, Pakistan" }
             ];
-
-            edu.forEach(e => {
-                if (y > 270) { doc.addPage(); y = TOP; }
-                doc.setFont('helvetica','bold'); doc.text(e.degree, LEFT, y);
-                doc.setFont('helvetica','normal'); doc.text(e.period, RIGHT - doc.getTextWidth(e.period), y);
-                y += LINE;
-                doc.text(e.inst, LEFT, y);
-                y += LINE + 2;
+            
+            education.forEach(edu => {
+                doc.setFont('helvetica', 'bold');
+                doc.text(edu.degree, margin, y);
+                doc.setFont('helvetica', 'normal');
+                doc.text(edu.period, pageWidth - margin - doc.getTextWidth(edu.period), y);
+                y += 5;
+                doc.setTextColor(...textGray);
+                doc.text(edu.inst, margin, y);
+                doc.setTextColor(...textDark);
+                y += 8;
             });
-
-            // EXPERIENCE
-            y += 4; if (y > 270) { doc.addPage(); y = TOP; }
-            doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.text("PROFESSIONAL EXPERIENCE", LEFT, y);
-            y += 7; doc.setFont('helvetica','normal'); doc.setFontSize(10);
-
+            
+            // Professional Experience
+            y += 5;
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(14);
+            doc.setTextColor(...primaryBlue);
+            doc.text("PROFESSIONAL EXPERIENCE", margin, y);
+            
+            y += 8;
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.setTextColor(...textDark);
+            
             const experiences = [
                 { title: "Visiting Researcher", period: "June 2025 – Present", org: "University of Ljubljana, Slovenia" },
                 { title: "Teaching Assistant", period: "2023 – 2025", org: "University of Verona, Italy" },
                 { title: "Research Assistant", period: "2021 – 2022", org: "Huazhong University of Science and Technology, China" },
                 { title: "Software Quality Assurance", period: "2018 – 2019", org: "UIIT, Arid Agriculture University, Pakistan" },
-                { title: "Software Developer", period: "2017 – 2018", org: "eConceptions (Pvt) Ltd. Pakistan" }
+                { title: "Software Developer", period: "2017 – 2018", org: "eConceptions (Pvt) Ltd., Pakistan" }
             ];
-
-            experiences.forEach(ex => {
-                if (y > 270) { doc.addPage(); y = TOP; }
-                doc.setFont('helvetica','bold'); doc.text(ex.title, LEFT, y);
-                doc.setFont('helvetica','normal'); doc.text(ex.period, RIGHT - doc.getTextWidth(ex.period), y);
-                y += LINE;
-                doc.text(ex.org, LEFT, y);
-                y += LINE + 2;
+            
+            experiences.forEach(exp => {
+                if (y > pageHeight - 40) {
+                    doc.addPage();
+                    y = margin;
+                }
+                doc.setFont('helvetica', 'bold');
+                doc.text(exp.title, margin, y);
+                doc.setFont('helvetica', 'normal');
+                doc.text(exp.period, pageWidth - margin - doc.getTextWidth(exp.period), y);
+                y += 5;
+                doc.setTextColor(...textGray);
+                doc.text(exp.org, margin, y);
+                doc.setTextColor(...textDark);
+                y += 8;
             });
-
-            // PUBLICATIONS — hanging indent + black links + ORAL placement
-            y += 4; if (y > 270) { doc.addPage(); y = TOP; }
-            doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.text("RESEARCH PUBLICATIONS", LEFT, y);
-            y += 6; doc.setFont('helvetica','normal'); doc.setFontSize(9);
-
-            const numberX = LEFT;
-            const contentX = LEFT + 7;    // hanging indent start
-            const maxW = RIGHT - contentX;
-
-            allPublications.forEach((pub, index) => {
-                if (y > 270) { doc.addPage(); y = TOP; }
-
-                // number
-                setBlack(); doc.text(`${index + 1}.`, numberX, y);
-
-                // Title (clickable, black). If ORAL afterTitle toggle is set, append there.
-                let titleTxt = pub.title;
-                if (pub.oral && ORAL_PLACEMENT === 'afterTitle') titleTxt += " (ORAL)";
-                const titleLines = doc.splitTextToSize(titleTxt, maxW);
-                titleLines.forEach((ln, i) => {
-                    doc.textWithLink(ln, contentX, y, { url: pub.link });
+            
+            // Selected Publications
+            if (y > pageHeight - 60) {
+                doc.addPage();
+                y = margin;
+            }
+            
+            y += 5;
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(14);
+            doc.setTextColor(...primaryBlue);
+            doc.text("SELECTED PUBLICATIONS", margin, y);
+            
+            y += 8;
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+            doc.setTextColor(...textDark);
+            
+            const publications = [
+                "1. Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning. ICCV 2025.",
+                "2. Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection. ECCVW 2024 (ORAL).",
+                "3. RoadFusion: Latent Diffusion Model for Pavement Defect Detection. ICIAP 2025 (ORAL).",
+                "4. Self-Supervised Iterative Refinement for Anomaly Detection. VISAPP 2025 (ORAL)."
+            ];
+            
+            publications.forEach(pub => {
+                const lines = doc.splitTextToSize(pub, contentWidth);
+                lines.forEach(line => {
+                    if (y > pageHeight - 20) {
+                        doc.addPage();
+                        y = margin;
+                    }
+                    doc.text(line, margin, y);
                     y += 4;
                 });
-
-                // Authors (clickable, black, no bolding anyone)
-                const authorsStr = pub.authors.join(', ');
-                y = addWrappedLink(doc, authorsStr, contentX, y, maxW, pub.link) + 1;
-
-                // Venue (italic) with ORAL appended after venue by default
-                doc.setFont('helvetica','italic'); setBlack();
-                const venueTxt = pub.oral && ORAL_PLACEMENT === 'afterVenue' ? `${pub.venue} (ORAL)` : pub.venue;
-                const venueLines = doc.splitTextToSize(venueTxt, maxW);
-                venueLines.forEach(ln => { doc.text(ln, contentX, y); y += 4; });
-                doc.setFont('helvetica','normal');
-
-                y += 2; // space between entries
+                y += 2;
             });
-
-            // SKILLS
-            y += 4; if (y > 270) { doc.addPage(); y = TOP; }
-            doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.text("TECHNICAL SKILLS", LEFT, y);
-            y += 7; doc.setFont('helvetica','normal'); doc.setFontSize(10);
-            const skillLines = [
-                "Research Areas: Machine Learning, Computer Vision, Anomaly Detection, NLP",
-                "Programming: Python, C++, JavaScript, Bash/Shell Scripting",
-                "Frameworks: PyTorch, TensorFlow, Scikit-learn, OpenCV",
-                "Tools: Git/GitHub, LaTeX, Jupyter Notebooks, Linux/Unix"
+            
+            // Skills
+            if (y > pageHeight - 50) {
+                doc.addPage();
+                y = margin;
+            }
+            
+            y += 5;
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(14);
+            doc.setTextColor(...primaryBlue);
+            doc.text("TECHNICAL SKILLS", margin, y);
+            
+            y += 8;
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            doc.setTextColor(...textDark);
+            
+            const skills = [
+                "Research Areas: Machine Learning, Computer Vision, Anomaly Detection, NLP, Industrial AI",
+                "Programming: Python, C++, JavaScript, MATLAB, Bash/Shell Scripting",
+                "Frameworks: PyTorch, TensorFlow, Scikit-learn, OpenCV, Transformers",
+                "Tools: Git/GitHub, Docker, LaTeX, Jupyter Notebooks, Linux/Unix"
             ];
-            skillLines.forEach(s => { if (y > 270) { doc.addPage(); y = TOP; } doc.text(s, LEFT, y); y += LINE; });
-
-            // RESEARCH INTERESTS (justified paragraph)
-            y += 4; if (y > 270) { doc.addPage(); y = TOP; }
-            doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.text("RESEARCH INTERESTS", LEFT, y);
-            y += 7; doc.setFont('helvetica','normal'); doc.setFontSize(9);
-            const interests = "Specialized in developing advanced anomaly detection algorithms for industrial manufacturing environments, with expertise in deep learning architectures for real-time defect detection. Research contributions span computer vision and NLP, with 9+ peer-reviewed publications in top-tier venues including ICCV, ECCV, ICIAP and VISAPP. Focus on creating scalable, interpretable AI systems for quality control and predictive maintenance in industrial settings.";
-            y = drawJustifiedParagraph(doc, interests, LEFT, y, CONTENT_W, 5);
-
-            // REFERENCES (new section; emails clickable; optional phone)
-            y += 4; if (y > 270) { doc.addPage(); y = TOP; }
-            doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.text("REFERENCES", LEFT, y);
-            y += 7; doc.setFont('helvetica','normal'); doc.setFontSize(10);
-            references.forEach(r => {
-                if (y > 270) { doc.addPage(); y = TOP; }
-                const header = r.name + (r.role ? ` — ${r.role}` : "");
-                doc.text(header, LEFT, y); y += LINE;
-                if (r.email) {
-                    doc.text("Email: ", LEFT, y);
-                    const off = doc.getTextWidth("Email: ") + 1;
-                    doc.textWithLink(r.email, LEFT + off, y, { url: `mailto:${r.email}` });
+            
+            skills.forEach(skill => {
+                if (y > pageHeight - 20) {
+                    doc.addPage();
+                    y = margin;
                 }
-                if (r.phone) {
-                    const px = LEFT + 80;
-                    doc.text(`Phone: ${r.phone}`, px, y);
-                }
-                y += LINE + 2;
+                doc.text(skill, margin, y);
+                y += 6;
             });
-
-            // Save the PDF
-            doc.save("Muhammad_Aqeel_CV.pdf");
         }
     </script>
 </body>
