@@ -13,21 +13,23 @@
         }
 
         :root {
-            --primary-blue: #0891b2;
-            --primary-dark: #0e7490;
-            --primary-light: #22d3ee;
-            --accent-purple: #8b5cf6;
-            --accent-pink: #ec4899;
             --bg-primary: #ffffff;
             --bg-secondary: #f8fafc;
             --bg-tertiary: #f0f9ff;
+            --bg-nav: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            --bg-white: #ffffff;
+            --bg-card: #ffffff;
             --text-primary: #1e293b;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
+            --accent: #0891b2;
+            --accent-light: #06b6d4;
+            --accent-dark: #0e7490;
             --border-light: rgba(0, 0, 0, 0.06);
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 10px 40px rgba(8, 145, 178, 0.12);
-            --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.1);
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 10px 40px rgba(0, 119, 163, 0.15);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
+            --icon-grey: #6b7280;
         }
 
         html { 
@@ -35,7 +37,7 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            font-family: 'Georgia', 'Times New Roman', serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
@@ -47,9 +49,9 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            background: var(--bg-nav);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             z-index: 1000;
             border-bottom: 1px solid var(--border-light);
         }
@@ -65,16 +67,14 @@
 
         .nav-brand { 
             font-size: 1.5rem; 
-            font-weight: 600; 
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.02em;
+            font-weight: 400; 
+            letter-spacing: -0.02em; 
+            color: var(--text-primary); 
         }
 
         .nav-menu { 
             display: flex; 
-            gap: 2.5rem; 
+            gap: 3rem; 
             list-style: none; 
         }
 
@@ -82,28 +82,29 @@
             color: var(--text-primary);
             text-decoration: none;
             font-size: 0.95rem;
-            font-weight: 500;
+            font-weight: 400;
             transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
             position: relative;
-            padding: 0.5rem 0;
         }
 
         .nav-link:hover { 
-            color: var(--primary-blue); 
+            color: var(--accent); 
         }
 
         .nav-link.active { 
-            color: var(--primary-blue); 
+            color: var(--accent); 
         }
 
         .nav-link.active::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: -5px;
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--accent-purple));
+            background: var(--accent);
         }
 
         /* Hamburger Menu */
@@ -135,252 +136,205 @@
             transform: rotate(45deg) translate(-6px, -6px); 
         }
 
+        /* CV Download Button */
+        .cv-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            border: 2px solid var(--accent);
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 25px;
+            border-radius: 0;
+        }
+
+        .cv-download-btn:hover {
+            background: var(--accent-dark);
+            border-color: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,119,163,0.3);
+        }
+
+        .cv-download-btn svg { 
+            width: 18px; 
+            height: 18px; 
+        }
+
         /* Hero Section */
         .hero-section {
             min-height: 100vh;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #f0f9ff 100%);
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
             padding: 120px 3rem 80px;
             position: relative;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(8, 145, 178, 0.05) 0%, transparent 50%);
-            pointer-events: none;
+            z-index: 1;
         }
 
         .hero-container { 
             max-width: 1400px; 
             margin: 0 auto; 
             width: 100%; 
-            position: relative;
-            z-index: 1;
         }
 
         .hero-header { 
             display: flex; 
             align-items: flex-start; 
-            gap: 50px; 
-            margin-bottom: 60px; 
-        }
-
-        .profile-wrapper {
-            position: relative;
+            gap: 40px; 
+            margin-bottom: 50px; 
         }
 
         .profile-image {
-            width: 140px;
-            height: 140px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             overflow: hidden;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, var(--accent-light), var(--accent));
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 48px;
-            font-weight: 600;
+            font-weight: 300;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             position: relative;
-            border: 4px solid white;
-        }
-
-        .profile-image::before {
-            content: '';
-            position: absolute;
-            inset: -8px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple), var(--accent-pink));
-            z-index: -1;
-            opacity: 0.3;
-            filter: blur(20px);
         }
 
         .profile-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
             display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .profile-initials { 
+            z-index: 1; 
         }
 
         .hero-titles { 
             padding-top: 20px; 
-            flex: 1;
         }
 
         .hero-name { 
-            font-size: 3.5rem; 
-            font-weight: 700; 
-            margin-bottom: 12px; 
+            font-size: 3rem; 
+            font-weight: 300; 
+            margin-bottom: 10px; 
             letter-spacing: -0.03em; 
-            line-height: 1.1;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary-blue) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            line-height: 1.1; 
         }
 
         .hero-title { 
-            font-size: 1.5rem; 
+            font-size: 1.35rem; 
             color: var(--text-secondary); 
-            font-weight: 400; 
+            font-weight: 300; 
         }
 
         .hero-content-grid { 
-            display: grid;
-            grid-template-columns: 1.8fr 1fr;
-            gap: 80px;
-            align-items: start;
+            display: flex; 
+            gap: 80px; 
+            align-items: flex-start; 
         }
 
-        /* About Section */
         .about-section { 
+            flex: 1.8; 
             min-width: 0; 
         }
 
-        .section-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--primary-blue);
-            margin-bottom: 24px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .section-label::after {
-            content: '';
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary-blue), transparent);
-            max-width: 100px;
-        }
-
-        .about-text {
-            font-size: 1.125rem;
-            line-height: 1.8;
-            color: var(--text-primary);
-            text-align: justify;
-            margin-bottom: 2rem;
-        }
-
-        .about-text a { 
-            color: var(--primary-blue); 
-            text-decoration: none; 
-            font-weight: 500;
-            border-bottom: 2px solid transparent; 
-            transition: all 0.3s ease; 
-        }
-
-        .about-text a:hover { 
-            border-bottom-color: var(--primary-blue); 
-        }
-
-        /* CV Buttons */
-        .cv-buttons-group {
-            display: flex;
-            gap: 16px;
-            margin-top: 32px;
-        }
-
-        .cv-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 28px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cv-download-btn {
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
-            color: white;
-        }
-
-        .cv-download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(8, 145, 178, 0.3);
-        }
-
-        .cv-view-btn {
-            background: white;
-            color: var(--primary-blue);
-            border-color: var(--primary-blue);
-        }
-
-        .cv-view-btn:hover {
-            background: var(--bg-tertiary);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(8, 145, 178, 0.15);
-        }
-
-        .cv-btn svg { 
-            width: 18px; 
-            height: 18px; 
-        }
-
-        /* Hero Right Side */
         .hero-right { 
+            flex: 1; 
+            min-width: 0; 
             display: flex; 
             flex-direction: column; 
             gap: 50px; 
         }
 
-        /* Contact Section */
+        .section-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 600;
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            font-weight: 300;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        .about-text a { 
+            color: var(--accent); 
+            text-decoration: none; 
+            border-bottom: 1px solid transparent; 
+            transition: all 0.3s ease; 
+        }
+
+        .about-text a:hover { 
+            border-bottom-color: var(--accent); 
+        }
+
+        /* Contact */
         .contact-section { 
             padding-bottom: 30px; 
         }
 
         .contact-icons { 
             display: flex; 
-            gap: 16px; 
-            flex-wrap: wrap;
+            gap: 20px; 
+            align-items: center; 
         }
 
         .contact-icon-link {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: white;
-            color: var(--text-secondary);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(248,250,252,0.8);
+            color: var(--icon-grey);
             transition: all 0.3s ease;
             text-decoration: none;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border: 1px solid var(--border-light);
         }
 
         .contact-icon-link:hover {
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            background: var(--accent);
             color: white;
             transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(8, 145, 178, 0.3);
+            box-shadow: 0 4px 12px rgba(0,119,163,0.3);
+            border-color: var(--accent);
         }
 
         .contact-icon-link svg { 
-            width: 20px; 
-            height: 20px; 
+            width: 18px; 
+            height: 18px; 
+            stroke-width: 2; 
         }
 
-        /* Education Section */
+        .scholar-icon { 
+            fill: currentColor; 
+            stroke: none; 
+        }
+
+        /* Education */
         .education-section { 
             padding-bottom: 30px; 
         }
@@ -388,44 +342,46 @@
         .edu-list { 
             display: flex; 
             flex-direction: column; 
-            gap: 16px; 
+            gap: 14px; 
         }
 
         .edu-item {
-            padding: 20px;
-            background: white;
-            border-radius: 12px;
+            padding: 16px;
+            background: rgba(248,250,252,0.8);
+            border-radius: 8px;
             transition: all 0.3s ease;
             border-left: 3px solid transparent;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
             cursor: pointer;
         }
 
         .edu-item:hover {
-            border-left-color: var(--primary-blue);
-            transform: translateX(8px);
-            box-shadow: 0 4px 16px rgba(8, 145, 178, 0.12);
+            background: rgba(255,255,255,1);
+            border-left-color: var(--accent);
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0,119,163,0.15);
         }
 
         .edu-year {
-            font-size: 0.75rem;
-            color: var(--primary-blue);
-            margin-bottom: 8px;
-            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 6px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.08em;
         }
 
         .edu-degree {
-            font-size: 1.125rem;
-            font-weight: 600;
+            font-size: 1.1rem;
+            font-weight: 400;
             color: var(--text-primary);
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .edu-institution {
             font-size: 0.95rem;
             color: var(--text-secondary);
+            font-style: italic;
         }
 
         .edu-institution a {
@@ -435,7 +391,7 @@
         }
 
         .edu-item:hover .edu-institution a {
-            color: var(--primary-blue);
+            color: var(--accent);
         }
 
         /* Experience Section */
@@ -443,6 +399,7 @@
             padding: 100px 3rem;
             background: var(--bg-secondary);
             position: relative;
+            z-index: 2;
         }
 
         .section-container {
@@ -452,194 +409,171 @@
 
         .section-header {
             margin-bottom: 60px;
-            text-align: center;
+            background: linear-gradient(135deg, rgba(8,145,178,0.15) 0%, rgba(14,116,144,0.1) 100%);
+            border-left: 4px solid var(--accent);
+            padding: 30px;
+            border-radius: 10px;
         }
 
         .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, var(--text-primary), var(--primary-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .section-subtitle {
-            color: var(--text-secondary);
-            font-size: 1.125rem;
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            margin-bottom: 0;
+            color: var(--text-primary);
         }
 
         .experience-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 32px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
         }
 
         .exp-card {
-            background: white;
-            border-radius: 16px;
-            padding: 32px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            padding: 35px;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .exp-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-blue), var(--accent-purple));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
+            box-shadow: var(--shadow-sm);
         }
 
         .exp-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-        }
-
-        .exp-card:hover::before {
-            transform: scaleX(1);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
         }
 
         .exp-period {
-            font-size: 0.75rem;
-            color: var(--primary-blue);
-            margin-bottom: 12px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            font-weight: 700;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 600;
         }
 
         .exp-title {
-            font-size: 1.375rem;
-            font-weight: 600;
+            font-size: 1.5rem;
+            font-weight: 400;
             color: var(--text-primary);
             margin-bottom: 8px;
         }
 
         .exp-company {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--text-secondary);
             margin-bottom: 20px;
+            font-style: italic;
         }
 
         /* Publications Section */
         .publications-section {
             padding: 100px 3rem;
-            background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+            background: var(--bg-tertiary);
         }
 
         .publications-grid {
             display: grid;
-            gap: 32px;
+            gap: 30px;
         }
 
         .pub-card {
-            background: white;
-            padding: 40px;
-            border-radius: 16px;
+            background: var(--bg-white);
+            padding: 45px;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-            position: relative;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
         }
 
         .pub-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
         }
 
         .pub-header {
             display: flex;
             justify-content: space-between;
             align-items: start;
-            margin-bottom: 24px;
+            margin-bottom: 25px;
         }
 
         .pub-type {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: var(--accent-purple);
-            font-weight: 700;
-            padding: 6px 12px;
-            background: rgba(139, 92, 246, 0.1);
-            border-radius: 6px;
+            color: var(--accent);
+            font-weight: 600;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         .pub-year {
             color: var(--text-muted);
             font-size: 0.9rem;
-            font-weight: 500;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         .pub-title {
-            font-size: 1.5rem;
-            font-weight: 600;
+            font-size: 1.75rem;
+            font-weight: 400;
             color: var(--text-primary);
             margin-bottom: 20px;
             line-height: 1.4;
         }
 
         .pub-authors {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--text-secondary);
-            margin-bottom: 16px;
-            line-height: 1.6;
+            margin-bottom: 12px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         .pub-authors .highlight {
-            color: var(--primary-blue);
+            color: var(--accent-dark);
             font-weight: 600;
         }
 
         .pub-venue {
-            font-size: 1.05rem;
+            font-size: 1.15rem;
             color: var(--text-primary);
-            margin-bottom: 24px;
+            margin-bottom: 25px;
             font-style: italic;
         }
 
-        .oral-tag {
-            display: inline-block;
+        .pub-venue .oral-tag {
             font-style: normal;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            letter-spacing: .03em;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
             color: white;
-            padding: 4px 10px;
-            border-radius: 6px;
+            padding: 2px 8px;
+            border-radius: 4px;
             font-size: 0.75rem;
-            letter-spacing: 0.05em;
             margin-left: 8px;
         }
 
         .pub-links {
             display: flex;
-            gap: 16px;
-            margin-top: 24px;
+            gap: 20px;
+            margin-top: 25px;
         }
 
         .pub-link {
-            padding: 10px 20px;
+            padding: 12px 24px;
             background: transparent;
-            color: var(--primary-blue);
+            color: var(--accent);
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border: 2px solid var(--primary-blue);
-            border-radius: 8px;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            border: 2px solid var(--accent);
+            font-weight: 500;
         }
 
         .pub-link:hover {
-            background: var(--primary-blue);
-            color: white;
+            background: var(--accent);
+            color: #ffffff;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(8, 145, 178, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 119, 163, 0.3);
         }
 
         /* Skills Section */
@@ -650,63 +584,50 @@
 
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .skill-category {
-            background: white;
-            padding: 32px;
-            border-radius: 16px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-            transition: all 0.3s ease;
-        }
-
-        .skill-category:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-        }
-
         .skill-category h3 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 24px;
+            font-size: 1.35rem;
+            font-weight: 400;
+            margin-bottom: 20px;
             color: var(--text-primary);
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--primary-blue);
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
         }
 
         .skill-items {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .skill-item {
             color: var(--text-secondary);
-            font-size: 0.95rem;
-            padding-left: 24px;
+            font-size: 1rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            padding-left: 20px;
             position: relative;
-            line-height: 1.6;
         }
 
         .skill-item::before {
-            content: '→';
+            content: '▸';
             position: absolute;
             left: 0;
-            color: var(--primary-blue);
-            font-weight: 700;
+            color: var(--accent);
         }
 
         /* Footer */
         footer {
             padding: 60px 3rem;
-            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
             text-align: center;
             color: var(--text-muted);
             font-size: 0.9rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             border-top: 1px solid var(--border-light);
         }
 
@@ -731,54 +652,41 @@
                 left: -100%;
                 top: 70px;
                 flex-direction: column;
-                background: white;
+                background: var(--bg-nav);
                 width: 100%;
                 text-align: center;
                 transition: 0.3s;
-                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
                 padding: 2rem 0;
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid var(--border-light);
             }
             
             .nav-menu.active { left: 0; }
-            
-            .hero-content-grid {
-                grid-template-columns: 1fr;
-                gap: 50px;
-            }
-            
-            .hero-header {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            
-            .cv-buttons-group {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .cv-btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .experience-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
+            .nav-link { padding: 1rem 0; display: block; }
+            .hero-content-grid { flex-direction: column; gap: 50px; }
+            .hero-header { flex-direction: column; align-items: center; text-align: center; }
+            .hero-titles { padding-top: 0; text-align: center; }
+            .about-section { text-align: center; }
+            .hero-right { gap: 40px; }
+            .hero-name { font-size: 2.5rem; }
+            .section-title { font-size: 2.25rem; }
+            .experience-grid { grid-template-columns: 1fr; }
+            .pub-link { padding: 10px 20px; font-size: 0.9rem; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .contact-icons { justify-content: center; }
+            .cv-download-btn { width: 100%; justify-content: center; }
         }
 
         @media (max-width: 600px) {
             .nav-container { padding: 1rem 1.5rem; }
             .hero-section { padding: 100px 1.5rem 60px; }
-            .hero-name { font-size: 2.5rem; }
-            .section-title { font-size: 2rem; }
+            .hero-name { font-size: 2rem; }
             .experience-section, .publications-section, .skills-section { padding: 60px 1.5rem; }
-            .exp-card, .pub-card { padding: 24px; }
-            .pub-title { font-size: 1.25rem; }
+            .exp-card, .pub-card { padding: 25px; }
+            .pub-title { font-size: 1.4rem; }
+            .contact-icon-link { width: 32px; height: 32px; }
+            .contact-icon-link svg { width: 16px; height: 16px; }
         }
     </style>
 </head>
@@ -791,7 +699,7 @@
                 <span></span><span></span><span></span>
             </div>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#publications" class="nav-link">Publications</a></li>
                 <li><a href="#skills" class="nav-link">Skills</a></li>
@@ -803,75 +711,74 @@
     <section class="hero-section" id="home">
         <div class="hero-container fade-in">
             <div class="hero-header">
-                <div class="profile-wrapper">
-                    <div class="profile-image">
-                        <span class="profile-initials">MA</span>
-                        <img src="PPP.jpg" alt="Muhammad Aqeel" style="display: none;">
-                    </div>
+                <div class="profile-image">
+                    <span class="profile-initials" style="display: flex; align-items: center; justify-content: center;">MA</span>
+                    <img src="PPP.jpg" alt="Muhammad Aqeel" style="display: none;">
                 </div>
                 <div class="hero-titles">
                     <h1 class="hero-name">Muhammad Aqeel</h1>
-                    <p class="hero-title">PhD Researcher in Computer Science</p>
+                    <p class="hero-title">PhD Researcher</p>
                 </div>
             </div>
 
             <div class="hero-content-grid">
                 <div class="about-section">
-                    <div class="section-label">About Me</div>
+                    <div class="section-label">About</div>
                     <p class="about-text">
-                        I am a PhD researcher at the University of Verona, Italy, specializing in advanced anomaly detection algorithms for industrial manufacturing environments. Working under the supervision of <a href="http://www.franzsetti.info/" target="_blank" rel="noopener noreferrer">Francesco Setti</a>, my research focuses on developing robust deep learning architectures for real-time defect detection and quality control in industrial automation.
-                    </p>
-                    <p class="about-text">
-                        My interdisciplinary background spans computer vision, natural language processing, and industrial AI. I received my Master's degree from Beijing University of Posts and Telecommunications (2019-2021) under <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener noreferrer">Xiaohong Liu</a>, focusing on sentiment analysis and NLP. I hold a Bachelor's degree from PMAS Arid Agriculture University Rawalpindi (2013-2017).
-                    </p>
-                    <p class="about-text">
-                        With 9+ peer-reviewed publications in top-tier venues including ICCV, ECCV, and ICIAP, my current focus is on advancing industrial AI through scalable and interpretable anomaly detection systems that transform manufacturing quality assurance and enable predictive maintenance strategies.
+                        I am pursuing my PhD in Computer Science at University of Verona, Italy, 
+                        under the supervision of <a href="http://www.franzsetti.info/" target="_blank" rel="noopener noreferrer">Francesco Setti</a>,
+                        where I specialized in developing advanced anomaly detection algorithms for industrial manufacturing environments.
+                        My doctoral research focused on creating robust deep learning architectures that can automatically identify defects, 
+                        irregularities, and quality issues in real-time production settings, addressing critical challenges in industrial 
+                        automation and quality control. This work involved designing novel convolutional neural networks and unsupervised learning 
+                        approaches that achieve high accuracy while maintaining computational efficiency suitable for deployment in resource-constrained 
+                        industrial systems. I received my Master's degree in Computer Science from Beijing University of Posts and Telecommunications (2019-2021), 
+                        under the supervision of <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener noreferrer">Xiaohong Liu</a>,
+                        where my research centered on Natural Language Processing with a particular focus on sentiment analysis, 
+                        exploring innovative methods for understanding and classifying emotional content in text data. 
+                        I graduated with my Bachelor's degree in Computer Science from PMAS Arid Agriculture University Rawalpindi, Pakistan (2013-2017), 
+                        where I built a strong foundation in programming and algorithmic thinking. 
+                        My interdisciplinary background spanning from industrial computer vision to natural language understanding 
+                        enables me to approach complex machine learning challenges from multiple perspectives, 
+                        with a current focus on advancing industrial AI through scalable and interpretable anomaly detection systems
+                        that can transform manufacturing quality assurance and enable predictive maintenance strategies.
                     </p>
 
-                    <!-- CV Buttons -->
-                    <div class="cv-buttons-group">
-                        <button class="cv-btn cv-download-btn" onclick="generatePDF()">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="7 10 12 15 17 10"></polyline>
-                                <line x1="12" y1="15" x2="12" y2="3"></line>
-                            </svg>
-                            Download CV
-                        </button>
-                        <button class="cv-btn cv-view-btn" onclick="viewPDF()">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                <circle cx="12" cy="12" r="3"></circle>
-                            </svg>
-                            View CV
-                        </button>
-                    </div>
+                    <!-- CV Download Button -->
+                    <button class="cv-download-btn" onclick="generatePDF()">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download CV
+                    </button>
                 </div>
 
                 <div class="hero-right">
                     <div class="contact-section">
                         <div class="section-label">Connect</div>
                         <div class="contact-icons">
-                            <a href="mailto:muhammad.aqeel@univr.it" class="contact-icon-link" title="Email">
+                            <a href="mailto:muhammad.aqeel@univr.it" class="contact-icon-link" title="Email" target="_blank" rel="noopener noreferrer">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                     <polyline points="22,6 12,13 2,6"></polyline>
                                 </svg>
                             </a>
-                            <a href="https://wa.me/8618210133275" class="contact-icon-link" title="WhatsApp">
+                            <a href="https://wa.me/8618210133275" class="contact-icon-link" title="WhatsApp" target="_blank" rel="noopener noreferrer">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
                                 </svg>
                             </a>
-                            <a href="https://www.linkedin.com/in/muhammad-aqeel-4378b9170" class="contact-icon-link" title="LinkedIn">
+                            <a href="https://www.linkedin.com/in/muhammad-aqeel-4378b9170" class="contact-icon-link" title="LinkedIn" target="_blank" rel="noopener noreferrer">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                                     <rect x="2" y="9" width="4" height="12"></rect>
                                     <circle cx="4" cy="4" r="2"></circle>
                                 </svg>
                             </a>
-                            <a href="https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en" class="contact-icon-link" title="Google Scholar">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <a href="https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en" class="contact-icon-link" title="Google Scholar" target="_blank" rel="noopener noreferrer">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="scholar-icon">
                                     <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/>
                                 </svg>
                             </a>
