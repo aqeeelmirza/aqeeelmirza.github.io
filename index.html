@@ -713,6 +713,22 @@
             .contact-icon-link { width: 32px; height: 32px; }
             .contact-icon-link svg { width: 16px; height: 16px; }
         }
+            /* 🔧 Fix: Make all interactive elements non-transparent on hover */
+            a:hover,
+            button:hover,
+            .contact-icon-link:hover,
+            .pub-link:hover,
+            .cv-download-btn:hover,
+            .oral-tag:hover {
+                background-color: #0891b2 !important;
+                color: #ffffff !important;
+                border-color: #0e7490 !important;
+                backdrop-filter: blur(4px);
+                box-shadow: 0 4px 12px rgba(8, 145, 178, 0.25);
+                transform: translateY(-2px);
+                transition: all 0.3s ease;
+        }
+
     </style>
 </head>
 <body>
