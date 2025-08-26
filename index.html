@@ -26,7 +26,7 @@
             --text-secondary: #475569;
             --text-muted: #94a3b8;
             --accent: #0891b2;
-            --accent-light: #22d3ee;
+            --accent-light: #0891b2;
             --accent-dark: #0e7490;
             --accent-bg: rgba(8, 145, 178, 0.08);
             --border-light: rgba(0, 0, 0, 0.06);
@@ -419,7 +419,7 @@
             color: var(--accent); 
         }
 
-        /* Experience Timeline */
+        /* Experience */
         .experience-section { 
             padding: 100px 3rem; 
             background: var(--bg-secondary); 
@@ -432,92 +432,54 @@
             margin: 0 auto; 
         }
 
-        /* Timeline styles */
-        .timeline-container {
-            position: relative;
-            padding: 40px 0;
+        .experience-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); 
+            gap: 40px; 
         }
-
-        .timeline-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--accent);
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 50px;
-            display: flex;
-            align-items: center;
-        }
-
-        .timeline-item:nth-child(odd) {
-            justify-content: flex-start;
-            padding-right: 50%;
-            padding-left: 0;
-        }
-
-        .timeline-item:nth-child(even) {
-            justify-content: flex-end;
-            padding-left: 50%;
-            padding-right: 0;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 16px;
-            height: 16px;
-            background: var(--accent);
-            border: 3px solid var(--bg-secondary);
-            border-radius: 50%;
-            z-index: 10;
-            box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.2);
-        }
-
-        .timeline-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-light);
-            padding: 30px;
-            margin: 0 30px;
-            border-radius: 8px;
+        
+        .exp-card { 
+            background: var(--bg-card); 
+            border: 1px solid var(--border-light); 
+            padding: 35px; 
+            transition: all 0.3s ease; 
             box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-            width: 100%;
-            max-width: 500px;
+            border-radius: 8px;
         }
-
-        .timeline-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-hover);
+        
+        .exp-card:hover { 
+            transform: translateY(-3px); 
+            box-shadow: var(--shadow-md);
         }
-
-        .timeline-period {
-            font-size: 0.85rem;
-            color: var(--accent);
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            font-weight: 600;
+        
+        .exp-period { 
+            font-size: 0.85rem; 
+            color: var(--accent); 
+            margin-bottom: 10px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.1em; 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+            font-weight: 600; 
         }
-
-        .timeline-title {
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: var(--text-primary);
-            margin-bottom: 8px;
+        
+        .exp-title { 
+            font-size: 1.5rem; 
+            font-weight: 400; 
+            color: var(--text-primary); 
+            margin-bottom: 8px; 
         }
-
-        .timeline-company {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            font-style: italic;
+        
+        .exp-company { 
+            font-size: 1.1rem; 
+            color: var(--text-secondary); 
+            margin-bottom: 20px; 
+            font-style: italic; 
+        }
+        
+        .exp-description { 
+            font-size: 1rem; 
+            color: var(--text-secondary); 
+            line-height: 1.7; 
         }
 
         /* Publications */
@@ -733,17 +695,12 @@
             .hero-right { gap: 40px; }
             .hero-name { font-size: 2.5rem; }
             .section-title { font-size: 2rem; }
+            .experience-grid { grid-template-columns: 1fr; }
             .pub-link { padding: 10px 20px; font-size: 0.9rem; }
             .skills-grid { grid-template-columns: 1fr; }
             .contact-icons { justify-content: center; }
             .cv-download-btn { width: 100%; justify-content: center; }
             .pub-venue { flex-direction: column; align-items: flex-start; gap: 8px; }
-            
-            /* Timeline mobile adjustments */
-            .timeline-line { left: 20px; }
-            .timeline-item { padding-left: 60px !important; padding-right: 0 !important; justify-content: flex-start !important; }
-            .timeline-dot { left: 20px; }
-            .timeline-card { margin: 0 0 0 20px; }
         }
 
         @media (max-width: 600px) {
@@ -751,11 +708,10 @@
             .hero-section { padding: 100px 1.5rem 60px; }
             .hero-name { font-size: 2rem; }
             .experience-section, .publications-section, .skills-section { padding: 60px 1.5rem; }
-            .pub-card { padding: 25px; }
+            .exp-card, .pub-card { padding: 25px; }
             .pub-title { font-size: 1.4rem; }
             .contact-icon-link { width: 32px; height: 32px; }
             .contact-icon-link svg { width: 16px; height: 16px; }
-            .timeline-card { padding: 20px; }
         }
     </style>
 </head>
@@ -885,7 +841,7 @@
         </div>
     </section>
 
-    <!-- Experience Section with Timeline -->
+    <!-- Experience Section -->
     <section class="experience-section" id="experience">
         <div class="section-container">
             <div class="section-header fade-in">
@@ -893,61 +849,47 @@
                 <h2 class="section-title">Career Journey</h2>
             </div>
 
-            <div class="timeline-container fade-in">
-                <div class="timeline-line"></div>
-                
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-period">June 2025 - Present</div>
-                        <div class="timeline-title">Visiting Researcher (Mobility Period)</div>
-                        <div class="timeline-company">University of Ljubljana, Slovenia</div>
-                    </div>
+            <div class="experience-grid fade-in">
+                <div class="exp-card">
+                    <div class="exp-period">June 2025 - Present</div>
+                    <div class="exp-title">Visiting Researcher (Mobility Period)</div>
+                    <div class="exp-company">University of Ljubljana, Slovenia</div>
+                    <div class="exp-description"></div>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-period">2024 - 2025</div>
-                        <div class="timeline-title">Teaching Assistant</div>
-                        <div class="timeline-company">University of Verona, Italy</div>
-                    </div>
+                <div class="exp-card">
+                    <div class="exp-period">2024 - 2025</div>
+                    <div class="exp-title">Teaching Assistant</div>
+                    <div class="exp-company">University of Verona, Italy</div>
+                    <div class="exp-description"></div>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-period">2023 - 2024</div>
-                        <div class="timeline-title">Teaching Assistant</div>
-                        <div class="timeline-company">University of Verona, Italy</div>
-                    </div>
+                <div class="exp-card">
+                    <div class="exp-period">2023 - 2024</div>
+                    <div class="exp-title">Teaching Assistant</div>
+                    <div class="exp-company">University of Verona, Italy</div>
+                    <div class="exp-description"></div>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-period">2021 - 2022</div>
-                        <div class="timeline-title">Research Assistant</div>
-                        <div class="timeline-company">Huazhong University of Science and Technology, Wuhan, China</div>
-                    </div>
+                <div class="exp-card">
+                    <div class="exp-period">2021 - 2022</div>
+                    <div class="exp-title">Research Assistant</div>
+                    <div class="exp-company">Huazhong University of Science and Technology, Wuhan, China</div>
+                    <div class="exp-description"></div>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-period">2018 - 2019</div>
-                        <div class="timeline-title">Software Quality Assurance</div>
-                        <div class="timeline-company">UIIT, Arid Agriculture University, Pakistan</div>
-                    </div>
+                <div class="exp-card">
+                    <div class="exp-period">2018 - 2019</div>
+                    <div class="exp-title">Software Quality Assurance</div>
+                    <div class="exp-company">UIIT, Arid Agriculture University, Pakistan</div>
+                    <div class="exp-description"></div>
                 </div>
 
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-period">2017 - 2018</div>
-                        <div class="timeline-title">Software Developer</div>
-                        <div class="timeline-company">eConceptions (Pvt) Ltd. Pakistan</div>
-                    </div>
+                <div class="exp-card">
+                    <div class="exp-period">2017 - 2018</div>
+                    <div class="exp-title">Software Developer</div>
+                    <div class="exp-company">eConceptions (Pvt) Ltd. Pakistan</div>
+                    <div class="exp-description"></div>
                 </div>
             </div>
         </div>
