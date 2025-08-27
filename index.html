@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,6 @@
     <!-- Include jsPDF for PDF generation -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous"></script>
     <style>
-        /* ========= YOUR ORIGINAL THEME (kept) ========= */
         * {
             margin: 0;
             padding: 0;
@@ -172,11 +172,12 @@
         /* Experience */
         .experience-section { padding: 100px 3rem; background: var(--bg-secondary); position: relative; z-index: 2; }
         .section-container { max-width: 1400px; margin: 0 auto; }
-        .section-header { margin-bottom: 60px; background: linear-gradient(135deg, rgba(8,145,178,0.15) 0%, rgba(14,116,144,0.1) 100%); border-left: 4px solid var(--accent); padding: 30px; border-radius: 10px; }
-        .section-title { font-size: 3rem; font-weight: 300; letter-spacing: -0.03em; margin-bottom: 0; color: var(--text-primary); }
+        .section-header { margin-bottom: 60px; }
+        .section-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 40px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 600; }
         .experience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; }
-        .exp-card { background: var(--bg-card); border: 1px solid var(--border-light); padding: 35px; transition: all 0.3s ease; box-shadow: var(--shadow-sm); }
+        .exp-card { background: var(--bg-card); border: 1px solid var(--border-light); padding: 35px; transition: all 0.3s ease; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
         .exp-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .exp-badge { position: absolute; top: 15px; right: 15px; background: var(--accent); color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
         .exp-period { font-size: 0.85rem; color: var(--accent); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 600; }
         .exp-title { font-size: 1.5rem; font-weight: 400; color: var(--text-primary); margin-bottom: 8px; }
         .exp-company { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 20px; font-style: italic; }
@@ -185,16 +186,16 @@
         /* Publications */
         .publications-section { padding: 100px 3rem; background: var(--bg-tertiary); }
         .publications-grid { display: grid; gap: 30px; }
-        .pub-card { background: var(--bg-white); padding: 45px; transition: all 0.3s ease; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); }
+        .pub-card { background: var(--bg-white); padding: 45px; transition: all 0.3s ease; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); position: relative; }
         .pub-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-        .pub-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 25px; }
+        .pub-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 25px; gap: 10px; flex-wrap: wrap; }
         .pub-type { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
         .pub-year { color: var(--text-muted); font-size: 0.9rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+        .pub-oral-badge { background: var(--accent); color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin-left: auto; }
         .pub-title { font-size: 1.75rem; font-weight: 400; color: var(--text-primary); margin-bottom: 20px; line-height: 1.4; }
         .pub-authors { font-size: 1rem; color: var(--text-secondary); margin-bottom: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
         .pub-authors .highlight { color: var(--accent-dark); font-weight: 600; }
         .pub-venue { font-size: 1.15rem; color: var(--text-primary); margin-bottom: 25px; font-style: italic; }
-        .pub-venue .oral-tag { font-style: normal; font-weight: 700; letter-spacing: .03em; }
         .pub-links { display: flex; gap: 20px; margin-top: 25px; }
         .pub-link {
             padding: 12px 24px; background: transparent; color: var(--accent); text-decoration: none; font-size: 0.95rem;
@@ -392,20 +393,7 @@
 
             <div class="experience-grid fade-in">
                 <div class="exp-card">
-                    <div class="exp-period">June 2025 - Present</div>
-                    <div class="exp-title">Visiting Researcher (Mobility Period)</div>
-                    <div class="exp-company">University of Ljubljana, Slovenia</div>
-                    <div class="exp-description"></div>
-                </div>
-
-                <div class="exp-card">
-                    <div class="exp-period">2024 - 2025</div>
-                    <div class="exp-title">Teaching Assistant</div>
-                    <div class="exp-company">University of Verona, Italy</div>
-                    <div class="exp-description"></div>
-                </div>
-
-                <div class="exp-card">
+                    <span class="exp-badge">Teaching</span>
                     <div class="exp-period">2023 - 2024</div>
                     <div class="exp-title">Teaching Assistant</div>
                     <div class="exp-company">University of Verona, Italy</div>
@@ -413,6 +401,7 @@
                 </div>
 
                 <div class="exp-card">
+                    <span class="exp-badge">Research</span>
                     <div class="exp-period">2021 - 2022</div>
                     <div class="exp-title">Research Assistant</div>
                     <div class="exp-company">Huazhong University of Science and Technology, Wuhan, China</div>
@@ -420,6 +409,7 @@
                 </div>
 
                 <div class="exp-card">
+                    <span class="exp-badge">Industry</span>
                     <div class="exp-period">2018 - 2019</div>
                     <div class="exp-title">Software Quality Assurance</div>
                     <div class="exp-company">UIIT, Arid Agriculture University, Pakistan</div>
@@ -427,6 +417,7 @@
                 </div>
 
                 <div class="exp-card">
+                    <span class="exp-badge">Industry</span>
                     <div class="exp-period">2017 - 2018</div>
                     <div class="exp-title">Software Developers</div>
                     <div class="exp-company">eConceptions (Pvt) Ltd. Pakistan</div>
@@ -468,8 +459,7 @@
                     <p class="pub-authors">
                         <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
                     </p>
-                    <!-- ONLY web page change: add (ORAL) at venue end -->
-                    <p class="pub-venue">ICCV 2025 - International Conference on Computer Vision </p>
+                    <p class="pub-venue">ICCV 2025 - International Conference on Computer Vision</p>
                     <div class="pub-links">
                         <a href="https://arxiv.org/abs/2508.02293" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
@@ -479,12 +469,13 @@
                     <div class="pub-header">
                         <span class="pub-type">Conference</span>
                         <span class="pub-year">2024</span>
+                        <span class="pub-oral-badge">Oral</span>
                     </div>
                     <h3 class="pub-title">Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection in Industrial Inspection</h3>
                     <p class="pub-authors">
                         <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
                     </p>
-                    <p class="pub-venue">ECCVW 2024 - VISION Workshop at European Conference on Computer Vision <span class="oral-tag">(ORAL)</span></p>
+                    <p class="pub-venue">ECCVW 2024 - VISION Workshop at European Conference on Computer Vision</p>
                     <div class="pub-links">
                         <a href="https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
@@ -494,12 +485,13 @@
                     <div class="pub-header">
                         <span class="pub-type">Conference</span>
                         <span class="pub-year">2025</span>
+                        <span class="pub-oral-badge">Oral</span>
                     </div>
                     <h3 class="pub-title">RoadFusion: Latent Diffusion Model for Pavement Defect Detection</h3>
                     <p class="pub-authors">
                         <span class="highlight">Muhammad Aqeel</span>, Kidus Dagnaw Bellete, Francesco Setti
                     </p>
-                    <p class="pub-venue">ICIAP 2025 - International Conference on Image Analysis and Processing <span class="oral-tag">(ORAL)</span></p>
+                    <p class="pub-venue">ICIAP 2025 - International Conference on Image Analysis and Processing</p>
                     <div class="pub-links">
                         <a href="https://arxiv.org/abs/2507.15346" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
@@ -539,12 +531,13 @@
                     <div class="pub-header">
                         <span class="pub-type">Conference</span>
                         <span class="pub-year">2025</span>
+                        <span class="pub-oral-badge">Oral</span>
                     </div>
                     <h3 class="pub-title">Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control</h3>
                     <p class="pub-authors">
                         <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
                     </p>
-                    <p class="pub-venue">VISAPP 2025 - International Joint Conference on Computer Vision, Imaging and Computer Graphics Theory and Applications <span class="oral-tag">(ORAL)</span></p>
+                    <p class="pub-venue">VISAPP 2025 - International Joint Conference on Computer Vision, Imaging and Computer Graphics Theory and Applications</p>
                     <div class="pub-links">
                         <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
@@ -554,12 +547,13 @@
                     <div class="pub-header">
                         <span class="pub-type">Conference</span>
                         <span class="pub-year">2024</span>
+                        <span class="pub-oral-badge">Oral</span>
                     </div>
                     <h3 class="pub-title">Self-supervised Learning for Robust Surface Defect Detection</h3>
                     <p class="pub-authors">
                         <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
                     </p>
-                    <p class="pub-venue">DeLTA 2024- International Conference on Deep Learning Theory and Applications <span class="oral-tag">(ORAL)</span></p>
+                    <p class="pub-venue">DeLTA 2024- International Conference on Deep Learning Theory and Applications</p>
                     <div class="pub-links">
                         <a href="https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
