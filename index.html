@@ -1023,127 +1023,125 @@
             const doc = new jsPDF({ unit: 'mm', format: 'a4' });
         
             // Constants
-            const ML = 20, MR = 20, TOP = 18;
+            const ML = 20, MR = 20, TOP = 20;
             const CONTENT_W = 210 - ML - MR;
             const LEFT = ML, RIGHT = 210 - MR;
             const LINE = 5;
-            const BLUE = [8, 145, 178]; // Your accent color
-            const GREY = [100, 100, 100];
+        
+            // Color scheme - professional black/grey
+            const BLACK = [0, 0, 0];
+            const DARK_GREY = [51, 51, 51];
+            const MID_GREY = [102, 102, 102];
+            const LIGHT_GREY = [153, 153, 153];
         
             // Helper functions
-            const setBlack = () => doc.setTextColor(0, 0, 0);
-            const setBlue = () => doc.setTextColor(...BLUE);
-            const setGrey = () => doc.setTextColor(...GREY);
+            const setColor = (color) => doc.setTextColor(...color);
         
-            // Draw section header with blue accent
+            // Draw section header - clean, professional
             function drawSectionHeader(doc, title, x, y) {
-                setBlue();
+                setColor(BLACK);
                 doc.setFont('helvetica', 'bold');
-                doc.setFontSize(12);
-                // Add blue bullet/line
-                doc.setDrawColor(...BLUE);
-                doc.setLineWidth(2);
-                doc.line(x - 5, y - 2, x - 2, y - 2);
+                doc.setFontSize(11);
                 doc.text(title.toUpperCase(), x, y);
-                // Draw underline
-                doc.setLineWidth(0.5);
-                doc.line(x, y + 1, x + doc.getTextWidth(title.toUpperCase()), y + 1);
-                setBlack();
+                // Simple underline
+                doc.setDrawColor(...LIGHT_GREY);
+                doc.setLineWidth(0.3);
+                doc.line(x, y + 1.5, RIGHT, y + 1.5);
+                setColor(BLACK);
                 return y + 8;
             }
         
-            // Header: Name, Title, Contact Info
-            setBlack();
+            // Header section with better spacing
+            setColor(BLACK);
             doc.setFont('helvetica', 'bold');
-            doc.setFontSize(22);
+            doc.setFontSize(24);
             doc.text("Muhammad Aqeel", LEFT, TOP);
         
             doc.setFont('helvetica', 'normal');
-            doc.setFontSize(12);
+            doc.setFontSize(11);
+            setColor(DARK_GREY);
             doc.text("PhD Researcher in Computer Science", LEFT, TOP + 8);
         
-            // Profile image (if exists)
-            const imgEl = document.querySelector('.profile-image img');
-            let contactX = RIGHT - 65; // Default position for contact info
-            if (imgEl && imgEl.style.display !== 'none') {
-                try {
-                    const masked = await getMaskedImageDataURL(imgEl, 520, IMAGE_SHAPE);
-                    if (masked) {
-                        doc.addImage(masked, 'PNG', RIGHT - 30, TOP - 8, 30, 30);
-                        contactX = RIGHT - 70; // Adjust contact position if image exists
-                    }
-                } catch(e) { /* ignore */ }
-            }
-        
-            // Contact info (right side, grey color)
+            // Contact info - moved down to avoid overlap
+            let y = TOP + 18;
             doc.setFontSize(9);
-            setGrey();
-            let contactY = TOP;
-            doc.text("muhammad.aqeel@univr.it", contactX, contactY, { align: 'right' });
-            contactY += 4;
-            doc.text("+86 182 1013 3275", contactX, contactY, { align: 'right' });
-            contactY += 4;
-            doc.text("LinkedIn: muhammad-aqeel", contactX, contactY, { align: 'right' });
-            contactY += 4;
-            doc.text("Ljubljana, Slovenia", contactX, contactY, { align: 'right' });
+            setColor(MID_GREY);
+            doc.text("muhammad.aqeel@univr.it | +86 182 1013 3275 | Ljubljana, Slovenia", LEFT, y);
+            y += 4;
+            doc.text("LinkedIn: muhammad-aqeel-4378b9170 | Scholar: ZPUihX0AAAAJ", LEFT, y);
         
             // Main divider
-            let y = TOP + 25;
-            doc.setDrawColor(200, 200, 200);
-            doc.setLineWidth(0.3);
+            y += 6;
+            doc.setDrawColor(...LIGHT_GREY);
+            doc.setLineWidth(0.5);
             doc.line(LEFT, y, RIGHT, y);
         
-            // ABOUT
+            // ABOUT SECTION
             y += 10;
             y = drawSectionHeader(doc, "About", LEFT, y);
             doc.setFont('helvetica', 'normal');
-            doc.setFontSize(9);
-            const aboutText = "PhD researcher at the University of Verona specializing in anomaly detection for industrial manufacturing. My work focuses on developing deep learning algorithms that can identify defects and quality issues in real-time production environments. Coming from a multidisciplinary background with an MSc focused on Natural Language Processing from Beijing University of Posts and Telecommunications and now working in computer vision, I bring a unique perspective to solving complex machine learning challenges. My research has resulted in 12 publications in international conferences, with particular emphasis on self-supervised learning and meta-learning approaches.";
-            y = drawJustifiedParagraph(doc, aboutText, LEFT, y, CONTENT_W, 4.5) + 3;
+            doc.setFontSize(10);
+            setColor(DARK_GREY);
+            const aboutText = "I am a PhD researcher at the University of Verona specializing in anomaly detection for industrial manufacturing. My work focuses on developing deep learning algorithms that can identify defects and quality issues in real-time production environments. Coming from a multidisciplinary background - with an MSc focused on Natural Language Processing from Beijing University of Posts and Telecommunications and now working in computer vision - I bring a unique perspective to solving complex machine learning challenges. My research has resulted in 12 publications in international conferences, with particular emphasis on self-supervised learning and meta-learning approaches that achieve high accuracy while remaining computationally efficient for deployment on edge devices. I am passionate about bridging the gap between theoretical AI research and practical industrial applications.";
+            
+            const aboutLines = doc.splitTextToSize(aboutText, CONTENT_W);
+            aboutLines.forEach(line => {
+                if (y > 270) { doc.addPage(); y = TOP; }
+                doc.text(line, LEFT, y);
+                y += 4.5;
+            });
         
             // RESEARCH INTERESTS
+            y += 6;
             if (y > 250) { doc.addPage(); y = TOP; }
             y = drawSectionHeader(doc, "Research Interests", LEFT, y);
-            doc.setFontSize(9);
-            const researchText = "My research centers on developing robust anomaly detection systems for industrial quality control. I am particularly interested in how self-supervised and meta-learning techniques can enable models to detect previously unseen defects without extensive labeled data. Currently exploring diffusion models for generating synthetic defect data to augment limited industrial datasets. A key focus is ensuring these systems are not just accurate but also interpretable and efficient enough for real-time deployment in manufacturing environments.";
-            y = drawJustifiedParagraph(doc, researchText, LEFT, y, CONTENT_W, 4.5) + 3;
+            doc.setFontSize(10);
+            setColor(DARK_GREY);
+            const researchText = "My research centers on developing robust anomaly detection systems for industrial quality control. I am particularly interested in how self-supervised and meta-learning techniques can enable models to detect previously unseen defects without extensive labeled data. Currently, I'm exploring diffusion models for generating synthetic defect data to augment limited industrial datasets. A key focus of my work is ensuring these systems are not just accurate but also interpretable and efficient enough for real-time deployment in manufacturing environments. I'm also investigating zero-shot anomaly detection methods that can generalize across different product types and manufacturing processes. My broader interest lies in making industrial AI systems more accessible and practical for real-world deployment.";
+            
+            const researchLines = doc.splitTextToSize(researchText, CONTENT_W);
+            researchLines.forEach(line => {
+                if (y > 270) { doc.addPage(); y = TOP; }
+                doc.text(line, LEFT, y);
+                y += 4.5;
+            });
         
             // EDUCATION
+            y += 6;
             if (y > 250) { doc.addPage(); y = TOP; }
             y = drawSectionHeader(doc, "Education", LEFT, y);
             doc.setFontSize(10);
         
             const edu = [
                 { degree: "PhD in Computer Science", period: "2022–Present", inst: "University of Verona, Italy", details: "Supervisor: Francesco Setti" },
-                { degree: "Master in Computer Science", period: "2019–2021", inst: "Beijing University of Posts and Telecommunications, China", details: "Focus: Natural Language Processing" },
-                { degree: "Bachelor in Computer Science", period: "2013–2017", inst: "PMAS Arid Agriculture University, Pakistan", details: "" }
+                { degree: "Master in Computer Science", period: "2019–2021", inst: "Beijing University of Posts and Telecommunications, China" },
+                { degree: "Bachelor in Computer Science", period: "2013–2017", inst: "PMAS Arid Agriculture University, Pakistan" }
             ];
         
             edu.forEach(e => {
-                if (y > 270) { doc.addPage(); y = TOP; }
-                setBlue();
+                if (y > 265) { doc.addPage(); y = TOP; }
                 doc.setFont('helvetica', 'bold');
-                doc.text("• ", LEFT, y);
-                setBlack();
-                doc.text(e.degree, LEFT + 3, y);
+                setColor(BLACK);
+                doc.text(e.degree, LEFT, y);
                 doc.setFont('helvetica', 'normal');
-                setGrey();
+                setColor(MID_GREY);
                 doc.text(e.period, RIGHT - doc.getTextWidth(e.period), y);
-                y += LINE;
-                setBlack();
-                doc.text(e.inst, LEFT + 3, y);
+                y += 4.5;
+                setColor(DARK_GREY);
+                doc.text(e.inst, LEFT, y);
                 if (e.details) {
                     y += 4;
                     doc.setFontSize(9);
-                    setGrey();
-                    doc.text(e.details, LEFT + 3, y);
+                    setColor(MID_GREY);
+                    doc.text(e.details, LEFT, y);
                     doc.setFontSize(10);
                 }
                 y += 6;
             });
         
             // PROFESSIONAL EXPERIENCE
-            if (y > 240) { doc.addPage(); y = TOP; }
+            y += 2;
+            if (y > 250) { doc.addPage(); y = TOP; }
             y = drawSectionHeader(doc, "Professional Experience", LEFT, y);
             doc.setFontSize(10);
         
@@ -1156,46 +1154,41 @@
             ];
         
             experiences.forEach(ex => {
-                if (y > 270) { doc.addPage(); y = TOP; }
-                setBlue();
+                if (y > 265) { doc.addPage(); y = TOP; }
                 doc.setFont('helvetica', 'bold');
-                doc.text("• ", LEFT, y);
-                setBlack();
-                doc.text(ex.title, LEFT + 3, y);
+                setColor(BLACK);
+                doc.text(ex.title, LEFT, y);
                 doc.setFont('helvetica', 'normal');
-                setGrey();
+                setColor(MID_GREY);
                 doc.text(ex.period, RIGHT - doc.getTextWidth(ex.period), y);
-                y += LINE;
-                setBlack();
-                doc.text(ex.org, LEFT + 3, y);
+                y += 4.5;
+                setColor(DARK_GREY);
+                doc.text(ex.org, LEFT, y);
                 y += 6;
             });
         
             // ACADEMIC SERVICE
+            y += 2;
             if (y > 250) { doc.addPage(); y = TOP; }
             y = drawSectionHeader(doc, "Academic Service", LEFT, y);
             doc.setFontSize(10);
             doc.setFont('helvetica', 'bold');
+            setColor(BLACK);
             doc.text("Reviewer:", LEFT, y);
-            y += LINE;
+            y += 5;
             doc.setFont('helvetica', 'normal');
-            setBlue();
-            doc.text("• ", LEFT + 5, y);
-            setBlack();
-            doc.text("Journals: Neural Computing and Applications, Applied Soft Computing", LEFT + 8, y);
-            y += LINE;
-            setBlue();
-            doc.text("• ", LEFT + 5, y);
-            setBlack();
-            doc.text("Conferences: CVPR 2024, ECCV 2024", LEFT + 8, y);
+            setColor(DARK_GREY);
+            doc.text("Journals: Neural Computing and Applications, Applied Soft Computing", LEFT + 5, y);
+            y += 4.5;
+            doc.text("Conferences: CVPR 2024, ECCV 2024", LEFT + 5, y);
             y += 8;
         
             // LANGUAGES
             if (y > 250) { doc.addPage(); y = TOP; }
             y = drawSectionHeader(doc, "Languages", LEFT, y);
             doc.setFontSize(10);
-            const languages = "Punjabi/Urdu (Native) | English (Fluent-C2) | Italian (Elementary-A2) | Chinese (Basic-A1)";
-            doc.text(languages, LEFT, y);
+            setColor(DARK_GREY);
+            doc.text("Punjabi/Urdu (Native) • English (Fluent-C2) • Italian (Elementary-A2) • Chinese (Basic-A1)", LEFT, y);
             y += 8;
         
             // TECHNICAL SKILLS
@@ -1210,66 +1203,61 @@
             
             skills.forEach(s => {
                 if (y > 270) { doc.addPage(); y = TOP; }
-                setBlue();
-                doc.text("• ", LEFT, y);
                 doc.setFont('helvetica', 'bold');
-                setBlack();
-                doc.text(s.category, LEFT + 3, y);
+                setColor(BLACK);
+                doc.text(s.category, LEFT, y);
                 doc.setFont('helvetica', 'normal');
-                doc.text(s.items, LEFT + 3 + doc.getTextWidth(s.category) + 2, y);
-                y += LINE;
+                setColor(DARK_GREY);
+                doc.text(s.items, LEFT + doc.getTextWidth(s.category) + 2, y);
+                y += 5;
             });
-            y += 3;
+            y += 4;
         
             // RESEARCH PUBLICATIONS
             if (y > 240) { doc.addPage(); y = TOP; }
             y = drawSectionHeader(doc, "Research Publications", LEFT, y);
-            doc.setFont('helvetica', 'normal');
             doc.setFontSize(9);
-        
-            const numberX = LEFT;
-            const contentX = LEFT + 7;
-            const maxW = RIGHT - contentX;
         
             allPublications.forEach((pub, index) => {
                 if (y > 265) { doc.addPage(); y = TOP; }
         
-                // Number with blue color
-                setBlue();
-                doc.text(`[${index + 1}]`, numberX, y);
-                setBlack();
+                // Clean numbering
+                setColor(DARK_GREY);
+                doc.text(`[${index + 1}]`, LEFT, y);
         
                 // Title
+                const titleX = LEFT + 8;
+                doc.setFont('helvetica', 'bold');
+                setColor(BLACK);
                 let titleTxt = pub.title;
                 if (pub.oral) titleTxt += " (Oral)";
-                const titleLines = doc.splitTextToSize(titleTxt, maxW);
-                doc.setFont('helvetica', 'bold');
-                titleLines.forEach((ln, i) => {
-                    doc.text(ln, contentX, y);
+                const titleLines = doc.splitTextToSize(titleTxt, RIGHT - titleX);
+                titleLines.forEach(line => {
+                    doc.text(line, titleX, y);
                     y += 4;
                 });
         
                 // Authors
                 doc.setFont('helvetica', 'normal');
+                setColor(DARK_GREY);
                 const authorsStr = pub.authors.join(', ');
-                const authorLines = doc.splitTextToSize(authorsStr, maxW);
-                authorLines.forEach(ln => {
-                    doc.text(ln, contentX, y);
+                const authorLines = doc.splitTextToSize(authorsStr, RIGHT - titleX);
+                authorLines.forEach(line => {
+                    doc.text(line, titleX, y);
                     y += 4;
                 });
         
-                // Venue (italic, grey)
+                // Venue
                 doc.setFont('helvetica', 'italic');
-                setGrey();
-                const venueLines = doc.splitTextToSize(pub.venue, maxW);
-                venueLines.forEach(ln => {
-                    doc.text(ln, contentX, y);
+                setColor(MID_GREY);
+                const venueLines = doc.splitTextToSize(pub.venue, RIGHT - titleX);
+                venueLines.forEach(line => {
+                    doc.text(line, titleX, y);
                     y += 4;
                 });
                 doc.setFont('helvetica', 'normal');
-                setBlack();
-        
-                y += 3; // space between entries
+                
+                y += 3;
             });
         
             // REFERENCES
@@ -1278,16 +1266,17 @@
             doc.setFontSize(10);
             
             references.forEach(r => {
-                if (y > 270) { doc.addPage(); y = TOP; }
+                if (y > 265) { doc.addPage(); y = TOP; }
                 doc.setFont('helvetica', 'bold');
+                setColor(BLACK);
                 doc.text(r.name, LEFT, y);
-                y += LINE;
+                y += 4.5;
                 doc.setFont('helvetica', 'normal');
+                setColor(DARK_GREY);
                 doc.text(r.role, LEFT, y);
-                y += LINE;
-                setGrey();
-                doc.text(`Email: ${r.email} | Phone: ${r.phone}`, LEFT, y);
-                setBlack();
+                y += 4.5;
+                setColor(MID_GREY);
+                doc.text(`Email: ${r.email} • Phone: ${r.phone}`, LEFT, y);
                 y += 8;
             });
         
