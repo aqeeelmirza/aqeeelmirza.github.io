@@ -214,7 +214,36 @@
             transition: all 0.3s ease; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; border: 2px solid var(--accent); font-weight: 500;
         }
         .pub-link:hover { background: var(--accent); color: #ffffff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 119, 163, 0.3); }
-
+        .pub-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+        
+        .pub-filter-btn {
+            padding: 10px 24px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 2px solid var(--border-light);
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 500;
+        }
+        
+        .pub-filter-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .pub-filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
         /* Skills */
         .skills-section { padding: 100px 3rem; background: var(--bg-secondary); }
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; max-width: 1200px; margin: 0 auto; }
@@ -456,6 +485,11 @@
                 <h2 class="section-title">Research Publications</h2>
             </div>
 
+            <div class="pub-filters">
+                <button class="pub-filter-btn active" onclick="filterPublications('all')">All Publications</button>
+                <button class="pub-filter-btn" onclick="filterPublications('featured')">Selected Publications</button>
+            </div>
+
             <div class="publications-grid">
                 <article class="pub-card fade-in">
                     <div class="pub-header">
@@ -472,7 +506,7 @@
                     </div>
                 </article>
 
-                <article class="pub-card fade-in">
+                <article class="pub-card fade-in" data-featured="true">
                     <div class="pub-header">
                         <span class="pub-type">Conference</span>
                         <span class="pub-year">2025</span>
@@ -487,7 +521,7 @@
                     </div>
                 </article>
 
-                <article class="pub-card fade-in">
+                <article class="pub-card fade-in" data-featured="true">
                     <div class="pub-header">
                         <span class="pub-type">Conference</span>
                         <span class="pub-year">2024</span>
@@ -505,7 +539,7 @@
                     </div>
                 </article>
 
-                <article class="pub-card fade-in">
+                <article class="pub-card fade-in" data-featured="true">
                     <div class="pub-header">
                         <span class="pub-type">Conference</span>
                         <span class="pub-year">2025</span>
@@ -523,7 +557,7 @@
                     </div>
                 </article>
 
-                <article class="pub-card fade-in">
+                <article class="pub-card fade-in" data-featured="true">
                     <div class="pub-header">
                         <span class="pub-type">Conference</span>
                         <span class="pub-year">2025</span>
@@ -541,7 +575,7 @@
                     </div>
                 </article>
 
-                <article class="pub-card fade-in">
+                <article class="pub-card fade-in" data-featured="true">
                     <div class="pub-header">
                         <span class="pub-type">Conference</span>
                         <span class="pub-year">2025</span>
@@ -730,6 +764,25 @@
                 navMenu.classList.remove('active');
             });
         });
+
+        // ADD THE FILTER FUNCTION HERE
+        function filterPublications(filter) {
+            const buttons = document.querySelectorAll('.pub-filter-btn');
+            const publications = document.querySelectorAll('.pub-card');
+            
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter publications
+            publications.forEach(pub => {
+                if (filter === 'all') {
+                    pub.style.display = 'block';
+                } else if (filter === 'featured') {
+                    pub.style.display = pub.dataset.featured === 'true' ? 'block' : 'none';
+                }
+            });
+        }
 
         // Scroll active link
         const sections = document.querySelectorAll('section');
