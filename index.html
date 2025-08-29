@@ -178,7 +178,7 @@
         .section-container { max-width: 1400px; margin: 0 auto; }
         .section-header { margin-bottom: 60px; }
         .section-title {
-            font-size: 1.5rem; /* Changed from 0.85rem */
+            font-size: 0.85rem; /* Changed from 0.85rem */
             text-transform: uppercase;
             letter-spacing: 0.15em;
             color: var(--accent);
@@ -250,7 +250,7 @@
             .about-section { text-align: center; }
             .hero-right { gap: 40px; }
             .hero-name { font-size: 2.5rem; }
-            .section-title { font-size: 1.5rem; }
+            .section-title { font-size: 0.85rem; }
             .experience-grid { grid-template-columns: 1fr; }
             .pub-link { padding: 10px 20px; font-size: 0.9rem; }
             .skills-grid { grid-template-columns: 1fr; }
@@ -262,7 +262,7 @@
             .nav-container { padding: 1rem 1.5rem; }
             .hero-section { padding: 100px 1.5rem 60px; }
             .hero-name { font-size: 2rem; }
-            .experience-section, .publications-section, .skills-section { padding: 60px 1.5rem; }
+            .experience-section, .publications-section, .skills-section { padding: 60px 0.85rem; }
             .exp-card, .pub-card { padding: 25px; }
             .pub-title { font-size: 1.4rem; }
             .contact-icon-link { width: 32px; height: 32px; }
@@ -405,7 +405,6 @@
 
             <div class="experience-grid fade-in">
                 <div class="exp-card">
-                    <span class="exp-badge">Researcher</span>
                     <div class="exp-period">June 2025 - Present</div>
                     <div class="exp-title">Visiting Researcher (Mobility Period)</div>
                     <div class="exp-company">University of Ljubljana, Slovenia</div>
@@ -413,7 +412,6 @@
                 </div>
                 
                 <div class="exp-card">
-                    <span class="exp-badge">Teaching</span>
                     <div class="exp-period">2024 - 2025</div>
                     <div class="exp-title">Teaching Assistant</div>
                     <div class="exp-company">University of Verona, Italy</div>
@@ -421,7 +419,6 @@
                 </div>
                 
                 <div class="exp-card">
-                    <span class="exp-badge">Teaching</span>
                     <div class="exp-period">2023 - 2024</div>
                     <div class="exp-title">Teaching Assistant</div>
                     <div class="exp-company">University of Verona, Italy</div>
@@ -429,7 +426,6 @@
                 </div>
 
                 <div class="exp-card">
-                    <span class="exp-badge">Research</span>
                     <div class="exp-period">2021 - 2022</div>
                     <div class="exp-title">Research Assistant</div>
                     <div class="exp-company">Huazhong University of Science and Technology, Wuhan, China</div>
@@ -437,7 +433,6 @@
                 </div>
 
                 <div class="exp-card">
-                    <span class="exp-badge">Industry</span>
                     <div class="exp-period">2018 - 2019</div>
                     <div class="exp-title">Software Quality Assurance</div>
                     <div class="exp-company">UIIT, Arid Agriculture University, Pakistan</div>
@@ -445,7 +440,6 @@
                 </div>
 
                 <div class="exp-card">
-                    <span class="exp-badge">Industry</span>
                     <div class="exp-period">2017 - 2018</div>
                     <div class="exp-title">Software Developers</div>
                     <div class="exp-company">eConceptions (Pvt) Ltd. Pakistan</div>
@@ -508,6 +502,59 @@
                     </p>
                     <div class="pub-links">
                         <a href="https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                    </div>
+                </article>
+
+                <article class="pub-card fade-in">
+                    <div class="pub-header">
+                        <span class="pub-type">Conference</span>
+                        <span class="pub-year">2025</span>
+                    </div>
+                    <h3 class="pub-title">A Contrastive Learning-Guided Confident Meta-learning for Zero Shot Anomaly Detection</h3>
+                    <p class="pub-authors">
+                        <span class="highlight">Muhammad Aqeel</span>, Danijel Skocaj, Marco Cristani, Francesco Setti
+                    </p>
+                    <p class="pub-venue">
+                        ICCVW 2025 - VISION Workshop at International Conference on Computer Vision
+                        <span class="pub-oral-badge">Oral</span>
+                    </p>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/abs/2508.17827" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                    </div>
+                </article>
+
+                <article class="pub-card fade-in">
+                    <div class="pub-header">
+                        <span class="pub-type">Conference</span>
+                        <span class="pub-year">2025</span>
+                    </div>
+                    <h3 class="pub-title">Robust Anomaly Detection in Industrial Environments via Meta-Learning</h3>
+                    <p class="pub-authors">
+                        <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
+                    </p>
+                    <p class="pub-venue">
+                        ICCVW 2025 - VISION Workshop at International Conference on Computer Vision
+                        <span class="pub-oral-badge">Oral</span>
+                    </p>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/abs/2508.177898" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                    </div>
+                </article>
+
+                <article class="pub-card fade-in">
+                    <div class="pub-header">
+                        <span class="pub-type">Conference</span>
+                        <span class="pub-year">2025</span>
+                    </div>
+                    <h3 class="pub-title">Diffusion-Based Data Augmentation for Medical Image Segmentation</h3>
+                    <p class="pub-authors">
+                        Maham Nazir, <span class="highlight">Muhammad Aqeel</span>, Francesco Setti
+                    </p>
+                    <p class="pub-venue">
+                        ICCVW 2025 - CVAMD Workshop at International Conference on Computer Vision
+                    </p>
+                    <div class="pub-links">
+                        <a href="https://arxiv.org/abs/2508.17844" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
 
@@ -763,6 +810,27 @@
                 venue: "ECCVW 2024 - VISION Workshop at European Conference on Computer Vision",
                 link: "https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28",
                 oral: true
+            },
+            {
+                title: "A Contrastive Learning-Guided Confident Meta-learning for Zero Shot Anomaly Detection",
+                authors: ["Muhammad Aqeel", "Danijel Skocaj", "Marco Cristani", "Francesco Setti"],
+                venue: "ICCVW 2025 - VISION Workshop at International Conference on Computer Vision",
+                link: "https://arxiv.org/abs/2508.17827",
+                oral: true
+            },
+            {
+                title: "Robust Anomaly Detection in Industrial Environments via Meta-Learning",
+                authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
+                venue: "ICCVW 2025 - VISION Workshop at International Conference on Computer Vision",
+                link: "https://arxiv.org/abs/2508.177898",
+                oral: true
+            },
+            {
+                title: "Diffusion-Based Data Augmentation for Medical Image Segmentation",
+                authors: ["Maham Nazir", "Muhammad Aqeel", "Francesco Setti"],
+                venue: "ICCVW 2025 - CVAMD Workshop at International Conference on Computer Vision",
+                link: "https://arxiv.org/abs/2508.17844",
+                oral: false
             },
             {
                 title: "RoadFusion: Latent Diffusion Model for Pavement Defect Detection",
@@ -1065,8 +1133,10 @@
                 y += LINE + 2;
             });
 
-            // Save the PDF
-            doc.save("Muhammad_Aqeel_CV.pdf");
+            // Open PDF in new tab
+            const pdfBlob = doc.output('blob');
+            const pdfUrl = URL.createObjectURL(pdfBlob);
+            window.open(pdfUrl, '_blank');
         }
     </script>
 </body>
