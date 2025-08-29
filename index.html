@@ -187,8 +187,8 @@
             font-weight: 600;
         }
         .experience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; }
-        .exp-card { background: var(--bg-card); border: 1px solid var(--border-light); padding: 35px; transition: all 0.3s ease; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
-        .exp-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+        .exp-card { background: var(--bg-card); border: 1px solid var(--border-light); padding: 35px; transition: all 0.3s ease; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; border-left: 3px solid transparent; cursor: pointer;}
+        .exp-card:hover { transform: translateY(-3px) translateX(5px); box-shadow: var(--shadow-md); border-left-color: var(--accent)}
         .exp-badge { position: absolute; top: 15px; right: 15px; background: var(--accent); color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
         .exp-period { font-size: 0.85rem; color: var(--accent); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 600; }
         .exp-title { font-size: 1.25rem; font-weight: 400; color: var(--text-primary); margin-bottom: 8px; }
