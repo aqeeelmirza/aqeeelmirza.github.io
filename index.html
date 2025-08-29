@@ -1028,52 +1028,106 @@
             const LEFT = ML, RIGHT = 210 - MR;
             const LINE = 5;
         
-            // Color scheme - professional black/grey
-            const BLACK = [0, 0, 0];
-            const DARK_GREY = [51, 51, 51];
-            const MID_GREY = [102, 102, 102];
-            const LIGHT_GREY = [153, 153, 153];
+            // Professional color scheme
+            const PRIMARY = [30, 41, 59];      // Dark slate for headers
+            const SECONDARY = [71, 85, 105];   // Slate for body text
+            const ACCENT = [8, 145, 178];      // Your website accent color
+            const MUTED = [148, 163, 184];     // Light slate for secondary info
         
-            // Helper functions
             const setColor = (color) => doc.setTextColor(...color);
         
-            // Draw section header - clean, professional
+            // Helper for justified text
+            function drawJustifiedText(doc, text, x, y, width, lineHeight, color = SECONDARY) {
+                setColor(color);
+                const words = text.split(/\s+/);
+                let line = '', lines = [];
+                
+                words.forEach(w => {
+                    const test = line ? line + ' ' + w : w;
+                    if (doc.getTextWidth(test) <= width) {
+                        line = test;
+                    } else {
+                        lines.push(line);
+                        line = w;
+                    }
+                });
+                if (line) lines.push(line);
+        
+                lines.forEach((ln, idx) => {
+                    if (y > 270) {
+                        doc.addPage();
+                        y = TOP;
+                    }
+                    
+                    const isLast = idx === lines.length - 1;
+                    if (isLast || !ln.includes(' ')) {
+                        doc.text(ln, x, y);
+                    } else {
+                        // Justify the line
+                        const parts = ln.split(' ');
+                        const wordsWidth = parts.reduce((acc, w) => acc + doc.getTextWidth(w), 0);
+                        const gaps = parts.length - 1;
+                        const extra = (width - wordsWidth) / gaps;
+                        let cx = x;
+                        parts.forEach((w, i) => {
+                            doc.text(w, cx, y);
+                            cx += doc.getTextWidth(w) + extra;
+                        });
+                    }
+                    y += lineHeight;
+                });
+                return y;
+            }
+        
+            // Draw section header with accent color underline
             function drawSectionHeader(doc, title, x, y) {
-                setColor(BLACK);
+                setColor(PRIMARY);
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(11);
                 doc.text(title.toUpperCase(), x, y);
-                // Simple underline
-                doc.setDrawColor(...LIGHT_GREY);
-                doc.setLineWidth(0.3);
-                doc.line(x, y + 1.5, RIGHT, y + 1.5);
-                setColor(BLACK);
+                // Accent color underline
+                doc.setDrawColor(...ACCENT);
+                doc.setLineWidth(0.8);
+                doc.line(x, y + 2, x + doc.getTextWidth(title.toUpperCase()), y + 2);
                 return y + 8;
             }
         
-            // Header section with better spacing
-            setColor(BLACK);
+            // Header section
+            setColor(PRIMARY);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(24);
             doc.text("Muhammad Aqeel", LEFT, TOP);
         
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(11);
-            setColor(DARK_GREY);
+            setColor(SECONDARY);
             doc.text("PhD Researcher in Computer Science", LEFT, TOP + 8);
         
-            // Contact info - moved down to avoid overlap
-            let y = TOP + 18;
+            // Profile image (fixed positioning)
+            const imgEl = document.querySelector('.profile-image img');
+            if (imgEl && imgEl.style.display !== 'none' && imgEl.naturalWidth > 0) {
+                try {
+                    const masked = await getMaskedImageDataURL(imgEl, 520, IMAGE_SHAPE);
+                    if (masked) {
+                        doc.addImage(masked, 'PNG', RIGHT - 28, TOP - 5, 28, 28);
+                    }
+                } catch(e) {
+                    console.error('Image loading error:', e);
+                }
+            }
+        
+            // Contact info - properly spaced
+            let y = TOP + 20;
             doc.setFontSize(9);
-            setColor(MID_GREY);
-            doc.text("muhammad.aqeel@univr.it | +86 182 1013 3275 | Ljubljana, Slovenia", LEFT, y);
+            setColor(MUTED);
+            doc.text("muhammad.aqeel@univr.it • +86 182 1013 3275 • Ljubljana, Slovenia", LEFT, y);
             y += 4;
-            doc.text("LinkedIn: muhammad-aqeel-4378b9170 | Scholar: ZPUihX0AAAAJ", LEFT, y);
+            doc.text("linkedin.com/in/muhammad-aqeel-4378b9170 • scholar.google.com/citations?user=ZPUihX0AAAAJ", LEFT, y);
         
             // Main divider
             y += 6;
-            doc.setDrawColor(...LIGHT_GREY);
-            doc.setLineWidth(0.5);
+            doc.setDrawColor(...ACCENT);
+            doc.setLineWidth(0.3);
             doc.line(LEFT, y, RIGHT, y);
         
             // ABOUT SECTION
@@ -1081,30 +1135,16 @@
             y = drawSectionHeader(doc, "About", LEFT, y);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
-            setColor(DARK_GREY);
             const aboutText = "I am a PhD researcher at the University of Verona specializing in anomaly detection for industrial manufacturing. My work focuses on developing deep learning algorithms that can identify defects and quality issues in real-time production environments. Coming from a multidisciplinary background - with an MSc focused on Natural Language Processing from Beijing University of Posts and Telecommunications and now working in computer vision - I bring a unique perspective to solving complex machine learning challenges. My research has resulted in 12 publications in international conferences, with particular emphasis on self-supervised learning and meta-learning approaches that achieve high accuracy while remaining computationally efficient for deployment on edge devices. I am passionate about bridging the gap between theoretical AI research and practical industrial applications.";
-            
-            const aboutLines = doc.splitTextToSize(aboutText, CONTENT_W);
-            aboutLines.forEach(line => {
-                if (y > 270) { doc.addPage(); y = TOP; }
-                doc.text(line, LEFT, y);
-                y += 4.5;
-            });
+            y = drawJustifiedText(doc, aboutText, LEFT, y, CONTENT_W, 4.5, SECONDARY);
         
             // RESEARCH INTERESTS
             y += 6;
             if (y > 250) { doc.addPage(); y = TOP; }
             y = drawSectionHeader(doc, "Research Interests", LEFT, y);
             doc.setFontSize(10);
-            setColor(DARK_GREY);
             const researchText = "My research centers on developing robust anomaly detection systems for industrial quality control. I am particularly interested in how self-supervised and meta-learning techniques can enable models to detect previously unseen defects without extensive labeled data. Currently, I'm exploring diffusion models for generating synthetic defect data to augment limited industrial datasets. A key focus of my work is ensuring these systems are not just accurate but also interpretable and efficient enough for real-time deployment in manufacturing environments. I'm also investigating zero-shot anomaly detection methods that can generalize across different product types and manufacturing processes. My broader interest lies in making industrial AI systems more accessible and practical for real-world deployment.";
-            
-            const researchLines = doc.splitTextToSize(researchText, CONTENT_W);
-            researchLines.forEach(line => {
-                if (y > 270) { doc.addPage(); y = TOP; }
-                doc.text(line, LEFT, y);
-                y += 4.5;
-            });
+            y = drawJustifiedText(doc, researchText, LEFT, y, CONTENT_W, 4.5, SECONDARY);
         
             // EDUCATION
             y += 6;
@@ -1121,18 +1161,18 @@
             edu.forEach(e => {
                 if (y > 265) { doc.addPage(); y = TOP; }
                 doc.setFont('helvetica', 'bold');
-                setColor(BLACK);
+                setColor(PRIMARY);
                 doc.text(e.degree, LEFT, y);
                 doc.setFont('helvetica', 'normal');
-                setColor(MID_GREY);
+                setColor(MUTED);
                 doc.text(e.period, RIGHT - doc.getTextWidth(e.period), y);
                 y += 4.5;
-                setColor(DARK_GREY);
+                setColor(SECONDARY);
                 doc.text(e.inst, LEFT, y);
                 if (e.details) {
                     y += 4;
                     doc.setFontSize(9);
-                    setColor(MID_GREY);
+                    setColor(MUTED);
                     doc.text(e.details, LEFT, y);
                     doc.setFontSize(10);
                 }
@@ -1156,13 +1196,13 @@
             experiences.forEach(ex => {
                 if (y > 265) { doc.addPage(); y = TOP; }
                 doc.setFont('helvetica', 'bold');
-                setColor(BLACK);
+                setColor(PRIMARY);
                 doc.text(ex.title, LEFT, y);
                 doc.setFont('helvetica', 'normal');
-                setColor(MID_GREY);
+                setColor(MUTED);
                 doc.text(ex.period, RIGHT - doc.getTextWidth(ex.period), y);
                 y += 4.5;
-                setColor(DARK_GREY);
+                setColor(SECONDARY);
                 doc.text(ex.org, LEFT, y);
                 y += 6;
             });
@@ -1173,11 +1213,11 @@
             y = drawSectionHeader(doc, "Academic Service", LEFT, y);
             doc.setFontSize(10);
             doc.setFont('helvetica', 'bold');
-            setColor(BLACK);
+            setColor(PRIMARY);
             doc.text("Reviewer:", LEFT, y);
             y += 5;
             doc.setFont('helvetica', 'normal');
-            setColor(DARK_GREY);
+            setColor(SECONDARY);
             doc.text("Journals: Neural Computing and Applications, Applied Soft Computing", LEFT + 5, y);
             y += 4.5;
             doc.text("Conferences: CVPR 2024, ECCV 2024", LEFT + 5, y);
@@ -1187,7 +1227,7 @@
             if (y > 250) { doc.addPage(); y = TOP; }
             y = drawSectionHeader(doc, "Languages", LEFT, y);
             doc.setFontSize(10);
-            setColor(DARK_GREY);
+            setColor(SECONDARY);
             doc.text("Punjabi/Urdu (Native) • English (Fluent-C2) • Italian (Elementary-A2) • Chinese (Basic-A1)", LEFT, y);
             y += 8;
         
@@ -1204,10 +1244,10 @@
             skills.forEach(s => {
                 if (y > 270) { doc.addPage(); y = TOP; }
                 doc.setFont('helvetica', 'bold');
-                setColor(BLACK);
+                setColor(PRIMARY);
                 doc.text(s.category, LEFT, y);
                 doc.setFont('helvetica', 'normal');
-                setColor(DARK_GREY);
+                setColor(SECONDARY);
                 doc.text(s.items, LEFT + doc.getTextWidth(s.category) + 2, y);
                 y += 5;
             });
@@ -1222,16 +1262,19 @@
                 if (y > 265) { doc.addPage(); y = TOP; }
         
                 // Clean numbering
-                setColor(DARK_GREY);
+                setColor(ACCENT);
+                doc.setFont('helvetica', 'bold');
                 doc.text(`[${index + 1}]`, LEFT, y);
         
                 // Title
                 const titleX = LEFT + 8;
-                doc.setFont('helvetica', 'bold');
-                setColor(BLACK);
+                const maxW = RIGHT - titleX;
+                setColor(PRIMARY);
                 let titleTxt = pub.title;
                 if (pub.oral) titleTxt += " (Oral)";
-                const titleLines = doc.splitTextToSize(titleTxt, RIGHT - titleX);
+                
+                // Justified title text
+                const titleLines = doc.splitTextToSize(titleTxt, maxW);
                 titleLines.forEach(line => {
                     doc.text(line, titleX, y);
                     y += 4;
@@ -1239,9 +1282,9 @@
         
                 // Authors
                 doc.setFont('helvetica', 'normal');
-                setColor(DARK_GREY);
+                setColor(SECONDARY);
                 const authorsStr = pub.authors.join(', ');
-                const authorLines = doc.splitTextToSize(authorsStr, RIGHT - titleX);
+                const authorLines = doc.splitTextToSize(authorsStr, maxW);
                 authorLines.forEach(line => {
                     doc.text(line, titleX, y);
                     y += 4;
@@ -1249,8 +1292,8 @@
         
                 // Venue
                 doc.setFont('helvetica', 'italic');
-                setColor(MID_GREY);
-                const venueLines = doc.splitTextToSize(pub.venue, RIGHT - titleX);
+                setColor(MUTED);
+                const venueLines = doc.splitTextToSize(pub.venue, maxW);
                 venueLines.forEach(line => {
                     doc.text(line, titleX, y);
                     y += 4;
@@ -1268,14 +1311,14 @@
             references.forEach(r => {
                 if (y > 265) { doc.addPage(); y = TOP; }
                 doc.setFont('helvetica', 'bold');
-                setColor(BLACK);
+                setColor(PRIMARY);
                 doc.text(r.name, LEFT, y);
                 y += 4.5;
                 doc.setFont('helvetica', 'normal');
-                setColor(DARK_GREY);
+                setColor(SECONDARY);
                 doc.text(r.role, LEFT, y);
                 y += 4.5;
-                setColor(MID_GREY);
+                setColor(MUTED);
                 doc.text(`Email: ${r.email} • Phone: ${r.phone}`, LEFT, y);
                 y += 8;
             });
