@@ -134,8 +134,13 @@
         .hero-right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 50px; }
 
         .section-label {
-            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent);
-            margin-bottom: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 600;
+            font-size: 1.5rem; /* Changed from 0.85rem */
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 600;
         }
         .about-text {
             font-size: 1.2rem; line-height: 1.8; color: var(--text-primary); font-weight: 300;
@@ -172,13 +177,21 @@
         .experience-section { padding: 100px 3rem; background: var(--bg-secondary); position: relative; z-index: 2; }
         .section-container { max-width: 1400px; margin: 0 auto; }
         .section-header { margin-bottom: 60px; }
-        .section-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 40px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 600; }
+        .section-title {
+            font-size: 1.5rem; /* Changed from 0.85rem */
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 40px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 600;
+        }
         .experience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; }
         .exp-card { background: var(--bg-card); border: 1px solid var(--border-light); padding: 35px; transition: all 0.3s ease; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
         .exp-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
         .exp-badge { position: absolute; top: 15px; right: 15px; background: var(--accent); color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
         .exp-period { font-size: 0.85rem; color: var(--accent); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 600; }
-        .exp-title { font-size: 1.5rem; font-weight: 400; color: var(--text-primary); margin-bottom: 8px; }
+        .exp-title { font-size: 1.25rem; font-weight: 400; color: var(--text-primary); margin-bottom: 8px; }
         .exp-company { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 20px; font-style: italic; }
         .exp-description { font-size: 1rem; color: var(--text-secondary); line-height: 1.7; }
 
@@ -191,7 +204,7 @@
         .pub-type { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
         .pub-year { color: var(--text-muted); font-size: 0.9rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
         .pub-oral-badge { background: var(--accent); color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin-left: auto; }
-        .pub-title { font-size: 1.75rem; font-weight: 400; color: var(--text-primary); margin-bottom: 20px; line-height: 1.4; }
+        .pub-title { font-size: 1.25rem; font-weight: 400; color: var(--text-primary); margin-bottom: 20px; line-height: 1.4; }
         .pub-authors { font-size: 1rem; color: var(--text-secondary); margin-bottom: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
         .pub-authors .highlight { color: var(--accent-dark); font-weight: 600; }
         .pub-venue { font-size: 1.15rem; color: var(--text-primary); margin-bottom: 25px; font-style: italic; }
@@ -237,7 +250,7 @@
             .about-section { text-align: center; }
             .hero-right { gap: 40px; }
             .hero-name { font-size: 2.5rem; }
-            .section-title { font-size: 2.25rem; }
+            .section-title { font-size: 1.5rem; }
             .experience-grid { grid-template-columns: 1fr; }
             .pub-link { padding: 10px 20px; font-size: 0.9rem; }
             .skills-grid { grid-template-columns: 1fr; }
