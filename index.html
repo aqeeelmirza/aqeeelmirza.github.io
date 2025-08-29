@@ -1021,171 +1021,276 @@
         async function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-
+        
             // Constants
             const ML = 20, MR = 20, TOP = 18;
             const CONTENT_W = 210 - ML - MR;
             const LEFT = ML, RIGHT = 210 - MR;
             const LINE = 5;
-
-            // All black text in the CV
+            const BLUE = [8, 145, 178]; // Your accent color
+            const GREY = [100, 100, 100];
+        
+            // Helper functions
             const setBlack = () => doc.setTextColor(0, 0, 0);
-
-            // Header: Name, Title
+            const setBlue = () => doc.setTextColor(...BLUE);
+            const setGrey = () => doc.setTextColor(...GREY);
+        
+            // Draw section header with blue accent
+            function drawSectionHeader(doc, title, x, y) {
+                setBlue();
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(12);
+                // Add blue bullet/line
+                doc.setDrawColor(...BLUE);
+                doc.setLineWidth(2);
+                doc.line(x - 5, y - 2, x - 2, y - 2);
+                doc.text(title.toUpperCase(), x, y);
+                // Draw underline
+                doc.setLineWidth(0.5);
+                doc.line(x, y + 1, x + doc.getTextWidth(title.toUpperCase()), y + 1);
+                setBlack();
+                return y + 8;
+            }
+        
+            // Header: Name, Title, Contact Info
             setBlack();
-            doc.setFont('helvetica', 'bold'); doc.setFontSize(22);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(22);
             doc.text("Muhammad Aqeel", LEFT, TOP);
-
-            doc.setFont('helvetica', 'normal'); doc.setFontSize(12);
+        
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(12);
             doc.text("PhD Researcher in Computer Science", LEFT, TOP + 8);
-
-            // Profile image (true crop)
+        
+            // Profile image (if exists)
             const imgEl = document.querySelector('.profile-image img');
+            let contactX = RIGHT - 65; // Default position for contact info
             if (imgEl && imgEl.style.display !== 'none') {
                 try {
                     const masked = await getMaskedImageDataURL(imgEl, 520, IMAGE_SHAPE);
                     if (masked) {
-                        // top-right placement
                         doc.addImage(masked, 'PNG', RIGHT - 30, TOP - 8, 30, 30);
+                        contactX = RIGHT - 70; // Adjust contact position if image exists
                     }
                 } catch(e) { /* ignore */ }
             }
-
-            // Contact lines (clickable, black, NO pipes)
-            doc.setFontSize(10); setBlack();
-            let y = TOP + 20;
-            const linkLine = (label, text, url, x) => {
-                doc.text(label, x, y);
-                const w = doc.getTextWidth(label) + 1;
-                doc.textWithLink(text, x + w, y, { url });
-            };
-            linkLine("Email: ", "muhammad.aqeel@univr.it", "mailto:muhammad.aqeel@univr.it", LEFT);
-            linkLine("WhatsApp: ", "+86 182 1013 3275", "https://wa.me/8618210133275", LEFT + 85);
-            y += LINE;
-            linkLine("LinkedIn: ", "muhammad-aqeel-4378b9170", "https://www.linkedin.com/in/muhammad-aqeel-4378b9170", LEFT);
-            linkLine("Google Scholar: ", "Profile", "https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en", LEFT + 85);
-
-            // Divider
-            y += 4; drawDivider(doc, LEFT, y, RIGHT);
-
-            // EDUCATION (no supervisors here)
-            y += 8; doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.text("EDUCATION", LEFT, y);
-            y += 7; doc.setFont('helvetica','normal'); doc.setFontSize(10);
-
+        
+            // Contact info (right side, grey color)
+            doc.setFontSize(9);
+            setGrey();
+            let contactY = TOP;
+            doc.text("muhammad.aqeel@univr.it", contactX, contactY, { align: 'right' });
+            contactY += 4;
+            doc.text("+86 182 1013 3275", contactX, contactY, { align: 'right' });
+            contactY += 4;
+            doc.text("LinkedIn: muhammad-aqeel", contactX, contactY, { align: 'right' });
+            contactY += 4;
+            doc.text("Ljubljana, Slovenia", contactX, contactY, { align: 'right' });
+        
+            // Main divider
+            let y = TOP + 25;
+            doc.setDrawColor(200, 200, 200);
+            doc.setLineWidth(0.3);
+            doc.line(LEFT, y, RIGHT, y);
+        
+            // ABOUT
+            y += 10;
+            y = drawSectionHeader(doc, "About", LEFT, y);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+            const aboutText = "PhD researcher at the University of Verona specializing in anomaly detection for industrial manufacturing. My work focuses on developing deep learning algorithms that can identify defects and quality issues in real-time production environments. Coming from a multidisciplinary background with an MSc focused on Natural Language Processing from Beijing University of Posts and Telecommunications and now working in computer vision, I bring a unique perspective to solving complex machine learning challenges. My research has resulted in 12 publications in international conferences, with particular emphasis on self-supervised learning and meta-learning approaches.";
+            y = drawJustifiedParagraph(doc, aboutText, LEFT, y, CONTENT_W, 4.5) + 3;
+        
+            // RESEARCH INTERESTS
+            if (y > 250) { doc.addPage(); y = TOP; }
+            y = drawSectionHeader(doc, "Research Interests", LEFT, y);
+            doc.setFontSize(9);
+            const researchText = "My research centers on developing robust anomaly detection systems for industrial quality control. I am particularly interested in how self-supervised and meta-learning techniques can enable models to detect previously unseen defects without extensive labeled data. Currently exploring diffusion models for generating synthetic defect data to augment limited industrial datasets. A key focus is ensuring these systems are not just accurate but also interpretable and efficient enough for real-time deployment in manufacturing environments.";
+            y = drawJustifiedParagraph(doc, researchText, LEFT, y, CONTENT_W, 4.5) + 3;
+        
+            // EDUCATION
+            if (y > 250) { doc.addPage(); y = TOP; }
+            y = drawSectionHeader(doc, "Education", LEFT, y);
+            doc.setFontSize(10);
+        
             const edu = [
-                { degree: "PhD in Computer Science", period: "2022–2025", inst: "University of Verona, Italy" },
-                { degree: "Master in Computer Science", period: "2019–2021", inst: "Beijing University of Posts and Telecommunications, China" },
-                { degree: "Bachelor in Computer Science", period: "2013–2017", inst: "PMAS Arid Agriculture University Rawalpindi, Pakistan" }
+                { degree: "PhD in Computer Science", period: "2022–Present", inst: "University of Verona, Italy", details: "Supervisor: Francesco Setti" },
+                { degree: "Master in Computer Science", period: "2019–2021", inst: "Beijing University of Posts and Telecommunications, China", details: "Focus: Natural Language Processing" },
+                { degree: "Bachelor in Computer Science", period: "2013–2017", inst: "PMAS Arid Agriculture University, Pakistan", details: "" }
             ];
-
+        
             edu.forEach(e => {
                 if (y > 270) { doc.addPage(); y = TOP; }
-                doc.setFont('helvetica','bold'); doc.text(e.degree, LEFT, y);
-                doc.setFont('helvetica','normal'); doc.text(e.period, RIGHT - doc.getTextWidth(e.period), y);
+                setBlue();
+                doc.setFont('helvetica', 'bold');
+                doc.text("• ", LEFT, y);
+                setBlack();
+                doc.text(e.degree, LEFT + 3, y);
+                doc.setFont('helvetica', 'normal');
+                setGrey();
+                doc.text(e.period, RIGHT - doc.getTextWidth(e.period), y);
                 y += LINE;
-                doc.text(e.inst, LEFT, y);
-                y += LINE + 2;
+                setBlack();
+                doc.text(e.inst, LEFT + 3, y);
+                if (e.details) {
+                    y += 4;
+                    doc.setFontSize(9);
+                    setGrey();
+                    doc.text(e.details, LEFT + 3, y);
+                    doc.setFontSize(10);
+                }
+                y += 6;
             });
-
-            // EXPERIENCE
-            y += 4; if (y > 270) { doc.addPage(); y = TOP; }
-            doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.text("PROFESSIONAL EXPERIENCE", LEFT, y);
-            y += 7; doc.setFont('helvetica','normal'); doc.setFontSize(10);
-
+        
+            // PROFESSIONAL EXPERIENCE
+            if (y > 240) { doc.addPage(); y = TOP; }
+            y = drawSectionHeader(doc, "Professional Experience", LEFT, y);
+            doc.setFontSize(10);
+        
             const experiences = [
-                { title: "Visiting Researcher", period: "June 2025 – Present", org: "University of Ljubljana, Slovenia" },
-                { title: "Teaching Assistant", period: "2023 – 2025", org: "University of Verona, Italy" },
-                { title: "Research Assistant", period: "2021 – 2022", org: "Huazhong University of Science and Technology, China" },
-                { title: "Software Quality Assurance", period: "2018 – 2019", org: "UIIT, Arid Agriculture University, Pakistan" },
-                { title: "Software Developer", period: "2017 – 2018", org: "eConceptions (Pvt) Ltd. Pakistan" }
+                { title: "Visiting Researcher", period: "June 2025–Present", org: "University of Ljubljana, Slovenia" },
+                { title: "Teaching Assistant", period: "2023–2025", org: "University of Verona, Italy" },
+                { title: "Research Assistant", period: "2021–2022", org: "Huazhong University of Science and Technology, China" },
+                { title: "Software Quality Assurance", period: "2018–2019", org: "UIIT, Arid Agriculture University, Pakistan" },
+                { title: "Software Developer", period: "2017–2018", org: "eConceptions (Pvt) Ltd., Pakistan" }
             ];
-
+        
             experiences.forEach(ex => {
                 if (y > 270) { doc.addPage(); y = TOP; }
-                doc.setFont('helvetica','bold'); doc.text(ex.title, LEFT, y);
-                doc.setFont('helvetica','normal'); doc.text(ex.period, RIGHT - doc.getTextWidth(ex.period), y);
+                setBlue();
+                doc.setFont('helvetica', 'bold');
+                doc.text("• ", LEFT, y);
+                setBlack();
+                doc.text(ex.title, LEFT + 3, y);
+                doc.setFont('helvetica', 'normal');
+                setGrey();
+                doc.text(ex.period, RIGHT - doc.getTextWidth(ex.period), y);
                 y += LINE;
-                doc.text(ex.org, LEFT, y);
-                y += LINE + 2;
+                setBlack();
+                doc.text(ex.org, LEFT + 3, y);
+                y += 6;
             });
-
-            // PUBLICATIONS — hanging indent + black links + ORAL placement
-            y += 4; if (y > 270) { doc.addPage(); y = TOP; }
-            doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.text("RESEARCH PUBLICATIONS", LEFT, y);
-            y += 6; doc.setFont('helvetica','normal'); doc.setFontSize(9);
-
-            const numberX = LEFT;
-            const contentX = LEFT + 7;    // hanging indent start
-            const maxW = RIGHT - contentX;
-
-            allPublications.forEach((pub, index) => {
+        
+            // ACADEMIC SERVICE
+            if (y > 250) { doc.addPage(); y = TOP; }
+            y = drawSectionHeader(doc, "Academic Service", LEFT, y);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'bold');
+            doc.text("Reviewer:", LEFT, y);
+            y += LINE;
+            doc.setFont('helvetica', 'normal');
+            setBlue();
+            doc.text("• ", LEFT + 5, y);
+            setBlack();
+            doc.text("Journals: Neural Computing and Applications, Applied Soft Computing", LEFT + 8, y);
+            y += LINE;
+            setBlue();
+            doc.text("• ", LEFT + 5, y);
+            setBlack();
+            doc.text("Conferences: CVPR 2024, ECCV 2024", LEFT + 8, y);
+            y += 8;
+        
+            // LANGUAGES
+            if (y > 250) { doc.addPage(); y = TOP; }
+            y = drawSectionHeader(doc, "Languages", LEFT, y);
+            doc.setFontSize(10);
+            const languages = "Punjabi/Urdu (Native) | English (Fluent-C2) | Italian (Elementary-A2) | Chinese (Basic-A1)";
+            doc.text(languages, LEFT, y);
+            y += 8;
+        
+            // TECHNICAL SKILLS
+            if (y > 250) { doc.addPage(); y = TOP; }
+            y = drawSectionHeader(doc, "Technical Skills", LEFT, y);
+            doc.setFontSize(10);
+            const skills = [
+                { category: "Programming:", items: "Python, C++, JavaScript, Bash/Shell Scripting" },
+                { category: "ML Frameworks:", items: "PyTorch, TensorFlow, Scikit-learn, OpenCV" },
+                { category: "Tools:", items: "Git/GitHub, LaTeX, Jupyter Notebooks, Linux/Unix" }
+            ];
+            
+            skills.forEach(s => {
                 if (y > 270) { doc.addPage(); y = TOP; }
-
-                // number
-                setBlack(); doc.text(`${index + 1}.`, numberX, y);
-
-                // Title (clickable, black). If ORAL afterTitle toggle is set, append there.
+                setBlue();
+                doc.text("• ", LEFT, y);
+                doc.setFont('helvetica', 'bold');
+                setBlack();
+                doc.text(s.category, LEFT + 3, y);
+                doc.setFont('helvetica', 'normal');
+                doc.text(s.items, LEFT + 3 + doc.getTextWidth(s.category) + 2, y);
+                y += LINE;
+            });
+            y += 3;
+        
+            // RESEARCH PUBLICATIONS
+            if (y > 240) { doc.addPage(); y = TOP; }
+            y = drawSectionHeader(doc, "Research Publications", LEFT, y);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9);
+        
+            const numberX = LEFT;
+            const contentX = LEFT + 7;
+            const maxW = RIGHT - contentX;
+        
+            allPublications.forEach((pub, index) => {
+                if (y > 265) { doc.addPage(); y = TOP; }
+        
+                // Number with blue color
+                setBlue();
+                doc.text(`[${index + 1}]`, numberX, y);
+                setBlack();
+        
+                // Title
                 let titleTxt = pub.title;
-                if (pub.oral && ORAL_PLACEMENT === 'afterTitle') titleTxt += " (ORAL)";
+                if (pub.oral) titleTxt += " (Oral)";
                 const titleLines = doc.splitTextToSize(titleTxt, maxW);
+                doc.setFont('helvetica', 'bold');
                 titleLines.forEach((ln, i) => {
-                    doc.textWithLink(ln, contentX, y, { url: pub.link });
+                    doc.text(ln, contentX, y);
                     y += 4;
                 });
-
-                // Authors (clickable, black, no bolding anyone)
+        
+                // Authors
+                doc.setFont('helvetica', 'normal');
                 const authorsStr = pub.authors.join(', ');
-                y = addWrappedLink(doc, authorsStr, contentX, y, maxW, pub.link) + 1;
-
-                // Venue (italic) with ORAL appended after venue by default
-                doc.setFont('helvetica','italic'); setBlack();
-                const venueTxt = pub.oral && ORAL_PLACEMENT === 'afterVenue' ? `${pub.venue} (ORAL)` : pub.venue;
-                const venueLines = doc.splitTextToSize(venueTxt, maxW);
-                venueLines.forEach(ln => { doc.text(ln, contentX, y); y += 4; });
-                doc.setFont('helvetica','normal');
-
-                y += 2; // space between entries
+                const authorLines = doc.splitTextToSize(authorsStr, maxW);
+                authorLines.forEach(ln => {
+                    doc.text(ln, contentX, y);
+                    y += 4;
+                });
+        
+                // Venue (italic, grey)
+                doc.setFont('helvetica', 'italic');
+                setGrey();
+                const venueLines = doc.splitTextToSize(pub.venue, maxW);
+                venueLines.forEach(ln => {
+                    doc.text(ln, contentX, y);
+                    y += 4;
+                });
+                doc.setFont('helvetica', 'normal');
+                setBlack();
+        
+                y += 3; // space between entries
             });
-
-            // SKILLS
-            y += 4; if (y > 270) { doc.addPage(); y = TOP; }
-            doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.text("TECHNICAL SKILLS", LEFT, y);
-            y += 7; doc.setFont('helvetica','normal'); doc.setFontSize(10);
-            const skillLines = [
-                "Research Areas: Machine Learning, Computer Vision, Anomaly Detection, NLP",
-                "Programming: Python, C++, JavaScript, Bash/Shell Scripting",
-                "Frameworks: PyTorch, TensorFlow, Scikit-learn, OpenCV",
-                "Tools: Git/GitHub, LaTeX, Jupyter Notebooks, Linux/Unix"
-            ];
-            skillLines.forEach(s => { if (y > 270) { doc.addPage(); y = TOP; } doc.text(s, LEFT, y); y += LINE; });
-
-            // RESEARCH INTERESTS (justified paragraph)
-            y += 4; if (y > 270) { doc.addPage(); y = TOP; }
-            doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.text("RESEARCH INTERESTS", LEFT, y);
-            y += 7; doc.setFont('helvetica','normal'); doc.setFontSize(9);
-            const interests = "Specialized in developing advanced anomaly detection algorithms for industrial manufacturing environments, with expertise in deep learning architectures for real-time defect detection. Research contributions span computer vision and NLP, with 9+ peer-reviewed publications in top-tier venues including ICCV, ECCV, ICIAP and VISAPP. Focus on creating scalable, interpretable AI systems for quality control and predictive maintenance in industrial settings.";
-            y = drawJustifiedParagraph(doc, interests, LEFT, y, CONTENT_W, 5);
-
-            // REFERENCES (new section; emails clickable; optional phone)
-            y += 4; if (y > 270) { doc.addPage(); y = TOP; }
-            doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.text("REFERENCES", LEFT, y);
-            y += 7; doc.setFont('helvetica','normal'); doc.setFontSize(10);
+        
+            // REFERENCES
+            if (y > 240) { doc.addPage(); y = TOP; }
+            y = drawSectionHeader(doc, "References", LEFT, y);
+            doc.setFontSize(10);
+            
             references.forEach(r => {
                 if (y > 270) { doc.addPage(); y = TOP; }
-                const header = r.name + (r.role ? ` — ${r.role}` : "");
-                doc.text(header, LEFT, y); y += LINE;
-                if (r.email) {
-                    doc.text("Email: ", LEFT, y);
-                    const off = doc.getTextWidth("Email: ") + 1;
-                    doc.textWithLink(r.email, LEFT + off, y, { url: `mailto:${r.email}` });
-                }
-                if (r.phone) {
-                    const px = LEFT + 80;
-                    doc.text(`Phone: ${r.phone}`, px, y);
-                }
-                y += LINE + 2;
+                doc.setFont('helvetica', 'bold');
+                doc.text(r.name, LEFT, y);
+                y += LINE;
+                doc.setFont('helvetica', 'normal');
+                doc.text(r.role, LEFT, y);
+                y += LINE;
+                setGrey();
+                doc.text(`Email: ${r.email} | Phone: ${r.phone}`, LEFT, y);
+                setBlack();
+                y += 8;
             });
-
+        
             // Open PDF in new tab
             const pdfBlob = doc.output('blob');
             const pdfUrl = URL.createObjectURL(pdfBlob);
