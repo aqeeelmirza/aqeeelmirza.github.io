@@ -838,10 +838,10 @@
         // ==========================================
 
         // Config toggles
-        const IMAGE_SHAPE = 'circle';    // 'circle' | 'square'  (true crop via canvas, no overlay)
+        const IMAGE_SHAPE = 'circle';    // 'circle' | 'square'
         const ORAL_PLACEMENT = 'afterVenue'; // 'afterVenue' | 'afterTitle'
 
-        // Publications data (with ORAL flag)
+        // Publications data
         const allPublications = [
             {
                 title: "Semantic Parsing for Aspect Based Sentiment Analysis",
@@ -929,13 +929,13 @@
             }
         ];
 
-        // References (moved from supervisors)
+        // References
         const references = [
             { name: "Francesco Setti", role: "Associate Professor, University of Verona, Italy", email: "francesco.setti@univr.it", phone: "(+39) 3491959381" },
             { name: "Xiaohong Liu", role: "Professor, Beijing University of Posts and Telecommunications, China", email: "xiaohongliu@bupt.edu.cn", phone: "(+86) 13910396374" }
         ];
 
-        // ===== Helper: circular/square masked PNG from <img> (no overlay) =====
+        // Helper: circular/square masked PNG from <img>
         async function getMaskedImageDataURL(imgEl, sizePx = 512, shape = 'circle') {
             return new Promise(resolve => {
                 try {
@@ -968,15 +968,8 @@
             });
         }
 
-        // ===== Helper: draw divider line =====
-        function drawDivider(doc, x1, y, x2) {
-            doc.setLineWidth(0.4);
-            doc.line(x1, y, x2, y);
-        }
-
-        // ===== Helper: justified paragraph (manual), fallback to left if too narrow =====
+        // Helper: justified paragraph
         function drawJustifiedParagraph(doc, text, x, y, width, lineHeight) {
-            // Split to lines greedily
             const words = text.split(/\s+/);
             let line = '', lines = [];
             words.forEach(w => {
@@ -989,9 +982,8 @@
             lines.forEach((ln, idx) => {
                 const isLast = idx === lines.length - 1;
                 if (isLast || !ln.includes(' ')) {
-                    doc.text(ln, x, y); // last line left-aligned
+                    doc.text(ln, x, y);
                 } else {
-                    // distribute extra space
                     const parts = ln.split(' ');
                     const wordsWidth = parts.reduce((acc, w) => acc + doc.getTextWidth(w), 0);
                     const gaps = parts.length - 1;
@@ -1007,274 +999,196 @@
             return y;
         }
 
-        // ===== Helper: add wrapped clickable lines (black) =====
-        function addWrappedLink(doc, text, x, y, maxWidth, url) {
-            const lines = doc.splitTextToSize(text, maxWidth);
-            lines.forEach((ln, i) => {
-                doc.textWithLink(ln, x, y, { url });
-                y += 4;
-            });
-            return y;
-        }
-
-        // ===== PDF Generation Function (CV ONLY) =====
+        // PDF Generation Function
         async function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ unit: 'mm', format: 'a4' });
 
-            // Layout constants
-            const PAGE_WIDTH = 210;
-            const PAGE_HEIGHT = 297;
-            const MARGIN_LEFT = 20;
-            const MARGIN_RIGHT = 20;
-            const MARGIN_TOP = 20;
-            const CONTENT_WIDTH = PAGE_WIDTH - MARGIN_LEFT - MARGIN_RIGHT;
+            // Constants
+            const ML = 20, MR = 20, TOP = 20;
+            const CONTENT_W = 210 - ML - MR;
+            const LEFT = ML, RIGHT = 210 - MR;
 
-            // Color scheme
-            const BLACK = [0, 0, 0];
-            const GREY = [100, 100, 100];
-            const BLUE = [8, 145, 178];
-            const LIGHT_GREY = [200, 200, 200];
+            // Colors
+            const PRIMARY = [30, 41, 59];      // Dark slate for headers
+            const SECONDARY = [71, 85, 105];   // Slate for body text
+            const ACCENT = [8, 145, 178];      // Blue accent
+            const MUTED = [100, 116, 139];     // Muted text
+            const CONTACT_COLOR = [60, 60, 60]; // Darker grey for contact
 
-            // Helper function to draw professional icons
-            function drawIcon(type, x, y, size = 2.5) {
-                doc.setLineWidth(0.15);
-                doc.setDrawColor(...GREY);
-                doc.setFillColor(...GREY);
+            const setColor = (color) => doc.setTextColor(...color);
 
+            // Simple icon drawing function
+            function drawSimpleIcon(type, x, y) {
+                doc.setDrawColor(...CONTACT_COLOR);
+                doc.setLineWidth(0.3);
+                
                 switch(type) {
                     case 'email':
-                        // Envelope icon
-                        doc.rect(x, y - size * 0.7, size * 1.2, size * 0.8, 'S');
-                        doc.line(x, y - size * 0.7, x + size * 0.6, y - size * 0.3);
-                        doc.line(x + size * 1.2, y - size * 0.7, x + size * 0.6, y - size * 0.3);
+                        // Simple @ symbol
+                        doc.setFontSize(10);
+                        setColor(CONTACT_COLOR);
+                        doc.text('✉', x, y);
                         break;
                     case 'phone':
-                        // Phone icon
-                        doc.setFillColor(...GREY);
-                        doc.roundedRect(x, y - size * 0.8, size * 0.5, size * 0.8, 0.2, 0.2, 'F');
-                        doc.setFillColor(255, 255, 255);
-                        doc.circle(x + size * 0.25, y - size * 0.15, 0.15, 'F');
+                        // Simple phone symbol
+                        doc.setFontSize(10);
+                        doc.text('☎', x, y);
                         break;
                     case 'web':
-                        // Globe icon
-                        doc.circle(x + size/2, y - size/2, size/2, 'S');
-                        doc.ellipse(x + size/2, y - size/2, size/5, size/2, 'S');
-                        doc.line(x, y - size/2, x + size, y - size/2);
+                        // Simple globe symbol
+                        doc.setFontSize(10);
+                        doc.text('🌐', x, y);
                         break;
                     case 'linkedin':
-                        // LinkedIn "in" square
-                        doc.setFillColor(...GREY);
-                        doc.roundedRect(x, y - size * 0.8, size * 0.8, size * 0.8, 0.2, 0.2, 'F');
-                        doc.setFillColor(255, 255, 255);
-                        doc.setFontSize(5);
+                        // Simple in text
+                        doc.setFontSize(8);
                         doc.setFont('helvetica', 'bold');
-                        doc.text('in', x + size * 0.4, y - size * 0.35, { align: 'center' });
+                        doc.text('in', x, y);
+                        doc.setFont('helvetica', 'normal');
                         break;
                     case 'scholar':
-                        // Graduation cap
-                        doc.setFillColor(...GREY);
-                        // Cap top
-                        doc.lines([
-                            [size, 0],
-                            [-size/2, size/3],
-                            [-size/2, -size/3]
-                        ], x, y - size * 0.6, [0.8, 0.8], 'F', true);
-                        // Tassel
-                        doc.circle(x + size * 0.8, y - size * 0.3, 0.15, 'F');
-                        doc.line(x + size/2, y - size * 0.5, x + size * 0.8, y - size * 0.3);
+                        // Simple GS text
+                        doc.setFontSize(8);
+                        doc.setFont('helvetica', 'bold');
+                        doc.text('GS', x, y);
+                        doc.setFont('helvetica', 'normal');
                         break;
                     case 'location':
-                        // Map pin
-                        doc.setFillColor(...GREY);
-                        doc.circle(x + size * 0.4, y - size * 0.6, size * 0.3, 'F');
-                        doc.setFillColor(255, 255, 255);
-                        doc.circle(x + size * 0.4, y - size * 0.6, size * 0.15, 'F');
-                        doc.setFillColor(...GREY);
-                        doc.triangle(
-                            x + size * 0.4, y - size * 0.1,
-                            x + size * 0.2, y - size * 0.4,
-                            x + size * 0.6, y - size * 0.4,
-                            'F'
-                        );
+                        // Simple location marker
+                        doc.setFontSize(10);
+                        doc.text('📍', x, y);
                         break;
                 }
             }
 
-            // Helper function for justified text
-            function drawJustifiedText(text, x, y, width, lineHeight) {
-                doc.setTextColor(...BLACK);
-                const words = text.split(' ');
-                let line = '';
-                let lines = [];
-                
-                words.forEach(word => {
-                    const testLine = line ? line + ' ' + word : word;
-                    if (doc.getTextWidth(testLine) <= width) {
-                        line = testLine;
-                    } else {
-                        if (line) lines.push(line);
-                        line = word;
-                    }
-                });
-                if (line) lines.push(line);
-
-                lines.forEach((currentLine, index) => {
-                    if (y > 270) {
-                        doc.addPage();
-                        y = MARGIN_TOP;
-                    }
-                    
-                    if (index === lines.length - 1 || !currentLine.includes(' ')) {
-                        doc.text(currentLine, x, y);
-                    } else {
-                        const words = currentLine.split(' ');
-                        const totalWordWidth = words.reduce((sum, word) => sum + doc.getTextWidth(word), 0);
-                        const spaceWidth = (width - totalWordWidth) / (words.length - 1);
-                        let currentX = x;
-                        words.forEach((word, i) => {
-                            doc.text(word, currentX, y);
-                            currentX += doc.getTextWidth(word) + (i < words.length - 1 ? spaceWidth : 0);
-                        });
-                    }
-                    y += lineHeight;
-                });
-                
-                return y;
-            }
-
-            // Start building the PDF
-            let currentY = MARGIN_TOP;
-
-            // Header section with profile picture space on the right
+            // Header section
+            setColor(PRIMARY);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(24);
-            doc.setTextColor(...BLACK);
-            doc.text('Muhammad Aqeel', MARGIN_LEFT, currentY);
+            doc.text("Muhammad Aqeel", LEFT, TOP);
 
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(11);
-            doc.text('PhD Researcher in Computer Science', MARGIN_LEFT, currentY + 8);
-
+            setColor(SECONDARY);
+            doc.text("PhD Researcher in Computer Science", LEFT, TOP + 8);
+            
             doc.setFont('helvetica', 'italic');
             doc.setFontSize(10);
-            doc.setTextColor(...GREY);
-            doc.text('Curriculum Vitae', MARGIN_LEFT, currentY + 14);
+            setColor(MUTED);
+            doc.text("Curriculum Vitae", LEFT, TOP + 14);
 
-            // Profile picture placeholder (on the right)
-            const imgSize = 30;
-            const imgX = PAGE_WIDTH - MARGIN_RIGHT - imgSize;
-            const imgY = MARGIN_TOP - 5;
-            // Draw a circle placeholder for profile image
-            doc.setDrawColor(...LIGHT_GREY);
-            doc.setLineWidth(0.5);
-            doc.circle(imgX + imgSize/2, imgY + imgSize/2, imgSize/2, 'S');
+            // Profile image (if available)
+            const imgEl = document.querySelector('.profile-image img');
+            if (imgEl && imgEl.naturalWidth > 0) {
+                try {
+                    const masked = await getMaskedImageDataURL(imgEl, 520, IMAGE_SHAPE);
+                    if (masked) {
+                        doc.addImage(masked, 'PNG', RIGHT - 30, TOP - 5, 30, 30);
+                    }
+                } catch(e) {
+                    console.error('Image loading error:', e);
+                }
+            }
 
-            // Contact section - SINGLE COLUMN
-            currentY += 22;
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(9);
-            doc.setTextColor(...GREY);
+            // Contact section - clean single column with better spacing
+            let y = TOP + 24;
+            doc.setFontSize(10); // Larger font size for contact
+            setColor(CONTACT_COLOR);
+            
+            // Use bullet points or simple text prefixes instead of complex icons
+            doc.text("Email: muhammad.aqeel@univr.it", LEFT, y);
+            y += 5;
+            
+            doc.text("Phone: +86 182 1013 3275", LEFT, y);
+            y += 5;
+            
+            doc.text("Web: https://aqeeelmirza.github.io/", LEFT, y);
+            y += 5;
+            
+            doc.text("LinkedIn: muhammad-aqeel-4378b9170", LEFT, y);
+            y += 5;
+            
+            doc.text("Google Scholar: ZPUihX0AAAAJ", LEFT, y);
+            y += 5;
+            
+            doc.text("Location: Ljubljana, Slovenia", LEFT, y);
 
-            // Email
-            drawIcon('email', MARGIN_LEFT, currentY, 2.5);
-            doc.text('muhammad.aqeel@univr.it', MARGIN_LEFT + 4, currentY - 0.5);
-            currentY += 4;
-            
-            // Phone
-            drawIcon('phone', MARGIN_LEFT, currentY, 2.5);
-            doc.text('+86 182 1013 3275', MARGIN_LEFT + 4, currentY - 0.5);
-            currentY += 4;
-            
-            // Website
-            drawIcon('web', MARGIN_LEFT, currentY, 2.5);
-            doc.text('https://aqeeelmirza.github.io/', MARGIN_LEFT + 4, currentY - 0.5);
-            currentY += 4;
-            
-            // LinkedIn
-            drawIcon('linkedin', MARGIN_LEFT, currentY, 2.5);
-            doc.text('muhammad-aqeel-4378b9170', MARGIN_LEFT + 4, currentY - 0.5);
-            currentY += 4;
-            
-            // Google Scholar
-            drawIcon('scholar', MARGIN_LEFT, currentY, 2.5);
-            doc.text('ZPUihX0AAAAJ', MARGIN_LEFT + 4, currentY - 0.5);
-            currentY += 4;
-            
-            // Location
-            drawIcon('location', MARGIN_LEFT, currentY, 2.5);
-            doc.text('Ljubljana, Slovenia', MARGIN_LEFT + 4, currentY - 0.5);
-
-            // Divider line
-            currentY += 6;
-            doc.setDrawColor(...LIGHT_GREY);
+            // Divider
+            y += 8;
+            doc.setDrawColor(...MUTED);
             doc.setLineWidth(0.3);
-            doc.line(MARGIN_LEFT, currentY, PAGE_WIDTH - MARGIN_RIGHT, currentY);
+            doc.line(LEFT, y, RIGHT, y);
 
-            // About section
-            currentY += 10;
+            // ABOUT SECTION
+            y += 10;
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.setTextColor(...BLUE);
-            doc.text('ABOUT', MARGIN_LEFT, currentY);
+            setColor(ACCENT);
+            doc.text("ABOUT", LEFT, y);
+            y += 8;
             
-            currentY += 8;
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
+            setColor(SECONDARY);
             const aboutText = "I am a PhD researcher at the University of Verona specializing in anomaly detection for industrial manufacturing. My work focuses on developing deep learning algorithms that can identify defects and quality issues in real-time production environments. Coming from a multidisciplinary background - with an MSc focused on Natural Language Processing from Beijing University of Posts and Telecommunications and now working in computer vision - I bring a unique perspective to solving complex machine learning challenges. My research has resulted in 12 publications in international conferences, with particular emphasis on self-supervised learning and meta-learning approaches that achieve high accuracy while remaining computationally efficient for deployment on edge devices. I am passionate about bridging the gap between theoretical AI research and practical industrial applications.";
-            currentY = drawJustifiedText(aboutText, MARGIN_LEFT, currentY, CONTENT_WIDTH, 4.5);
+            y = drawJustifiedParagraph(doc, aboutText, LEFT, y, CONTENT_W, 4.5);
 
-            // Research Interests
-            currentY += 6;
-            if (currentY > 250) { doc.addPage(); currentY = MARGIN_TOP; }
+            // RESEARCH INTERESTS
+            y += 6;
+            if (y > 250) { doc.addPage(); y = TOP; }
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.setTextColor(...BLUE);
-            doc.text('RESEARCH INTERESTS', MARGIN_LEFT, currentY);
+            setColor(ACCENT);
+            doc.text("RESEARCH INTERESTS", LEFT, y);
+            y += 8;
             
-            currentY += 8;
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
+            setColor(SECONDARY);
             const researchText = "My research centers on developing robust anomaly detection systems for industrial quality control. I am particularly interested in how self-supervised and meta-learning techniques can enable models to detect previously unseen defects without extensive labeled data. Currently, I'm exploring diffusion models for generating synthetic defect data to augment limited industrial datasets. A key focus of my work is ensuring these systems are not just accurate but also interpretable and efficient enough for real-time deployment in manufacturing environments. I'm also investigating zero-shot anomaly detection methods that can generalize across different product types and manufacturing processes. My broader interest lies in making industrial AI systems more accessible and practical for real-world deployment.";
-            currentY = drawJustifiedText(researchText, MARGIN_LEFT, currentY, CONTENT_WIDTH, 4.5);
+            y = drawJustifiedParagraph(doc, researchText, LEFT, y, CONTENT_W, 4.5);
 
-            // Education
-            currentY += 6;
-            if (currentY > 250) { doc.addPage(); currentY = MARGIN_TOP; }
+            // EDUCATION
+            y += 6;
+            if (y > 250) { doc.addPage(); y = TOP; }
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.setTextColor(...BLUE);
-            doc.text('EDUCATION', MARGIN_LEFT, currentY);
-            currentY += 8;
+            setColor(ACCENT);
+            doc.text("EDUCATION", LEFT, y);
+            y += 8;
 
-            const education = [
+            doc.setFontSize(10);
+            const edu = [
                 { degree: "PhD in Computer Science", period: "2022–Present", inst: "University of Verona, Italy" },
                 { degree: "Master in Computer Science", period: "2019–2021", inst: "Beijing University of Posts and Telecommunications, China" },
                 { degree: "Bachelor in Computer Science", period: "2013–2017", inst: "PMAS Arid Agriculture University, Pakistan" }
             ];
 
-            doc.setFontSize(10);
-            education.forEach(edu => {
-                if (currentY > 265) { doc.addPage(); currentY = MARGIN_TOP; }
+            edu.forEach(e => {
+                if (y > 265) { doc.addPage(); y = TOP; }
                 doc.setFont('helvetica', 'bold');
-                doc.setTextColor(...BLACK);
-                doc.text(edu.degree, MARGIN_LEFT, currentY);
+                setColor(PRIMARY);
+                doc.text(e.degree, LEFT, y);
                 doc.setFont('helvetica', 'normal');
-                doc.text(edu.period, PAGE_WIDTH - MARGIN_RIGHT - doc.getTextWidth(edu.period), currentY);
-                currentY += 4.5;
-                doc.text(edu.inst, MARGIN_LEFT, currentY);
-                currentY += 6;
+                setColor(MUTED);
+                doc.text(e.period, RIGHT - doc.getTextWidth(e.period), y);
+                y += 4.5;
+                setColor(SECONDARY);
+                doc.text(e.inst, LEFT, y);
+                y += 6;
             });
 
-            // Professional Experience
-            currentY += 2;
-            if (currentY > 250) { doc.addPage(); currentY = MARGIN_TOP; }
+            // PROFESSIONAL EXPERIENCE
+            y += 2;
+            if (y > 250) { doc.addPage(); y = TOP; }
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.setTextColor(...BLUE);
-            doc.text('PROFESSIONAL EXPERIENCE', MARGIN_LEFT, currentY);
-            currentY += 8;
+            setColor(ACCENT);
+            doc.text("PROFESSIONAL EXPERIENCE", LEFT, y);
+            y += 8;
 
+            doc.setFontSize(10);
             const experiences = [
                 { title: "Visiting Researcher", period: "June 2025–Present", org: "University of Ljubljana, Slovenia" },
                 { title: "Teaching Assistant", period: "2023–2025", org: "University of Verona, Italy" },
@@ -1283,66 +1197,68 @@
                 { title: "Software Developer", period: "2017–2018", org: "eConceptions (Pvt) Ltd., Pakistan" }
             ];
 
-            doc.setFontSize(10);
-            experiences.forEach(exp => {
-                if (currentY > 265) { doc.addPage(); currentY = MARGIN_TOP; }
+            experiences.forEach(ex => {
+                if (y > 265) { doc.addPage(); y = TOP; }
                 doc.setFont('helvetica', 'bold');
-                doc.setTextColor(...BLACK);
-                doc.text(exp.title, MARGIN_LEFT, currentY);
+                setColor(PRIMARY);
+                doc.text(ex.title, LEFT, y);
                 doc.setFont('helvetica', 'normal');
-                doc.text(exp.period, PAGE_WIDTH - MARGIN_RIGHT - doc.getTextWidth(exp.period), currentY);
-                currentY += 4.5;
-                doc.text(exp.org, MARGIN_LEFT, currentY);
-                currentY += 6;
+                setColor(MUTED);
+                doc.text(ex.period, RIGHT - doc.getTextWidth(ex.period), y);
+                y += 4.5;
+                setColor(SECONDARY);
+                doc.text(ex.org, LEFT, y);
+                y += 6;
             });
 
-            // Academic Service
-            currentY += 2;
-            if (currentY > 250) { doc.addPage(); currentY = MARGIN_TOP; }
+            // ACADEMIC SERVICE
+            y += 2;
+            if (y > 250) { doc.addPage(); y = TOP; }
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.setTextColor(...BLUE);
-            doc.text('ACADEMIC SERVICE', MARGIN_LEFT, currentY);
-            currentY += 8;
+            setColor(ACCENT);
+            doc.text("ACADEMIC SERVICE", LEFT, y);
+            y += 8;
             
             doc.setFontSize(10);
             doc.setFont('helvetica', 'bold');
-            doc.setTextColor(...BLACK);
-            doc.text('Reviewer:', MARGIN_LEFT, currentY);
-            currentY += 5;
+            setColor(PRIMARY);
+            doc.text("Reviewer:", LEFT, y);
+            y += 5;
             doc.setFont('helvetica', 'normal');
-            doc.text('Journals: Neural Computing and Applications, Applied Soft Computing', MARGIN_LEFT + 5, currentY);
-            currentY += 4.5;
-            doc.text('Conferences: VISAPP 2025, ICCV 2025', MARGIN_LEFT + 5, currentY);
-            currentY += 8;
+            setColor(SECONDARY);
+            doc.text("Journals: Neural Computing and Applications, Applied Soft Computing", LEFT + 5, y);
+            y += 4.5;
+            doc.text("Conferences: VISAPP 2025, ICCV 2025", LEFT + 5, y);
+            y += 8;
 
-            // Languages
-            if (currentY > 250) { doc.addPage(); currentY = MARGIN_TOP; }
+            // LANGUAGES
+            if (y > 250) { doc.addPage(); y = TOP; }
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.setTextColor(...BLUE);
-            doc.text('LANGUAGES', MARGIN_LEFT, currentY);
-            currentY += 8;
+            setColor(ACCENT);
+            doc.text("LANGUAGES", LEFT, y);
+            y += 8;
             
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
-            doc.setTextColor(...BLACK);
-            doc.text('• Punjabi/Urdu (Native)', MARGIN_LEFT, currentY);
-            currentY += 4.5;
-            doc.text('• English (Fluent - C2)', MARGIN_LEFT, currentY);
-            currentY += 4.5;
-            doc.text('• Italian (Elementary - A2)', MARGIN_LEFT, currentY);
-            currentY += 4.5;
-            doc.text('• Chinese (Basic - A1)', MARGIN_LEFT, currentY);
-            currentY += 8;
+            setColor(SECONDARY);
+            doc.text("• Punjabi/Urdu (Native)", LEFT, y);
+            y += 4.5;
+            doc.text("• English (Fluent - C2)", LEFT, y);
+            y += 4.5;
+            doc.text("• Italian (Elementary - A2)", LEFT, y);
+            y += 4.5;
+            doc.text("• Chinese (Basic - A1)", LEFT, y);
+            y += 8;
 
-            // Technical Skills
-            if (currentY > 250) { doc.addPage(); currentY = MARGIN_TOP; }
+            // TECHNICAL SKILLS
+            if (y > 250) { doc.addPage(); y = TOP; }
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.setTextColor(...BLUE);
-            doc.text('TECHNICAL SKILLS', MARGIN_LEFT, currentY);
-            currentY += 8;
+            setColor(ACCENT);
+            doc.text("TECHNICAL SKILLS", LEFT, y);
+            y += 8;
             
             const skills = [
                 { category: "Programming:", items: "Python, C++, JavaScript, Bash/Shell Scripting" },
@@ -1351,95 +1267,115 @@
             ];
             
             doc.setFontSize(10);
-            skills.forEach(skill => {
-                if (currentY > 270) { doc.addPage(); currentY = MARGIN_TOP; }
+            skills.forEach(s => {
+                if (y > 270) { doc.addPage(); y = TOP; }
                 doc.setFont('helvetica', 'bold');
-                doc.setTextColor(...BLACK);
-                doc.text(skill.category, MARGIN_LEFT, currentY);
+                setColor(PRIMARY);
+                doc.text(s.category, LEFT, y);
                 doc.setFont('helvetica', 'normal');
-                doc.text(skill.items, MARGIN_LEFT + doc.getTextWidth(skill.category) + 2, currentY);
-                currentY += 5;
+                setColor(SECONDARY);
+                doc.text(s.items, LEFT + doc.getTextWidth(s.category) + 2, y);
+                y += 5;
             });
-            currentY += 4;
+            y += 4;
 
-            // Research Publications
-            if (currentY > 240) { doc.addPage(); currentY = MARGIN_TOP; }
+            // RESEARCH PUBLICATIONS
+            if (y > 240) { doc.addPage(); y = TOP; }
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.setTextColor(...BLUE);
-            doc.text('RESEARCH PUBLICATIONS', MARGIN_LEFT, currentY);
-            currentY += 8;
+            setColor(ACCENT);
+            doc.text("RESEARCH PUBLICATIONS", LEFT, y);
+            y += 8;
             
             doc.setFontSize(9);
             allPublications.forEach((pub, index) => {
-                if (currentY > 265) { doc.addPage(); currentY = MARGIN_TOP; }
-                
-                // Publication number
+                if (y > 265) { doc.addPage(); y = TOP; }
+
+                // Number
+                setColor(ACCENT);
                 doc.setFont('helvetica', 'bold');
-                doc.setTextColor(...BLUE);
-                doc.text(`[${index + 1}]`, MARGIN_LEFT, currentY);
-                
+                doc.text(`[${index + 1}]`, LEFT, y);
+
                 // Title
-                const titleX = MARGIN_LEFT + 8;
-                const maxWidth = PAGE_WIDTH - MARGIN_RIGHT - titleX;
-                doc.setTextColor(...BLACK);
-                let titleText = pub.title;
-                if (pub.oral) titleText += " (Oral)";
+                const titleX = LEFT + 8;
+                const maxW = RIGHT - titleX;
+                setColor(PRIMARY);
+                let titleTxt = pub.title;
+                if (pub.oral) titleTxt += " (Oral)";
                 
-                const titleLines = doc.splitTextToSize(titleText, maxWidth);
+                const titleLines = doc.splitTextToSize(titleTxt, maxW);
                 titleLines.forEach(line => {
-                    doc.text(line, titleX, currentY);
-                    currentY += 4;
+                    doc.text(line, titleX, y);
+                    y += 4;
                 });
-                
+
                 // Authors
                 doc.setFont('helvetica', 'normal');
-                const authorsText = pub.authors.join(', ');
-                const authorLines = doc.splitTextToSize(authorsText, maxWidth);
+                setColor(SECONDARY);
+                const authorsStr = pub.authors.join(', ');
+                const authorLines = doc.splitTextToSize(authorsStr, maxW);
                 authorLines.forEach(line => {
-                    doc.text(line, titleX, currentY);
-                    currentY += 4;
+                    doc.text(line, titleX, y);
+                    y += 4;
                 });
-                
+
                 // Venue
                 doc.setFont('helvetica', 'italic');
-                const venueLines = doc.splitTextToSize(pub.venue, maxWidth);
+                setColor(MUTED);
+                const venueLines = doc.splitTextToSize(pub.venue, maxW);
                 venueLines.forEach(line => {
-                    doc.text(line, titleX, currentY);
-                    currentY += 4;
+                    doc.text(line, titleX, y);
+                    y += 4;
                 });
                 
-                currentY += 3;
+                y += 3;
             });
 
-            // References
-            if (currentY > 240) { doc.addPage(); currentY = MARGIN_TOP; }
+            // REFERENCES
+            if (y > 240) { doc.addPage(); y = TOP; }
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(11);
-            doc.setTextColor(...BLUE);
-            doc.text('REFERENCES', MARGIN_LEFT, currentY);
-            currentY += 8;
+            setColor(ACCENT);
+            doc.text("REFERENCES", LEFT, y);
+            y += 8;
             
             doc.setFontSize(10);
-            references.forEach(ref => {
-                if (currentY > 265) { doc.addPage(); currentY = MARGIN_TOP; }
+            references.forEach(r => {
+                if (y > 265) { doc.addPage(); y = TOP; }
                 doc.setFont('helvetica', 'bold');
-                doc.setTextColor(...BLACK);
-                doc.text(ref.name, MARGIN_LEFT, currentY);
-                currentY += 4.5;
+                setColor(PRIMARY);
+                doc.text(r.name, LEFT, y);
+                y += 4.5;
                 doc.setFont('helvetica', 'normal');
-                doc.text(ref.role, MARGIN_LEFT, currentY);
-                currentY += 4.5;
-                doc.text(`Email: ${ref.email} • Phone: ${ref.phone}`, MARGIN_LEFT, currentY);
-                currentY += 8;
+                setColor(SECONDARY);
+                doc.text(r.role, LEFT, y);
+                y += 4.5;
+                setColor(MUTED);
+                doc.text(`Email: ${r.email} • Phone: ${r.phone}`, LEFT, y);
+                y += 8;
             });
-        
-            // Open PDF in new tab
-            const pdfBlob = doc.output('blob');
-            const pdfUrl = URL.createObjectURL(pdfBlob);
-            window.open(pdfUrl, '_blank');
 
-            doc.save('Muhammad_Aqeel_CV.pdf');
+            // Create blob with proper filename metadata
+            const pdfBlob = doc.output('blob');
+            
+            // Create a blob with the filename in its type
+            const namedBlob = new Blob([pdfBlob], { type: 'application/pdf' });
+            
+            // Create object URL and open in new tab
+            const pdfUrl = URL.createObjectURL(namedBlob);
+            
+            // Open in new tab/window
+            const newWindow = window.open(pdfUrl, '_blank');
+            
+            // Set the title of the new window to suggest filename
+            if (newWindow) {
+                newWindow.onload = function() {
+                    newWindow.document.title = 'Muhammad_Aqeel_CV.pdf';
+                };
+            }
+            
+            // Clean up the URL after a delay
+            setTimeout(() => URL.revokeObjectURL(pdfUrl), 1000);
         }
     </script>
 </body>
