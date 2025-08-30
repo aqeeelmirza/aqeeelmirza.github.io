@@ -1386,22 +1386,27 @@
             y += 8;
           });
         
-          // ====== EXPORT (robust download – no popup blockers) ======
-          // Use jsPDF's blob and a hidden anchor with download attribute
-          const blob = doc.output('blob'); // already a Blob
-          const url = URL.createObjectURL(blob);
-        
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'Muhammad_Aqeel_CV.pdf';
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-        
-          // Revoke later to avoid racing the download (60s is safe; or on visibilitychange/unload)
-          setTimeout(() => URL.revokeObjectURL(url), 60000);
+            // Create blob with proper filename metadata 
+            const pdfBlob = doc.output('blob'); 
+            // Create a blob with the filename in its type 
+            const namedBlob = new Blob([pdfBlob], { type: 'application/pdf' }); 
+            
+            // Create object URL and open in new tab 
+            const pdfUrl = URL.createObjectURL(namedBlob); 
+                
+            // Open in new tab/window 
+            const newWindow = window.open(pdfUrl, '_blank'); 
+                
+            // Set the title of the new window to suggest filename 
+            if (newWindow) { 
+                newWindow.onload = function() { 
+                    newWindow.document.title = 'Muhammad_Aqeel_CV.pdf'; 
+                }; 
+            } 
+            
+            // Clean up the URL after a delay 
+            setTimeout(() => URL.revokeObjectURL(pdfUrl), 1000);
         }
-
     </script>
 </body>
 </html>
