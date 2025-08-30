@@ -1031,8 +1031,8 @@
             // Professional color scheme
             const PRIMARY = [30, 41, 59];      // Dark slate for headers
             const SECONDARY = [71, 85, 105];   // Slate for body text
-            const ACCENT = [8, 145, 178];      // Your website accent color
-            const MUTED = [148, 163, 184];     // Light slate for secondary info
+            const ACCENT = [8, 145, 178];      // Your website accent color (blue)
+            const MUTED = [100, 116, 139];     // Darker than before for better readability
         
             const setColor = (color) => doc.setTextColor(...color);
         
@@ -1079,17 +1079,46 @@
                 return y;
             }
         
-            // Draw section header with accent color underline
+            // Draw section header without underline, blue color
             function drawSectionHeader(doc, title, x, y) {
-                setColor(PRIMARY);
+                setColor(ACCENT); // Blue color for titles
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(11);
                 doc.text(title.toUpperCase(), x, y);
-                // Accent color underline
-                doc.setDrawColor(...ACCENT);
-                doc.setLineWidth(0.8);
-                doc.line(x, y + 2, x + doc.getTextWidth(title.toUpperCase()), y + 2);
                 return y + 8;
+            }
+        
+            // Helper to draw simple icons
+            function drawIcon(doc, type, x, y, size = 4) {
+                doc.setDrawColor(...SECONDARY);
+                doc.setLineWidth(0.3);
+                
+                switch(type) {
+                    case 'email':
+                        // Email envelope icon
+                        doc.rect(x, y - size + 1, size * 1.5, size * 0.8);
+                        doc.line(x, y - size + 1, x + size * 0.75, y - size/2);
+                        doc.line(x + size * 1.5, y - size + 1, x + size * 0.75, y - size/2);
+                        break;
+                    case 'whatsapp':
+                        // Simple circle with W
+                        doc.circle(x + size/2, y - size/2, size/2);
+                        doc.setFontSize(6);
+                        doc.text('W', x + size/2 - 1, y - size/2 + 1);
+                        break;
+                    case 'linkedin':
+                        // Simple circle with in
+                        doc.circle(x + size/2, y - size/2, size/2);
+                        doc.setFontSize(6);
+                        doc.text('in', x + size/2 - 1.5, y - size/2 + 1);
+                        break;
+                    case 'scholar':
+                        // Simple circle with S
+                        doc.circle(x + size/2, y - size/2, size/2);
+                        doc.setFontSize(6);
+                        doc.text('S', x + size/2 - 1, y - size/2 + 1);
+                        break;
+                }
             }
         
             // Header section
@@ -1116,17 +1145,37 @@
                 }
             }
         
-            // Contact info - properly spaced
+            // Contact info with icons - each on new line
             let y = TOP + 20;
             doc.setFontSize(9);
-            setColor(MUTED);
-            doc.text("muhammad.aqeel@univr.it • +86 182 1013 3275 • Ljubljana, Slovenia", LEFT, y);
-            y += 4;
-            doc.text("linkedin.com/in/muhammad-aqeel-4378b9170 • scholar.google.com/citations?user=ZPUihX0AAAAJ", LEFT, y);
+            setColor(SECONDARY);
+            
+            // Email
+            drawIcon(doc, 'email', LEFT, y, 3);
+            doc.text("muhammad.aqeel@univr.it", LEFT + 6, y);
+            y += 5;
+            
+            // WhatsApp
+            drawIcon(doc, 'whatsapp', LEFT, y, 3);
+            doc.text("+86 182 1013 3275", LEFT + 6, y);
+            y += 5;
+            
+            // LinkedIn
+            drawIcon(doc, 'linkedin', LEFT, y, 3);
+            doc.text("muhammad-aqeel-4378b9170", LEFT + 6, y);
+            y += 5;
+            
+            // Google Scholar
+            drawIcon(doc, 'scholar', LEFT, y, 3);
+            doc.text("ZPUihX0AAAAJ", LEFT + 6, y);
+            y += 5;
+            
+            // Location
+            doc.text("📍 Ljubljana, Slovenia", LEFT, y);
         
             // Main divider
             y += 6;
-            doc.setDrawColor(...ACCENT);
+            doc.setDrawColor(...MUTED);
             doc.setLineWidth(0.3);
             doc.line(LEFT, y, RIGHT, y);
         
@@ -1154,7 +1203,7 @@
             doc.setFontSize(10);
         
             const edu = [
-                { degree: "PhD in Computer Science", period: "2022–Present", inst: "University of Verona, Italy", details: "Supervisor: Francesco Setti" },
+                { degree: "PhD in Computer Science", period: "2022–Present", inst: "University of Verona, Italy" },
                 { degree: "Master in Computer Science", period: "2019–2021", inst: "Beijing University of Posts and Telecommunications, China" },
                 { degree: "Bachelor in Computer Science", period: "2013–2017", inst: "PMAS Arid Agriculture University, Pakistan" }
             ];
@@ -1165,7 +1214,7 @@
                 setColor(PRIMARY);
                 doc.text(e.degree, LEFT, y);
                 doc.setFont('helvetica', 'normal');
-                setColor(MUTED);
+                setColor(MUTED); // Using darker muted color for dates
                 doc.text(e.period, RIGHT - doc.getTextWidth(e.period), y);
                 y += 4.5;
                 setColor(SECONDARY);
@@ -1200,7 +1249,7 @@
                 setColor(PRIMARY);
                 doc.text(ex.title, LEFT, y);
                 doc.setFont('helvetica', 'normal');
-                setColor(MUTED);
+                setColor(MUTED); // Darker color for dates
                 doc.text(ex.period, RIGHT - doc.getTextWidth(ex.period), y);
                 y += 4.5;
                 setColor(SECONDARY);
@@ -1224,12 +1273,18 @@
             doc.text("Conferences: VISAPP 2025, ICCV 2025", LEFT + 5, y);
             y += 8;
         
-            // LANGUAGES
+            // LANGUAGES - each on new line
             if (y > 250) { doc.addPage(); y = TOP; }
             y = drawSectionHeader(doc, "Languages", LEFT, y);
             doc.setFontSize(10);
             setColor(SECONDARY);
-            doc.text("Punjabi/Urdu (Native) • English (Fluent-C2) • Italian (Elementary-A2) • Chinese (Basic-A1)", LEFT, y);
+            doc.text("• Punjabi/Urdu (Native)", LEFT, y);
+            y += 4.5;
+            doc.text("• English (Fluent - C2)", LEFT, y);
+            y += 4.5;
+            doc.text("• Italian (Elementary - A2)", LEFT, y);
+            y += 4.5;
+            doc.text("• Chinese (Basic - A1)", LEFT, y);
             y += 8;
         
             // TECHNICAL SKILLS
