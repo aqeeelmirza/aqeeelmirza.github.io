@@ -294,8 +294,8 @@
             .experience-section, .publications-section, .skills-section { padding: 60px 0.85rem; }
             .exp-card, .pub-card { padding: 25px; }
             .pub-title { font-size: 1.4rem; }
-            .contact-icon-link { width: 32px; height: 32px; }
-            .contact-icon-link svg { width: 16px; height: 16px; }
+            .contact-icon-link { width: 40px; height: 40px; }
+            .contact-icon-link svg { width: 20px; height: 20px; }
         }
     </style>
 </head>
@@ -575,7 +575,7 @@
                     </div>
                 </article>
 
-                <article class="pub-card fade-in" data-featured="true">
+                <article class="pub-card fade-in" data-featured="false">
                     <div class="pub-header">
                         <span class="pub-type">Conference</span>
                         <span class="pub-year">2025</span>
@@ -1142,6 +1142,7 @@
             y += 6;
             if (y > 250) { doc.addPage(); y = TOP; }
             y = drawSectionHeader(doc, "Research Interests", LEFT, y);
+            doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
             const researchText = "My research centers on developing robust anomaly detection systems for industrial quality control. I am particularly interested in how self-supervised and meta-learning techniques can enable models to detect previously unseen defects without extensive labeled data. Currently, I'm exploring diffusion models for generating synthetic defect data to augment limited industrial datasets. A key focus of my work is ensuring these systems are not just accurate but also interpretable and efficient enough for real-time deployment in manufacturing environments. I'm also investigating zero-shot anomaly detection methods that can generalize across different product types and manufacturing processes. My broader interest lies in making industrial AI systems more accessible and practical for real-world deployment.";
             y = drawJustifiedText(doc, researchText, LEFT, y, CONTENT_W, 4.5, SECONDARY);
@@ -1220,7 +1221,7 @@
             setColor(SECONDARY);
             doc.text("Journals: Neural Computing and Applications, Applied Soft Computing", LEFT + 5, y);
             y += 4.5;
-            doc.text("Conferences: CVPR 2024, ECCV 2024", LEFT + 5, y);
+            doc.text("Conferences: VISAPP 2025, ICCV 2025", LEFT + 5, y);
             y += 8;
         
             // LANGUAGES
