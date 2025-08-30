@@ -1018,6 +1018,7 @@
         }
 
         // ===== PDF Generation Function (CV ONLY) =====
+        // ===== PDF Generation Function (CV ONLY) =====
         async function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ unit: 'mm', format: 'a4' });
@@ -1087,61 +1088,89 @@
                 return y + 8;
             }
         
-            // Enhanced icon drawing function with better visibility
-            function drawIcon(doc, type, x, y, size = 3.5) {
-                doc.setDrawColor(...GREY);
-                doc.setFillColor(...GREY);
-                doc.setLineWidth(0.4);
+            // Professional icon drawing function with standard symbols
+            function drawIcon(doc, type, x, y, size = 3) {
+                doc.setLineWidth(0.15);
                 
                 switch(type) {
                     case 'email':
-                        // Better email envelope icon
-                        doc.rect(x, y - size + 0.5, size * 1.4, size * 0.9, 'S');
-                        doc.line(x, y - size + 0.5, x + size * 0.7, y - size/2 + 0.5);
-                        doc.line(x + size * 1.4, y - size + 0.5, x + size * 0.7, y - size/2 + 0.5);
+                        // Standard email icon - @ symbol
+                        doc.setDrawColor(...GREY);
+                        doc.circle(x + size/2, y - size/2, size/2, 'S');
+                        doc.setFontSize(6);
+                        doc.setFont('helvetica', 'normal');
+                        setColor(GREY);
+                        doc.text('@', x + size/2, y - size/2 + 0.8, { align: 'center' });
                         break;
                     case 'whatsapp':
-                        // WhatsApp phone icon
-                        doc.circle(x + size/2, y - size/2, size/2, 'S');
-                        doc.setFontSize(5);
-                        doc.setFont('helvetica', 'bold');
-                        setColor(GREY);
-                        doc.text('W', x + size/2, y - size/2 + 0.5, { align: 'center' });
+                        // Phone icon for WhatsApp
+                        doc.setDrawColor(...GREY);
+                        doc.setFillColor(...GREY);
+                        // Phone handset shape
+                        doc.roundedRect(x + 0.3, y - size + 0.3, size * 0.6, size * 0.8, 0.3, 0.3, 'F');
+                        doc.setFillColor(255, 255, 255);
+                        doc.circle(x + size/2, y - size + 1.2, 0.2, 'F');
                         break;
                     case 'linkedin':
-                        // LinkedIn icon
-                        doc.roundedRect(x, y - size, size, size, 0.5, 0.5, 'S');
-                        doc.setFontSize(5);
+                        // LinkedIn standard icon
+                        doc.setDrawColor(...GREY);
+                        doc.setFillColor(...GREY);
+                        doc.roundedRect(x, y - size, size, size, 0.3, 0.3, 'F');
+                        doc.setFillColor(255, 255, 255);
+                        doc.setFontSize(5.5);
                         doc.setFont('helvetica', 'bold');
-                        setColor(GREY);
-                        doc.text('in', x + size/2, y - size/2 + 0.5, { align: 'center' });
+                        doc.text('in', x + size/2, y - size/2 + 0.7, { align: 'center' });
                         break;
                     case 'scholar':
-                        // Google Scholar graduation cap
-                        doc.circle(x + size/2, y - size/2, size/2, 'S');
-                        doc.setFontSize(5);
-                        doc.setFont('helvetica', 'bold');
-                        setColor(GREY);
-                        doc.text('GS', x + size/2, y - size/2 + 0.5, { align: 'center' });
+                        // Graduation cap icon
+                        doc.setDrawColor(...GREY);
+                        doc.setFillColor(...GREY);
+                        // Cap top (mortarboard)
+                        const points = [
+                            [x + size/2, y - size + 0.2],
+                            [x + 0.2, y - size/2],
+                            [x + size/2, y - size/2 + 0.5],
+                            [x + size - 0.2, y - size/2]
+                        ];
+                        doc.lines([[points[1][0] - points[0][0], points[1][1] - points[0][1]],
+                                  [points[2][0] - points[1][0], points[2][1] - points[1][1]],
+                                  [points[3][0] - points[2][0], points[3][1] - points[2][1]],
+                                  [points[0][0] - points[3][0], points[0][1] - points[3][1]]], 
+                                  points[0][0], points[0][1], [1, 1], 'F');
+                        // Tassel
+                        doc.circle(x + size - 0.3, y - size/2 + 0.3, 0.15, 'F');
+                        doc.line(x + size/2, y - size/2, x + size - 0.3, y - size/2 + 0.3);
                         break;
                     case 'web':
-                        // Globe/web icon
+                        // Globe icon with meridians
+                        doc.setDrawColor(...GREY);
                         doc.circle(x + size/2, y - size/2, size/2, 'S');
-                        // Add globe lines
-                        doc.ellipse(x + size/2, y - size/2, size/2, size/3, 'S');
+                        // Vertical ellipse (meridian)
+                        doc.ellipse(x + size/2, y - size/2, size/5, size/2, 'S');
+                        // Horizontal line (equator)
                         doc.line(x, y - size/2, x + size, y - size/2);
+                        // Latitude lines
+                        doc.arc(x + size/2, y - size/2, size/2.5, 0, Math.PI, false, 'S');
+                        doc.arc(x + size/2, y - size/2, size/2.5, Math.PI, 2 * Math.PI, false, 'S');
                         break;
                     case 'location':
-                        // Location pin
-                        doc.circle(x + size/2, y - size/2 - 0.5, size/3, 'S');
-                        doc.line(x + size/2, y - size/2 + 0.5, x + size/2, y - 0.5);
-                        doc.line(x + size/2 - 0.5, y - size/2, x + size/2, y - 0.5);
-                        doc.line(x + size/2 + 0.5, y - size/2, x + size/2, y - 0.5);
+                        // Map pin icon
+                        doc.setDrawColor(...GREY);
+                        doc.setFillColor(...GREY);
+                        // Pin shape
+                        doc.circle(x + size/2, y - size + size/3, size/3, 'F');
+                        doc.setFillColor(255, 255, 255);
+                        doc.circle(x + size/2, y - size + size/3, size/6, 'F');
+                        doc.setFillColor(...GREY);
+                        // Pin point
+                        doc.triangle(x + size/2, y - 0.3,
+                                   x + size/2 - 0.4, y - size/2 + 0.2,
+                                   x + size/2 + 0.4, y - size/2 + 0.2, 'F');
                         break;
                 }
             }
         
-            // Header section
+            // Header section with better layout
             setColor(BLACK);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(24);
@@ -1151,6 +1180,12 @@
             doc.setFontSize(11);
             setColor(BLACK);
             doc.text("PhD Researcher in Computer Science", LEFT, TOP + 8);
+            
+            // Add Curriculum Vitae text
+            doc.setFont('helvetica', 'italic');
+            doc.setFontSize(10);
+            setColor(GREY);
+            doc.text("Curriculum Vitae", LEFT, TOP + 14);
         
             // Profile image (fixed positioning)
             const imgEl = document.querySelector('.profile-image img');
@@ -1158,49 +1193,42 @@
                 try {
                     const masked = await getMaskedImageDataURL(imgEl, 520, IMAGE_SHAPE);
                     if (masked) {
-                        doc.addImage(masked, 'PNG', RIGHT - 28, TOP - 5, 28, 28);
+                        doc.addImage(masked, 'PNG', RIGHT - 30, TOP - 5, 30, 30);
                     }
                 } catch(e) {
                     console.error('Image loading error:', e);
                 }
             }
         
-            // Contact info with enhanced icons - each on new line
-            let y = TOP + 20;
-            doc.setFontSize(9);
-            setColor(GREY); // Grey color for contact information
+            // Contact info - positioned in the space between name and photo
+            let contactX = 95; // Middle position
+            let contactY = TOP - 2;
+            doc.setFontSize(8);
+            setColor(GREY);
             
-            // Email
-            drawIcon(doc, 'email', LEFT, y, 3.5);
-            doc.text("muhammad.aqeel@univr.it", LEFT + 6, y);
-            y += 5;
+            // First column of contacts
+            drawIcon(doc, 'email', contactX, contactY + 4, 3);
+            doc.text("muhammad.aqeel@univr.it", contactX + 5, contactY + 4);
             
-            // WhatsApp
-            drawIcon(doc, 'whatsapp', LEFT, y, 3.5);
-            doc.text("+86 182 1013 3275", LEFT + 6, y);
-            y += 5;
+            drawIcon(doc, 'whatsapp', contactX, contactY + 9, 3);
+            doc.text("+86 182 1013 3275", contactX + 5, contactY + 9);
             
-            // Website
-            drawIcon(doc, 'web', LEFT, y, 3.5);
-            doc.text("https://aqeeelmirza.github.io/", LEFT + 6, y);
-            y += 5;
+            drawIcon(doc, 'web', contactX, contactY + 14, 3);
+            doc.text("https://aqeeelmirza.github.io/", contactX + 5, contactY + 14);
             
-            // LinkedIn
-            drawIcon(doc, 'linkedin', LEFT, y, 3.5);
-            doc.text("muhammad-aqeel-4378b9170", LEFT + 6, y);
-            y += 5;
+            // Second column of contacts
+            let col2X = contactX + 55;
+            drawIcon(doc, 'linkedin', col2X, contactY + 4, 3);
+            doc.text("muhammad-aqeel-4378b9170", col2X + 5, contactY + 4);
             
-            // Google Scholar
-            drawIcon(doc, 'scholar', LEFT, y, 3.5);
-            doc.text("ZPUihX0AAAAJ", LEFT + 6, y);
-            y += 5;
+            drawIcon(doc, 'scholar', col2X, contactY + 9, 3);
+            doc.text("ZPUihX0AAAAJ", col2X + 5, contactY + 9);
             
-            // Location
-            drawIcon(doc, 'location', LEFT, y, 3.5);
-            doc.text("Ljubljana, Slovenia", LEFT + 6, y);
+            drawIcon(doc, 'location', col2X, contactY + 14, 3);
+            doc.text("Ljubljana, Slovenia", col2X + 5, contactY + 14);
         
             // Main divider
-            y += 6;
+            let y = TOP + 22;
             doc.setDrawColor(200, 200, 200);
             doc.setLineWidth(0.3);
             doc.line(LEFT, y, RIGHT, y);
