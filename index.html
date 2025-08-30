@@ -1037,53 +1037,64 @@
             const LIGHT_GREY = [200, 200, 200];
 
             // Helper function to draw professional icons
-            function drawIcon(type, x, y, size = 3) {
-                doc.setLineWidth(0.2);
+            function drawIcon(type, x, y, size = 2.5) {
+                doc.setLineWidth(0.15);
                 doc.setDrawColor(...GREY);
                 doc.setFillColor(...GREY);
 
                 switch(type) {
                     case 'email':
-                        // @ symbol for email
-                        doc.circle(x + size/2, y, size/2, 'S');
-                        doc.setFontSize(5);
-                        doc.setTextColor(...GREY);
-                        doc.text('@', x + size/2, y + 0.5, { align: 'center' });
+                        // Envelope icon
+                        doc.rect(x, y - size * 0.7, size * 1.2, size * 0.8, 'S');
+                        doc.line(x, y - size * 0.7, x + size * 0.6, y - size * 0.3);
+                        doc.line(x + size * 1.2, y - size * 0.7, x + size * 0.6, y - size * 0.3);
                         break;
                     case 'phone':
-                        // Phone handset
-                        doc.roundedRect(x + size/3, y - size/3, size/3, size * 0.7, 0.2, 0.2, 'F');
+                        // Phone icon
+                        doc.setFillColor(...GREY);
+                        doc.roundedRect(x, y - size * 0.8, size * 0.5, size * 0.8, 0.2, 0.2, 'F');
+                        doc.setFillColor(255, 255, 255);
+                        doc.circle(x + size * 0.25, y - size * 0.15, 0.15, 'F');
                         break;
                     case 'web':
                         // Globe icon
-                        doc.circle(x + size/2, y, size/2, 'S');
-                        doc.ellipse(x + size/2, y, size/5, size/2, 'S');
-                        doc.line(x, y, x + size, y);
+                        doc.circle(x + size/2, y - size/2, size/2, 'S');
+                        doc.ellipse(x + size/2, y - size/2, size/5, size/2, 'S');
+                        doc.line(x, y - size/2, x + size, y - size/2);
                         break;
                     case 'linkedin':
-                        // LinkedIn logo
-                        doc.roundedRect(x, y - size/2, size, size, 0.3, 0.3, 'F');
-                        doc.setTextColor(255, 255, 255);
+                        // LinkedIn "in" square
+                        doc.setFillColor(...GREY);
+                        doc.roundedRect(x, y - size * 0.8, size * 0.8, size * 0.8, 0.2, 0.2, 'F');
+                        doc.setFillColor(255, 255, 255);
                         doc.setFontSize(5);
                         doc.setFont('helvetica', 'bold');
-                        doc.text('in', x + size/2, y + 0.5, { align: 'center' });
+                        doc.text('in', x + size * 0.4, y - size * 0.35, { align: 'center' });
                         break;
                     case 'scholar':
                         // Graduation cap
-                        const capY = y - size/4;
+                        doc.setFillColor(...GREY);
+                        // Cap top
                         doc.lines([
                             [size, 0],
                             [-size/2, size/3],
                             [-size/2, -size/3]
-                        ], x, capY, [1, 1], 'F', true);
+                        ], x, y - size * 0.6, [0.8, 0.8], 'F', true);
+                        // Tassel
+                        doc.circle(x + size * 0.8, y - size * 0.3, 0.15, 'F');
+                        doc.line(x + size/2, y - size * 0.5, x + size * 0.8, y - size * 0.3);
                         break;
                     case 'location':
                         // Map pin
-                        doc.circle(x + size/2, y - size/4, size/3, 'F');
+                        doc.setFillColor(...GREY);
+                        doc.circle(x + size * 0.4, y - size * 0.6, size * 0.3, 'F');
+                        doc.setFillColor(255, 255, 255);
+                        doc.circle(x + size * 0.4, y - size * 0.6, size * 0.15, 'F');
+                        doc.setFillColor(...GREY);
                         doc.triangle(
-                            x + size/2, y + size/2,
-                            x + size/3, y,
-                            x + size * 2/3, y,
+                            x + size * 0.4, y - size * 0.1,
+                            x + size * 0.2, y - size * 0.4,
+                            x + size * 0.6, y - size * 0.4,
                             'F'
                         );
                         break;
@@ -1135,7 +1146,7 @@
             // Start building the PDF
             let currentY = MARGIN_TOP;
 
-            // Header section
+            // Header section with profile picture space on the right
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(24);
             doc.setTextColor(...BLACK);
@@ -1150,36 +1161,52 @@
             doc.setTextColor(...GREY);
             doc.text('Curriculum Vitae', MARGIN_LEFT, currentY + 14);
 
-            // Contact information in the middle space
-            const contactStartX = 85;
-            const contactY = currentY + 1;
+            // Profile picture placeholder (on the right)
+            const imgSize = 30;
+            const imgX = PAGE_WIDTH - MARGIN_RIGHT - imgSize;
+            const imgY = MARGIN_TOP - 5;
+            // Draw a circle placeholder for profile image
+            doc.setDrawColor(...LIGHT_GREY);
+            doc.setLineWidth(0.5);
+            doc.circle(imgX + imgSize/2, imgY + imgSize/2, imgSize/2, 'S');
+
+            // Contact section - SINGLE COLUMN
+            currentY += 22;
             doc.setFont('helvetica', 'normal');
-            doc.setFontSize(8);
+            doc.setFontSize(9);
             doc.setTextColor(...GREY);
 
-            // First column
-            drawIcon('email', contactStartX, contactY, 3);
-            doc.text('muhammad.aqeel@univr.it', contactStartX + 5, contactY);
-
-            drawIcon('phone', contactStartX, contactY + 5, 3);
-            doc.text('+86 182 1013 3275', contactStartX + 5, contactY + 5);
-
-            drawIcon('web', contactStartX, contactY + 10, 3);
-            doc.text('https://aqeeelmirza.github.io/', contactStartX + 5, contactY + 10);
-
-            // Second column
-            const col2X = contactStartX + 60;
-            drawIcon('linkedin', col2X, contactY, 3);
-            doc.text('muhammad-aqeel-4378b9170', col2X + 5, contactY);
-
-            drawIcon('scholar', col2X, contactY + 5, 3);
-            doc.text('ZPUihX0AAAAJ', col2X + 5, contactY + 5);
-
-            drawIcon('location', col2X, contactY + 10, 3);
-            doc.text('Ljubljana, Slovenia', col2X + 5, contactY + 10);
+            // Email
+            drawIcon('email', MARGIN_LEFT, currentY, 2.5);
+            doc.text('muhammad.aqeel@univr.it', MARGIN_LEFT + 4, currentY - 0.5);
+            currentY += 4;
+            
+            // Phone
+            drawIcon('phone', MARGIN_LEFT, currentY, 2.5);
+            doc.text('+86 182 1013 3275', MARGIN_LEFT + 4, currentY - 0.5);
+            currentY += 4;
+            
+            // Website
+            drawIcon('web', MARGIN_LEFT, currentY, 2.5);
+            doc.text('https://aqeeelmirza.github.io/', MARGIN_LEFT + 4, currentY - 0.5);
+            currentY += 4;
+            
+            // LinkedIn
+            drawIcon('linkedin', MARGIN_LEFT, currentY, 2.5);
+            doc.text('muhammad-aqeel-4378b9170', MARGIN_LEFT + 4, currentY - 0.5);
+            currentY += 4;
+            
+            // Google Scholar
+            drawIcon('scholar', MARGIN_LEFT, currentY, 2.5);
+            doc.text('ZPUihX0AAAAJ', MARGIN_LEFT + 4, currentY - 0.5);
+            currentY += 4;
+            
+            // Location
+            drawIcon('location', MARGIN_LEFT, currentY, 2.5);
+            doc.text('Ljubljana, Slovenia', MARGIN_LEFT + 4, currentY - 0.5);
 
             // Divider line
-            currentY += 25;
+            currentY += 6;
             doc.setDrawColor(...LIGHT_GREY);
             doc.setLineWidth(0.3);
             doc.line(MARGIN_LEFT, currentY, PAGE_WIDTH - MARGIN_RIGHT, currentY);
@@ -1411,6 +1438,8 @@
             const pdfBlob = doc.output('blob');
             const pdfUrl = URL.createObjectURL(pdfBlob);
             window.open(pdfUrl, '_blank');
+
+            doc.save('Muhammad_Aqeel_CV.pdf');
         }
     </script>
 </body>
