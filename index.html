@@ -1018,6 +1018,7 @@
         }
 
         // ===== PDF Generation Function (CV ONLY) =====
+        
         async function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ unit: 'mm', format: 'a4' });
@@ -1088,54 +1089,138 @@
                 return y + 8;
             }
         
-            // Helper to draw simple icons using basic shapes
+            // Helper to draw professional icons using carefully crafted shapes
             function drawContactIcon(doc, type, x, y) {
                 doc.setDrawColor(...GREY);
-                doc.setLineWidth(0.25);
+                doc.setFillColor(...GREY);
+                
+                const iconSize = 3;
+                const centerX = x + 1.5;
+                const centerY = y - 1.5;
                 
                 switch(type) {
                     case 'email':
-                        // Simple envelope
-                        doc.rect(x, y - 2.5, 4, 2.5);
-                        doc.line(x, y - 2.5, x + 2, y - 1);
-                        doc.line(x + 4, y - 2.5, x + 2, y - 1);
+                        // Professional envelope icon
+                        doc.setLineWidth(0.15);
+                        const envW = 3.2;
+                        const envH = 2.2;
+                        const envX = centerX - envW/2;
+                        const envY = centerY - envH/2;
+                        
+                        // Envelope body
+                        doc.rect(envX, envY, envW, envH);
+                        
+                        // Envelope flap (V shape)
+                        doc.setLineWidth(0.2);
+                        doc.line(envX, envY, centerX, centerY + 0.3);
+                        doc.line(envX + envW, envY, centerX, centerY + 0.3);
+                        
+                        // Small detail lines at bottom corners
+                        doc.setLineWidth(0.1);
+                        doc.line(envX, envY + envH, envX + 0.8, envY + envH - 0.6);
+                        doc.line(envX + envW, envY + envH, envX + envW - 0.8, envY + envH - 0.6);
                         break;
                         
                     case 'phone':
-                        // Simple phone shape
-                        doc.rect(x + 0.5, y - 3, 2, 3);
-                        doc.circle(x + 1.5, y - 0.5, 0.2);
+                        // Modern phone icon
+                        doc.setLineWidth(0.15);
+                        const phoneW = 1.8;
+                        const phoneH = 2.8;
+                        const phoneX = centerX - phoneW/2;
+                        const phoneY = centerY - phoneH/2;
+                        
+                        // Phone body with rounded corners
+                        doc.roundedRect(phoneX, phoneY, phoneW, phoneH, 0.3, 0.3);
+                        
+                        // Screen area
+                        doc.setLineWidth(0.1);
+                        doc.rect(phoneX + 0.2, phoneY + 0.4, phoneW - 0.4, phoneH - 0.8);
+                        
+                        // Speaker at top
+                        doc.setLineWidth(0.2);
+                        doc.line(centerX - 0.3, phoneY + 0.2, centerX + 0.3, phoneY + 0.2);
+                        
+                        // Home button
+                        doc.circle(centerX, phoneY + phoneH - 0.25, 0.15);
                         break;
                         
                     case 'linkedin':
-                        // LinkedIn "in" text in a box
-                        doc.rect(x, y - 3, 3, 3);
-                        doc.setFontSize(7);
+                        // Professional LinkedIn icon
+                        doc.setLineWidth(0.15);
+                        const linkedinSize = 2.8;
+                        const linkedinX = centerX - linkedinSize/2;
+                        const linkedinY = centerY - linkedinSize/2;
+                        
+                        // Rounded square background
+                        doc.roundedRect(linkedinX, linkedinY, linkedinSize, linkedinSize, 0.4, 0.4);
+                        
+                        // "in" text - more professional placement
                         doc.setFont('helvetica', 'bold');
+                        doc.setFontSize(8);
                         setColor(GREY);
-                        doc.text('in', x + 0.5, y - 0.8);
+                        doc.text('in', linkedinX + 0.55, linkedinY + 2.1);
                         doc.setFont('helvetica', 'normal');
                         doc.setFontSize(10);
                         break;
                         
                     case 'scholar':
-                        // Simple graduation cap
-                        doc.line(x, y - 2, x + 3, y - 2);
-                        doc.line(x + 1.5, y - 2, x + 1.5, y - 2.5);
-                        doc.line(x + 0.5, y - 2.5, x + 2.5, y - 2.5);
-                        doc.circle(x + 3, y - 1.5, 0.3);
+                        // Academic graduation cap icon
+                        doc.setLineWidth(0.15);
+                        
+                        // Mortarboard top (diamond shape viewed from angle)
+                        const capTop = centerY - 0.8;
+                        doc.lines([
+                            [1.2, 0],
+                            [0.4, 0.5],
+                            [-1.2, 0],
+                            [-0.4, -0.5],
+                            [1.2, 0]
+                        ], centerX - 0.4, capTop);
+                        
+                        // Cap button on top
+                        doc.circle(centerX, capTop, 0.12, 'F');
+                        
+                        // Tassel
+                        doc.setLineWidth(0.1);
+                        doc.line(centerX, capTop, centerX + 1, capTop + 0.3);
+                        doc.circle(centerX + 1, capTop + 0.3, 0.08);
+                        
+                        // Bottom edge of cap
+                        doc.setLineWidth(0.15);
+                        doc.line(centerX - 1.2, centerY, centerX + 1.2, centerY);
                         break;
                         
                     case 'location':
-                        // Simple location pin
-                        doc.circle(x + 1.5, y - 2, 1);
-                        doc.line(x + 1.5, y - 1, x + 1.5, y + 0.5);
-                        doc.line(x + 1.5, y + 0.5, x + 1, y);
-                        doc.line(x + 1.5, y + 0.5, x + 2, y);
+                        // Professional map pin icon
+                        doc.setLineWidth(0.15);
+                        
+                        // Pin head (circle)
+                        const pinRadius = 0.9;
+                        doc.circle(centerX, centerY - 0.3, pinRadius);
+                        
+                        // Inner circle
+                        doc.circle(centerX, centerY - 0.3, 0.3, 'F');
+                        
+                        // Pin point (triangle/drop shape)
+                        doc.setLineWidth(0);
+                        doc.triangle(
+                            centerX - 0.35, centerY + 0.3,
+                            centerX + 0.35, centerY + 0.3,
+                            centerX, centerY + 1.2,
+                            'F'
+                        );
+                        
+                        // Outline for the point
+                        doc.setLineWidth(0.15);
+                        doc.line(centerX - 0.64, centerY + 0.4, centerX, centerY + 1.2);
+                        doc.line(centerX + 0.64, centerY + 0.4, centerX, centerY + 1.2);
                         break;
                 }
                 
-                doc.setDrawColor(0, 0, 0); // Reset to black
+                // Reset colors and line width
+                doc.setDrawColor(0, 0, 0);
+                doc.setFillColor(0, 0, 0);
+                doc.setLineWidth(0.3);
             }
         
             // Header section
@@ -1162,12 +1247,12 @@
                 }
             }
         
-            // Contact info with icons
+            // Contact info with professional icons
             let y = TOP + 22;
             doc.setFontSize(10);
             
             const iconX = LEFT;
-            const textX = LEFT + 6;
+            const textX = LEFT + 5.5; // Adjusted spacing for better alignment
             
             // Email
             drawContactIcon(doc, 'email', iconX, y);
