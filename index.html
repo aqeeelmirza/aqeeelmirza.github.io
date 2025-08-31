@@ -1145,80 +1145,75 @@
                         break;
                         
                     case 'linkedin':
-                        // Simplified LinkedIn icon
-                        doc.setLineWidth(0.2);
-                        const linkedinSize = 2.6;
+                        // Professional LinkedIn icon
+                        doc.setLineWidth(0.15);
+                        const linkedinSize = 2.8;
                         const linkedinX = centerX - linkedinSize/2;
                         const linkedinY = centerY - linkedinSize/2;
                         
-                        // Square with subtle rounded corners
-                        doc.roundedRect(linkedinX, linkedinY, linkedinSize, linkedinSize, 0.2, 0.2);
+                        // Rounded square background
+                        doc.roundedRect(linkedinX, linkedinY, linkedinSize, linkedinSize, 0.4, 0.4);
                         
-                        // Simple "in" letters - cleaner
-                        doc.setLineWidth(0.25);
-                        // Letter "i"
-                        doc.circle(linkedinX + 0.7, linkedinY + 0.7, 0.08, 'F');
-                        doc.line(linkedinX + 0.7, linkedinY + 1, linkedinX + 0.7, linkedinY + 2.1);
-                        
-                        // Letter "n"
-                        doc.line(linkedinX + 1.2, linkedinY + 1, linkedinX + 1.2, linkedinY + 2.1);
-                        doc.arc(linkedinX + 1.5, linkedinY + 1.3, 0.3, 0.3, 180, 0);
-                        doc.line(linkedinX + 1.8, linkedinY + 1.3, linkedinX + 1.8, linkedinY + 2.1);
+                        // "in" text - more professional placement
+                        doc.setFont('helvetica', 'bold');
+                        doc.setFontSize(8);
+                        setColor(GREY);
+                        doc.text('in', linkedinX + 0.55, linkedinY + 2.1);
+                        doc.setFont('helvetica', 'normal');
+                        doc.setFontSize(10);
                         break;
                         
                     case 'scholar':
-                        // Much simpler book/graduation icon
-                        doc.setLineWidth(0.2);
-                        
-                        // Open book shape (simpler and cleaner)
-                        const bookW = 2.8;
-                        const bookH = 2.2;
-                        const bookX = centerX - bookW/2;
-                        const bookY = centerY - bookH/2;
-                        
-                        // Book outline
-                        doc.rect(bookX, bookY, bookW, bookH);
-                        
-                        // Book spine (center line)
-                        doc.line(centerX, bookY, centerX, bookY + bookH);
-                        
-                        // Small graduation cap on top (simplified)
+                        // Academic graduation cap icon
                         doc.setLineWidth(0.15);
-                        // Cap top (simple line)
-                        doc.line(centerX - 0.8, bookY - 0.4, centerX + 0.8, bookY - 0.4);
-                        // Cap base
-                        doc.line(centerX - 0.5, bookY - 0.2, centerX + 0.5, bookY - 0.2);
+                        
+                        // Mortarboard top (diamond shape viewed from angle)
+                        const capTop = centerY - 0.8;
+                        doc.lines([
+                            [1.2, 0],
+                            [0.4, 0.5],
+                            [-1.2, 0],
+                            [-0.4, -0.5],
+                            [1.2, 0]
+                        ], centerX - 0.4, capTop);
+                        
+                        // Cap button on top
+                        doc.circle(centerX, capTop, 0.12, 'F');
+                        
                         // Tassel
-                        doc.circle(centerX + 0.8, bookY - 0.3, 0.06, 'F');
+                        doc.setLineWidth(0.1);
+                        doc.line(centerX, capTop, centerX + 1, capTop + 0.3);
+                        doc.circle(centerX + 1, capTop + 0.3, 0.08);
+                        
+                        // Bottom edge of cap
+                        doc.setLineWidth(0.15);
+                        doc.line(centerX - 1.2, centerY, centerX + 1.2, centerY);
                         break;
                         
                     case 'location':
-                        // Cleaner map pin icon
-                        doc.setLineWidth(0.2);
+                        // Professional map pin icon
+                        doc.setLineWidth(0.15);
                         
-                        // Pin circle (slightly smaller)
-                        const pinRadius = 0.8;
-                        doc.circle(centerX, centerY - 0.4, pinRadius);
+                        // Pin head (circle)
+                        const pinRadius = 0.9;
+                        doc.circle(centerX, centerY - 0.3, pinRadius);
                         
-                        // Inner dot
-                        doc.circle(centerX, centerY - 0.4, 0.25, 'F');
+                        // Inner circle
+                        doc.circle(centerX, centerY - 0.3, 0.3, 'F');
                         
-                        // Pin point (simpler triangle)
+                        // Pin point (triangle/drop shape)
                         doc.setLineWidth(0);
-                        // Create a clean triangular point
-                        const pointBase = centerY + 0.2;
-                        const pointTip = centerY + 1.1;
                         doc.triangle(
-                            centerX - 0.3, pointBase,
-                            centerX + 0.3, pointBase,
-                            centerX, pointTip,
+                            centerX - 0.35, centerY + 0.3,
+                            centerX + 0.35, centerY + 0.3,
+                            centerX, centerY + 1.2,
                             'F'
                         );
                         
-                        // Connect circle to point with clean lines
-                        doc.setLineWidth(0.2);
-                        doc.line(centerX - 0.56, centerY + 0.25, centerX - 0.05, pointTip - 0.1);
-                        doc.line(centerX + 0.56, centerY + 0.25, centerX + 0.05, pointTip - 0.1);
+                        // Outline for the point
+                        doc.setLineWidth(0.15);
+                        doc.line(centerX - 0.64, centerY + 0.4, centerX, centerY + 1.2);
+                        doc.line(centerX + 0.64, centerY + 0.4, centerX, centerY + 1.2);
                         break;
                 }
                 
@@ -1239,18 +1234,16 @@
             setColor(BLACK);
             doc.text("PhD Researcher in Computer Science", LEFT, TOP + 8);
         
-            // Profile image (if available and getMaskedImageDataURL is defined)
-            if (typeof getMaskedImageDataURL !== 'undefined' && typeof IMAGE_SHAPE !== 'undefined') {
-                const imgEl = document.querySelector('.profile-image img');
-                if (imgEl && imgEl.style.display !== 'none' && imgEl.naturalWidth > 0) {
-                    try {
-                        const masked = await getMaskedImageDataURL(imgEl, 520, IMAGE_SHAPE);
-                        if (masked) {
-                            doc.addImage(masked, 'PNG', RIGHT - 28, TOP - 5, 28, 28);
-                        }
-                    } catch(e) {
-                        console.error('Image loading error:', e);
+            // Profile image (fixed positioning)
+            const imgEl = document.querySelector('.profile-image img');
+            if (imgEl && imgEl.style.display !== 'none' && imgEl.naturalWidth > 0) {
+                try {
+                    const masked = await getMaskedImageDataURL(imgEl, 520, IMAGE_SHAPE);
+                    if (masked) {
+                        doc.addImage(masked, 'PNG', RIGHT - 28, TOP - 5, 28, 28);
                     }
+                } catch(e) {
+                    console.error('Image loading error:', e);
                 }
             }
         
@@ -1425,76 +1418,70 @@
             y = drawSectionHeader(doc, "Research Publications", LEFT, y);
             doc.setFontSize(9);
         
-            // Check if allPublications is defined
-            if (typeof allPublications !== 'undefined') {
-                allPublications.forEach((pub, index) => {
-                    if (y > 265) { doc.addPage(); y = TOP; }
+            allPublications.forEach((pub, index) => {
+                if (y > 265) { doc.addPage(); y = TOP; }
         
-                    // Clean numbering
-                    setColor(ACCENT);
-                    doc.setFont('helvetica', 'bold');
-                    doc.text(`[${index + 1}]`, LEFT, y);
+                // Clean numbering
+                setColor(ACCENT);
+                doc.setFont('helvetica', 'bold');
+                doc.text(`[${index + 1}]`, LEFT, y);
         
-                    // Title
-                    const titleX = LEFT + 8;
-                    const maxW = RIGHT - titleX;
-                    setColor(BLACK);
-                    let titleTxt = pub.title;
-                    if (pub.oral) titleTxt += " (Oral)";
-                    
-                    // Title text
-                    const titleLines = doc.splitTextToSize(titleTxt, maxW);
-                    titleLines.forEach(line => {
-                        doc.text(line, titleX, y);
-                        y += 4;
-                    });
-        
-                    // Authors
-                    doc.setFont('helvetica', 'normal');
-                    setColor(BLACK);
-                    const authorsStr = pub.authors.join(', ');
-                    const authorLines = doc.splitTextToSize(authorsStr, maxW);
-                    authorLines.forEach(line => {
-                        doc.text(line, titleX, y);
-                        y += 4;
-                    });
-        
-                    // Venue
-                    doc.setFont('helvetica', 'italic');
-                    setColor(GREY);
-                    const venueLines = doc.splitTextToSize(pub.venue, maxW);
-                    venueLines.forEach(line => {
-                        doc.text(line, titleX, y);
-                        y += 4;
-                    });
-                    doc.setFont('helvetica', 'normal');
-                    
-                    y += 3;
+                // Title
+                const titleX = LEFT + 8;
+                const maxW = RIGHT - titleX;
+                setColor(BLACK);
+                let titleTxt = pub.title;
+                if (pub.oral) titleTxt += " (Oral)";
+                
+                // Title text
+                const titleLines = doc.splitTextToSize(titleTxt, maxW);
+                titleLines.forEach(line => {
+                    doc.text(line, titleX, y);
+                    y += 4;
                 });
-            }
+        
+                // Authors
+                doc.setFont('helvetica', 'normal');
+                setColor(BLACK);
+                const authorsStr = pub.authors.join(', ');
+                const authorLines = doc.splitTextToSize(authorsStr, maxW);
+                authorLines.forEach(line => {
+                    doc.text(line, titleX, y);
+                    y += 4;
+                });
+        
+                // Venue
+                doc.setFont('helvetica', 'italic');
+                setColor(GREY);
+                const venueLines = doc.splitTextToSize(pub.venue, maxW);
+                venueLines.forEach(line => {
+                    doc.text(line, titleX, y);
+                    y += 4;
+                });
+                doc.setFont('helvetica', 'normal');
+                
+                y += 3;
+            });
         
             // REFERENCES
             if (y > 240) { doc.addPage(); y = TOP; }
             y = drawSectionHeader(doc, "References", LEFT, y);
             doc.setFontSize(10);
             
-            // Check if references is defined
-            if (typeof references !== 'undefined') {
-                references.forEach(r => {
-                    if (y > 265) { doc.addPage(); y = TOP; }
-                    doc.setFont('helvetica', 'bold');
-                    setColor(BLACK);
-                    doc.text(r.name, LEFT, y);
-                    y += 4.5;
-                    doc.setFont('helvetica', 'normal');
-                    setColor(BLACK);
-                    doc.text(r.role, LEFT, y);
-                    y += 4.5;
-                    setColor(GREY);
-                    doc.text(`Email: ${r.email} • Phone: ${r.phone}`, LEFT, y);
-                    y += 8;
-                });
-            }
+            references.forEach(r => {
+                if (y > 265) { doc.addPage(); y = TOP; }
+                doc.setFont('helvetica', 'bold');
+                setColor(BLACK);
+                doc.text(r.name, LEFT, y);
+                y += 4.5;
+                doc.setFont('helvetica', 'normal');
+                setColor(BLACK);
+                doc.text(r.role, LEFT, y);
+                y += 4.5;
+                setColor(GREY);
+                doc.text(`Email: ${r.email} • Phone: ${r.phone}`, LEFT, y);
+                y += 8;
+            });
             // Open PDF in new tab
             const pdfBlob = doc.output('blob');
             const pdfUrl = URL.createObjectURL(pdfBlob);
