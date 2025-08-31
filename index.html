@@ -1018,6 +1018,7 @@
         }
 
         // ===== PDF Generation Function (CV ONLY) =====
+        
         async function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ unit: 'mm', format: 'a4' });
@@ -1099,7 +1100,7 @@
                 
                 switch(type) {
                     case 'email':
-                        // Professional envelope icon - PERFECT, DON'T CHANGE
+                        // Professional envelope icon
                         doc.setLineWidth(0.15);
                         const envW = 3.2;
                         const envH = 2.2;
@@ -1121,7 +1122,7 @@
                         break;
                         
                     case 'phone':
-                        // Modern phone icon - PERFECT, DON'T CHANGE
+                        // Modern phone icon
                         doc.setLineWidth(0.15);
                         const phoneW = 1.8;
                         const phoneH = 2.8;
@@ -1238,16 +1239,18 @@
             setColor(BLACK);
             doc.text("PhD Researcher in Computer Science", LEFT, TOP + 8);
         
-            // Profile image (fixed positioning)
-            const imgEl = document.querySelector('.profile-image img');
-            if (imgEl && imgEl.style.display !== 'none' && imgEl.naturalWidth > 0) {
-                try {
-                    const masked = await getMaskedImageDataURL(imgEl, 520, IMAGE_SHAPE);
-                    if (masked) {
-                        doc.addImage(masked, 'PNG', RIGHT - 28, TOP - 5, 28, 28);
+            // Profile image (if available and getMaskedImageDataURL is defined)
+            if (typeof getMaskedImageDataURL !== 'undefined' && typeof IMAGE_SHAPE !== 'undefined') {
+                const imgEl = document.querySelector('.profile-image img');
+                if (imgEl && imgEl.style.display !== 'none' && imgEl.naturalWidth > 0) {
+                    try {
+                        const masked = await getMaskedImageDataURL(imgEl, 520, IMAGE_SHAPE);
+                        if (masked) {
+                            doc.addImage(masked, 'PNG', RIGHT - 28, TOP - 5, 28, 28);
+                        }
+                    } catch(e) {
+                        console.error('Image loading error:', e);
                     }
-                } catch(e) {
-                    console.error('Image loading error:', e);
                 }
             }
         
@@ -1422,71 +1425,75 @@
             y = drawSectionHeader(doc, "Research Publications", LEFT, y);
             doc.setFontSize(9);
         
-            allPublications.forEach((pub, index) => {
-                if (y > 265) { doc.addPage(); y = TOP; }
+            // Check if allPublications is defined
+            if (typeof allPublications !== 'undefined') {
+                allPublications.forEach((pub, index) => {
+                    if (y > 265) { doc.addPage(); y = TOP; }
         
-                // Clean numbering
-                setColor(ACCENT);
-                doc.setFont('helvetica', 'bold');
-                doc.text(`[${index + 1}]`, LEFT, y);
+                    // Clean numbering
+                    setColor(ACCENT);
+                    doc.setFont('helvetica', 'bold');
+                    doc.text(`[${index + 1}]`, LEFT, y);
         
-                // Title
-                const titleX = LEFT + 8;
-                const maxW = RIGHT - titleX;
-                setColor(BLACK);
-                let titleTxt = pub.title;
-                if (pub.oral) titleTxt += " (Oral)";
-                
-                // Title text
-                const titleLines = doc.splitTextToSize(titleTxt, maxW);
-                titleLines.forEach(line => {
-                    doc.text(line, titleX, y);
-                    y += 4;
+                    // Title
+                    const titleX = LEFT + 8;
+                    const maxW = RIGHT - titleX;
+                    setColor(BLACK);
+                    let titleTxt = pub.title;
+                    if (pub.oral) titleTxt += " (Oral)";
+                    
+                    // Title text
+                    const titleLines = doc.splitTextToSize(titleTxt, maxW);
+                    titleLines.forEach(line => {
+                        doc.text(line, titleX, y);
+                        y += 4;
+                    });
+        
+                    // Authors
+                    doc.setFont('helvetica', 'normal');
+                    setColor(BLACK);
+                    const authorsStr = pub.authors.join(', ');
+                    const authorLines = doc.splitTextToSize(authorsStr, maxW);
+                    authorLines.forEach(line => {
+                        doc.text(line, titleX, y);
+                        y += 4;
+                    });
+        
+                    // Venue
+                    doc.setFont('helvetica', 'italic');
+                    setColor(GREY);
+                    const venueLines = doc.splitTextToSize(pub.venue, maxW);
+                    venueLines.forEach(line => {
+                        doc.text(line, titleX, y);
+                        y += 4;
+                    });
+                    doc.setFont('helvetica', 'normal');
+                    
+                    y += 3;
                 });
-        
-                // Authors
-                doc.setFont('helvetica', 'normal');
-                setColor(BLACK);
-                const authorsStr = pub.authors.join(', ');
-                const authorLines = doc.splitTextToSize(authorsStr, maxW);
-                authorLines.forEach(line => {
-                    doc.text(line, titleX, y);
-                    y += 4;
-                });
-        
-                // Venue
-                doc.setFont('helvetica', 'italic');
-                setColor(GREY);
-                const venueLines = doc.splitTextToSize(pub.venue, maxW);
-                venueLines.forEach(line => {
-                    doc.text(line, titleX, y);
-                    y += 4;
-                });
-                doc.setFont('helvetica', 'normal');
-                
-                y += 3;
-            });
+            }
         
             // REFERENCES
             if (y > 240) { doc.addPage(); y = TOP; }
             y = drawSectionHeader(doc, "References", LEFT, y);
             doc.setFontSize(10);
             
-            references.forEach(r => {
-                if (y > 265) { doc.addPage(); y = TOP; }
-                doc.setFont('helvetica', 'bold');
-                setColor(BLACK);
-                doc.text(r.name, LEFT, y);
-                y += 4.5;
-                doc.setFont('helvetica', 'normal');
-                setColor(BLACK);
-                doc.text(r.role, LEFT, y);
-                y += 4.5;
-                setColor(GREY);
-                doc.text(`Email: ${r.email} • Phone: ${r.phone}`, LEFT, y);
-                y += 8;
-            });
-        
+            // Check if references is defined
+            if (typeof references !== 'undefined') {
+                references.forEach(r => {
+                    if (y > 265) { doc.addPage(); y = TOP; }
+                    doc.setFont('helvetica', 'bold');
+                    setColor(BLACK);
+                    doc.text(r.name, LEFT, y);
+                    y += 4.5;
+                    doc.setFont('helvetica', 'normal');
+                    setColor(BLACK);
+                    doc.text(r.role, LEFT, y);
+                    y += 4.5;
+                    setColor(GREY);
+                    doc.text(`Email: ${r.email} • Phone: ${r.phone}`, LEFT, y);
+                    y += 8;
+                });
             // Open PDF in new tab
             const pdfBlob = doc.output('blob');
             const pdfUrl = URL.createObjectURL(pdfBlob);
