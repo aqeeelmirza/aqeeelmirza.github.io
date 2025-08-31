@@ -1018,6 +1018,7 @@
         }
 
         // ===== PDF Generation Function (CV ONLY) =====
+        
         async function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ unit: 'mm', format: 'a4' });
@@ -1091,72 +1092,112 @@
             // Helper to draw vector icons
             function drawIcon(doc, type, x, y, size = 4) {
                 doc.setDrawColor(...ACCENT);
-                doc.setFillColor(...ACCENT);
-                doc.setLineWidth(0.2);
+                doc.setLineWidth(0.3);
                 
                 switch(type) {
                     case 'email':
-                        // Email envelope icon
-                        doc.rect(x, y - size * 0.75, size * 1.4, size * 0.9, 'S');
-                        doc.line(x, y - size * 0.75, x + size * 0.7, y - size * 0.3);
-                        doc.line(x + size * 1.4, y - size * 0.75, x + size * 0.7, y - size * 0.3);
+                        // Email envelope icon - properly sized and positioned
+                        const envWidth = size * 1.5;
+                        const envHeight = size;
+                        const envY = y - size + 0.5;
+                        
+                        // Draw envelope rectangle
+                        doc.rect(x, envY, envWidth, envHeight);
+                        
+                        // Draw the flap lines (V shape)
+                        doc.line(x, envY, x + envWidth/2, envY + envHeight/2);
+                        doc.line(x + envWidth, envY, x + envWidth/2, envY + envHeight/2);
                         break;
+                        
                     case 'phone':
-                        // Phone icon
-                        const px = x + size * 0.3;
-                        const py = y - size * 0.7;
-                        doc.setLineWidth(0.3);
-                        // Phone body
+                        // Phone/WhatsApp icon
+                        const phoneX = x + size * 0.2;
+                        const phoneY = y - size + 0.5;
+                        
+                        // Draw phone handset shape using path
+                        doc.setLineWidth(0.4);
+                        
+                        // Create a curved phone handset
+                        const path = [];
+                        // Start from top left of handset
                         doc.lines([
-                            [0.2, 0.2],
-                            [0.3, 0.1],
-                            [0.4, -0.1],
-                            [0.3, -0.3],
-                            [0.1, -0.4],
-                            [-0.1, -0.3],
-                            [-0.3, -0.1],
-                            [-0.4, 0.1],
-                            [-0.3, 0.3],
-                            [-0.1, 0.4]
-                        ].map(p => [p[0] * size, p[1] * size]), px, py, [1, 1], 'S', true);
+                            [0.3, -0.1],
+                            [0.5, -0.2],
+                            [0.6, -0.3],
+                            [0.5, -0.4],
+                            [0.2, -0.3],
+                            [-0.2, 0.3],
+                            [-0.5, 0.4],
+                            [-0.6, 0.3],
+                            [-0.5, 0.2],
+                            [-0.3, 0.1],
+                            [0, 0]
+                        ].map(p => [p[0] * size, p[1] * size]), phoneX + size/2, phoneY + size/2);
                         break;
+                        
                     case 'linkedin':
-                        // LinkedIn icon
-                        doc.roundedRect(x, y - size, size, size, 0.5, 0.5, 'S');
-                        doc.setFontSize(size * 1.8);
+                        // LinkedIn icon - square with "in"
+                        const linkedinSize = size * 0.9;
+                        const linkedinY = y - size + 0.5;
+                        
+                        // Draw rounded rectangle
+                        doc.roundedRect(x, linkedinY, linkedinSize, linkedinSize, 0.8, 0.8);
+                        
+                        // Draw "in" text
+                        doc.setFontSize(size * 1.5);
                         doc.setFont('helvetica', 'bold');
-                        doc.setTextColor(...[255, 255, 255]);
-                        doc.text('in', x + size * 0.15, y - size * 0.25);
+                        doc.setTextColor(...ACCENT);
+                        doc.text('in', x + linkedinSize * 0.15, linkedinY + linkedinSize * 0.75);
                         doc.setTextColor(...SECONDARY);
                         break;
+                        
                     case 'scholar':
-                        // Google Scholar icon (graduation cap)
-                        const sx = x + size * 0.5;
-                        const sy = y - size * 0.5;
-                        // Cap top
+                        // Google Scholar icon - graduation cap
+                        const capX = x + size * 0.5;
+                        const capY = y - size * 0.6;
+                        
+                        // Draw mortarboard (top part)
                         doc.lines([
-                            [-size * 0.5, 0],
-                            [size * 0.25, -size * 0.3],
-                            [size * 0.25, size * 0.3],
-                            [-size * 0.5, 0]
-                        ], sx, sy - size * 0.1, [1, 1], 'S', true);
-                        // Cap board
-                        doc.rect(sx - size * 0.15, sy - size * 0.1, size * 0.3, size * 0.4, 'S');
+                            [-size * 0.6, 0],
+                            [size * 0.3, -size * 0.25],
+                            [size * 0.3, 0],
+                            [size * 0.3, size * 0.25],
+                            [-size * 0.6, 0]
+                        ], capX, capY);
+                        
+                        // Draw the cap base
+                        doc.line(capX - size * 0.3, capY + size * 0.1, capX + size * 0.3, capY + size * 0.1);
+                        
+                        // Draw tassel
+                        doc.circle(capX + size * 0.3, capY + size * 0.15, size * 0.08);
+                        doc.line(capX, capY, capX + size * 0.3, capY + size * 0.15);
                         break;
+                        
                     case 'location':
                         // Location pin icon
-                        const lx = x + size * 0.5;
-                        const ly = y - size * 0.8;
-                        doc.circle(lx, ly, size * 0.3, 'S');
-                        doc.circle(lx, ly, size * 0.1, 'F');
-                        // Pin point
+                        const pinX = x + size * 0.5;
+                        const pinY = y - size * 0.7;
+                        
+                        // Draw pin circle
+                        doc.circle(pinX, pinY, size * 0.35);
+                        
+                        // Draw inner circle
+                        doc.setFillColor(...ACCENT);
+                        doc.circle(pinX, pinY, size * 0.12, 'F');
+                        
+                        // Draw pin point (triangle pointing down)
+                        doc.setDrawColor(...ACCENT);
                         doc.lines([
-                            [-size * 0.2, size * 0.2],
-                            [size * 0.2, 0],
-                            [size * 0.2, size * 0.2]
-                        ], lx - size * 0.2, ly + size * 0.1, [1, 1], 'S', false);
+                            [-size * 0.25, 0],
+                            [size * 0.25, 0],
+                            [0, size * 0.4],
+                            [-size * 0.25, 0]
+                        ], pinX, pinY + size * 0.25);
                         break;
                 }
+                
+                // Reset line width
+                doc.setLineWidth(0.3);
             }
         
             // Header section
@@ -1183,36 +1224,40 @@
                 }
             }
         
-            // Contact info with icons - each on new line
-            let y = TOP + 20;
-            doc.setFontSize(9);
+            // Contact info with vector icons - increased font size
+            let y = TOP + 22;
+            doc.setFontSize(10); // Increased from 9
             setColor(SECONDARY);
             
-            // Email
-            drawIcon(doc, 'email', LEFT, y, 3);
-            doc.text("muhammad.aqeel@univr.it", LEFT + 6, y);
-            y += 5;
+            const iconSize = 3.5; // Larger icons
+            const textOffset = 7; // Space between icon and text
             
-            // WhatsApp
-            drawIcon(doc, 'whatsapp', LEFT, y, 3);
-            doc.text("+86 182 1013 3275", LEFT + 6, y);
-            y += 5;
+            // Email
+            drawIcon(doc, 'email', LEFT, y, iconSize);
+            doc.text("muhammad.aqeel@univr.it", LEFT + textOffset, y);
+            y += 6;
+            
+            // Phone/WhatsApp
+            drawIcon(doc, 'phone', LEFT, y, iconSize);
+            doc.text("+86 182 1013 3275", LEFT + textOffset, y);
+            y += 6;
             
             // LinkedIn
-            drawIcon(doc, 'linkedin', LEFT, y, 3);
-            doc.text("muhammad-aqeel-4378b9170", LEFT + 6, y);
-            y += 5;
+            drawIcon(doc, 'linkedin', LEFT, y, iconSize);
+            doc.text("linkedin.com/in/muhammad-aqeel-4378b9170", LEFT + textOffset, y);
+            y += 6;
             
             // Google Scholar
-            drawIcon(doc, 'scholar', LEFT, y, 3);
-            doc.text("ZPUihX0AAAAJ", LEFT + 6, y);
-            y += 5;
+            drawIcon(doc, 'scholar', LEFT, y, iconSize);
+            doc.text("scholar.google.com/citations?user=ZPUihX0AAAAJ", LEFT + textOffset, y);
+            y += 6;
             
             // Location
-            doc.text("📍 Ljubljana, Slovenia", LEFT, y);
+            drawIcon(doc, 'location', LEFT, y, iconSize);
+            doc.text("Ljubljana, Slovenia", LEFT + textOffset, y);
         
             // Main divider
-            y += 6;
+            y += 8;
             doc.setDrawColor(...MUTED);
             doc.setLineWidth(0.3);
             doc.line(LEFT, y, RIGHT, y);
