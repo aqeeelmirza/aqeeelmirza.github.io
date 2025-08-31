@@ -1088,35 +1088,73 @@
                 return y + 8;
             }
         
-            // Helper to draw simple icons
+            // Helper to draw vector icons
             function drawIcon(doc, type, x, y, size = 4) {
-                doc.setDrawColor(...SECONDARY);
-                doc.setLineWidth(0.3);
+                doc.setDrawColor(...ACCENT);
+                doc.setFillColor(...ACCENT);
+                doc.setLineWidth(0.2);
                 
                 switch(type) {
                     case 'email':
                         // Email envelope icon
-                        doc.rect(x, y - size + 1, size * 1.5, size * 0.8);
-                        doc.line(x, y - size + 1, x + size * 0.75, y - size/2);
-                        doc.line(x + size * 1.5, y - size + 1, x + size * 0.75, y - size/2);
+                        doc.rect(x, y - size * 0.75, size * 1.4, size * 0.9, 'S');
+                        doc.line(x, y - size * 0.75, x + size * 0.7, y - size * 0.3);
+                        doc.line(x + size * 1.4, y - size * 0.75, x + size * 0.7, y - size * 0.3);
                         break;
-                    case 'whatsapp':
-                        // Simple circle with W
-                        doc.circle(x + size/2, y - size/2, size/2);
-                        doc.setFontSize(6);
-                        doc.text('W', x + size/2 - 1, y - size/2 + 1);
+                    case 'phone':
+                        // Phone icon
+                        const px = x + size * 0.3;
+                        const py = y - size * 0.7;
+                        doc.setLineWidth(0.3);
+                        // Phone body
+                        doc.lines([
+                            [0.2, 0.2],
+                            [0.3, 0.1],
+                            [0.4, -0.1],
+                            [0.3, -0.3],
+                            [0.1, -0.4],
+                            [-0.1, -0.3],
+                            [-0.3, -0.1],
+                            [-0.4, 0.1],
+                            [-0.3, 0.3],
+                            [-0.1, 0.4]
+                        ].map(p => [p[0] * size, p[1] * size]), px, py, [1, 1], 'S', true);
                         break;
                     case 'linkedin':
-                        // Simple circle with in
-                        doc.circle(x + size/2, y - size/2, size/2);
-                        doc.setFontSize(6);
-                        doc.text('in', x + size/2 - 1.5, y - size/2 + 1);
+                        // LinkedIn icon
+                        doc.roundedRect(x, y - size, size, size, 0.5, 0.5, 'S');
+                        doc.setFontSize(size * 1.8);
+                        doc.setFont('helvetica', 'bold');
+                        doc.setTextColor(...[255, 255, 255]);
+                        doc.text('in', x + size * 0.15, y - size * 0.25);
+                        doc.setTextColor(...SECONDARY);
                         break;
                     case 'scholar':
-                        // Simple circle with S
-                        doc.circle(x + size/2, y - size/2, size/2);
-                        doc.setFontSize(6);
-                        doc.text('S', x + size/2 - 1, y - size/2 + 1);
+                        // Google Scholar icon (graduation cap)
+                        const sx = x + size * 0.5;
+                        const sy = y - size * 0.5;
+                        // Cap top
+                        doc.lines([
+                            [-size * 0.5, 0],
+                            [size * 0.25, -size * 0.3],
+                            [size * 0.25, size * 0.3],
+                            [-size * 0.5, 0]
+                        ], sx, sy - size * 0.1, [1, 1], 'S', true);
+                        // Cap board
+                        doc.rect(sx - size * 0.15, sy - size * 0.1, size * 0.3, size * 0.4, 'S');
+                        break;
+                    case 'location':
+                        // Location pin icon
+                        const lx = x + size * 0.5;
+                        const ly = y - size * 0.8;
+                        doc.circle(lx, ly, size * 0.3, 'S');
+                        doc.circle(lx, ly, size * 0.1, 'F');
+                        // Pin point
+                        doc.lines([
+                            [-size * 0.2, size * 0.2],
+                            [size * 0.2, 0],
+                            [size * 0.2, size * 0.2]
+                        ], lx - size * 0.2, ly + size * 0.1, [1, 1], 'S', false);
                         break;
                 }
             }
