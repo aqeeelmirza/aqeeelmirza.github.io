@@ -1019,7 +1019,7 @@
 
         // ===== PDF Generation Function (CV ONLY) =====
         
-        async function generatePDF() {
+                async function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ unit: 'mm', format: 'a4' });
         
@@ -1494,6 +1494,7 @@
                     doc.text(`Email: ${r.email} • Phone: ${r.phone}`, LEFT, y);
                     y += 8;
                 });
+            }
             // Open PDF in new tab
             const pdfBlob = doc.output('blob');
             const pdfUrl = URL.createObjectURL(pdfBlob);
