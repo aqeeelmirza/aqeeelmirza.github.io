@@ -1018,7 +1018,6 @@
         }
 
         // ===== PDF Generation Function (CV ONLY) =====
-        
         async function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ unit: 'mm', format: 'a4' });
@@ -1100,7 +1099,7 @@
                 
                 switch(type) {
                     case 'email':
-                        // Professional envelope icon
+                        // Professional envelope icon - PERFECT, DON'T CHANGE
                         doc.setLineWidth(0.15);
                         const envW = 3.2;
                         const envH = 2.2;
@@ -1122,7 +1121,7 @@
                         break;
                         
                     case 'phone':
-                        // Modern phone icon
+                        // Modern phone icon - PERFECT, DON'T CHANGE
                         doc.setLineWidth(0.15);
                         const phoneW = 1.8;
                         const phoneH = 2.8;
@@ -1145,75 +1144,80 @@
                         break;
                         
                     case 'linkedin':
-                        // Professional LinkedIn icon
-                        doc.setLineWidth(0.15);
-                        const linkedinSize = 2.8;
+                        // Simplified LinkedIn icon
+                        doc.setLineWidth(0.2);
+                        const linkedinSize = 2.6;
                         const linkedinX = centerX - linkedinSize/2;
                         const linkedinY = centerY - linkedinSize/2;
                         
-                        // Rounded square background
-                        doc.roundedRect(linkedinX, linkedinY, linkedinSize, linkedinSize, 0.4, 0.4);
+                        // Square with subtle rounded corners
+                        doc.roundedRect(linkedinX, linkedinY, linkedinSize, linkedinSize, 0.2, 0.2);
                         
-                        // "in" text - more professional placement
-                        doc.setFont('helvetica', 'bold');
-                        doc.setFontSize(8);
-                        setColor(GREY);
-                        doc.text('in', linkedinX + 0.55, linkedinY + 2.1);
-                        doc.setFont('helvetica', 'normal');
-                        doc.setFontSize(10);
+                        // Simple "in" letters - cleaner
+                        doc.setLineWidth(0.25);
+                        // Letter "i"
+                        doc.circle(linkedinX + 0.7, linkedinY + 0.7, 0.08, 'F');
+                        doc.line(linkedinX + 0.7, linkedinY + 1, linkedinX + 0.7, linkedinY + 2.1);
+                        
+                        // Letter "n"
+                        doc.line(linkedinX + 1.2, linkedinY + 1, linkedinX + 1.2, linkedinY + 2.1);
+                        doc.arc(linkedinX + 1.5, linkedinY + 1.3, 0.3, 0.3, 180, 0);
+                        doc.line(linkedinX + 1.8, linkedinY + 1.3, linkedinX + 1.8, linkedinY + 2.1);
                         break;
                         
                     case 'scholar':
-                        // Academic graduation cap icon
+                        // Much simpler book/graduation icon
+                        doc.setLineWidth(0.2);
+                        
+                        // Open book shape (simpler and cleaner)
+                        const bookW = 2.8;
+                        const bookH = 2.2;
+                        const bookX = centerX - bookW/2;
+                        const bookY = centerY - bookH/2;
+                        
+                        // Book outline
+                        doc.rect(bookX, bookY, bookW, bookH);
+                        
+                        // Book spine (center line)
+                        doc.line(centerX, bookY, centerX, bookY + bookH);
+                        
+                        // Small graduation cap on top (simplified)
                         doc.setLineWidth(0.15);
-                        
-                        // Mortarboard top (diamond shape viewed from angle)
-                        const capTop = centerY - 0.8;
-                        doc.lines([
-                            [1.2, 0],
-                            [0.4, 0.5],
-                            [-1.2, 0],
-                            [-0.4, -0.5],
-                            [1.2, 0]
-                        ], centerX - 0.4, capTop);
-                        
-                        // Cap button on top
-                        doc.circle(centerX, capTop, 0.12, 'F');
-                        
+                        // Cap top (simple line)
+                        doc.line(centerX - 0.8, bookY - 0.4, centerX + 0.8, bookY - 0.4);
+                        // Cap base
+                        doc.line(centerX - 0.5, bookY - 0.2, centerX + 0.5, bookY - 0.2);
                         // Tassel
-                        doc.setLineWidth(0.1);
-                        doc.line(centerX, capTop, centerX + 1, capTop + 0.3);
-                        doc.circle(centerX + 1, capTop + 0.3, 0.08);
-                        
-                        // Bottom edge of cap
-                        doc.setLineWidth(0.15);
-                        doc.line(centerX - 1.2, centerY, centerX + 1.2, centerY);
+                        doc.circle(centerX + 0.8, bookY - 0.3, 0.06, 'F');
                         break;
                         
                     case 'location':
-                        // Professional map pin icon
-                        doc.setLineWidth(0.15);
+                        // Cleaner map pin icon
+                        doc.setLineWidth(0.2);
                         
-                        // Pin head (circle)
-                        const pinRadius = 0.9;
-                        doc.circle(centerX, centerY - 0.3, pinRadius);
+                        // Pin circle (slightly smaller)
+                        const pinRadius = 0.8;
+                        doc.circle(centerX, centerY - 0.4, pinRadius);
                         
-                        // Inner circle
-                        doc.circle(centerX, centerY - 0.3, 0.3, 'F');
+                        // Inner dot
+                        doc.circle(centerX, centerY - 0.4, 0.25, 'F');
                         
-                        // Pin point (triangle/drop shape)
+                        // Pin point (simpler triangle)
                         doc.setLineWidth(0);
+                        // Create a clean triangular point
+                        const pointBase = centerY + 0.2;
+                        const pointTip = centerY + 1.1;
                         doc.triangle(
-                            centerX - 0.35, centerY + 0.3,
-                            centerX + 0.35, centerY + 0.3,
-                            centerX, centerY + 1.2,
+                            centerX - 0.3, pointBase,
+                            centerX + 0.3, pointBase,
+                            centerX, pointTip,
                             'F'
                         );
                         
-                        // Outline for the point
-                        doc.setLineWidth(0.15);
-                        doc.line(centerX - 0.64, centerY + 0.4, centerX, centerY + 1.2);
-                        doc.line(centerX + 0.64, centerY + 0.4, centerX, centerY + 1.2);
+                        // Connect circle to point with clean lines
+                        doc.setLineWidth(0.2);
+                        doc.line(centerX - 0.56, centerY + 0.25, centerX - 0.05, pointTip - 0.1);
+                        doc.line(centerX + 0.56, centerY + 0.25, centerX + 0.05, pointTip - 0.1);
                         break;
                 }
                 
