@@ -862,21 +862,21 @@
                 authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
                 venue: "ECCVW 2024 - VISION Workshop at European Conference on Computer Vision",
                 link: "https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28",
-                oral: true
+                oral: false
             },
             {
                 title: "A Contrastive Learning-Guided Confident Meta-learning for Zero Shot Anomaly Detection",
                 authors: ["Muhammad Aqeel", "Danijel Skocaj", "Marco Cristani", "Francesco Setti"],
                 venue: "ICCVW 2025 - VISION Workshop at International Conference on Computer Vision",
                 link: "https://arxiv.org/abs/2508.17827",
-                oral: true
+                oral: false
             },
             {
                 title: "Robust Anomaly Detection in Industrial Environments via Meta-Learning",
                 authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
                 venue: "ICCVW 2025 - VISION Workshop at International Conference on Computer Vision",
                 link: "https://arxiv.org/abs/2508.177898",
-                oral: true
+                oral: false
             },
             {
                 title: "Diffusion-Based Data Augmentation for Medical Image Segmentation",
@@ -890,7 +890,7 @@
                 authors: ["Muhammad Aqeel", "Kidus Dagnaw Bellete", "Francesco Setti"],
                 venue: "ICIAP 2025 - International Conference on Image Analysis and Processing",
                 link: "https://arxiv.org/abs/2507.15346",
-                oral: true
+                oral: false
             },
             {
                 title: "ExDD: Explicit Dual Distribution Learning for Surface Defect Detection via Diffusion Synthesis",
@@ -918,7 +918,7 @@
                 authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
                 venue: "DeLTA 2024 - International Conference on Deep Learning Theory and Applications",
                 link: "https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11",
-                oral: true
+                oral: false
             },
             {
                 title: "Diffusion-based Image Generation for In-distribution Data Augmentation in Surface Defect Detection",
@@ -1018,7 +1018,6 @@
         }
 
         // ===== PDF Generation Function (CV ONLY) =====
-        
         async function generatePDF() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ unit: 'mm', format: 'a4' });
@@ -1030,15 +1029,14 @@
             const LINE = 5;
         
             // Professional color scheme
-            const PRIMARY = [30, 41, 59];      // Dark slate for headers
-            const SECONDARY = [71, 85, 105];   // Slate for body text
-            const ACCENT = [8, 145, 178];      // Your website accent color (blue)
-            const MUTED = [100, 116, 139];     // Darker than before for better readability
+            const BLACK = [0, 0, 0];           // Black for main text
+            const ACCENT = [8, 145, 178];      // Blue for section titles
+            const GREY = [100, 116, 139];      // Grey for icons and dates
         
             const setColor = (color) => doc.setTextColor(...color);
         
             // Helper for justified text
-            function drawJustifiedText(doc, text, x, y, width, lineHeight, color = SECONDARY) {
+            function drawJustifiedText(doc, text, x, y, width, lineHeight, color = BLACK) {
                 setColor(color);
                 const words = text.split(/\s+/);
                 let line = '', lines = [];
@@ -1080,135 +1078,75 @@
                 return y;
             }
         
-            // Draw section header without underline, blue color
+            // Draw section header with blue color
             function drawSectionHeader(doc, title, x, y) {
                 setColor(ACCENT); // Blue color for titles
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(11);
                 doc.text(title.toUpperCase(), x, y);
+                setColor(BLACK); // Reset to black
                 return y + 8;
             }
         
-            // Helper to draw vector icons
-            function drawIcon(doc, type, x, y, size = 4) {
-                doc.setDrawColor(...ACCENT);
-                doc.setLineWidth(0.3);
+            // Helper to draw simple icons using basic shapes
+            function drawContactIcon(doc, type, x, y) {
+                doc.setDrawColor(...GREY);
+                doc.setLineWidth(0.25);
                 
                 switch(type) {
                     case 'email':
-                        // Email envelope icon - properly sized and positioned
-                        const envWidth = size * 1.5;
-                        const envHeight = size;
-                        const envY = y - size + 0.5;
-                        
-                        // Draw envelope rectangle
-                        doc.rect(x, envY, envWidth, envHeight);
-                        
-                        // Draw the flap lines (V shape)
-                        doc.line(x, envY, x + envWidth/2, envY + envHeight/2);
-                        doc.line(x + envWidth, envY, x + envWidth/2, envY + envHeight/2);
+                        // Simple envelope
+                        doc.rect(x, y - 2.5, 4, 2.5);
+                        doc.line(x, y - 2.5, x + 2, y - 1);
+                        doc.line(x + 4, y - 2.5, x + 2, y - 1);
                         break;
                         
                     case 'phone':
-                        // Phone/WhatsApp icon
-                        const phoneX = x + size * 0.2;
-                        const phoneY = y - size + 0.5;
-                        
-                        // Draw phone handset shape using path
-                        doc.setLineWidth(0.4);
-                        
-                        // Create a curved phone handset
-                        const path = [];
-                        // Start from top left of handset
-                        doc.lines([
-                            [0.3, -0.1],
-                            [0.5, -0.2],
-                            [0.6, -0.3],
-                            [0.5, -0.4],
-                            [0.2, -0.3],
-                            [-0.2, 0.3],
-                            [-0.5, 0.4],
-                            [-0.6, 0.3],
-                            [-0.5, 0.2],
-                            [-0.3, 0.1],
-                            [0, 0]
-                        ].map(p => [p[0] * size, p[1] * size]), phoneX + size/2, phoneY + size/2);
+                        // Simple phone shape
+                        doc.rect(x + 0.5, y - 3, 2, 3);
+                        doc.circle(x + 1.5, y - 0.5, 0.2);
                         break;
                         
                     case 'linkedin':
-                        // LinkedIn icon - square with "in"
-                        const linkedinSize = size * 0.9;
-                        const linkedinY = y - size + 0.5;
-                        
-                        // Draw rounded rectangle
-                        doc.roundedRect(x, linkedinY, linkedinSize, linkedinSize, 0.8, 0.8);
-                        
-                        // Draw "in" text
-                        doc.setFontSize(size * 1.5);
+                        // LinkedIn "in" text in a box
+                        doc.rect(x, y - 3, 3, 3);
+                        doc.setFontSize(7);
                         doc.setFont('helvetica', 'bold');
-                        doc.setTextColor(...ACCENT);
-                        doc.text('in', x + linkedinSize * 0.15, linkedinY + linkedinSize * 0.75);
-                        doc.setTextColor(...SECONDARY);
+                        setColor(GREY);
+                        doc.text('in', x + 0.5, y - 0.8);
+                        doc.setFont('helvetica', 'normal');
+                        doc.setFontSize(10);
                         break;
                         
                     case 'scholar':
-                        // Google Scholar icon - graduation cap
-                        const capX = x + size * 0.5;
-                        const capY = y - size * 0.6;
-                        
-                        // Draw mortarboard (top part)
-                        doc.lines([
-                            [-size * 0.6, 0],
-                            [size * 0.3, -size * 0.25],
-                            [size * 0.3, 0],
-                            [size * 0.3, size * 0.25],
-                            [-size * 0.6, 0]
-                        ], capX, capY);
-                        
-                        // Draw the cap base
-                        doc.line(capX - size * 0.3, capY + size * 0.1, capX + size * 0.3, capY + size * 0.1);
-                        
-                        // Draw tassel
-                        doc.circle(capX + size * 0.3, capY + size * 0.15, size * 0.08);
-                        doc.line(capX, capY, capX + size * 0.3, capY + size * 0.15);
+                        // Simple graduation cap
+                        doc.line(x, y - 2, x + 3, y - 2);
+                        doc.line(x + 1.5, y - 2, x + 1.5, y - 2.5);
+                        doc.line(x + 0.5, y - 2.5, x + 2.5, y - 2.5);
+                        doc.circle(x + 3, y - 1.5, 0.3);
                         break;
                         
                     case 'location':
-                        // Location pin icon
-                        const pinX = x + size * 0.5;
-                        const pinY = y - size * 0.7;
-                        
-                        // Draw pin circle
-                        doc.circle(pinX, pinY, size * 0.35);
-                        
-                        // Draw inner circle
-                        doc.setFillColor(...ACCENT);
-                        doc.circle(pinX, pinY, size * 0.12, 'F');
-                        
-                        // Draw pin point (triangle pointing down)
-                        doc.setDrawColor(...ACCENT);
-                        doc.lines([
-                            [-size * 0.25, 0],
-                            [size * 0.25, 0],
-                            [0, size * 0.4],
-                            [-size * 0.25, 0]
-                        ], pinX, pinY + size * 0.25);
+                        // Simple location pin
+                        doc.circle(x + 1.5, y - 2, 1);
+                        doc.line(x + 1.5, y - 1, x + 1.5, y + 0.5);
+                        doc.line(x + 1.5, y + 0.5, x + 1, y);
+                        doc.line(x + 1.5, y + 0.5, x + 2, y);
                         break;
                 }
                 
-                // Reset line width
-                doc.setLineWidth(0.3);
+                doc.setDrawColor(0, 0, 0); // Reset to black
             }
         
             // Header section
-            setColor(PRIMARY);
+            setColor(BLACK);
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(24);
             doc.text("Muhammad Aqeel", LEFT, TOP);
         
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(11);
-            setColor(SECONDARY);
+            setColor(BLACK);
             doc.text("PhD Researcher in Computer Science", LEFT, TOP + 8);
         
             // Profile image (fixed positioning)
@@ -1224,43 +1162,48 @@
                 }
             }
         
-            // Contact info with vector icons - increased font size
+            // Contact info with icons
             let y = TOP + 22;
-            doc.setFontSize(10); // Increased from 9
-            setColor(SECONDARY);
+            doc.setFontSize(10);
             
-            const iconSize = 3.5; // Larger icons
-            const textOffset = 7; // Space between icon and text
+            const iconX = LEFT;
+            const textX = LEFT + 6;
             
             // Email
-            drawIcon(doc, 'email', LEFT, y, iconSize);
-            doc.text("muhammad.aqeel@univr.it", LEFT + textOffset, y);
+            drawContactIcon(doc, 'email', iconX, y);
+            setColor(GREY);
+            doc.text("muhammad.aqeel@univr.it", textX, y);
             y += 6;
             
-            // Phone/WhatsApp
-            drawIcon(doc, 'phone', LEFT, y, iconSize);
-            doc.text("+86 182 1013 3275", LEFT + textOffset, y);
+            // Phone
+            drawContactIcon(doc, 'phone', iconX, y);
+            setColor(GREY);
+            doc.text("+86 182 1013 3275", textX, y);
             y += 6;
             
             // LinkedIn
-            drawIcon(doc, 'linkedin', LEFT, y, iconSize);
-            doc.text("linkedin.com/in/muhammad-aqeel-4378b9170", LEFT + textOffset, y);
+            drawContactIcon(doc, 'linkedin', iconX, y);
+            setColor(GREY);
+            doc.text("linkedin.com/in/muhammad-aqeel-4378b9170", textX, y);
             y += 6;
             
             // Google Scholar
-            drawIcon(doc, 'scholar', LEFT, y, iconSize);
-            doc.text("scholar.google.com/citations?user=ZPUihX0AAAAJ", LEFT + textOffset, y);
+            drawContactIcon(doc, 'scholar', iconX, y);
+            setColor(GREY);
+            doc.text("scholar.google.com/citations?user=ZPUihX0AAAAJ", textX, y);
             y += 6;
             
             // Location
-            drawIcon(doc, 'location', LEFT, y, iconSize);
-            doc.text("Ljubljana, Slovenia", LEFT + textOffset, y);
+            drawContactIcon(doc, 'location', iconX, y);
+            setColor(GREY);
+            doc.text("Ljubljana, Slovenia", textX, y);
         
             // Main divider
             y += 8;
-            doc.setDrawColor(...MUTED);
+            doc.setDrawColor(...GREY);
             doc.setLineWidth(0.3);
             doc.line(LEFT, y, RIGHT, y);
+            doc.setDrawColor(0, 0, 0);
         
             // ABOUT SECTION
             y += 10;
@@ -1268,7 +1211,7 @@
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
             const aboutText = "I am a PhD researcher at the University of Verona specializing in anomaly detection for industrial manufacturing. My work focuses on developing deep learning algorithms that can identify defects and quality issues in real-time production environments. Coming from a multidisciplinary background - with an MSc focused on Natural Language Processing from Beijing University of Posts and Telecommunications and now working in computer vision - I bring a unique perspective to solving complex machine learning challenges. My research has resulted in 12 publications in international conferences, with particular emphasis on self-supervised learning and meta-learning approaches that achieve high accuracy while remaining computationally efficient for deployment on edge devices. I am passionate about bridging the gap between theoretical AI research and practical industrial applications.";
-            y = drawJustifiedText(doc, aboutText, LEFT, y, CONTENT_W, 4.5, SECONDARY);
+            y = drawJustifiedText(doc, aboutText, LEFT, y, CONTENT_W, 4.5, BLACK);
         
             // RESEARCH INTERESTS
             y += 6;
@@ -1277,7 +1220,7 @@
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
             const researchText = "My research centers on developing robust anomaly detection systems for industrial quality control. I am particularly interested in how self-supervised and meta-learning techniques can enable models to detect previously unseen defects without extensive labeled data. Currently, I'm exploring diffusion models for generating synthetic defect data to augment limited industrial datasets. A key focus of my work is ensuring these systems are not just accurate but also interpretable and efficient enough for real-time deployment in manufacturing environments. I'm also investigating zero-shot anomaly detection methods that can generalize across different product types and manufacturing processes. My broader interest lies in making industrial AI systems more accessible and practical for real-world deployment.";
-            y = drawJustifiedText(doc, researchText, LEFT, y, CONTENT_W, 4.5, SECONDARY);
+            y = drawJustifiedText(doc, researchText, LEFT, y, CONTENT_W, 4.5, BLACK);
         
             // EDUCATION
             y += 6;
@@ -1294,21 +1237,14 @@
             edu.forEach(e => {
                 if (y > 265) { doc.addPage(); y = TOP; }
                 doc.setFont('helvetica', 'bold');
-                setColor(PRIMARY);
+                setColor(BLACK);
                 doc.text(e.degree, LEFT, y);
                 doc.setFont('helvetica', 'normal');
-                setColor(MUTED); // Using darker muted color for dates
+                setColor(GREY);
                 doc.text(e.period, RIGHT - doc.getTextWidth(e.period), y);
                 y += 4.5;
-                setColor(SECONDARY);
+                setColor(BLACK);
                 doc.text(e.inst, LEFT, y);
-                if (e.details) {
-                    y += 4;
-                    doc.setFontSize(9);
-                    setColor(MUTED);
-                    doc.text(e.details, LEFT, y);
-                    doc.setFontSize(10);
-                }
                 y += 6;
             });
         
@@ -1329,13 +1265,13 @@
             experiences.forEach(ex => {
                 if (y > 265) { doc.addPage(); y = TOP; }
                 doc.setFont('helvetica', 'bold');
-                setColor(PRIMARY);
+                setColor(BLACK);
                 doc.text(ex.title, LEFT, y);
                 doc.setFont('helvetica', 'normal');
-                setColor(MUTED); // Darker color for dates
+                setColor(GREY);
                 doc.text(ex.period, RIGHT - doc.getTextWidth(ex.period), y);
                 y += 4.5;
-                setColor(SECONDARY);
+                setColor(BLACK);
                 doc.text(ex.org, LEFT, y);
                 y += 6;
             });
@@ -1346,21 +1282,21 @@
             y = drawSectionHeader(doc, "Academic Service", LEFT, y);
             doc.setFontSize(10);
             doc.setFont('helvetica', 'bold');
-            setColor(PRIMARY);
+            setColor(BLACK);
             doc.text("Reviewer:", LEFT, y);
             y += 5;
             doc.setFont('helvetica', 'normal');
-            setColor(SECONDARY);
+            setColor(BLACK);
             doc.text("Journals: Neural Computing and Applications, Applied Soft Computing", LEFT + 5, y);
             y += 4.5;
             doc.text("Conferences: VISAPP 2025, ICCV 2025", LEFT + 5, y);
             y += 8;
         
-            // LANGUAGES - each on new line
+            // LANGUAGES
             if (y > 250) { doc.addPage(); y = TOP; }
             y = drawSectionHeader(doc, "Languages", LEFT, y);
             doc.setFontSize(10);
-            setColor(SECONDARY);
+            setColor(BLACK);
             doc.text("• Punjabi/Urdu (Native)", LEFT, y);
             y += 4.5;
             doc.text("• English (Fluent - C2)", LEFT, y);
@@ -1383,10 +1319,10 @@
             skills.forEach(s => {
                 if (y > 270) { doc.addPage(); y = TOP; }
                 doc.setFont('helvetica', 'bold');
-                setColor(PRIMARY);
+                setColor(BLACK);
                 doc.text(s.category, LEFT, y);
                 doc.setFont('helvetica', 'normal');
-                setColor(SECONDARY);
+                setColor(BLACK);
                 doc.text(s.items, LEFT + doc.getTextWidth(s.category) + 2, y);
                 y += 5;
             });
@@ -1408,11 +1344,11 @@
                 // Title
                 const titleX = LEFT + 8;
                 const maxW = RIGHT - titleX;
-                setColor(PRIMARY);
+                setColor(BLACK);
                 let titleTxt = pub.title;
                 if (pub.oral) titleTxt += " (Oral)";
                 
-                // Justified title text
+                // Title text
                 const titleLines = doc.splitTextToSize(titleTxt, maxW);
                 titleLines.forEach(line => {
                     doc.text(line, titleX, y);
@@ -1421,7 +1357,7 @@
         
                 // Authors
                 doc.setFont('helvetica', 'normal');
-                setColor(SECONDARY);
+                setColor(BLACK);
                 const authorsStr = pub.authors.join(', ');
                 const authorLines = doc.splitTextToSize(authorsStr, maxW);
                 authorLines.forEach(line => {
@@ -1431,7 +1367,7 @@
         
                 // Venue
                 doc.setFont('helvetica', 'italic');
-                setColor(MUTED);
+                setColor(GREY);
                 const venueLines = doc.splitTextToSize(pub.venue, maxW);
                 venueLines.forEach(line => {
                     doc.text(line, titleX, y);
@@ -1450,14 +1386,14 @@
             references.forEach(r => {
                 if (y > 265) { doc.addPage(); y = TOP; }
                 doc.setFont('helvetica', 'bold');
-                setColor(PRIMARY);
+                setColor(BLACK);
                 doc.text(r.name, LEFT, y);
                 y += 4.5;
                 doc.setFont('helvetica', 'normal');
-                setColor(SECONDARY);
+                setColor(BLACK);
                 doc.text(r.role, LEFT, y);
                 y += 4.5;
-                setColor(MUTED);
+                setColor(GREY);
                 doc.text(`Email: ${r.email} • Phone: ${r.phone}`, LEFT, y);
                 y += 8;
             });
