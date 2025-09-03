@@ -1128,38 +1128,26 @@
                 return y + 8;
             }
         
-            function drawSVGIcon(doc, type, x, baselineY, sizeMM = 5.5) {
-              const svgString = (window.ICONS || ICONS)[type];
-              if (!svgString) return;
-            
-              if (typeof window.svg2pdf !== 'function') {
-                console.error('svg2pdf is not loaded yet.');
-                return;
-              }
-            
-              const GREY = [100, 116, 139]; // keep in sync with your palette
-              const color = `rgb(${GREY[0]}, ${GREY[1]}, ${GREY[2]})`;
-            
-              // Parse the SVG markup
-              const svgEl = new DOMParser()
-                .parseFromString(svgString, 'image/svg+xml')
-                .documentElement;
-            
-              // Force both fill & stroke to the GREY color (handles "currentColor" and missing attrs)
-              if (!svgEl.getAttribute('fill') || svgEl.getAttribute('fill') === 'currentColor') {
-                svgEl.setAttribute('fill', 'none'); // most of your icons are stroked
-              }
-              svgEl.setAttribute('color', color);
-              svgEl.setAttribute('stroke', color);
-            
-              // Align icon visually with text baseline
-              const topY = baselineY - sizeMM * 0.8;
-            
-              // Render the SVG into the PDF
-              window.svg2pdf(svgEl, doc, { x, y: topY, width: sizeMM, height: sizeMM });
+            // Fallback version with basic Unicode if emojis don't work
+            function drawIcon(doc, type, x, baselineY) {
+              const GREY = [100, 116, 139];
+              
+              // Basic Unicode that works everywhere
+              const icons = {
+                email: '✉',      // U+2709 Envelope (this one works well)
+                phone: '℡',      // U+2121 TEL symbol (more reliable than emoji)
+                linkedin: 'in',   // LinkedIn standard branding
+                scholar: '◎',     // U+25CE Bullseye (academic symbol alternative)
+                location: '⊕'     // U+2295 Circled Plus (location alternative)
+              };
+              
+              const icon = icons[type] || '•';
+              
+              doc.setTextColor(...GREY);
+              doc.setFontSize(11);
+              doc.text(icon, x, baselineY);
+              doc.setTextColor(0, 0, 0); // Reset to black
             }
-
-
         
             // Header section
             setColor(BLACK);
@@ -1194,23 +1182,23 @@
             const textX = LEFT + 7.5; // more room for bigger icon
             
             // Email
-            drawSVGIcon(doc, 'email', iconX, y, ICON_MM);
+            drawIcon(doc, 'email', iconX, y);
             setColor(GREY); doc.text("muhammad.aqeel@univr.it", textX, y); y += 6;
             
             // Phone
-            drawSVGIcon(doc, 'phone', iconX, y, ICON_MM);
+            drawIcon(doc, 'phone', iconX, y);
             setColor(GREY); doc.text("+86 182 1013 3275", textX, y); y += 6;
             
             // LinkedIn
-            drawSVGIcon(doc, 'linkedin', iconX, y, ICON_MM);
+            drawIcon(doc, 'linkedin', iconX, y);
             setColor(GREY); doc.text("linkedin.com/in/muhammad-aqeel-4378b9170", textX, y); y += 6;
             
             // Scholar
-            drawSVGIcon(doc, 'scholar', iconX, y, ICON_MM);
+            drawIcon(doc, 'scholar', iconX, y);
             setColor(GREY); doc.text("scholar.google.com/citations?user=ZPUihX0AAAAJ", textX, y); y += 6;
             
             // Location
-            drawSVGIcon(doc, 'location', iconX, y, ICON_MM);
+            drawIcon(doc, 'location', iconX, y);
             setColor(GREY); doc.text("Ljubljana, Slovenia", textX, y);
                     
             // Main divider
