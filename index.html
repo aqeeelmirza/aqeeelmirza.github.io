@@ -6,6 +6,40 @@
     <title>Muhammad Aqeel - Researcher</title>
     <!-- Include jsPDF for PDF generation -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/svg2pdf.js@2/dist/svg2pdf.umd.min.js"></script>
+
+    <!-- Vector contact icons used by the PDF -->
+      <script>
+        const ICONS = {
+          email: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                       fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="5" width="18" height="14" rx="2" ry="2"/>
+                    <path d="M3 6l9 7 9-7"/>
+                  </svg>`,
+          phone: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                       fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.9v2a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2
+                             2 2 0 0 1 4.1 2h2a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.4 2.1L7.1 9.9a16 16 0 0 0 7 7l1.5-1.1
+                             a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6A2 2 0 0 1 22 16.9z"/>
+                  </svg>`,
+          linkedin: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                       <rect x="2" y="2" width="20" height="20" rx="3" fill="currentColor"/>
+                       <rect x="6" y="9" width="3" height="9" fill="#fff"/>
+                       <rect x="6" y="6" width="3" height="2.5" fill="#fff"/>
+                       <path d="M12 9h2.8v1.5h.04c.39-.7 1.35-1.5 2.78-1.5 2.98 0 3.53 1.96 3.53 4.51V18h-3v-4.01
+                                c0-.96-.02-2.2-1.34-2.2-1.34 0-1.54 1.05-1.54 2.13V18H12V9z" fill="#fff"/>
+                     </svg>`,
+          scholar: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                       fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3l10 6-10 6L2 9l10-6z"/><path d="M22 12v4"/><path d="M6 12v5a6 3 0 0 0 12 0v-5"/>
+                  </svg>`,
+          location: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20.5 10c0 5-8.5 11-8.5 11S3.5 15 3.5 10a8.5 8.5 0 1 1 17 0z"/><circle cx="12" cy="10" r="3"/>
+                    </svg>`
+        };
+      </script>
+
     <style>
         * {
             margin: 0;
@@ -1089,139 +1123,26 @@
                 return y + 8;
             }
         
-            // Helper to draw professional icons using carefully crafted shapes
-            function drawContactIcon(doc, type, x, y) {
-                doc.setDrawColor(...GREY);
-                doc.setFillColor(...GREY);
-                
-                const iconSize = 3;
-                const centerX = x + 1.5;
-                const centerY = y - 1.5;
-                
-                switch(type) {
-                    case 'email':
-                        // Professional envelope icon
-                        doc.setLineWidth(0.15);
-                        const envW = 3.2;
-                        const envH = 2.2;
-                        const envX = centerX - envW/2;
-                        const envY = centerY - envH/2;
-                        
-                        // Envelope body
-                        doc.rect(envX, envY, envW, envH);
-                        
-                        // Envelope flap (V shape)
-                        doc.setLineWidth(0.2);
-                        doc.line(envX, envY, centerX, centerY + 0.3);
-                        doc.line(envX + envW, envY, centerX, centerY + 0.3);
-                        
-                        // Small detail lines at bottom corners
-                        doc.setLineWidth(0.1);
-                        doc.line(envX, envY + envH, envX + 0.8, envY + envH - 0.6);
-                        doc.line(envX + envW, envY + envH, envX + envW - 0.8, envY + envH - 0.6);
-                        break;
-                        
-                    case 'phone':
-                        // Modern phone icon
-                        doc.setLineWidth(0.15);
-                        const phoneW = 1.8;
-                        const phoneH = 2.8;
-                        const phoneX = centerX - phoneW/2;
-                        const phoneY = centerY - phoneH/2;
-                        
-                        // Phone body with rounded corners
-                        doc.roundedRect(phoneX, phoneY, phoneW, phoneH, 0.3, 0.3);
-                        
-                        // Screen area
-                        doc.setLineWidth(0.1);
-                        doc.rect(phoneX + 0.2, phoneY + 0.4, phoneW - 0.4, phoneH - 0.8);
-                        
-                        // Speaker at top
-                        doc.setLineWidth(0.2);
-                        doc.line(centerX - 0.3, phoneY + 0.2, centerX + 0.3, phoneY + 0.2);
-                        
-                        // Home button
-                        doc.circle(centerX, phoneY + phoneH - 0.25, 0.15);
-                        break;
-                        
-                    case 'linkedin':
-                        // Professional LinkedIn icon
-                        doc.setLineWidth(0.15);
-                        const linkedinSize = 2.8;
-                        const linkedinX = centerX - linkedinSize/2;
-                        const linkedinY = centerY - linkedinSize/2;
-                        
-                        // Rounded square background
-                        doc.roundedRect(linkedinX, linkedinY, linkedinSize, linkedinSize, 0.4, 0.4);
-                        
-                        // "in" text - more professional placement
-                        doc.setFont('helvetica', 'bold');
-                        doc.setFontSize(8);
-                        setColor(GREY);
-                        doc.text('in', linkedinX + 0.55, linkedinY + 2.1);
-                        doc.setFont('helvetica', 'normal');
-                        doc.setFontSize(10);
-                        break;
-                        
-                    case 'scholar':
-                        // Academic graduation cap icon
-                        doc.setLineWidth(0.15);
-                        
-                        // Mortarboard top (diamond shape viewed from angle)
-                        const capTop = centerY - 0.8;
-                        doc.lines([
-                            [1.2, 0],
-                            [0.4, 0.5],
-                            [-1.2, 0],
-                            [-0.4, -0.5],
-                            [1.2, 0]
-                        ], centerX - 0.4, capTop);
-                        
-                        // Cap button on top
-                        doc.circle(centerX, capTop, 0.12, 'F');
-                        
-                        // Tassel
-                        doc.setLineWidth(0.1);
-                        doc.line(centerX, capTop, centerX + 1, capTop + 0.3);
-                        doc.circle(centerX + 1, capTop + 0.3, 0.08);
-                        
-                        // Bottom edge of cap
-                        doc.setLineWidth(0.15);
-                        doc.line(centerX - 1.2, centerY, centerX + 1.2, centerY);
-                        break;
-                        
-                    case 'location':
-                        // Professional map pin icon
-                        doc.setLineWidth(0.15);
-                        
-                        // Pin head (circle)
-                        const pinRadius = 0.9;
-                        doc.circle(centerX, centerY - 0.3, pinRadius);
-                        
-                        // Inner circle
-                        doc.circle(centerX, centerY - 0.3, 0.3, 'F');
-                        
-                        // Pin point (triangle/drop shape)
-                        doc.setLineWidth(0);
-                        doc.triangle(
-                            centerX - 0.35, centerY + 0.3,
-                            centerX + 0.35, centerY + 0.3,
-                            centerX, centerY + 1.2,
-                            'F'
-                        );
-                        
-                        // Outline for the point
-                        doc.setLineWidth(0.15);
-                        doc.line(centerX - 0.64, centerY + 0.4, centerX, centerY + 1.2);
-                        doc.line(centerX + 0.64, centerY + 0.4, centerX, centerY + 1.2);
-                        break;
-                }
-                
-                // Reset colors and line width
-                doc.setDrawColor(0, 0, 0);
-                doc.setFillColor(0, 0, 0);
-                doc.setLineWidth(0.3);
+            // Replace your whole drawContactIcon(...) with this:
+            function drawSVGIcon(doc, type, x, baselineY, sizeMM = 5.5) {
+              const svgString = ICONS[type];
+              if (!svgString) return;
+            
+              const color = `rgb(${GREY[0]}, ${GREY[1]}, ${GREY[2]})`;
+              const svgEl = new DOMParser().parseFromString(svgString, 'image/svg+xml').documentElement;
+            
+              // make "currentColor" resolve to GREY
+              svgEl.setAttribute('color', color);
+              if (!svgEl.getAttribute('fill') || svgEl.getAttribute('fill') === 'currentColor') {
+                svgEl.setAttribute('fill', color);
+              }
+            
+              const topY = baselineY - sizeMM * 0.8; // align icon with text baseline
+            
+              // Render the SVG into the PDF (requires the svg2pdf UMD script in <head>)
+              window.svg2pdf(svgEl, doc, { x, y: topY, width: sizeMM, height: sizeMM });
             }
+
         
             // Header section
             setColor(BLACK);
@@ -1251,38 +1172,30 @@
             let y = TOP + 22;
             doc.setFontSize(10);
             
+            const ICON_MM = 5.5;
             const iconX = LEFT;
-            const textX = LEFT + 5.5; // Adjusted spacing for better alignment
+            const textX = LEFT + 7.5; // more room for bigger icon
             
             // Email
-            drawContactIcon(doc, 'email', iconX, y);
-            setColor(GREY);
-            doc.text("muhammad.aqeel@univr.it", textX, y);
-            y += 6;
+            drawSVGIcon(doc, 'email', iconX, y, ICON_MM);
+            setColor(GREY); doc.text("muhammad.aqeel@univr.it", textX, y); y += 6;
             
             // Phone
-            drawContactIcon(doc, 'phone', iconX, y);
-            setColor(GREY);
-            doc.text("+86 182 1013 3275", textX, y);
-            y += 6;
+            drawSVGIcon(doc, 'phone', iconX, y, ICON_MM);
+            setColor(GREY); doc.text("+86 182 1013 3275", textX, y); y += 6;
             
             // LinkedIn
-            drawContactIcon(doc, 'linkedin', iconX, y);
-            setColor(GREY);
-            doc.text("linkedin.com/in/muhammad-aqeel-4378b9170", textX, y);
-            y += 6;
+            drawSVGIcon(doc, 'linkedin', iconX, y, ICON_MM);
+            setColor(GREY); doc.text("linkedin.com/in/muhammad-aqeel-4378b9170", textX, y); y += 6;
             
-            // Google Scholar
-            drawContactIcon(doc, 'scholar', iconX, y);
-            setColor(GREY);
-            doc.text("scholar.google.com/citations?user=ZPUihX0AAAAJ", textX, y);
-            y += 6;
+            // Scholar
+            drawSVGIcon(doc, 'scholar', iconX, y, ICON_MM);
+            setColor(GREY); doc.text("scholar.google.com/citations?user=ZPUihX0AAAAJ", textX, y); y += 6;
             
             // Location
-            drawContactIcon(doc, 'location', iconX, y);
-            setColor(GREY);
-            doc.text("Ljubljana, Slovenia", textX, y);
-        
+            drawSVGIcon(doc, 'location', iconX, y, ICON_MM);
+            setColor(GREY); doc.text("Ljubljana, Slovenia", textX, y);
+                    
             // Main divider
             y += 8;
             doc.setDrawColor(...GREY);
