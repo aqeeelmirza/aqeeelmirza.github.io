@@ -9,7 +9,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/svg2pdf.js@2/dist/svg2pdf.umd.min.js"></script>
 
     <!-- Vector contact icons used by the PDF -->
-      <script>
+    <script>
         const ICONS = {
           email: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                        fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -38,7 +38,7 @@
                       <path d="M20.5 10c0 5-8.5 11-8.5 11S3.5 15 3.5 10a8.5 8.5 0 1 1 17 0z"/><circle cx="12" cy="10" r="3"/>
                     </svg>`
         };
-      </script>
+    </script>
 
     <style>
         * {
@@ -520,8 +520,8 @@
             </div>
 
             <div class="pub-filters">
-                <button class="pub-filter-btn active" onclick="filterPublications('all')">All Publications</button>
-                <button class="pub-filter-btn" onclick="filterPublications('featured')">Key Publications</button>
+                <button class="pub-filter-btn active" onclick="filterPublications(event,'all')">All Publications</button>
+                <button class="pub-filter-btn" onclick="filterPublications(event,'featured')">Key Publications</button>
             </div>
 
             <div class="publications-grid">
@@ -800,21 +800,21 @@
         });
 
         // ADD THE FILTER FUNCTION HERE
-        function filterPublications(filter) {
+        function filterPublications(evt, filter) {
             const buttons = document.querySelectorAll('.pub-filter-btn');
             const publications = document.querySelectorAll('.pub-card');
-            
+        
             // Update active button
             buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
+            if (evt && evt.currentTarget) evt.currentTarget.classList.add('active');
+        
             // Filter publications
             publications.forEach(pub => {
-                if (filter === 'all') {
-                    pub.style.display = 'block';
-                } else if (filter === 'featured') {
-                    pub.style.display = pub.dataset.featured === 'true' ? 'block' : 'none';
-                }
+              if (filter === 'all') {
+                pub.style.display = '';
+              } else {
+                pub.style.display = (pub.dataset.featured === 'true') ? '' : 'none';
+              }
             });
         }
 
@@ -909,7 +909,7 @@
                 title: "Robust Anomaly Detection in Industrial Environments via Meta-Learning",
                 authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
                 venue: "ICCVW 2025 - VISION Workshop at International Conference on Computer Vision",
-                link: "https://arxiv.org/abs/2508.177898",
+                link: "https://arxiv.org/abs/2508.17789",
                 oral: false
             },
             {
@@ -1054,8 +1054,13 @@
         // ===== PDF Generation Function (CV ONLY) =====
         
         async function generatePDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+              const jspdfNS = window.jspdf;
+              if (!jspdfNS || !jspdfNS.jsPDF) {
+                alert('PDF library is still loading. Please try again in a moment.');
+                return;
+              }
+              const { jsPDF } = jspdfNS;
+              const doc = new jsPDF({ unit: 'mm', format: 'a4' });
         
             // Constants
             const ML = 20, MR = 20, TOP = 20;
@@ -1123,25 +1128,37 @@
                 return y + 8;
             }
         
-            // Replace your whole drawContactIcon(...) with this:
             function drawSVGIcon(doc, type, x, baselineY, sizeMM = 5.5) {
-              const svgString = ICONS[type];
+              const svgString = (window.ICONS || ICONS)[type];
               if (!svgString) return;
             
-              const color = `rgb(${GREY[0]}, ${GREY[1]}, ${GREY[2]})`;
-              const svgEl = new DOMParser().parseFromString(svgString, 'image/svg+xml').documentElement;
-            
-              // make "currentColor" resolve to GREY
-              svgEl.setAttribute('color', color);
-              if (!svgEl.getAttribute('fill') || svgEl.getAttribute('fill') === 'currentColor') {
-                svgEl.setAttribute('fill', color);
+              if (typeof window.svg2pdf !== 'function') {
+                console.error('svg2pdf is not loaded yet.');
+                return;
               }
             
-              const topY = baselineY - sizeMM * 0.8; // align icon with text baseline
+              const GREY = [100, 116, 139]; // keep in sync with your palette
+              const color = `rgb(${GREY[0]}, ${GREY[1]}, ${GREY[2]})`;
             
-              // Render the SVG into the PDF (requires the svg2pdf UMD script in <head>)
+              // Parse the SVG markup
+              const svgEl = new DOMParser()
+                .parseFromString(svgString, 'image/svg+xml')
+                .documentElement;
+            
+              // Force both fill & stroke to the GREY color (handles "currentColor" and missing attrs)
+              if (!svgEl.getAttribute('fill') || svgEl.getAttribute('fill') === 'currentColor') {
+                svgEl.setAttribute('fill', 'none'); // most of your icons are stroked
+              }
+              svgEl.setAttribute('color', color);
+              svgEl.setAttribute('stroke', color);
+            
+              // Align icon visually with text baseline
+              const topY = baselineY - sizeMM * 0.8;
+            
+              // Render the SVG into the PDF
               window.svg2pdf(svgEl, doc, { x, y: topY, width: sizeMM, height: sizeMM });
             }
+
 
         
             // Header section
