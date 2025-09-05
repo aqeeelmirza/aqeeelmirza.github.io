@@ -1128,78 +1128,64 @@
                 return y + 8;
             }
         
-            // Fallback version with basic Unicode if emojis don't work
-            function drawIcon(doc, type, x, baselineY) {
-              const GREY = [100, 116, 139];
-              
-              // Basic Unicode that works everywhere
-              const icons = {
-                email: '✉',      // U+2709 Envelope (this one works well)
-                phone: '℡',      // U+2121 TEL symbol (more reliable than emoji)
-                linkedin: 'in',   // LinkedIn standard branding
-                scholar: '◎',     // U+25CE Bullseye (academic symbol alternative)
-                location: '⊕'     // U+2295 Circled Plus (location alternative)
-              };
-              
-              const icon = icons[type] || '•';
-              
+            // --- SVG icon helpers (PDF) ---
+            const GREY_HEX = '#64748b'; // matches GREY
+            
+            function svgFromString(str, colorHex = GREY_HEX) {
+              const parser = new DOMParser();
+              const svg = parser.parseFromString(str, 'image/svg+xml').documentElement;
+              svg.setAttribute('color', colorHex); // resolve currentColor
+              svg.removeAttribute('width');
+              svg.removeAttribute('height');
+              return svg;
+            }
+            
+            function drawSvgIcon(type, x, baselineY, size = 5.5) {
+              try {
+                const fn = window.svg2pdf;
+                if (!fn || !ICONS[type]) return false;
+                const svgEl = svgFromString(ICONS[type]);
+                const yTop = baselineY - size + 1.5; // tweak for baseline
+                fn(svgEl, doc, { x, y: yTop, width: size, height: size });
+                return true;
+              } catch (e) {
+                console.warn('SVG icon failed:', e);
+                return false;
+              }
+            }
+            
+            // Fallback text icon (only if svg2pdf missing)
+            function drawTextIcon(type, x, baselineY) {
+              const icons = { email:'✉', phone:'℡', linkedin:'in', scholar:'◎', location:'⊕' };
               doc.setTextColor(...GREY);
               doc.setFontSize(11);
-              doc.text(icon, x, baselineY);
-              doc.setTextColor(0, 0, 0); // Reset to black
+              doc.text(icons[type] || '•', x, baselineY);
+              doc.setTextColor(...BLACK);
             }
         
-            // Header section
-            setColor(BLACK);
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(24);
-            doc.text("Muhammad Aqeel", LEFT, TOP);
-        
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(11);
-            setColor(BLACK);
-            doc.text("PhD Researcher in Computer Science", LEFT, TOP + 8);
-        
-            // Profile image (fixed positioning)
-            const imgEl = document.querySelector('.profile-image img');
-            if (imgEl && imgEl.style.display !== 'none' && imgEl.naturalWidth > 0) {
-                try {
-                    const masked = await getMaskedImageDataURL(imgEl, 520, IMAGE_SHAPE);
-                    if (masked) {
-                        doc.addImage(masked, 'PNG', RIGHT - 28, TOP - 5, 28, 28);
-                    }
-                } catch(e) {
-                    console.error('Image loading error:', e);
-                }
-            }
-        
-            // Contact info with professional icons
+            // Contact info with vector icons
             let y = TOP + 22;
             doc.setFontSize(10);
             
             const ICON_MM = 5.5;
             const iconX = LEFT;
-            const textX = LEFT + 7.5; // more room for bigger icon
+            const textX = LEFT + 7.5;
             
-            // Email
-            drawIcon(doc, 'email', iconX, y);
+            drawSvgIcon('email',   iconX, y, ICON_MM) || drawTextIcon('email',   iconX, y);
             setColor(GREY); doc.text("muhammad.aqeel@univr.it", textX, y); y += 6;
             
-            // Phone
-            drawIcon(doc, 'phone', iconX, y);
+            drawSvgIcon('phone',   iconX, y, ICON_MM) || drawTextIcon('phone',   iconX, y);
             setColor(GREY); doc.text("+86 182 1013 3275", textX, y); y += 6;
             
-            // LinkedIn
-            drawIcon(doc, 'linkedin', iconX, y);
+            drawSvgIcon('linkedin',iconX, y, ICON_MM) || drawTextIcon('linkedin',iconX, y);
             setColor(GREY); doc.text("linkedin.com/in/muhammad-aqeel-4378b9170", textX, y); y += 6;
             
-            // Scholar
-            drawIcon(doc, 'scholar', iconX, y);
+            drawSvgIcon('scholar', iconX, y, ICON_MM) || drawTextIcon('scholar', iconX, y);
             setColor(GREY); doc.text("scholar.google.com/citations?user=ZPUihX0AAAAJ", textX, y); y += 6;
             
-            // Location
-            drawIcon(doc, 'location', iconX, y);
+            drawSvgIcon('location',iconX, y, ICON_MM) || drawTextIcon('location',iconX, y);
             setColor(GREY); doc.text("Ljubljana, Slovenia", textX, y);
+
                     
             // Main divider
             y += 8;
