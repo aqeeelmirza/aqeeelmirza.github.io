@@ -1091,19 +1091,41 @@
                 return y + 7;
             }
         
-            // ── Left-aligned text helper (better than justified for modern look)
+            // ── Justify text helper (better than justified for modern look)
             function drawText(doc, text, x, y, width, lineHeight, color = BLACK) {
-                setColor(color);
-                const lines = doc.splitTextToSize(text, width);
-                lines.forEach(line => {
-                    if (y > 270) { 
-                        doc.addPage(); 
-                        y = TOP; 
-                    }
-                    doc.text(line, x, y);
-                    y += lineHeight;
+              setColor(color);
+              const lines = doc.splitTextToSize(text, width);
+              const lastIdx = lines.length - 1;
+            
+              lines.forEach((line, i) => {
+                if (y > 270) { doc.addPage(); y = TOP; }
+            
+                // last line: left-align (typical in justification)
+                if (i === lastIdx || !line.includes(' ')) {
+                  doc.text(line, x, y);
+                  y += lineHeight;
+                  return;
+                }
+            
+                // distribute extra space between words
+                const words = line.trim().split(/\s+/);
+                const baseWidths = words.map(w => doc.getTextWidth(w));
+                const spaceW = doc.getTextWidth(' ');
+                const naturalWidth = baseWidths.reduce((a,b)=>a+b,0) + spaceW * (words.length - 1);
+                const extraPerGap = (width - naturalWidth) / (words.length - 1);
+            
+                let cursorX = x;
+                words.forEach((w, j) => {
+                  doc.text(w, cursorX, y);
+                  if (j < words.length - 1) {
+                    cursorX += doc.getTextWidth(w) + spaceW + Math.max(0, extraPerGap);
+                  }
                 });
-                return y;
+            
+                y += lineHeight;
+              });
+            
+              return y;
             }
         
             // ── Header Block with better layout
@@ -1146,9 +1168,22 @@
                         contactY += 4;
                         doc.text("Ljubljana, Slovenia", contactX, contactY, { align: 'right' });
                         contactY += 4;
-                        doc.text("linkedin.com/in/muhammad-aqeel", contactX, contactY, { align: 'right' });
+            
+                        // Add separator |
+                        const separatorX = RIGHT - 45;  // Position for the separator
+                        doc.text("|", separatorX, contactY);  // This will add the vertical line separator
                         contactY += 4;
-                        doc.text("scholar.google.com/citations", contactX, contactY, { align: 'right' });
+            
+                        // LinkedIn (rename and add href)
+                        const linkedIn = "LinkedIn";
+                        doc.text(linkedIn, contactX, contactY, { align: 'right' });
+                        doc.link(contactX, contactY - 4, doc.getTextWidth(linkedIn), 4, { url: "https://linkedin.com/in/muhammad-aqeel" });
+                        contactY += 4;
+                        
+                        // Google Scholar (rename and add href)
+                        const googleScholar = "Google Scholar";
+                        doc.text(googleScholar, contactX, contactY, { align: 'right' });
+                        doc.link(contactX, contactY - 4, doc.getTextWidth(googleScholar), 4, { url: "https://scholar.google.com/citations?user=yourScholarID" });
                     }
                 } catch (e) {
                     console.error('Image loading error:', e);
@@ -1163,9 +1198,22 @@
                 contactY += 4;
                 doc.text("Ljubljana, Slovenia", RIGHT, contactY, { align: 'right' });
                 contactY += 4;
-                doc.text("linkedin.com/in/muhammad-aqeel", RIGHT, contactY, { align: 'right' });
+            
+                // Add separator |
+                const separatorX = RIGHT - 45;  // Position for the separator
+                doc.text("|", separatorX, contactY);  // This will add the vertical line separator
                 contactY += 4;
-                doc.text("scholar.google.com/citations", RIGHT, contactY, { align: 'right' });
+            
+                // LinkedIn (rename and add href)
+                const linkedIn = "LinkedIn";
+                doc.text(linkedIn, RIGHT, contactY, { align: 'right' });
+                doc.link(RIGHT, contactY - 4, doc.getTextWidth(linkedIn), 4, { url: "https://linkedin.com/in/muhammad-aqeel" });
+                contactY += 4;
+            
+                // Google Scholar (rename and add href)
+                const googleScholar = "Google Scholar";
+                doc.text(googleScholar, RIGHT, contactY, { align: 'right' });
+                doc.link(RIGHT, contactY - 4, doc.getTextWidth(googleScholar), 4, { url: "https://scholar.google.com/citations?user=yourScholarID" });
             }
             
             // Horizontal line under header
