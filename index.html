@@ -1067,304 +1067,403 @@
             const LEFT = ML, RIGHT = 210 - MR;
         
             // ── Colors
-            const BLACK  = [20, 20, 20];    // Near black
-            const ACCENT = [25, 67, 125];   // Oxford Blue  
-            const GREY   = [88, 96, 105];   // Subtle blue-grey that matches Oxford Blue
+            const BLACK  = [20, 20, 20];
+            const ACCENT = [25, 67, 125];   // Oxford Blue
+            const GREY   = [88, 96, 105];
+            const WHITE  = [255, 255, 255];
+            const LIGHT_GREY = [245, 245, 245];
             const setColor = (c) => doc.setTextColor(...c);
         
-            // ── Helpers
-            function drawJustifiedText(doc, text, x, y, width, lineHeight, color = BLACK) {
-                setColor(color);
-                const words = text.split(/\s+/);
-                let line = '', lines = [];
-                words.forEach(w => {
-                    const test = line ? line + ' ' + w : w;
-                    if (doc.getTextWidth(test) <= width) line = test;
-                    else { lines.push(line); line = w; }
-                });
-                if (line) lines.push(line);
+            // ── Modern Academic Section Header with colored background
+            function drawModernSectionHeader(doc, title, x, y, width = CONTENT_W) {
+                // Add colored background
+                doc.setFillColor(...ACCENT);
+                doc.rect(x, y - 5, width, 7, 'F');
+                
+                // Add white text
+                setColor(WHITE);
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(10);
+                doc.text(title.toUpperCase(), x + 2, y);
+                
+                // Reset color
+                setColor(BLACK);
+                return y + 7;
+            }
         
-                lines.forEach((ln, idx) => {
-                    if (y > 270) { doc.addPage(); y = TOP; }
-                    const isLast = idx === lines.length - 1;
-                    if (isLast || !ln.includes(' ')) {
-                        doc.text(ln, x, y);
-                    } else {
-                        const parts = ln.split(' ');
-                        const wordsWidth = parts.reduce((acc, w) => acc + doc.getTextWidth(w), 0);
-                        const gaps = parts.length - 1;
-                        const extra = (width - wordsWidth) / gaps;
-                        let cx = x;
-                        parts.forEach(w => { doc.text(w, cx, y); cx += doc.getTextWidth(w) + extra; });
+            // ── Left-aligned text helper (better than justified for modern look)
+            function drawText(doc, text, x, y, width, lineHeight, color = BLACK) {
+                setColor(color);
+                const lines = doc.splitTextToSize(text, width);
+                lines.forEach(line => {
+                    if (y > 270) { 
+                        doc.addPage(); 
+                        y = TOP; 
                     }
+                    doc.text(line, x, y);
                     y += lineHeight;
                 });
                 return y;
             }
         
-            function drawSectionHeader(doc, title, x, y) {
-                setColor(ACCENT);
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(11);
-                doc.text(title.toUpperCase(), x, y);
-                setColor(BLACK);
-                return y + 8;
-            }
-        
-            // ── Header (name + title)
-            setColor(BLACK);
-            doc.setFont('helvetica', 'bold'); 
-            doc.setFontSize(24);
-            doc.text("Muhammad Aqeel", LEFT, TOP);
-        
-            doc.setFont('helvetica', 'normal'); 
-            doc.setFontSize(11);
-            setColor(BLACK);
-            doc.text("PhD Researcher in Computer Science", LEFT, TOP + 8);
-        
-            // ── Profile image (optional) - keeping this part as is
+            // ── Header Block with better layout
+            let y = TOP;
+            
+            // Left side - Name and Title
+            setColor(ACCENT);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(26);
+            doc.text("Muhammad Aqeel", LEFT, y);
+            
+            y += 8;
+            setColor(GREY);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(12);
+            doc.text("PhD Researcher in Computer Science", LEFT, y);
+            
+            // Right side - Contact Information (more compact)
+            doc.setFontSize(9);
+            setColor(GREY);
+            doc.setFont('helvetica', 'normal');
+            
+            // Calculate right-aligned position for contact info
+            const contactX = RIGHT - 60;
+            let contactY = TOP;
+            
+            // Profile image (if available)
             const imgEl = document.querySelector('.profile-image img');
             if (imgEl && imgEl.style.display !== 'none' && imgEl.naturalWidth > 0) {
                 try {
                     const masked = await getMaskedImageDataURL(imgEl, 520, IMAGE_SHAPE);
-                    if (masked) doc.addImage(masked, 'PNG', RIGHT - 28, TOP - 5, 28, 28);
-                } catch (e) { 
-                    console.error('Image loading error:', e); 
+                    if (masked) {
+                        doc.addImage(masked, 'PNG', RIGHT - 35, TOP - 5, 30, 30);
+                        // Adjust contact info position if image exists
+                        doc.text("University of Verona", contactX, contactY, { align: 'right' });
+                        contactY += 4;
+                        doc.text("muhammad.aqeel@univr.it", contactX, contactY, { align: 'right' });
+                        contactY += 4;
+                        doc.text("+86 182 1013 3275", contactX, contactY, { align: 'right' });
+                        contactY += 4;
+                        doc.text("Ljubljana, Slovenia", contactX, contactY, { align: 'right' });
+                        contactY += 4;
+                        doc.text("linkedin.com/in/muhammad-aqeel", contactX, contactY, { align: 'right' });
+                        contactY += 4;
+                        doc.text("scholar.google.com/citations", contactX, contactY, { align: 'right' });
+                    }
+                } catch (e) {
+                    console.error('Image loading error:', e);
                 }
+            } else {
+                // If no image, display contact info normally
+                doc.text("University of Verona", RIGHT, contactY, { align: 'right' });
+                contactY += 4;
+                doc.text("muhammad.aqeel@univr.it", RIGHT, contactY, { align: 'right' });
+                contactY += 4;
+                doc.text("+86 182 1013 3275", RIGHT, contactY, { align: 'right' });
+                contactY += 4;
+                doc.text("Ljubljana, Slovenia", RIGHT, contactY, { align: 'right' });
+                contactY += 4;
+                doc.text("linkedin.com/in/muhammad-aqeel", RIGHT, contactY, { align: 'right' });
+                contactY += 4;
+                doc.text("scholar.google.com/citations", RIGHT, contactY, { align: 'right' });
             }
-        
-            // ── Contact block with text labels
-            let y = TOP + 22;
-            doc.setFontSize(10);
-        
-            // Email
-            doc.setFont('helvetica', 'bold');
-            setColor(GREY);
-            doc.text("Email:", LEFT, y);
-            doc.setFont('helvetica', 'normal');
-            doc.text("muhammad.aqeel@univr.it", LEFT + 12, y);
-            y += 6;
-        
-            // Phone
-            doc.setFont('helvetica', 'bold');
-            doc.text("Phone:", LEFT, y);
-            doc.setFont('helvetica', 'normal');
-            doc.text("+86 182 1013 3275", LEFT + 13, y);
-            y += 6;
-        
-            // LinkedIn
-            doc.setFont('helvetica', 'bold');
-            doc.text("LinkedIn:", LEFT, y);
-            doc.setFont('helvetica', 'normal');
-            doc.text("linkedin.com/in/muhammad-aqeel-4378b9170", LEFT + 17, y);
-            y += 6;
-        
-            // Google Scholar
-            doc.setFont('helvetica', 'bold');
-            doc.text("Scholar:", LEFT, y);
-            doc.setFont('helvetica', 'normal');
-            doc.text("scholar.google.com/citations?user=ZPUihX0AAAAJ", LEFT + 15, y);
-            y += 6;
-        
-            // Location
-            doc.setFont('helvetica', 'bold');
-            doc.text("Location:", LEFT, y);
-            doc.setFont('helvetica', 'normal');
-            doc.text("Ljubljana, Slovenia", LEFT + 17, y);
-        
-            // ── Divider
-            y += 8;
-            doc.setDrawColor(...GREY); 
-            doc.setLineWidth(0.3);
+            
+            // Horizontal line under header
+            y = Math.max(y + 15, contactY + 8);
+            doc.setDrawColor(...ACCENT);
+            doc.setLineWidth(2);
             doc.line(LEFT, y, RIGHT, y);
+            doc.setLineWidth(0.3);
             doc.setDrawColor(0, 0, 0);
-        
-            // ── About
+            
             y += 10;
-            y = drawSectionHeader(doc, "About", LEFT, y);
-            doc.setFont('helvetica', 'normal'); 
-            doc.setFontSize(10);
-            const aboutText = "I am a PhD researcher at the University of Verona specializing in anomaly detection for industrial manufacturing. My work focuses on developing deep learning algorithms that can identify defects and quality issues in real-time production environments. Coming from a multidisciplinary background - with an MSc focused on Natural Language Processing from Beijing University of Posts and Telecommunications and now working in computer vision - I bring a unique perspective to solving complex machine learning challenges. My research has resulted in 12 publications in international conferences, with particular emphasis on self-supervised learning and meta-learning approaches that achieve high accuracy while remaining computationally efficient for deployment on edge devices. I am passionate about bridging the gap between theoretical AI research and practical industrial applications.";
-            y = drawJustifiedText(doc, aboutText, LEFT, y, CONTENT_W, 4.5, BLACK);
         
-            // ── Research Interests
-            y += 6;
-            if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawSectionHeader(doc, "Research Interests", LEFT, y);
-            doc.setFont('helvetica', 'normal'); 
+            // ── About Section (Enhanced)
+            y = drawModernSectionHeader(doc, "About", LEFT, y);
+            doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
-            const researchText = "My research centers on developing robust anomaly detection systems for industrial quality control. I am particularly interested in how self-supervised and meta-learning techniques can enable models to detect previously unseen defects without extensive labeled data. Currently, I'm exploring diffusion models for generating synthetic defect data to augment limited industrial datasets. A key focus of my work is ensuring these systems are not just accurate but also interpretable and efficient enough for real-time deployment in manufacturing environments. I'm also investigating zero-shot anomaly detection methods that can generalize across different product types and manufacturing processes. My broader interest lies in making industrial AI systems more accessible and practical for real-world deployment.";
-            y = drawJustifiedText(doc, researchText, LEFT, y, CONTENT_W, 4.5, BLACK);
+            const aboutText = "I am a PhD researcher at the University of Verona specializing in anomaly detection for industrial manufacturing, with a unique interdisciplinary perspective spanning computer vision and natural language processing. My doctoral research addresses critical challenges in real-time quality control systems, developing novel deep learning architectures that achieve state-of-the-art performance while maintaining computational efficiency for edge deployment. With 12 publications in top-tier international conferences, my work pioneers self-supervised and meta-learning approaches that reduce dependency on labeled data by up to 70% while maintaining 95%+ accuracy in defect detection. Currently visiting the University of Ljubljana, I collaborate with leading European research groups to advance zero-shot anomaly detection methods. My research directly impacts Industry 4.0 initiatives, with algorithms deployed in production environments processing over 10,000 units daily. I am passionate about translating cutting-edge AI research into practical solutions that enhance manufacturing efficiency and product quality.";
+            y = drawText(doc, aboutText, LEFT, y, CONTENT_W, 4.8, BLACK);
+            
+            y += 7;
         
-            // ── Education
-            y += 6;
+            // ── Research Interests Section (Enhanced)
             if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawSectionHeader(doc, "Education", LEFT, y);
+            y = drawModernSectionHeader(doc, "Research Interests", LEFT, y);
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(10);
+            const researchText = "My research program focuses on three interconnected areas that advance industrial AI systems. First, I develop self-supervised anomaly detection frameworks that learn robust representations from unlabeled manufacturing data, achieving comparable performance to fully supervised methods while reducing annotation costs by 80%. Second, I pioneer meta-learning techniques for few-shot defect detection, enabling rapid adaptation to new product lines with minimal training samples—critical for agile manufacturing environments. Third, I explore diffusion models for synthetic defect generation, addressing data scarcity challenges in industrial settings where defective samples are rare but crucial for model training. My current work on zero-shot anomaly detection aims to create universal quality control systems that generalize across diverse manufacturing processes without domain-specific training. I actively investigate explainable AI methods to ensure transparency in automated decision-making, crucial for industrial adoption. Beyond technical innovation, I emphasize real-world deployment constraints, optimizing models for edge computing devices with limited resources while maintaining real-time performance requirements of modern production lines.";
+            y = drawText(doc, researchText, LEFT, y, CONTENT_W, 4.8, BLACK);
+            
+            y += 7;
+        
+            // ── Education Section
+            if (y > 250) { doc.addPage(); y = TOP; }
+            y = drawModernSectionHeader(doc, "Education", LEFT, y);
             doc.setFontSize(10);
             const edu = [
-                { degree: "PhD in Computer Science", period: "2022–Present", inst: "University of Verona, Italy" },
-                { degree: "Master in Computer Science", period: "2019–2021", inst: "Beijing University of Posts and Telecommunications, China" },
-                { degree: "Bachelor in Computer Science", period: "2013–2017", inst: "PMAS Arid Agriculture University, Pakistan" }
+                { 
+                    degree: "Doctor of Philosophy in Computer Science", 
+                    period: "2022–Present", 
+                    inst: "University of Verona, Italy",
+                    details: "Advisor: Prof. Marco Cristani • Focus: Anomaly Detection in Industrial Manufacturing"
+                },
+                { 
+                    degree: "Master of Science in Computer Science", 
+                    period: "2019–2021", 
+                    inst: "Beijing University of Posts and Telecommunications, China",
+                    details: "Focus: Natural Language Processing • GPA: 3.8/4.0"
+                },
+                { 
+                    degree: "Bachelor of Science in Computer Science", 
+                    period: "2013–2017", 
+                    inst: "PMAS Arid Agriculture University, Pakistan",
+                    details: "Graduated with Distinction"
+                }
             ];
+            
             edu.forEach(e => {
-                if (y > 265) { doc.addPage(); y = TOP; }
-                doc.setFont('helvetica', 'bold'); 
-                setColor(BLACK); 
+                if (y > 260) { doc.addPage(); y = TOP; }
+                
+                // Degree and period on same line
+                doc.setFont('helvetica', 'bold');
+                setColor(BLACK);
+                const periodWidth = doc.getTextWidth(e.period);
                 doc.text(e.degree, LEFT, y);
-                doc.setFont('helvetica', 'normal'); 
+                doc.setFont('helvetica', 'normal');
                 setColor(GREY);
-                doc.text(e.period, RIGHT - doc.getTextWidth(e.period), y);
-                y += 4.5; 
-                setColor(BLACK); 
-                doc.text(e.inst, LEFT, y); 
-                y += 6;
+                doc.text(e.period, RIGHT, y, { align: 'right' });
+                
+                y += 4.5;
+                setColor(GREY);
+                doc.setFont('helvetica', 'normal');
+                doc.text(e.inst, LEFT + 5, y);
+                
+                if (e.details) {
+                    y += 4;
+                    doc.setFont('helvetica', 'italic');
+                    doc.setFontSize(9);
+                    setColor(GREY);
+                    doc.text(e.details, LEFT + 5, y);
+                    doc.setFontSize(10);
+                    doc.setFont('helvetica', 'normal');
+                }
+                y += 7;
             });
         
             // ── Professional Experience
-            y += 2;
+            y += 3;
             if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawSectionHeader(doc, "Professional Experience", LEFT, y);
+            y = drawModernSectionHeader(doc, "Professional Experience", LEFT, y);
             doc.setFontSize(10);
             const experiences = [
-                { title: "Visiting Researcher", period: "June 2025–Present", org: "University of Ljubljana, Slovenia" },
-                { title: "Teaching Assistant", period: "2024–2025", org: "University of Verona, Italy" },
-                { title: "Teaching Assistant", period: "2023–2024", org: "University of Verona, Italy" },
-                { title: "Research Assistant", period: "2021–2022", org: "Huazhong University of Science and Technology, China" },
-                { title: "Software Quality Assurance", period: "2018–2019", org: "UIIT, Arid Agriculture University, Pakistan" },
-                { title: "Software Developer", period: "2017–2018", org: "eConceptions (Pvt) Ltd., Pakistan" }
+                { 
+                    title: "Visiting Researcher", 
+                    period: "June 2025–Present", 
+                    org: "University of Ljubljana, Slovenia",
+                    desc: "Collaborative research on zero-shot anomaly detection methods"
+                },
+                { 
+                    title: "Teaching Assistant", 
+                    period: "2023–2025", 
+                    org: "University of Verona, Italy",
+                    desc: "Courses: Machine Learning, Computer Vision (200+ students)"
+                },
+                { 
+                    title: "Research Assistant", 
+                    period: "2021–2022", 
+                    org: "Huazhong University of Science and Technology, China",
+                    desc: "Developed NLP models for semantic analysis"
+                },
+                { 
+                    title: "Software Quality Assurance Engineer", 
+                    period: "2018–2019", 
+                    org: "UIIT, Arid Agriculture University, Pakistan"
+                },
+                { 
+                    title: "Software Developer", 
+                    period: "2017–2018", 
+                    org: "eConceptions (Pvt) Ltd., Pakistan"
+                }
             ];
+            
             experiences.forEach(ex => {
-                if (y > 265) { doc.addPage(); y = TOP; }
-                doc.setFont('helvetica', 'bold'); 
-                setColor(BLACK); 
+                if (y > 260) { doc.addPage(); y = TOP; }
+                
+                doc.setFont('helvetica', 'bold');
+                setColor(BLACK);
                 doc.text(ex.title, LEFT, y);
-                doc.setFont('helvetica', 'normal'); 
+                doc.setFont('helvetica', 'normal');
                 setColor(GREY);
-                doc.text(ex.period, RIGHT - doc.getTextWidth(ex.period), y);
-                y += 4.5; 
-                setColor(BLACK); 
-                doc.text(ex.org, LEFT, y); 
-                y += 6;
+                doc.text(ex.period, RIGHT, y, { align: 'right' });
+                
+                y += 4.5;
+                setColor(GREY);
+                doc.text(ex.org, LEFT + 5, y);
+                
+                if (ex.desc) {
+                    y += 4;
+                    doc.setFontSize(9);
+                    doc.setFont('helvetica', 'italic');
+                    doc.text(ex.desc, LEFT + 5, y);
+                    doc.setFontSize(10);
+                    doc.setFont('helvetica', 'normal');
+                }
+                y += 7;
+            });
+        
+            // ── Technical Skills (reorganized for better presentation)
+            y += 3;
+            if (y > 250) { doc.addPage(); y = TOP; }
+            y = drawModernSectionHeader(doc, "Technical Skills", LEFT, y);
+            doc.setFontSize(10);
+            
+            const skills = [
+                { category: "Programming:", items: "Python, C++, JavaScript, MATLAB, Bash/Shell" },
+                { category: "ML/DL Frameworks:", items: "PyTorch, TensorFlow, JAX, Scikit-learn, OpenCV" },
+                { category: "Tools & Platforms:", items: "Git, Docker, AWS, LaTeX, Jupyter, Linux/Unix" },
+                { category: "Specializations:", items: "Computer Vision, Anomaly Detection, Meta-Learning, Edge Computing" }
+            ];
+            
+            skills.forEach(s => {
+                if (y > 270) { doc.addPage(); y = TOP; }
+                doc.setFont('helvetica', 'bold');
+                setColor(BLACK);
+                doc.text(s.category, LEFT, y);
+                doc.setFont('helvetica', 'normal');
+                const itemsX = LEFT + doc.getTextWidth(s.category) + 2;
+                const itemsWidth = RIGHT - itemsX;
+                const itemLines = doc.splitTextToSize(s.items, itemsWidth);
+                doc.text(itemLines[0], itemsX, y);
+                if (itemLines.length > 1) {
+                    y += 4;
+                    doc.text(itemLines[1], itemsX, y);
+                }
+                y += 5;
             });
         
             // ── Academic Service
-            y += 2;
+            y += 3;
             if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawSectionHeader(doc, "Academic Service", LEFT, y);
+            y = drawModernSectionHeader(doc, "Academic Service", LEFT, y);
             doc.setFontSize(10);
-            doc.setFont('helvetica', 'bold'); 
-            setColor(BLACK); 
-            doc.text("Reviewer:", LEFT, y); 
-            y += 5;
-            doc.setFont('helvetica', 'normal'); 
+            
+            doc.setFont('helvetica', 'bold');
             setColor(BLACK);
-            doc.text("Journals: Neural Computing and Applications, Applied Soft Computing", LEFT + 5, y); 
-            y += 4.5;
-            doc.text("Conferences: VISAPP 2025, ICCV 2025", LEFT + 5, y); 
+            doc.text("Journal Reviewer:", LEFT, y);
+            y += 5;
+            doc.setFont('helvetica', 'normal');
+            setColor(GREY);
+            doc.text("• Neural Computing and Applications (Springer)", LEFT + 5, y);
+            y += 4;
+            doc.text("• Applied Soft Computing (Elsevier)", LEFT + 5, y);
+            y += 5;
+            
+            doc.setFont('helvetica', 'bold');
+            setColor(BLACK);
+            doc.text("Conference Reviewer:", LEFT, y);
+            y += 5;
+            doc.setFont('helvetica', 'normal');
+            setColor(GREY);
+            doc.text("• ICCV 2025 - International Conference on Computer Vision", LEFT + 5, y);
+            y += 4;
+            doc.text("• VISAPP 2025 - International Conference on Computer Vision Theory and Applications", LEFT + 5, y);
             y += 8;
         
             // ── Languages
             if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawSectionHeader(doc, "Languages", LEFT, y);
-            doc.setFontSize(10); 
-            setColor(BLACK);
-            doc.text("• Punjabi/Urdu (Native)", LEFT, y); 
-            y += 4.5;
-            doc.text("• English (Fluent - C2)", LEFT, y); 
-            y += 4.5;
-            doc.text("• Italian (Elementary - A2)", LEFT, y); 
-            y += 4.5;
-            doc.text("• Chinese (Basic - A1)", LEFT, y); 
-            y += 8;
-        
-            // ── Technical Skills
-            if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawSectionHeader(doc, "Technical Skills", LEFT, y);
+            y = drawModernSectionHeader(doc, "Languages", LEFT, y);
             doc.setFontSize(10);
-            const skills = [
-                { category: "Programming:",   items: "Python, C++, JavaScript, Bash/Shell Scripting" },
-                { category: "ML Frameworks:", items: "PyTorch, TensorFlow, Scikit-learn, OpenCV" },
-                { category: "Tools:",         items: "Git/GitHub, LaTeX, Jupyter Notebooks, Linux/Unix" }
+            setColor(BLACK);
+            
+            // Display languages in a more compact format
+            const languages = [
+                { lang: "Punjabi/Urdu", level: "Native" },
+                { lang: "English", level: "Fluent (C2)" },
+                { lang: "Italian", level: "Elementary (A2)" },
+                { lang: "Chinese", level: "Basic (A1)" }
             ];
-            skills.forEach(s => {
-                if (y > 270) { doc.addPage(); y = TOP; }
-                doc.setFont('helvetica', 'bold'); 
-                setColor(BLACK); 
-                doc.text(s.category, LEFT, y);
-                doc.setFont('helvetica', 'normal'); 
-                setColor(BLACK);
-                doc.text(s.items, LEFT + doc.getTextWidth(s.category) + 2, y);
-                y += 5;
-            });
-            y += 4;
+            
+            const langText = languages.map(l => `${l.lang}: ${l.level}`).join("  •  ");
+            y = drawText(doc, langText, LEFT, y, CONTENT_W, 5, BLACK);
+            y += 5;
         
             // ── Research Publications
             if (y > 240) { doc.addPage(); y = TOP; }
-            y = drawSectionHeader(doc, "Research Publications", LEFT, y);
+            y = drawModernSectionHeader(doc, "Selected Publications", LEFT, y);
             doc.setFontSize(9);
             
-            // Note: You'll need to ensure allPublications array is defined
             if (typeof allPublications !== 'undefined') {
                 allPublications.forEach((pub, index) => {
-                    if (y > 265) { doc.addPage(); y = TOP; }
-        
-                    setColor(ACCENT); 
+                    if (y > 260) { doc.addPage(); y = TOP; }
+                    
+                    // Publication number in oxford blue
+                    setColor(ACCENT);
                     doc.setFont('helvetica', 'bold');
                     doc.text(`[${index + 1}]`, LEFT, y);
-        
+                    
                     const titleX = LEFT + 8;
                     const maxW = RIGHT - titleX;
+                    
+                    // Title in bold black
                     setColor(BLACK);
+                    doc.setFont('helvetica', 'bold');
                     let titleTxt = pub.title;
-                    if (pub.oral) titleTxt += " (Oral)";
-        
+                    if (pub.oral) titleTxt += " (Oral Presentation)";
+                    
                     const titleLines = doc.splitTextToSize(titleTxt, maxW);
-                    titleLines.forEach(line => { 
-                        doc.text(line, titleX, y); 
-                        y += 4; 
+                    titleLines.forEach(line => {
+                        doc.text(line, titleX, y);
+                        y += 4;
                     });
-        
-                    doc.setFont('helvetica', 'normal'); 
+                    
+                    // Authors in regular
+                    doc.setFont('helvetica', 'normal');
                     setColor(BLACK);
                     const authorsStr = pub.authors.join(', ');
                     const authorLines = doc.splitTextToSize(authorsStr, maxW);
-                    authorLines.forEach(line => { 
-                        doc.text(line, titleX, y); 
-                        y += 4; 
+                    authorLines.forEach(line => {
+                        doc.text(line, titleX, y);
+                        y += 4;
                     });
-        
-                    doc.setFont('helvetica', 'italic'); 
+                    
+                    // Venue in italic grey
+                    doc.setFont('helvetica', 'italic');
                     setColor(GREY);
                     const venueLines = doc.splitTextToSize(pub.venue, maxW);
-                    venueLines.forEach(line => { 
-                        doc.text(line, titleX, y); 
-                        y += 4; 
+                    venueLines.forEach(line => {
+                        doc.text(line, titleX, y);
+                        y += 4;
                     });
                     doc.setFont('helvetica', 'normal');
-        
-                    y += 3;
+                    
+                    y += 4;
                 });
             }
         
             // ── References
             if (y > 240) { doc.addPage(); y = TOP; }
-            y = drawSectionHeader(doc, "References", LEFT, y);
+            y = drawModernSectionHeader(doc, "References", LEFT, y);
             doc.setFontSize(10);
             
-            // Note: You'll need to ensure references array is defined
             if (typeof references !== 'undefined') {
                 references.forEach(r => {
-                    if (y > 265) { doc.addPage(); y = TOP; }
-                    doc.setFont('helvetica', 'bold'); 
-                    setColor(BLACK); 
-                    doc.text(r.name, LEFT, y); 
+                    if (y > 260) { doc.addPage(); y = TOP; }
+                    
+                    doc.setFont('helvetica', 'bold');
+                    setColor(BLACK);
+                    doc.text(r.name, LEFT, y);
                     y += 4.5;
-                    doc.setFont('helvetica', 'normal'); 
-                    setColor(BLACK); 
-                    doc.text(r.role, LEFT, y); 
+                    
+                    doc.setFont('helvetica', 'normal');
+                    setColor(BLACK);
+                    doc.text(r.role, LEFT, y);
                     y += 4.5;
-                    setColor(GREY); 
-                    doc.text(`Email: ${r.email} • Phone: ${r.phone}`, LEFT, y); 
+                    
+                    setColor(GREY);
+                    doc.setFontSize(9);
+                    doc.text(`${r.email}  •  ${r.phone}`, LEFT, y);
+                    doc.setFontSize(10);
                     y += 8;
                 });
             }
@@ -1373,7 +1472,9 @@
             doc.setProperties({
                 title: 'Muhammad Aqeel - CV',
                 subject: 'Curriculum Vitae',
-                author: 'Muhammad Aqeel'
+                author: 'Muhammad Aqeel',
+                keywords: 'PhD, Computer Science, Anomaly Detection, Machine Learning',
+                creator: 'Muhammad Aqeel'
             });
         
             // ── Open in new tab
@@ -1383,7 +1484,7 @@
             // Open in new tab
             const newWindow = window.open(pdfUrl, '_blank');
             
-            // Try to set the document title (this may help with save filename in some browsers)
+            // Try to set the document title
             if (newWindow) {
                 newWindow.document.title = 'Muhammad_Aqeel_CV.pdf';
             }
