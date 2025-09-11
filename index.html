@@ -1376,17 +1376,17 @@
                 author: 'Muhammad Aqeel'
             });
         
-            // ── Create blob and open in new tab
+            // ── Open in new tab
             const pdfBlob = doc.output('blob');
-            
-            // Create a blob URL with the filename hint
-            const file = new File([pdfBlob], 'Muhammad_Aqeel_CV.pdf', {
-                type: 'application/pdf'
-            });
-            const pdfUrl = URL.createObjectURL(file);
+            const pdfUrl = URL.createObjectURL(pdfBlob);
             
             // Open in new tab
-            window.open(pdfUrl, '_blank');
+            const newWindow = window.open(pdfUrl, '_blank');
+            
+            // Try to set the document title (this may help with save filename in some browsers)
+            if (newWindow) {
+                newWindow.document.title = 'Muhammad_Aqeel_CV.pdf';
+            }
         }
 
     </script>
