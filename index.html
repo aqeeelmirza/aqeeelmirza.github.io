@@ -1143,14 +1143,29 @@
             doc.setFontSize(12);
             doc.text("PhD Researcher in Computer Science", LEFT, y);
             
-            // Right side - Contact Information (more compact)
+            // Left side - Name, Title, and Contact Information
             doc.setFontSize(9);
             setColor(GREY);
             doc.setFont('helvetica', 'normal');
             
-            // Calculate right-aligned position for contact info
-            const contactX = RIGHT - 60;
+            // Title and University (Left Column)
+            let contactX = LEFT;
             let contactY = TOP;
+            doc.text("Muhammad Aqeel", contactX, contactY);  // Name
+            contactY += 8;
+            doc.text("PhD Researcher in Computer Science", contactX, contactY);  // Title
+            contactY += 8;
+            doc.text("University of Verona", contactX, contactY);  // University
+            contactY += 10;  // Add some space before the contact info
+            
+            // Add separator `|` between title and contact info (on the left side)
+            const separatorX = LEFT + 85;  // Position for the separator on the left side
+            doc.text("|", separatorX, contactY);  // Vertical line separator
+            contactY += 4;  // Adjust vertical spacing
+            
+            // Contact Information (Under Title, Left Side)
+            const contactInfoX = LEFT + 100;  // Position for the contact info on the left side
+            let contactInfoY = contactY;
             
             // Profile image (if available)
             const imgEl = document.querySelector('.profile-image img');
@@ -1158,62 +1173,40 @@
                 try {
                     const masked = await getMaskedImageDataURL(imgEl, 520, IMAGE_SHAPE);
                     if (masked) {
-                        doc.addImage(masked, 'PNG', RIGHT - 35, TOP - 5, 30, 30);
-                        // Adjust contact info position if image exists
-                        doc.text("University of Verona", contactX, contactY, { align: 'right' });
-                        contactY += 4;
-                        doc.text("muhammad.aqeel@univr.it", contactX, contactY, { align: 'right' });
-                        contactY += 4;
-                        doc.text("+86 182 1013 3275", contactX, contactY, { align: 'right' });
-                        contactY += 4;
-                        doc.text("Ljubljana, Slovenia", contactX, contactY, { align: 'right' });
-                        contactY += 4;
-            
-                        // Add separator |
-                        const separatorX = RIGHT - 45;  // Position for the separator
-                        doc.text("|", separatorX, contactY);  // This will add the vertical line separator
-                        contactY += 4;
-            
-                        // LinkedIn (rename and add href)
-                        const linkedIn = "LinkedIn";
-                        doc.text(linkedIn, contactX, contactY, { align: 'right' });
-                        doc.link(contactX, contactY - 4, doc.getTextWidth(linkedIn), 4, { url: "https://linkedin.com/in/muhammad-aqeel" });
-                        contactY += 4;
-                        
-                        // Google Scholar (rename and add href)
-                        const googleScholar = "Google Scholar";
-                        doc.text(googleScholar, contactX, contactY, { align: 'right' });
-                        doc.link(contactX, contactY - 4, doc.getTextWidth(googleScholar), 4, { url: "https://scholar.google.com/citations?user=yourScholarID" });
+                        doc.addImage(masked, 'PNG', LEFT + 5, contactInfoY, 30, 30);  // Position image
+                        contactInfoY += 35; // Adjust position after the image
                     }
                 } catch (e) {
                     console.error('Image loading error:', e);
                 }
-            } else {
-                // If no image, display contact info normally
-                doc.text("University of Verona", RIGHT, contactY, { align: 'right' });
-                contactY += 4;
-                doc.text("muhammad.aqeel@univr.it", RIGHT, contactY, { align: 'right' });
-                contactY += 4;
-                doc.text("+86 182 1013 3275", RIGHT, contactY, { align: 'right' });
-                contactY += 4;
-                doc.text("Ljubljana, Slovenia", RIGHT, contactY, { align: 'right' });
-                contactY += 4;
+            }
             
-                // Add separator |
-                const separatorX = RIGHT - 45;  // Position for the separator
-                doc.text("|", separatorX, contactY);  // This will add the vertical line separator
-                contactY += 4;
+            // Email (with href)
+            const email = "muhammad.aqeel@univr.it";
+            doc.text(email, contactInfoX, contactInfoY);
+            doc.link(contactInfoX, contactInfoY - 4, doc.getTextWidth(email), 4, { url: `mailto:${email}` });
+            contactInfoY += 4;
             
-                // LinkedIn (rename and add href)
-                const linkedIn = "LinkedIn";
-                doc.text(linkedIn, RIGHT, contactY, { align: 'right' });
-                doc.link(RIGHT, contactY - 4, doc.getTextWidth(linkedIn), 4, { url: "https://linkedin.com/in/muhammad-aqeel" });
-                contactY += 4;
+            // Phone (with WhatsApp link)
+            const phone = "+86 182 1013 3275";
+            doc.text(phone, contactInfoX, contactInfoY);
+            doc.link(contactInfoX, contactInfoY - 4, doc.getTextWidth(phone), 4, { url: `https://wa.me/86${phone.replace(/\D/g, '')}` });
+            contactInfoY += 4;
             
-                // Google Scholar (rename and add href)
-                const googleScholar = "Google Scholar";
-                doc.text(googleScholar, RIGHT, contactY, { align: 'right' });
-                doc.link(RIGHT, contactY - 4, doc.getTextWidth(googleScholar), 4, { url: "https://scholar.google.com/citations?user=yourScholarID" });
+            // Location
+            doc.text("Ljubljana, Slovenia", contactInfoX, contactInfoY);
+            contactInfoY += 4;
+            
+            // LinkedIn (rename and add href)
+            const linkedIn = "LinkedIn";
+            doc.text(linkedIn, contactInfoX, contactInfoY);
+            doc.link(contactInfoX, contactInfoY - 4, doc.getTextWidth(linkedIn), 4, { url: "https://linkedin.com/in/muhammad-aqeel" });
+            contactInfoY += 4;
+            
+            // Google Scholar (rename and add href)
+            const googleScholar = "Google Scholar";
+            doc.text(googleScholar, contactInfoX, contactInfoY);
+            doc.link(contactInfoX, contactInfoY - 4, doc.getTextWidth(googleScholar), 4, { url: "https://scholar.google.com/citations?user=yourScholarID" });
             }
             
             // Horizontal line under header
