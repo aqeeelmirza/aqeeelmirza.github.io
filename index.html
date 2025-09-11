@@ -1051,278 +1051,338 @@
             return y;
         }
 
-        // ===== PDF Generation Function (CV ONLY) =====
-        
-        async function generatePDF() {
-            const jspdfNS = window.jspdf;
-            if (!jspdfNS || !jspdfNS.jsPDF) {
-                alert('PDF library is still loading. Please try again in a moment.');
-                return;
-            }
-            const { jsPDF } = jspdfNS;
-            const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-        
-            // ── Layout
-            const ML = 20, MR = 20, TOP = 20;
-            const CONTENT_W = 210 - ML - MR;
-            const LEFT = ML, RIGHT = 210 - MR;
-        
-            // ── Colors
-            const BLACK  = [0, 0, 0];
-            const ACCENT = [8, 145, 178];
-            const GREY   = [100, 116, 139];
-            const setColor = (c) => doc.setTextColor(...c);
-        
-            // ── Helpers
-            function drawJustifiedText(doc, text, x, y, width, lineHeight, color = BLACK) {
-                setColor(color);
-                const words = text.split(/\s+/);
-                let line = '', lines = [];
-                words.forEach(w => {
-                    const test = line ? line + ' ' + w : w;
-                    if (doc.getTextWidth(test) <= width) line = test;
-                    else { lines.push(line); line = w; }
-                });
-                if (line) lines.push(line);
-        
-                lines.forEach((ln, idx) => {
-                    if (y > 270) { doc.addPage(); y = TOP; }
-                    const isLast = idx === lines.length - 1;
-                    if (isLast || !ln.includes(' ')) {
-                        doc.text(ln, x, y);
-                    } else {
-                        const parts = ln.split(' ');
-                        const wordsWidth = parts.reduce((acc, w) => acc + doc.getTextWidth(w), 0);
-                        const gaps = parts.length - 1;
-                        const extra = (width - wordsWidth) / gaps;
-                        let cx = x;
-                        parts.forEach(w => { doc.text(w, cx, y); cx += doc.getTextWidth(w) + extra; });
-                    }
-                    y += lineHeight;
-                });
-                return y;
-            }
-        
-            function drawSectionHeader(doc, title, x, y) {
-                setColor(ACCENT);
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(11);
-                doc.text(title.toUpperCase(), x, y);
-                setColor(BLACK);
-                return y + 8;
-            }
-        
-            // ── SVG icon helpers (svg2pdf)
-            const GREY_HEX = '#64748b';
-            function svgFromString(str, colorHex = GREY_HEX) {
-                const parser = new DOMParser();
-                const svg = parser.parseFromString(str, 'image/svg+xml').documentElement;
-                svg.setAttribute('color', colorHex);
-                svg.removeAttribute('width'); svg.removeAttribute('height');
-                return svg;
-            }
-        
-            function drawSvgIcon(type, x, baselineY, size = 5.5) {
-                try {
-                    const fn = window.svg2pdf;
-                    if (!fn || !ICONS || !ICONS[type]) return false;
-                    const svgEl = svgFromString(ICONS[type]);
-                    const yTop = baselineY - size + 1.5;
-                    fn(svgEl, doc, { x, y: yTop, width: size, height: size });
-                    return true;
-                } catch (e) {
-                    console.warn('SVG icon failed:', e);
-                    return false;
-                }
-            }
-        
-            function drawTextIcon(type, x, baselineY) {
-                const icons = { email:'✉', phone:'℡', linkedin:'in', scholar:'◎', location:'⊕' };
-                setColor(GREY); doc.setFontSize(11);
-                doc.text(icons[type] || '•', x, baselineY);
-                setColor(BLACK);
-            }
-        
-            // ── Header (name + title)
-            setColor(BLACK);
-            doc.setFont('helvetica', 'bold'); doc.setFontSize(24);
-            doc.text("Muhammad Aqeel", LEFT, TOP);
-        
-            doc.setFont('helvetica', 'normal'); doc.setFontSize(11);
-            setColor(BLACK);
-            doc.text("PhD Researcher in Computer Science", LEFT, TOP + 8);
-        
-            // ── Profile image (optional)
-            const imgEl = document.querySelector('.profile-image img');
-            if (imgEl && imgEl.style.display !== 'none' && imgEl.naturalWidth > 0) {
-                try {
-                    const masked = await getMaskedImageDataURL(imgEl, 520, IMAGE_SHAPE);
-                    if (masked) doc.addImage(masked, 'PNG', RIGHT - 28, TOP - 5, 28, 28);
-                } catch (e) { console.error('Image loading error:', e); }
-            }
-        
-            // ── Contact block (icons + text)
-            let y = TOP + 22;
-            doc.setFontSize(10);
-            const ICON_MM = 5.5, iconX = LEFT, textX = LEFT + 7.5;
-        
-            drawSvgIcon('email', iconX, y, ICON_MM) || drawTextIcon('email', iconX, y);
-            setColor(GREY); doc.text("muhammad.aqeel@univr.it", textX, y); y += 6;
-        
-            drawSvgIcon('phone', iconX, y, ICON_MM) || drawTextIcon('phone', iconX, y);
-            setColor(GREY); doc.text("+86 182 1013 3275", textX, y); y += 6;
-        
-            drawSvgIcon('linkedin', iconX, y, ICON_MM) || drawTextIcon('linkedin', iconX, y);
-            setColor(GREY); doc.text("linkedin.com/in/muhammad-aqeel-4378b9170", textX, y); y += 6;
-        
-            drawSvgIcon('scholar', iconX, y, ICON_MM) || drawTextIcon('scholar', iconX, y);
-            setColor(GREY); doc.text("scholar.google.com/citations?user=ZPUihX0AAAAJ", textX, y); y += 6;
-        
-            drawSvgIcon('location', iconX, y, ICON_MM) || drawTextIcon('location', iconX, y);
-            setColor(GREY); doc.text("Ljubljana, Slovenia", textX, y);
-        
-            // ── Divider
-            y += 8;
-            doc.setDrawColor(...GREY); doc.setLineWidth(0.3);
-            doc.line(LEFT, y, RIGHT, y);
-            doc.setDrawColor(0, 0, 0);
-        
-            // ── About
-            y += 10;
-            y = drawSectionHeader(doc, "About", LEFT, y);
-            doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
-            const aboutText = "I am a PhD researcher at the University of Verona specializing in anomaly detection for industrial manufacturing. My work focuses on developing deep learning algorithms that can identify defects and quality issues in real-time production environments. Coming from a multidisciplinary background - with an MSc focused on Natural Language Processing from Beijing University of Posts and Telecommunications and now working in computer vision - I bring a unique perspective to solving complex machine learning challenges. My research has resulted in 12 publications in international conferences, with particular emphasis on self-supervised learning and meta-learning approaches that achieve high accuracy while remaining computationally efficient for deployment on edge devices. I am passionate about bridging the gap between theoretical AI research and practical industrial applications.";
-            y = drawJustifiedText(doc, aboutText, LEFT, y, CONTENT_W, 4.5, BLACK);
-        
-            // ── Research Interests
-            y += 6;
-            if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawSectionHeader(doc, "Research Interests", LEFT, y);
-            doc.setFont('helvetica', 'normal'); doc.setFontSize(10);
-            const researchText = "My research centers on developing robust anomaly detection systems for industrial quality control. I am particularly interested in how self-supervised and meta-learning techniques can enable models to detect previously unseen defects without extensive labeled data. Currently, I'm exploring diffusion models for generating synthetic defect data to augment limited industrial datasets. A key focus of my work is ensuring these systems are not just accurate but also interpretable and efficient enough for real-time deployment in manufacturing environments. I'm also investigating zero-shot anomaly detection methods that can generalize across different product types and manufacturing processes. My broader interest lies in making industrial AI systems more accessible and practical for real-world deployment.";
-            y = drawJustifiedText(doc, researchText, LEFT, y, CONTENT_W, 4.5, BLACK);
-        
-            // ── Education
-            y += 6;
-            if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawSectionHeader(doc, "Education", LEFT, y);
-            doc.setFontSize(10);
-            const edu = [
-                { degree: "PhD in Computer Science", period: "2022–Present", inst: "University of Verona, Italy" },
-                { degree: "Master in Computer Science", period: "2019–2021", inst: "Beijing University of Posts and Telecommunications, China" },
-                { degree: "Bachelor in Computer Science", period: "2013–2017", inst: "PMAS Arid Agriculture University, Pakistan" }
-            ];
-            edu.forEach(e => {
-                if (y > 265) { doc.addPage(); y = TOP; }
-                doc.setFont('helvetica', 'bold'); setColor(BLACK); doc.text(e.degree, LEFT, y);
-                doc.setFont('helvetica', 'normal'); setColor(GREY);
-                doc.text(e.period, RIGHT - doc.getTextWidth(e.period), y);
-                y += 4.5; setColor(BLACK); doc.text(e.inst, LEFT, y); y += 6;
+        // ===== PDF Generation Function (CV ONLY) =====        
+    async function generatePDF() {
+        const jspdfNS = window.jspdf;
+        if (!jspdfNS || !jspdfNS.jsPDF) {
+            alert('PDF library is still loading. Please try again in a moment.');
+            return;
+        }
+        const { jsPDF } = jspdfNS;
+        const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    
+        // ── Layout
+        const ML = 20, MR = 20, TOP = 20;
+        const CONTENT_W = 210 - ML - MR;
+        const LEFT = ML, RIGHT = 210 - MR;
+    
+        // ── Colors
+        const BLACK  = [0, 0, 0];
+        const ACCENT = [8, 145, 178];
+        const GREY   = [100, 116, 139];
+        const setColor = (c) => doc.setTextColor(...c);
+    
+        // ── Helpers
+        function drawJustifiedText(doc, text, x, y, width, lineHeight, color = BLACK) {
+            setColor(color);
+            const words = text.split(/\s+/);
+            let line = '', lines = [];
+            words.forEach(w => {
+                const test = line ? line + ' ' + w : w;
+                if (doc.getTextWidth(test) <= width) line = test;
+                else { lines.push(line); line = w; }
             });
-        
-            // ── Professional Experience
-            y += 2;
-            if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawSectionHeader(doc, "Professional Experience", LEFT, y);
-            doc.setFontSize(10);
-            const experiences = [
-                { title: "Visiting Researcher", period: "June 2025–Present", org: "University of Ljubljana, Slovenia" },
-                { title: "Teaching Assistant", period: "2023–2025", org: "University of Verona, Italy" },
-                { title: "Research Assistant", period: "2021–2022", org: "Huazhong University of Science and Technology, China" },
-                { title: "Software Quality Assurance", period: "2018–2019", org: "UIIT, Arid Agriculture University, Pakistan" },
-                { title: "Software Developer", period: "2017–2018", org: "eConceptions (Pvt) Ltd., Pakistan" }
-            ];
-            experiences.forEach(ex => {
-                if (y > 265) { doc.addPage(); y = TOP; }
-                doc.setFont('helvetica', 'bold'); setColor(BLACK); doc.text(ex.title, LEFT, y);
-                doc.setFont('helvetica', 'normal'); setColor(GREY);
-                doc.text(ex.period, RIGHT - doc.getTextWidth(ex.period), y);
-                y += 4.5; setColor(BLACK); doc.text(ex.org, LEFT, y); y += 6;
-            });
-        
-            // ── Academic Service
-            y += 2;
-            if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawSectionHeader(doc, "Academic Service", LEFT, y);
-            doc.setFontSize(10);
-            doc.setFont('helvetica', 'bold'); setColor(BLACK); doc.text("Reviewer:", LEFT, y); y += 5;
-            doc.setFont('helvetica', 'normal'); setColor(BLACK);
-            doc.text("Journals: Neural Computing and Applications, Applied Soft Computing", LEFT + 5, y); y += 4.5;
-            doc.text("Conferences: VISAPP 2025, ICCV 2025", LEFT + 5, y); y += 8;
-        
-            // ── Languages
-            if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawSectionHeader(doc, "Languages", LEFT, y);
-            doc.setFontSize(10); setColor(BLACK);
-            doc.text("• Punjabi/Urdu (Native)", LEFT, y); y += 4.5;
-            doc.text("• English (Fluent - C2)", LEFT, y); y += 4.5;
-            doc.text("• Italian (Elementary - A2)", LEFT, y); y += 4.5;
-            doc.text("• Chinese (Basic - A1)", LEFT, y); y += 8;
-        
-            // ── Technical Skills
-            if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawSectionHeader(doc, "Technical Skills", LEFT, y);
-            doc.setFontSize(10);
-            const skills = [
-                { category: "Programming:",   items: "Python, C++, JavaScript, Bash/Shell Scripting" },
-                { category: "ML Frameworks:", items: "PyTorch, TensorFlow, Scikit-learn, OpenCV" },
-                { category: "Tools:",         items: "Git/GitHub, LaTeX, Jupyter Notebooks, Linux/Unix" }
-            ];
-            skills.forEach(s => {
+            if (line) lines.push(line);
+    
+            lines.forEach((ln, idx) => {
                 if (y > 270) { doc.addPage(); y = TOP; }
-                doc.setFont('helvetica', 'bold'); setColor(BLACK); doc.text(s.category, LEFT, y);
-                doc.setFont('helvetica', 'normal'); setColor(BLACK);
-                doc.text(s.items, LEFT + doc.getTextWidth(s.category) + 2, y);
-                y += 5;
+                const isLast = idx === lines.length - 1;
+                if (isLast || !ln.includes(' ')) {
+                    doc.text(ln, x, y);
+                } else {
+                    const parts = ln.split(' ');
+                    const wordsWidth = parts.reduce((acc, w) => acc + doc.getTextWidth(w), 0);
+                    const gaps = parts.length - 1;
+                    const extra = (width - wordsWidth) / gaps;
+                    let cx = x;
+                    parts.forEach(w => { doc.text(w, cx, y); cx += doc.getTextWidth(w) + extra; });
+                }
+                y += lineHeight;
             });
-            y += 4;
+            return y;
+        }
+    
+        function drawSectionHeader(doc, title, x, y) {
+            setColor(ACCENT);
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(11);
+            doc.text(title.toUpperCase(), x, y);
+            setColor(BLACK);
+            return y + 8;
+        }
+    
+        // ── Header (name + title)
+        setColor(BLACK);
+        doc.setFont('helvetica', 'bold'); 
+        doc.setFontSize(24);
+        doc.text("Muhammad Aqeel", LEFT, TOP);
+    
+        doc.setFont('helvetica', 'normal'); 
+        doc.setFontSize(11);
+        setColor(BLACK);
+        doc.text("PhD Researcher in Computer Science", LEFT, TOP + 8);
+    
+        // ── Profile image (optional) - keeping this part as is
+        const imgEl = document.querySelector('.profile-image img');
+        if (imgEl && imgEl.style.display !== 'none' && imgEl.naturalWidth > 0) {
+            try {
+                const masked = await getMaskedImageDataURL(imgEl, 520, IMAGE_SHAPE);
+                if (masked) doc.addImage(masked, 'PNG', RIGHT - 28, TOP - 5, 28, 28);
+            } catch (e) { 
+                console.error('Image loading error:', e); 
+            }
+        }
+    
+        // ── Contact block with text labels
+        let y = TOP + 22;
+        doc.setFontSize(10);
+    
+        // Email
+        doc.setFont('helvetica', 'bold');
+        setColor(GREY);
+        doc.text("Email:", LEFT, y);
+        doc.setFont('helvetica', 'normal');
+        doc.text("muhammad.aqeel@univr.it", LEFT + 12, y);
+        y += 6;
+    
+        // Phone
+        doc.setFont('helvetica', 'bold');
+        doc.text("Phone:", LEFT, y);
+        doc.setFont('helvetica', 'normal');
+        doc.text("+86 182 1013 3275", LEFT + 13, y);
+        y += 6;
+    
+        // LinkedIn
+        doc.setFont('helvetica', 'bold');
+        doc.text("LinkedIn:", LEFT, y);
+        doc.setFont('helvetica', 'normal');
+        doc.text("linkedin.com/in/muhammad-aqeel-4378b9170", LEFT + 17, y);
+        y += 6;
+    
+        // Google Scholar
+        doc.setFont('helvetica', 'bold');
+        doc.text("Scholar:", LEFT, y);
+        doc.setFont('helvetica', 'normal');
+        doc.text("scholar.google.com/citations?user=ZPUihX0AAAAJ", LEFT + 15, y);
+        y += 6;
+    
+        // Location
+        doc.setFont('helvetica', 'bold');
+        doc.text("Location:", LEFT, y);
+        doc.setFont('helvetica', 'normal');
+        doc.text("Ljubljana, Slovenia", LEFT + 17, y);
+    
+        // ── Divider
+        y += 8;
+        doc.setDrawColor(...GREY); 
+        doc.setLineWidth(0.3);
+        doc.line(LEFT, y, RIGHT, y);
+        doc.setDrawColor(0, 0, 0);
+    
+        // ── About
+        y += 10;
+        y = drawSectionHeader(doc, "About", LEFT, y);
+        doc.setFont('helvetica', 'normal'); 
+        doc.setFontSize(10);
+        const aboutText = "I am a PhD researcher at the University of Verona specializing in anomaly detection for industrial manufacturing. My work focuses on developing deep learning algorithms that can identify defects and quality issues in real-time production environments. Coming from a multidisciplinary background - with an MSc focused on Natural Language Processing from Beijing University of Posts and Telecommunications and now working in computer vision - I bring a unique perspective to solving complex machine learning challenges. My research has resulted in 12 publications in international conferences, with particular emphasis on self-supervised learning and meta-learning approaches that achieve high accuracy while remaining computationally efficient for deployment on edge devices. I am passionate about bridging the gap between theoretical AI research and practical industrial applications.";
+        y = drawJustifiedText(doc, aboutText, LEFT, y, CONTENT_W, 4.5, BLACK);
+    
+        // ── Research Interests
+        y += 6;
+        if (y > 250) { doc.addPage(); y = TOP; }
+        y = drawSectionHeader(doc, "Research Interests", LEFT, y);
+        doc.setFont('helvetica', 'normal'); 
+        doc.setFontSize(10);
+        const researchText = "My research centers on developing robust anomaly detection systems for industrial quality control. I am particularly interested in how self-supervised and meta-learning techniques can enable models to detect previously unseen defects without extensive labeled data. Currently, I'm exploring diffusion models for generating synthetic defect data to augment limited industrial datasets. A key focus of my work is ensuring these systems are not just accurate but also interpretable and efficient enough for real-time deployment in manufacturing environments. I'm also investigating zero-shot anomaly detection methods that can generalize across different product types and manufacturing processes. My broader interest lies in making industrial AI systems more accessible and practical for real-world deployment.";
+        y = drawJustifiedText(doc, researchText, LEFT, y, CONTENT_W, 4.5, BLACK);
+    
+        // ── Education
+        y += 6;
+        if (y > 250) { doc.addPage(); y = TOP; }
+        y = drawSectionHeader(doc, "Education", LEFT, y);
+        doc.setFontSize(10);
+        const edu = [
+            { degree: "PhD in Computer Science", period: "2022–Present", inst: "University of Verona, Italy" },
+            { degree: "Master in Computer Science", period: "2019–2021", inst: "Beijing University of Posts and Telecommunications, China" },
+            { degree: "Bachelor in Computer Science", period: "2013–2017", inst: "PMAS Arid Agriculture University, Pakistan" }
+        ];
+        edu.forEach(e => {
+            if (y > 265) { doc.addPage(); y = TOP; }
+            doc.setFont('helvetica', 'bold'); 
+            setColor(BLACK); 
+            doc.text(e.degree, LEFT, y);
+            doc.setFont('helvetica', 'normal'); 
+            setColor(GREY);
+            doc.text(e.period, RIGHT - doc.getTextWidth(e.period), y);
+            y += 4.5; 
+            setColor(BLACK); 
+            doc.text(e.inst, LEFT, y); 
+            y += 6;
+        });
+    
+        // ── Professional Experience
+        y += 2;
+        if (y > 250) { doc.addPage(); y = TOP; }
+        y = drawSectionHeader(doc, "Professional Experience", LEFT, y);
+        doc.setFontSize(10);
+        const experiences = [
+            { title: "Visiting Researcher", period: "June 2025–Present", org: "University of Ljubljana, Slovenia" },
+            { title: "Teaching Assistant", period: "2023–2025", org: "University of Verona, Italy" },
+            { title: "Research Assistant", period: "2021–2022", org: "Huazhong University of Science and Technology, China" },
+            { title: "Software Quality Assurance", period: "2018–2019", org: "UIIT, Arid Agriculture University, Pakistan" },
+            { title: "Software Developer", period: "2017–2018", org: "eConceptions (Pvt) Ltd., Pakistan" }
+        ];
+        experiences.forEach(ex => {
+            if (y > 265) { doc.addPage(); y = TOP; }
+            doc.setFont('helvetica', 'bold'); 
+            setColor(BLACK); 
+            doc.text(ex.title, LEFT, y);
+            doc.setFont('helvetica', 'normal'); 
+            setColor(GREY);
+            doc.text(ex.period, RIGHT - doc.getTextWidth(ex.period), y);
+            y += 4.5; 
+            setColor(BLACK); 
+            doc.text(ex.org, LEFT, y); 
+            y += 6;
+        });
+    
+        // ── Academic Service
+        y += 2;
+        if (y > 250) { doc.addPage(); y = TOP; }
+        y = drawSectionHeader(doc, "Academic Service", LEFT, y);
+        doc.setFontSize(10);
+        doc.setFont('helvetica', 'bold'); 
+        setColor(BLACK); 
+        doc.text("Reviewer:", LEFT, y); 
+        y += 5;
+        doc.setFont('helvetica', 'normal'); 
+        setColor(BLACK);
+        doc.text("Journals: Neural Computing and Applications, Applied Soft Computing", LEFT + 5, y); 
+        y += 4.5;
+        doc.text("Conferences: VISAPP 2025, ICCV 2025", LEFT + 5, y); 
+        y += 8;
+    
+        // ── Languages
+        if (y > 250) { doc.addPage(); y = TOP; }
+        y = drawSectionHeader(doc, "Languages", LEFT, y);
+        doc.setFontSize(10); 
+        setColor(BLACK);
+        doc.text("• Punjabi/Urdu (Native)", LEFT, y); 
+        y += 4.5;
+        doc.text("• English (Fluent - C2)", LEFT, y); 
+        y += 4.5;
+        doc.text("• Italian (Elementary - A2)", LEFT, y); 
+        y += 4.5;
+        doc.text("• Chinese (Basic - A1)", LEFT, y); 
+        y += 8;
+    
+        // ── Technical Skills
+        if (y > 250) { doc.addPage(); y = TOP; }
+        y = drawSectionHeader(doc, "Technical Skills", LEFT, y);
+        doc.setFontSize(10);
+        const skills = [
+            { category: "Programming:",   items: "Python, C++, JavaScript, Bash/Shell Scripting" },
+            { category: "ML Frameworks:", items: "PyTorch, TensorFlow, Scikit-learn, OpenCV" },
+            { category: "Tools:",         items: "Git/GitHub, LaTeX, Jupyter Notebooks, Linux/Unix" }
+        ];
+        skills.forEach(s => {
+            if (y > 270) { doc.addPage(); y = TOP; }
+            doc.setFont('helvetica', 'bold'); 
+            setColor(BLACK); 
+            doc.text(s.category, LEFT, y);
+            doc.setFont('helvetica', 'normal'); 
+            setColor(BLACK);
+            doc.text(s.items, LEFT + doc.getTextWidth(s.category) + 2, y);
+            y += 5;
+        });
+        y += 4;
+    
+        // ── Research Publications
+        if (y > 240) { doc.addPage(); y = TOP; }
+        y = drawSectionHeader(doc, "Research Publications", LEFT, y);
+        doc.setFontSize(9);
         
-            // ── Research Publications
-            if (y > 240) { doc.addPage(); y = TOP; }
-            y = drawSectionHeader(doc, "Research Publications", LEFT, y);
-            doc.setFontSize(9);
+        // Note: You'll need to ensure allPublications array is defined
+        if (typeof allPublications !== 'undefined') {
             allPublications.forEach((pub, index) => {
                 if (y > 265) { doc.addPage(); y = TOP; }
-        
-                setColor(ACCENT); doc.setFont('helvetica', 'bold');
+    
+                setColor(ACCENT); 
+                doc.setFont('helvetica', 'bold');
                 doc.text(`[${index + 1}]`, LEFT, y);
-        
+    
                 const titleX = LEFT + 8;
                 const maxW = RIGHT - titleX;
                 setColor(BLACK);
                 let titleTxt = pub.title;
                 if (pub.oral) titleTxt += " (Oral)";
-        
+    
                 const titleLines = doc.splitTextToSize(titleTxt, maxW);
-                titleLines.forEach(line => { doc.text(line, titleX, y); y += 4; });
-        
-                doc.setFont('helvetica', 'normal'); setColor(BLACK);
+                titleLines.forEach(line => { 
+                    doc.text(line, titleX, y); 
+                    y += 4; 
+                });
+    
+                doc.setFont('helvetica', 'normal'); 
+                setColor(BLACK);
                 const authorsStr = pub.authors.join(', ');
                 const authorLines = doc.splitTextToSize(authorsStr, maxW);
-                authorLines.forEach(line => { doc.text(line, titleX, y); y += 4; });
-        
-                doc.setFont('helvetica', 'italic'); setColor(GREY);
+                authorLines.forEach(line => { 
+                    doc.text(line, titleX, y); 
+                    y += 4; 
+                });
+    
+                doc.setFont('helvetica', 'italic'); 
+                setColor(GREY);
                 const venueLines = doc.splitTextToSize(pub.venue, maxW);
-                venueLines.forEach(line => { doc.text(line, titleX, y); y += 4; });
+                venueLines.forEach(line => { 
+                    doc.text(line, titleX, y); 
+                    y += 4; 
+                });
                 doc.setFont('helvetica', 'normal');
-        
+    
                 y += 3;
             });
+        }
+    
+        // ── References
+        if (y > 240) { doc.addPage(); y = TOP; }
+        y = drawSectionHeader(doc, "References", LEFT, y);
+        doc.setFontSize(10);
         
-            // ── References
-            if (y > 240) { doc.addPage(); y = TOP; }
-            y = drawSectionHeader(doc, "References", LEFT, y);
-            doc.setFontSize(10);
+        // Note: You'll need to ensure references array is defined
+        if (typeof references !== 'undefined') {
             references.forEach(r => {
                 if (y > 265) { doc.addPage(); y = TOP; }
-                doc.setFont('helvetica', 'bold'); setColor(BLACK); doc.text(r.name, LEFT, y); y += 4.5;
-                doc.setFont('helvetica', 'normal'); setColor(BLACK); doc.text(r.role, LEFT, y); y += 4.5;
-                setColor(GREY); doc.text(`Email: ${r.email} • Phone: ${r.phone}`, LEFT, y); y += 8;
+                doc.setFont('helvetica', 'bold'); 
+                setColor(BLACK); 
+                doc.text(r.name, LEFT, y); 
+                y += 4.5;
+                doc.setFont('helvetica', 'normal'); 
+                setColor(BLACK); 
+                doc.text(r.role, LEFT, y); 
+                y += 4.5;
+                setColor(GREY); 
+                doc.text(`Email: ${r.email} • Phone: ${r.phone}`, LEFT, y); 
+                y += 8;
             });
         
-            // Open PDF in new tab
+            doc.setProperties({
+            title: 'Muhammad Aqeel - CV',
+            subject: 'Curriculum Vitae',
+            author: 'Muhammad Aqeel'
+            });
+        
+            // Create blob with proper MIME type and filename
             const pdfBlob = doc.output('blob');
-            const pdfUrl = URL.createObjectURL(pdfBlob);
+            
+            // Create a blob URL with the filename hint
+            const file = new File([pdfBlob], 'Muhammad_Aqeel_CV.pdf', {
+                type: 'application/pdf'
+            });
+            const pdfUrl = URL.createObjectURL(file);
+            
+            // Open in new tab
             window.open(pdfUrl, '_blank');
         }
 
