@@ -1203,7 +1203,7 @@
             y = drawModernSectionHeader(doc, "About", LEFT, y);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
-            const aboutText = "I am a PhD researcher at the University of Verona specializing in anomaly detection for industrial manufacturing. My work focuses on developing deep learning algorithms that can identify defects and quality issues in real-time production environments. I have a multidisciplinary background, having earned a master's degree in natural language processing from Beijing University of Posts and Telecommunications in China. Now working in computer vision, I bring a unique perspective to solving complex machine learning challenges. My research has resulted in more than 10 publications in international conferences, with particular emphasis on confident learning, self-supervised learning, and meta-learning approaches that achieve high accuracy while remaining computationally efficient for deployment on edge devices. I am passionate about bridging the gap between theoretical AI research and practical industrial applications.";
+            const aboutText = "I am a PhD researcher at the University of Verona specializing in anomaly detection for industrial manufacturing. My work focuses on developing deep learning algorithms that can identify defects and quality issues in real-time production environments. I have a multidisciplinary background, having earned a master's degree from Beijing University of Posts and Telecommunications in China, where my research focus was over natural language processing. Now working in computer vision, I bring a unique perspective to solving complex machine learning challenges. My research has resulted in more than 10 publications in international conferences, with particular emphasis on confident learning, self-supervised learning, and meta-learning approaches that achieve high accuracy while remaining computationally efficient for deployment on edge devices. I am passionate about bridging the gap between theoretical AI research and practical industrial applications.";
             y = drawText(doc, aboutText, LEFT, y, CONTENT_W, 4.8, BLACK);
             
             y += 7;
@@ -1427,7 +1427,7 @@
             doc.setFont('helvetica', 'normal');
             setColor(GREY);
             doc.text("• IEEE Transactions on Multimedia", LEFT + 5, y);
-            y += 5;
+            y += 4;
             doc.text("• Neural Computing and Applications", LEFT + 5, y);
             y += 4;
             doc.text("• Applied Soft Computing", LEFT + 5, y);
@@ -1443,12 +1443,6 @@
             y += 4;
             doc.text("• VISAPP 2025 - International Conference on Computer Vision Theory and Applications", LEFT + 5, y);
             y += 8;
-        
-            // ── Languages
-            if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawModernSectionHeader(doc, "Languages", LEFT, y);
-            doc.setFontSize(10);
-            setColor(BLACK);
             
             // ── Languages (Updated to display in separate rows)
             if (y > 250) { doc.addPage(); y = TOP; }
@@ -1504,7 +1498,7 @@
         
             // ── Research Publications
             if (y > 240) { doc.addPage(); y = TOP; }
-            y = drawModernSectionHeader(doc, "Selected Publications", LEFT, y);
+            y = drawModernSectionHeader(doc, "Research Publications", LEFT, y);
             doc.setFontSize(9);
             
             if (typeof allPublications !== 'undefined') {
