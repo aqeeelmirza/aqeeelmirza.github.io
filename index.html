@@ -471,14 +471,24 @@
             .contact-icons { justify-content: center; }
             .cv-download-btn { width: 100%; justify-content: center; }
             .exp-item {
-                flex-direction: column;
-                gap: 10px;
+                    flex-direction: column;
+                    gap: 10px;
+                }
+                
+                .exp-period {
+                    min-width: auto;
+                }
+                
+                .pub-meta,
+                .pub-links {
+                    padding-left: 0; /* Remove indent on mobile */
+                }
+                
+                .pub-header-line {
+                    flex-direction: column;
+                    gap: 5px;
+                }
             }
-            
-            .exp-period {
-                min-width: auto;
-            }
-        }
         }
 
         @media (max-width: 600px) {
@@ -592,7 +602,7 @@
                         <div class="section-label">Education</div>
                         <div class="edu-list">
                             <div class="edu-item">
-                                <div class="edu-year">2022 - Present</div>
+                                <div class="edu-year">2022 - 2025</div>
                                 <div class="edu-degree">PhD in Computer Science</div>
                                 <div class="edu-institution">
                                     <a href="https://www.univr.it" target="_blank" rel="noopener noreferrer">University of Verona, Italy</a>
@@ -628,14 +638,34 @@
     
             <div class="experience-list fade-in">
                 <div class="exp-item">
-                    <div class="exp-period">June 2025 - Present</div>
+                    <div class="exp-period">2025 - Present</div>
+                    <div class="exp-content">
+                        <div class="exp-title">Postdoctoral Research Fellow</div>
+                        <div class="exp-company">University of Verona, Italy</div>
+                        <ul class="exp-bullets">
+                            <li>Developing anomaly detection methods for industrial data to automatically identify faults and abnormal process behaviour.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="exp-item">
+                    <div class="exp-period">June 2025 - November 2025</div>
                     <div class="exp-content">
                         <div class="exp-title">Visiting Researcher (Mobility Period)</div>
                         <div class="exp-company">University of Ljubljana, Slovenia</div>
                         <ul class="exp-bullets">
-                            <li>Conducting collaborative research on zero-shot anomaly detection with Prof. Danijel Skočaj</li>
-                            <li>Developing contrastive learning approaches for industrial defect detection</li>
-                            <li>Published 1 oral presentation at ICCV Workshop 2025</li>
+                            <li>Conducting collaborative research on Few-Shot Anomaly Detection with <a href="https://www.vicos.si/people/danijel_skocaj/" target="_blank" rel="noopener noreferrer">Danijel Skočaj</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="exp-item">
+                    <div class="exp-period">December 2024 - May 2025</div>
+                    <div class="exp-content">
+                        <div class="exp-title">Public Service Administrator</div>
+                        <div class="exp-company">Comune di Ferrara, Emilia-Romagna, Italy</div>
+                        <ul class="exp-bullets">
+                            <li>Used municipal information systems and office software to manage workflows, track requests, and prepare reports.</li>
                         </ul>
                     </div>
                 </div>
@@ -647,8 +677,6 @@
                         <div class="exp-company">University of Verona, Italy</div>
                         <ul class="exp-bullets">
                             <li>Assisted in Computer Vision and Machine Learning courses</li>
-                            <li>Supervised 15+ student projects on deep learning applications</li>
-                            <li>Conducted lab sessions on PyTorch and TensorFlow implementations</li>
                         </ul>
                     </div>
                 </div>
@@ -660,8 +688,6 @@
                         <div class="exp-company">University of Verona, Italy</div>
                         <ul class="exp-bullets">
                             <li>Supported courses in Data Science and Computer Vision fundamentals</li>
-                            <li>Developed tutorial materials and coding exercises for 80+ students</li>
-                            <li>Organized workshops on industrial AI applications</li>
                         </ul>
                     </div>
                 </div>
@@ -673,8 +699,6 @@
                         <div class="exp-company">Huazhong University of Science and Technology, Wuhan, China</div>
                         <ul class="exp-bullets">
                             <li>Conducted research on natural language processing and sentiment analysis</li>
-                            <li>Developed semantic parsing models for aspect-based sentiment analysis</li>
-                            <li>Published research in IEEE Access journal</li>
                         </ul>
                     </div>
                 </div>
@@ -686,8 +710,6 @@
                         <div class="exp-company">UIIT, Arid Agriculture University, Pakistan</div>
                         <ul class="exp-bullets">
                             <li>Performed comprehensive testing and quality assurance for university software systems</li>
-                            <li>Developed automated testing scripts to improve code reliability</li>
-                            <li>Collaborated with development teams to identify and resolve software defects</li>
                         </ul>
                     </div>
                 </div>
@@ -699,8 +721,6 @@
                         <div class="exp-company">eConceptions (Pvt) Ltd. Pakistan</div>
                         <ul class="exp-bullets">
                             <li>Developed web applications using modern JavaScript frameworks</li>
-                            <li>Implemented backend services and RESTful APIs</li>
-                            <li>Collaborated in agile development teams to deliver client projects</li>
                         </ul>
                     </div>
                 </div>
@@ -722,8 +742,10 @@
     
             <div class="publications-grid">
                 <article class="pub-item fade-in">
-                    <div class="pub-number">[1]</div>
-                    <h3 class="pub-title">Semantic Parsing for Aspect Based Sentiment Analysis</h3>
+                    <div class="pub-header-line">
+                        <span class="pub-number">[1]</span>
+                        <h3 class="pub-title">Semantic Parsing for Aspect Based Sentiment Analysis</h3>
+                    </div>
                     <div class="pub-meta">
                         <span class="author-highlight">Muhammad Aqeel</span>, Francesco Setti | IEEE Access 2025
                     </div>
@@ -731,21 +753,26 @@
                         <a href="https://ieeexplore.ieee.org/abstract/document/11078252" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-    
+                
                 <article class="pub-item fade-in" data-featured="true">
-                    <div class="pub-number">[2]</div>
-                    <h3 class="pub-title">Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning</h3>
+                    <div class="pub-header-line">
+                        <span class="pub-number">[2]</span>
+                        <h3 class="pub-title">Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning</h3>
+                    </div>
                     <div class="pub-meta">
                         <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | ICCV 2025
                     </div>
                     <div class="pub-links">
                         <a href="https://arxiv.org/abs/2508.02293" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <a href="https://github.com/aqeeelmirza/CoMet" class="pub-link" target="_blank" rel="noopener noreferrer">Code</a>
                     </div>
                 </article>
-    
+                
                 <article class="pub-item fade-in" data-featured="true">
-                    <div class="pub-number">[3]</div>
-                    <h3 class="pub-title">Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection in Industrial Inspection</h3>
+                    <div class="pub-header-line">
+                        <span class="pub-number">[3]</span>
+                        <h3 class="pub-title">Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection in Industrial Inspection</h3>
+                    </div>
                     <div class="pub-meta">
                         <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | ECCV 2024 (Oral)
                     </div>
@@ -753,10 +780,12 @@
                         <a href="https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-    
+                
                 <article class="pub-item fade-in" data-featured="true">
-                    <div class="pub-number">[4]</div>
-                    <h3 class="pub-title">A Contrastive Learning-Guided Confident Meta-learning for Zero Shot Anomaly Detection</h3>
+                    <div class="pub-header-line">
+                        <span class="pub-number">[4]</span>
+                        <h3 class="pub-title">A Contrastive Learning-Guided Confident Meta-learning for Zero Shot Anomaly Detection</h3>
+                    </div>
                     <div class="pub-meta">
                         <span class="author-highlight">Muhammad Aqeel</span>, Danijel Skocaj, Marco Cristani, Francesco Setti | ICCVW 2025 (Oral)
                     </div>
@@ -764,10 +793,12 @@
                         <a href="https://arxiv.org/abs/2508.17827" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-    
+                
                 <article class="pub-item fade-in" data-featured="true">
-                    <div class="pub-number">[5]</div>
-                    <h3 class="pub-title">Robust Anomaly Detection in Industrial Environments via Meta-Learning</h3>
+                    <div class="pub-header-line">
+                        <span class="pub-number">[5]</span>
+                        <h3 class="pub-title">Robust Anomaly Detection in Industrial Environments via Meta-Learning</h3>
+                    </div>
                     <div class="pub-meta">
                         <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | ICCVW 2025 (Oral)
                     </div>
@@ -775,10 +806,12 @@
                         <a href="https://arxiv.org/abs/2508.17789" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-    
+                
                 <article class="pub-item fade-in" data-featured="false">
-                    <div class="pub-number">[6]</div>
-                    <h3 class="pub-title">Diffusion-Based Data Augmentation for Medical Image Segmentation</h3>
+                    <div class="pub-header-line">
+                        <span class="pub-number">[6]</span>
+                        <h3 class="pub-title">Diffusion-Based Data Augmentation for Medical Image Segmentation</h3>
+                    </div>
                     <div class="pub-meta">
                         Maham Nazir, <span class="author-highlight">Muhammad Aqeel</span>, Francesco Setti | ICCVW 2025
                     </div>
@@ -786,10 +819,12 @@
                         <a href="https://arxiv.org/abs/2508.17844" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-    
+                
                 <article class="pub-item fade-in">
-                    <div class="pub-number">[7]</div>
-                    <h3 class="pub-title">RoadFusion: Latent Diffusion Model for Pavement Defect Detection</h3>
+                    <div class="pub-header-line">
+                        <span class="pub-number">[7]</span>
+                        <h3 class="pub-title">RoadFusion: Latent Diffusion Model for Pavement Defect Detection</h3>
+                    </div>
                     <div class="pub-meta">
                         <span class="author-highlight">Muhammad Aqeel</span>, Kidus Dagnaw Bellete, Francesco Setti | ICIAP 2025 (Oral)
                     </div>
@@ -797,10 +832,12 @@
                         <a href="https://arxiv.org/abs/2507.15346" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-    
+                
                 <article class="pub-item fade-in">
-                    <div class="pub-number">[8]</div>
-                    <h3 class="pub-title">ExDD: Explicit Dual Distribution Learning for Surface Defect Detection via Diffusion Synthesis</h3>
+                    <div class="pub-header-line">
+                        <span class="pub-number">[8]</span>
+                        <h3 class="pub-title">ExDD: Explicit Dual Distribution Learning for Surface Defect Detection via Diffusion Synthesis</h3>
+                    </div>
                     <div class="pub-meta">
                         <span class="author-highlight">Muhammad Aqeel</span>, Federico Leonardi, Francesco Setti | ICIAP 2025
                     </div>
@@ -808,10 +845,12 @@
                         <a href="https://arxiv.org/abs/2507.15335" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-    
+                
                 <article class="pub-item fade-in">
-                    <div class="pub-number">[9]</div>
-                    <h3 class="pub-title">Latent Space Synergy: Text-Guided Data Augmentation for Direct Diffusion Biomedical Segmentation</h3>
+                    <div class="pub-header-line">
+                        <span class="pub-number">[9]</span>
+                        <h3 class="pub-title">Latent Space Synergy: Text-Guided Data Augmentation for Direct Diffusion Biomedical Segmentation</h3>
+                    </div>
                     <div class="pub-meta">
                         <span class="author-highlight">Muhammad Aqeel</span>, Maham Nazir, Zanxi Ruan, Francesco Setti | ICIAP 2025
                     </div>
@@ -819,10 +858,12 @@
                         <a href="https://arxiv.org/abs/2507.15361" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-    
+                
                 <article class="pub-item fade-in">
-                    <div class="pub-number">[10]</div>
-                    <h3 class="pub-title">Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control</h3>
+                    <div class="pub-header-line">
+                        <span class="pub-number">[10]</span>
+                        <h3 class="pub-title">Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control</h3>
+                    </div>
                     <div class="pub-meta">
                         <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | VISAPP 2025 (Oral)
                     </div>
@@ -830,10 +871,12 @@
                         <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-    
+                
                 <article class="pub-item fade-in">
-                    <div class="pub-number">[11]</div>
-                    <h3 class="pub-title">Self-supervised Learning for Robust Surface Defect Detection</h3>
+                    <div class="pub-header-line">
+                        <span class="pub-number">[11]</span>
+                        <h3 class="pub-title">Self-supervised Learning for Robust Surface Defect Detection</h3>
+                    </div>
                     <div class="pub-meta">
                         <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | DeLTA 2024 (Oral)
                     </div>
@@ -841,10 +884,12 @@
                         <a href="https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-    
+                
                 <article class="pub-item fade-in">
-                    <div class="pub-number">[12]</div>
-                    <h3 class="pub-title">Diffusion-based Image Generation for In-distribution Data Augmentation in Surface Defect Detection</h3>
+                    <div class="pub-header-line">
+                        <span class="pub-number">[12]</span>
+                        <h3 class="pub-title">Diffusion-based Image Generation for In-distribution Data Augmentation in Surface Defect Detection</h3>
+                    </div>
                     <div class="pub-meta">
                         Luigi Capogrosso, Federico Girella, Francesco Taioli, Michele Dalla Chiara, <span class="author-highlight">Muhammad Aqeel</span>, Franco Fummi, Francesco Setti, Marco Cristani | VISAPP 2024
                     </div>
