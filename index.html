@@ -234,39 +234,67 @@
             font-weight: 600;
         }
         
-        /* Remove old experience-grid and exp-card styles */
+        /* Timeline Container */
         .experience-list {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 0;
             max-width: 1200px;
+            position: relative;
+            padding-left: 50px;
         }
         
+        /* Vertical timeline line */
+        .experience-list::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            bottom: 20px;
+            width: 2px;
+            background: var(--border-light);
+        }
+        
+        /* Timeline Item */
         .exp-item {
             display: flex;
-            gap: 40px;
-            padding: 20px 15px;
+            gap: 30px;
+            padding: 15px 0;
             transition: all 0.3s ease;
             position: relative;
-            border-left: 3px solid transparent;
-            background: transparent;
         }
         
-        .exp-item:hover {
-            background: rgba(248, 250, 252, 0.5);
-            border-left-color: var(--accent);
-            transform: translateX(5px);
+        /* Timeline dot */
+        .exp-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--accent);
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .exp-item:hover::before {
+            background: var(--accent);
+            transform: scale(1.3);
+            box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.1);
         }
         
         .exp-period {
             min-width: 140px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--accent);
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             flex-shrink: 0;
+            padding-top: 2px;
         }
         
         .exp-content {
@@ -274,23 +302,24 @@
         }
         
         .exp-title {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
         
         .exp-company {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--text-secondary);
             font-style: italic;
-            margin-bottom: 12px;
+            margin-bottom: 0;
         }
         
         .exp-bullets {
             list-style: none;
             padding: 0;
             margin: 0;
+            display: none; /* Hide bullets for compact view */
         }
         
         .exp-bullets li {
