@@ -208,11 +208,24 @@
         .edu-item:hover .edu-institution a { color: var(--accent); }
 
         /* Experience */
-        .experience-section { padding: 100px 3rem; background: var(--bg-secondary); position: relative; z-index: 2; }
-        .section-container { max-width: 1400px; margin: 0 auto; }
-        .section-header { margin-bottom: 60px; }
+        .experience-section { 
+            padding: 100px 3rem; 
+            background: var(--bg-secondary); 
+            position: relative; 
+            z-index: 2; 
+        }
+        
+        .section-container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+        }
+        
+        .section-header { 
+            margin-bottom: 60px; 
+        }
+        
         .section-title {
-            font-size: 1.0rem; /* Changed from 0.85rem */
+            font-size: 1.0rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             color: var(--accent);
@@ -220,110 +233,194 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             font-weight: 600;
         }
-        .experience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; }
-        .exp-card { background: var(--bg-card); border: 1px solid var(--border-light); padding: 35px; transition: all 0.3s ease; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; border-left: 3px solid transparent; cursor: pointer;}
-        .exp-header {
+        
+        /* Remove old experience-grid and exp-card styles */
+        .experience-list {
             display: flex;
-            justify-content: space-between;
-            align-items: start;
+            flex-direction: column;
+            gap: 30px;
+            max-width: 1200px;
         }
         
-        .expand-icon {
-            transition: transform 0.3s ease;
+        .exp-item {
+            display: flex;
+            gap: 40px;
+            padding: 20px 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            border-left: 3px solid transparent;
+            background: transparent;
+        }
+        
+        .exp-item:hover {
+            background: rgba(248, 250, 252, 0.5);
+            border-left-color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .exp-period {
+            min-width: 140px;
+            font-size: 0.9rem;
             color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             flex-shrink: 0;
         }
         
-        .exp-card.expanded .expand-icon {
-            transform: rotate(180deg);
+        .exp-content {
+            flex: 1;
         }
         
-        .exp-details {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
-            opacity: 0;
+        .exp-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
         }
         
-        .exp-card.expanded .exp-details {
-            max-height: 500px;
-            opacity: 1;
-            margin-top: 20px;
+        .exp-company {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 12px;
         }
         
         .exp-bullets {
             list-style: none;
             padding: 0;
-            margin: 0 0 15px 0;
+            margin: 0;
         }
         
         .exp-bullets li {
-            padding-left: 25px;
+            padding-left: 20px;
             position: relative;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             line-height: 1.6;
             color: var(--text-secondary);
             font-size: 0.95rem;
         }
         
         .exp-bullets li::before {
-            content: '▸';
+            content: '•';
             position: absolute;
             left: 0;
             color: var(--accent);
             font-weight: bold;
             font-size: 1.2rem;
         }
-        
-        .exp-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 15px;
-        }
-        
-        .tag {
-            background: var(--bg-tertiary);
-            color: var(--accent);
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            font-weight: 500;
-            border: 1px solid var(--accent);
-            transition: all 0.2s ease;
-        }
-        
-        .tag:hover {
-            background: var(--accent);
-            color: white;
-        }
-        .exp-card:hover { transform: translateY(-3px) translateX(5px); box-shadow: var(--shadow-md); border-left-color: var(--accent)}
-        .exp-badge { position: absolute; top: 15px; right: 15px; background: var(--accent); color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-        .exp-period { font-size: 0.85rem; color: var(--accent); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 600; }
-        .exp-title { font-size: 1.25rem; font-weight: 400; color: var(--text-primary); margin-bottom: 8px; }
-        .exp-company { font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 20px; font-style: italic; }
-        .exp-description { font-size: 1rem; color: var(--text-secondary); line-height: 1.7; }
 
         /* Publications */
-        .publications-section { padding: 100px 3rem; background: var(--bg-tertiary); }
-        .publications-grid { display: grid; gap: 30px; }
-        .pub-card { background: var(--bg-white); padding: 45px; transition: all 0.3s ease; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); position: relative; }
-        .pub-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-        .pub-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 25px; gap: 10px; flex-wrap: wrap; }
-        .pub-type { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-        .pub-year { color: var(--text-muted); font-size: 0.9rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-        .pub-oral-badge { background: var(--accent); color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin-left: auto; }
-        .pub-title { font-size: 1.25rem; font-weight: 400; color: var(--text-primary); margin-bottom: 20px; line-height: 1.4; }
-        .pub-authors { font-size: 1rem; color: var(--text-secondary); margin-bottom: 12px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-        .pub-authors .highlight { color: var(--accent-dark); font-weight: 600; }
-        .pub-venue { font-size: 1.15rem; color: var(--text-primary); margin-bottom: 25px; font-style: italic; }
-        .pub-links { display: flex; gap: 20px; margin-top: 25px; }
-        .pub-link {
-            padding: 12px 24px; background: transparent; color: var(--accent); text-decoration: none; font-size: 0.95rem;
-            transition: all 0.3s ease; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; border: 2px solid var(--accent); font-weight: 500;
+        .publications-section { 
+            padding: 100px 3rem; 
+            background: var(--bg-tertiary); 
         }
-        .pub-link:hover { background: var(--accent); color: #ffffff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 119, 163, 0.3); }
+        
+        .publications-grid { 
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 1200px;
+        }
+        
+        .pub-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+            justify-content: center;
+        }
+        
+        .pub-filter-btn {
+            padding: 10px 24px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 2px solid var(--border-light);
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 500;
+        }
+        
+        .pub-filter-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .pub-filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        /* Remove old pub-card styles */
+        .pub-item {
+            padding: 20px 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            border-left: 3px solid transparent;
+            background: transparent;
+        }
+        
+        .pub-item:hover {
+            background: rgba(255, 255, 255, 0.6);
+            border-left-color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .pub-number {
+            font-size: 1rem;
+            color: var(--accent);
+            font-weight: 600;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            margin-bottom: 8px;
+        }
+        
+        .pub-title {
+            font-size: 1.15rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .pub-meta {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        
+        .pub-meta .author-highlight {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .pub-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+        
+        .pub-link {
+            padding: 6px 16px;
+            background: transparent;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            border: 1.5px solid var(--accent);
+            font-weight: 500;
+            display: inline-block;
+        }
+        
+        .pub-link:hover {
+            background: var(--accent);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
         .pub-filters {
             display: flex;
             gap: 15px;
@@ -395,6 +492,15 @@
             .skills-grid { grid-template-columns: 1fr; }
             .contact-icons { justify-content: center; }
             .cv-download-btn { width: 100%; justify-content: center; }
+            .exp-item {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .exp-period {
+                min-width: auto;
+            }
+        }
         }
 
         @media (max-width: 600px) {
@@ -542,166 +648,82 @@
                 <h2 class="section-title">Professional Experience</h2>
             </div>
     
-            <div class="experience-grid fade-in">
-                <!-- REPLACE your first exp-card with this: -->
-                <div class="exp-card" onclick="toggleExpand(this)">
-                    <div class="exp-header">
-                        <div>
-                            <div class="exp-period">June 2025 - Present</div>
-                            <div class="exp-title">Visiting Researcher (Mobility Period)</div>
-                            <div class="exp-company">University of Ljubljana, Slovenia</div>
-                        </div>
-                        <div class="expand-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exp-details">
+            <div class="experience-list fade-in">
+                <div class="exp-item">
+                    <div class="exp-period">June 2025 - Present</div>
+                    <div class="exp-content">
+                        <div class="exp-title">Visiting Researcher (Mobility Period)</div>
+                        <div class="exp-company">University of Ljubljana, Slovenia</div>
                         <ul class="exp-bullets">
                             <li>Conducting collaborative research on zero-shot anomaly detection with Prof. Danijel Skočaj</li>
                             <li>Developing contrastive learning approaches for industrial defect detection</li>
                             <li>Published 1 oral presentation at ICCV Workshop 2025</li>
                         </ul>
-                        <div class="exp-tags">
-                            <span class="tag">Meta-Learning</span>
-                            <span class="tag">Computer Vision</span>
-                            <span class="tag">PyTorch</span>
-                        </div>
                     </div>
                 </div>
-                
-                <div class="exp-card" onclick="toggleExpand(this)">
-                    <div class="exp-header">
-                        <div>
-                            <div class="exp-period">2024 - 2025</div>
-                            <div class="exp-title">Teaching Assistant</div>
-                            <div class="exp-company">University of Verona, Italy</div>
-                        </div>
-                        <div class="expand-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exp-details">
+    
+                <div class="exp-item">
+                    <div class="exp-period">2024 - 2025</div>
+                    <div class="exp-content">
+                        <div class="exp-title">Teaching Assistant</div>
+                        <div class="exp-company">University of Verona, Italy</div>
                         <ul class="exp-bullets">
                             <li>Assisted in Computer Vision and Machine Learning courses</li>
                             <li>Supervised 15+ student projects on deep learning applications</li>
                             <li>Conducted lab sessions on PyTorch and TensorFlow implementations</li>
                         </ul>
-                        <div class="exp-tags">
-                            <span class="tag">Teaching</span>
-                            <span class="tag">Deep Learning</span>
-                            <span class="tag">Student Mentorship</span>
-                        </div>
                     </div>
                 </div>
-                
-                <div class="exp-card" onclick="toggleExpand(this)">
-                    <div class="exp-header">
-                        <div>
-                            <div class="exp-period">2023 - 2024</div>
-                            <div class="exp-title">Teaching Assistant</div>
-                            <div class="exp-company">University of Verona, Italy</div>
-                        </div>
-                        <div class="expand-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exp-details">
+    
+                <div class="exp-item">
+                    <div class="exp-period">2023 - 2024</div>
+                    <div class="exp-content">
+                        <div class="exp-title">Teaching Assistant</div>
+                        <div class="exp-company">University of Verona, Italy</div>
                         <ul class="exp-bullets">
                             <li>Supported courses in Data Science and Computer Vision fundamentals</li>
                             <li>Developed tutorial materials and coding exercises for 80+ students</li>
                             <li>Organized workshops on industrial AI applications</li>
                         </ul>
-                        <div class="exp-tags">
-                            <span class="tag">Education</span>
-                            <span class="tag">Curriculum Development</span>
-                        </div>
                     </div>
                 </div>
     
-                <div class="exp-card" onclick="toggleExpand(this)">
-                    <div class="exp-header">
-                        <div>
-                            <div class="exp-period">2021 - 2022</div>
-                            <div class="exp-title">Research Assistant</div>
-                            <div class="exp-company">Huazhong University of Science and Technology, Wuhan, China</div>
-                        </div>
-                        <div class="expand-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exp-details">
+                <div class="exp-item">
+                    <div class="exp-period">2021 - 2022</div>
+                    <div class="exp-content">
+                        <div class="exp-title">Research Assistant</div>
+                        <div class="exp-company">Huazhong University of Science and Technology, Wuhan, China</div>
                         <ul class="exp-bullets">
                             <li>Conducted research on natural language processing and sentiment analysis</li>
                             <li>Developed semantic parsing models for aspect-based sentiment analysis</li>
                             <li>Published research in IEEE Access journal</li>
                         </ul>
-                        <div class="exp-tags">
-                            <span class="tag">NLP</span>
-                            <span class="tag">Research</span>
-                            <span class="tag">Deep Learning</span>
-                        </div>
                     </div>
                 </div>
     
-                <div class="exp-card" onclick="toggleExpand(this)">
-                    <div class="exp-header">
-                        <div>
-                            <div class="exp-period">2018 - 2019</div>
-                            <div class="exp-title">Software Quality Assurance</div>
-                            <div class="exp-company">UIIT, Arid Agriculture University, Pakistan</div>
-                        </div>
-                        <div class="expand-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exp-details">
+                <div class="exp-item">
+                    <div class="exp-period">2018 - 2019</div>
+                    <div class="exp-content">
+                        <div class="exp-title">Software Quality Assurance</div>
+                        <div class="exp-company">UIIT, Arid Agriculture University, Pakistan</div>
                         <ul class="exp-bullets">
                             <li>Performed comprehensive testing and quality assurance for university software systems</li>
                             <li>Developed automated testing scripts to improve code reliability</li>
                             <li>Collaborated with development teams to identify and resolve software defects</li>
                         </ul>
-                        <div class="exp-tags">
-                            <span class="tag">QA Testing</span>
-                            <span class="tag">Automation</span>
-                            <span class="tag">Software Engineering</span>
-                        </div>
                     </div>
                 </div>
     
-                <div class="exp-card" onclick="toggleExpand(this)">
-                    <div class="exp-header">
-                        <div>
-                            <div class="exp-period">2017 - 2018</div>
-                            <div class="exp-title">Software Developer</div>
-                            <div class="exp-company">eConceptions (Pvt) Ltd. Pakistan</div>
-                        </div>
-                        <div class="expand-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="exp-details">
+                <div class="exp-item">
+                    <div class="exp-period">2017 - 2018</div>
+                    <div class="exp-content">
+                        <div class="exp-title">Software Developer</div>
+                        <div class="exp-company">eConceptions (Pvt) Ltd. Pakistan</div>
                         <ul class="exp-bullets">
                             <li>Developed web applications using modern JavaScript frameworks</li>
                             <li>Implemented backend services and RESTful APIs</li>
                             <li>Collaborated in agile development teams to deliver client projects</li>
                         </ul>
-                        <div class="exp-tags">
-                            <span class="tag">Web Development</span>
-                            <span class="tag">JavaScript</span>
-                            <span class="tag">Full Stack</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -714,208 +736,140 @@
             <div class="section-header fade-in">
                 <h2 class="section-title">Research Publications</h2>
             </div>
-
+    
             <div class="pub-filters">
                 <button class="pub-filter-btn active" onclick="filterPublications(event,'all')">All Publications</button>
                 <button class="pub-filter-btn" onclick="filterPublications(event,'featured')">Key Publications</button>
             </div>
-
+    
             <div class="publications-grid">
-                <article class="pub-card fade-in">
-                    <div class="pub-header">
-                        <span class="pub-type">Journal Article</span>
-                        <span class="pub-year">2025</span>
-                    </div>
+                <article class="pub-item fade-in">
+                    <div class="pub-number">[1]</div>
                     <h3 class="pub-title">Semantic Parsing for Aspect Based Sentiment Analysis</h3>
-                    <p class="pub-authors">
-                        <span class="highlight">Muhammad Aqeel</span>, Francesco Setti
-                    </p>
-                    <p class="pub-venue">IEEE Access 2025</p>
+                    <div class="pub-meta">
+                        <span class="author-highlight">Muhammad Aqeel</span>, Francesco Setti | IEEE Access 2025
+                    </div>
                     <div class="pub-links">
                         <a href="https://ieeexplore.ieee.org/abstract/document/11078252" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-
-                <article class="pub-card fade-in" data-featured="true">
-                    <div class="pub-header">
-                        <span class="pub-type">Conference</span>
-                        <span class="pub-year">2025</span>
-                    </div>
+    
+                <article class="pub-item fade-in" data-featured="true">
+                    <div class="pub-number">[2]</div>
                     <h3 class="pub-title">Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning</h3>
-                    <p class="pub-authors">
-                        <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
-                    </p>
-                    <p class="pub-venue">ICCV 2025 - International Conference on Computer Vision</p>
+                    <div class="pub-meta">
+                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | ICCV 2025
+                    </div>
                     <div class="pub-links">
                         <a href="https://arxiv.org/abs/2508.02293" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-
-                <article class="pub-card fade-in" data-featured="true">
-                    <div class="pub-header">
-                        <span class="pub-type">Conference</span>
-                        <span class="pub-year">2024</span>
-                    </div>
+    
+                <article class="pub-item fade-in" data-featured="true">
+                    <div class="pub-number">[3]</div>
                     <h3 class="pub-title">Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection in Industrial Inspection</h3>
-                    <p class="pub-authors">
-                        <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
-                    </p>
-                    <p class="pub-venue">
-                        ECCV 2024 - European Conference on Computer Vision
-                        <span class="pub-oral-badge">Oral</span>
-                    </p>
+                    <div class="pub-meta">
+                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | ECCV 2024 (Oral)
+                    </div>
                     <div class="pub-links">
                         <a href="https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-
-                <article class="pub-card fade-in" data-featured="true">
-                    <div class="pub-header">
-                        <span class="pub-type">Conference</span>
-                        <span class="pub-year">2025</span>
-                    </div>
+    
+                <article class="pub-item fade-in" data-featured="true">
+                    <div class="pub-number">[4]</div>
                     <h3 class="pub-title">A Contrastive Learning-Guided Confident Meta-learning for Zero Shot Anomaly Detection</h3>
-                    <p class="pub-authors">
-                        <span class="highlight">Muhammad Aqeel</span>, Danijel Skocaj, Marco Cristani, Francesco Setti
-                    </p>
-                    <p class="pub-venue">
-                        ICCVW 2025 - VISION Workshop at International Conference on Computer Vision
-                        <span class="pub-oral-badge">Oral</span>
-                    </p>
+                    <div class="pub-meta">
+                        <span class="author-highlight">Muhammad Aqeel</span>, Danijel Skocaj, Marco Cristani, Francesco Setti | ICCVW 2025 (Oral)
+                    </div>
                     <div class="pub-links">
                         <a href="https://arxiv.org/abs/2508.17827" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-
-                <article class="pub-card fade-in" data-featured="true">
-                    <div class="pub-header">
-                        <span class="pub-type">Conference</span>
-                        <span class="pub-year">2025</span>
-                    </div>
+    
+                <article class="pub-item fade-in" data-featured="true">
+                    <div class="pub-number">[5]</div>
                     <h3 class="pub-title">Robust Anomaly Detection in Industrial Environments via Meta-Learning</h3>
-                    <p class="pub-authors">
-                        <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
-                    </p>
-                    <p class="pub-venue">
-                        ICCVW 2025 - VISION Workshop at International Conference on Computer Vision
-                        <span class="pub-oral-badge">Oral</span>
-                    </p>
+                    <div class="pub-meta">
+                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | ICCVW 2025 (Oral)
+                    </div>
                     <div class="pub-links">
                         <a href="https://arxiv.org/abs/2508.17789" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-
-                <article class="pub-card fade-in" data-featured="false">
-                    <div class="pub-header">
-                        <span class="pub-type">Conference</span>
-                        <span class="pub-year">2025</span>
-                    </div>
+    
+                <article class="pub-item fade-in" data-featured="false">
+                    <div class="pub-number">[6]</div>
                     <h3 class="pub-title">Diffusion-Based Data Augmentation for Medical Image Segmentation</h3>
-                    <p class="pub-authors">
-                        Maham Nazir, <span class="highlight">Muhammad Aqeel</span>, Francesco Setti
-                    </p>
-                    <p class="pub-venue">
-                        ICCVW 2025 - CVAMD Workshop at International Conference on Computer Vision
-                    </p>
+                    <div class="pub-meta">
+                        Maham Nazir, <span class="author-highlight">Muhammad Aqeel</span>, Francesco Setti | ICCVW 2025
+                    </div>
                     <div class="pub-links">
                         <a href="https://arxiv.org/abs/2508.17844" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-
-                <article class="pub-card fade-in">
-                    <div class="pub-header">
-                        <span class="pub-type">Conference</span>
-                        <span class="pub-year">2025</span>
-                    </div>
+    
+                <article class="pub-item fade-in">
+                    <div class="pub-number">[7]</div>
                     <h3 class="pub-title">RoadFusion: Latent Diffusion Model for Pavement Defect Detection</h3>
-                    <p class="pub-authors">
-                        <span class="highlight">Muhammad Aqeel</span>, Kidus Dagnaw Bellete, Francesco Setti
-                    </p>
-                    <p class="pub-venue">
-                        ICIAP 2025 - International Conference on Image Analysis and Processing
-                        <span class="pub-oral-badge">Oral</span>
-                    </p>
+                    <div class="pub-meta">
+                        <span class="author-highlight">Muhammad Aqeel</span>, Kidus Dagnaw Bellete, Francesco Setti | ICIAP 2025 (Oral)
+                    </div>
                     <div class="pub-links">
                         <a href="https://arxiv.org/abs/2507.15346" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-
-                <article class="pub-card fade-in">
-                    <div class="pub-header">
-                        <span class="pub-type">Conference</span>
-                        <span class="pub-year">2025</span>
-                    </div>
+    
+                <article class="pub-item fade-in">
+                    <div class="pub-number">[8]</div>
                     <h3 class="pub-title">ExDD: Explicit Dual Distribution Learning for Surface Defect Detection via Diffusion Synthesis</h3>
-                    <p class="pub-authors">
-                        <span class="highlight">Muhammad Aqeel</span>, Federico Leonardi, Francesco Setti
-                    </p>
-                    <p class="pub-venue">ICIAP 2025 - International Conference on Image Analysis and Processing</p>
+                    <div class="pub-meta">
+                        <span class="author-highlight">Muhammad Aqeel</span>, Federico Leonardi, Francesco Setti | ICIAP 2025
+                    </div>
                     <div class="pub-links">
                         <a href="https://arxiv.org/abs/2507.15335" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-
-                <article class="pub-card fade-in">
-                    <div class="pub-header">
-                        <span class="pub-type">Conference</span>
-                        <span class="pub-year">2025</span>
-                    </div>
+    
+                <article class="pub-item fade-in">
+                    <div class="pub-number">[9]</div>
                     <h3 class="pub-title">Latent Space Synergy: Text-Guided Data Augmentation for Direct Diffusion Biomedical Segmentation</h3>
-                    <p class="pub-authors">
-                        <span class="highlight">Muhammad Aqeel</span>, Maham Nazir, Zanxi Ruan, Francesco Setti
-                    </p>
-                    <p class="pub-venue">ICIAP 2025 - International Conference on Image Analysis and Processing</p>
+                    <div class="pub-meta">
+                        <span class="author-highlight">Muhammad Aqeel</span>, Maham Nazir, Zanxi Ruan, Francesco Setti | ICIAP 2025
+                    </div>
                     <div class="pub-links">
                         <a href="https://arxiv.org/abs/2507.15361" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-
-                <article class="pub-card fade-in">
-                    <div class="pub-header">
-                        <span class="pub-type">Conference</span>
-                        <span class="pub-year">2025</span>
-                    </div>
+    
+                <article class="pub-item fade-in">
+                    <div class="pub-number">[10]</div>
                     <h3 class="pub-title">Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control</h3>
-                    <p class="pub-authors">
-                        <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
-                    </p>
-                    <p class="pub-venue">
-                        VISAPP 2025 - International Joint Conference on Computer Vision, Imaging and Computer Graphics Theory and Applications
-                        <span class="pub-oral-badge">Oral</span>
-                    </p>
+                    <div class="pub-meta">
+                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | VISAPP 2025 (Oral)
+                    </div>
                     <div class="pub-links">
                         <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-
-                <article class="pub-card fade-in">
-                    <div class="pub-header">
-                        <span class="pub-type">Conference</span>
-                        <span class="pub-year">2024</span>
-                    </div>
+    
+                <article class="pub-item fade-in">
+                    <div class="pub-number">[11]</div>
                     <h3 class="pub-title">Self-supervised Learning for Robust Surface Defect Detection</h3>
-                    <p class="pub-authors">
-                        <span class="highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti
-                    </p>
-                    <p class="pub-venue">
-                        DeLTA 2024- International Conference on Deep Learning Theory and Applications
-                        <span class="pub-oral-badge">Oral</span>
-                    </p>
+                    <div class="pub-meta">
+                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | DeLTA 2024 (Oral)
+                    </div>
                     <div class="pub-links">
                         <a href="https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
-
-                <article class="pub-card fade-in">
-                    <div class="pub-header">
-                        <span class="pub-type">Conference</span>
-                        <span class="pub-year">2024</span>
-                    </div>
+    
+                <article class="pub-item fade-in">
+                    <div class="pub-number">[12]</div>
                     <h3 class="pub-title">Diffusion-based Image Generation for In-distribution Data Augmentation in Surface Defect Detection</h3>
-                    <p class="pub-authors">
-                        Luigi Capogrosso, Federico Girella, Francesco Taioli, Michele Dalla Chiara, <span class="highlight">Muhammad Aqeel</span>, Franco Fummi, Francesco Setti, Marco Cristani
-                    </p>
-                    <p class="pub-venue">VISAPP 2024 - International Joint Conference on Computer Vision, Imaging and Computer Graphics Theory and Applications</p>
+                    <div class="pub-meta">
+                        Luigi Capogrosso, Federico Girella, Francesco Taioli, Michele Dalla Chiara, <span class="author-highlight">Muhammad Aqeel</span>, Franco Fummi, Francesco Setti, Marco Cristani | VISAPP 2024
+                    </div>
                     <div class="pub-links">
                         <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0012350400003660" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
                         <a href="https://github.com/intelligolabs/in_and_out" class="pub-link" target="_blank" rel="noopener noreferrer">Code</a>
