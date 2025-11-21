@@ -222,6 +222,82 @@
         }
         .experience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; }
         .exp-card { background: var(--bg-card); border: 1px solid var(--border-light); padding: 35px; transition: all 0.3s ease; box-shadow: var(--shadow-sm); position: relative; overflow: hidden; border-left: 3px solid transparent; cursor: pointer;}
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+        }
+        
+        .expand-icon {
+            transition: transform 0.3s ease;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+        
+        .exp-card.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+        
+        .exp-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease;
+            opacity: 0;
+        }
+        
+        .exp-card.expanded .exp-details {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 20px;
+        }
+        
+        .exp-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 15px 0;
+        }
+        
+        .exp-bullets li {
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 10px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .exp-bullets li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .exp-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+        
+        .tag {
+            background: var(--bg-tertiary);
+            color: var(--accent);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 500;
+            border: 1px solid var(--accent);
+            transition: all 0.2s ease;
+        }
+        
+        .tag:hover {
+            background: var(--accent);
+            color: white;
+        }
         .exp-card:hover { transform: translateY(-3px) translateX(5px); box-shadow: var(--shadow-md); border-left-color: var(--accent)}
         .exp-badge { position: absolute; top: 15px; right: 15px; background: var(--accent); color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
         .exp-period { font-size: 0.85rem; color: var(--accent); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.1em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 600; }
@@ -465,48 +541,168 @@
             <div class="section-header fade-in">
                 <h2 class="section-title">Professional Experience</h2>
             </div>
-
+    
             <div class="experience-grid fade-in">
-                <div class="exp-card">
-                    <div class="exp-period">June 2025 - Present</div>
-                    <div class="exp-title">Visiting Researcher (Mobility Period)</div>
-                    <div class="exp-company">University of Ljubljana, Slovenia</div>
-                    <div class="exp-description"></div>
+                <!-- REPLACE your first exp-card with this: -->
+                <div class="exp-card" onclick="toggleExpand(this)">
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-period">June 2025 - Present</div>
+                            <div class="exp-title">Visiting Researcher (Mobility Period)</div>
+                            <div class="exp-company">University of Ljubljana, Slovenia</div>
+                        </div>
+                        <div class="expand-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="exp-details">
+                        <ul class="exp-bullets">
+                            <li>Conducting collaborative research on zero-shot anomaly detection with Prof. Danijel Skočaj</li>
+                            <li>Developing contrastive learning approaches for industrial defect detection</li>
+                            <li>Published 1 oral presentation at ICCV Workshop 2025</li>
+                        </ul>
+                        <div class="exp-tags">
+                            <span class="tag">Meta-Learning</span>
+                            <span class="tag">Computer Vision</span>
+                            <span class="tag">PyTorch</span>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="exp-card">
-                    <div class="exp-period">2024 - 2025</div>
-                    <div class="exp-title">Teaching Assistant</div>
-                    <div class="exp-company">University of Verona, Italy</div>
-                    <div class="exp-description"></div>
+                <div class="exp-card" onclick="toggleExpand(this)">
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-period">2024 - 2025</div>
+                            <div class="exp-title">Teaching Assistant</div>
+                            <div class="exp-company">University of Verona, Italy</div>
+                        </div>
+                        <div class="expand-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="exp-details">
+                        <ul class="exp-bullets">
+                            <li>Assisted in Computer Vision and Machine Learning courses</li>
+                            <li>Supervised 15+ student projects on deep learning applications</li>
+                            <li>Conducted lab sessions on PyTorch and TensorFlow implementations</li>
+                        </ul>
+                        <div class="exp-tags">
+                            <span class="tag">Teaching</span>
+                            <span class="tag">Deep Learning</span>
+                            <span class="tag">Student Mentorship</span>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="exp-card">
-                    <div class="exp-period">2023 - 2024</div>
-                    <div class="exp-title">Teaching Assistant</div>
-                    <div class="exp-company">University of Verona, Italy</div>
-                    <div class="exp-description"></div>
+                <div class="exp-card" onclick="toggleExpand(this)">
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-period">2023 - 2024</div>
+                            <div class="exp-title">Teaching Assistant</div>
+                            <div class="exp-company">University of Verona, Italy</div>
+                        </div>
+                        <div class="expand-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="exp-details">
+                        <ul class="exp-bullets">
+                            <li>Supported courses in Data Science and Computer Vision fundamentals</li>
+                            <li>Developed tutorial materials and coding exercises for 80+ students</li>
+                            <li>Organized workshops on industrial AI applications</li>
+                        </ul>
+                        <div class="exp-tags">
+                            <span class="tag">Education</span>
+                            <span class="tag">Curriculum Development</span>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="exp-card">
-                    <div class="exp-period">2021 - 2022</div>
-                    <div class="exp-title">Research Assistant</div>
-                    <div class="exp-company">Huazhong University of Science and Technology, Wuhan, China</div>
-                    <div class="exp-description"></div>
+    
+                <div class="exp-card" onclick="toggleExpand(this)">
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-period">2021 - 2022</div>
+                            <div class="exp-title">Research Assistant</div>
+                            <div class="exp-company">Huazhong University of Science and Technology, Wuhan, China</div>
+                        </div>
+                        <div class="expand-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="exp-details">
+                        <ul class="exp-bullets">
+                            <li>Conducted research on natural language processing and sentiment analysis</li>
+                            <li>Developed semantic parsing models for aspect-based sentiment analysis</li>
+                            <li>Published research in IEEE Access journal</li>
+                        </ul>
+                        <div class="exp-tags">
+                            <span class="tag">NLP</span>
+                            <span class="tag">Research</span>
+                            <span class="tag">Deep Learning</span>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="exp-card">
-                    <div class="exp-period">2018 - 2019</div>
-                    <div class="exp-title">Software Quality Assurance</div>
-                    <div class="exp-company">UIIT, Arid Agriculture University, Pakistan</div>
-                    <div class="exp-description"></div>
+    
+                <div class="exp-card" onclick="toggleExpand(this)">
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-period">2018 - 2019</div>
+                            <div class="exp-title">Software Quality Assurance</div>
+                            <div class="exp-company">UIIT, Arid Agriculture University, Pakistan</div>
+                        </div>
+                        <div class="expand-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="exp-details">
+                        <ul class="exp-bullets">
+                            <li>Performed comprehensive testing and quality assurance for university software systems</li>
+                            <li>Developed automated testing scripts to improve code reliability</li>
+                            <li>Collaborated with development teams to identify and resolve software defects</li>
+                        </ul>
+                        <div class="exp-tags">
+                            <span class="tag">QA Testing</span>
+                            <span class="tag">Automation</span>
+                            <span class="tag">Software Engineering</span>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="exp-card">
-                    <div class="exp-period">2017 - 2018</div>
-                    <div class="exp-title">Software Developers</div>
-                    <div class="exp-company">eConceptions (Pvt) Ltd. Pakistan</div>
-                    <div class="exp-description"></div>
+    
+                <div class="exp-card" onclick="toggleExpand(this)">
+                    <div class="exp-header">
+                        <div>
+                            <div class="exp-period">2017 - 2018</div>
+                            <div class="exp-title">Software Developer</div>
+                            <div class="exp-company">eConceptions (Pvt) Ltd. Pakistan</div>
+                        </div>
+                        <div class="expand-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="exp-details">
+                        <ul class="exp-bullets">
+                            <li>Developed web applications using modern JavaScript frameworks</li>
+                            <li>Implemented backend services and RESTful APIs</li>
+                            <li>Collaborated in agile development teams to deliver client projects</li>
+                        </ul>
+                        <div class="exp-tags">
+                            <span class="tag">Web Development</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">Full Stack</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
