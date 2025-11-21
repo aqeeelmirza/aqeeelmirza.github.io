@@ -527,7 +527,7 @@
                     </p>
 
                     <!-- CV Download Button -->
-                    <button class="cv-download-btn" onclick="alert('PDF generation coming soon!')">
+                    <button class="cv-download-btn" onclick="generatePDF()">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
@@ -1286,7 +1286,7 @@
             y = drawModernSectionHeader(doc, "About", LEFT, y);
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(10);
-            const aboutText = "I am a PhD researcher at the University of Verona specializing in anomaly detection for industrial manufacturing. My work focuses on developing deep learning algorithms that can identify defects and quality issues in real-time production environments. I have a multidisciplinary background, having earned a master's degree from Beijing University of Posts and Telecommunications in China, where my research focus was over natural language processing. Now working in computer vision, I bring a unique perspective to solving complex machine learning challenges. My research has resulted in more than 10 publications in international conferences, with particular emphasis on confident learning, self-supervised learning, and meta-learning approaches that achieve high accuracy while remaining computationally efficient for deployment on edge devices. I am passionate about bridging the gap between theoretical AI research and practical industrial applications.";
+            const aboutText = "I am a Postdoctoral Research Fellow at the University of Verona, Italy, developing anomaly detection methods for industrial manufacturing systems. I completed my PhD in Computer Science (2025) under the supervision of Francesco Setti, specializing in meta-learning and unsupervised learning approaches for anomaly detection, with over 12 publications at leading computer vision conferences including ICCV and ECCV. I earned my Master's degree from Beijing University of Posts and Telecommunications (2019-2021) under Xiaohong Liu, focusing on Natural Language Processing and sentiment analysis, and my Bachelor's degree from PMAS Arid Agriculture University, Pakistan (2013-2017). My research bridges theoretical AI and practical industrial applications, with a focus on developing efficient, scalable unsupervised anomaly detection systems for real-world manufacturing environments.";
             y = drawText(doc, aboutText, LEFT, y, CONTENT_W, 4.8, BLACK);
             
             y += 7;
@@ -1410,19 +1410,25 @@
             y = drawModernSectionHeader(doc, "Professional Experience", LEFT, y);
             doc.setFontSize(10);
             const experiences = [
+
                 { 
-                    title: "Visiting Researcher", 
-                    period: "June 2025–Present", 
-                    org: "University of Ljubljana, Slovenia",
-                },
-                { 
-                    title: "Teaching Assistant", 
-                    period: "2024–2025", 
+                    title: "Postdoctoral Research Fellow", 
+                    period: "2025–Present", 
                     org: "University of Verona, Italy",
                 },
                 { 
+                    title: "Visiting Researcher", 
+                    period: "Jun–Dec 2025", 
+                    org: "University of Ljubljana, Slovenia",
+                },
+                { 
+                    title: "Public Service Administrator", 
+                    period: "Dec 2024–May 2025", 
+                    org: "Comune di Ferrara, Italy",
+                },
+                { 
                     title: "Teaching Assistant", 
-                    period: "2023–2024", 
+                    period: "2023–2025", 
                     org: "University of Verona, Italy",
                 },
                 { 
