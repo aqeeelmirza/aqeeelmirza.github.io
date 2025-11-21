@@ -109,7 +109,7 @@
 
         /* Hero Section */
         .hero-section {
-            min-height: 100vh; display: flex; align-items: center;
+            min-height: 90vh; display: flex; align-items: center;
             background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
             padding: 120px 3rem 80px; position: relative; z-index: 1;
         }
@@ -132,9 +132,9 @@
         .hero-titles { padding-top: 20px; }
         .hero-name { font-size: 3rem; font-weight: 300; margin-bottom: 10px; letter-spacing: -0.03em; line-height: 1.1; }
         .hero-title { font-size: 1.35rem; color: var(--text-secondary); font-weight: 300; }
-        .hero-content-grid { display: flex; gap: 80px; align-items: flex-start; }
+        .hero-content-grid { display: flex; gap: 60px; align-items: flex-start; }
         .about-section { flex: 1.8; min-width: 0; }
-        .hero-right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 50px; }
+        .hero-right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 35px; }
 
         .section-label {
             font-size: 1.0rem;
@@ -148,6 +148,10 @@
         .about-text {
             font-size: 1.2rem; line-height: 1.8; color: var(--text-primary); font-weight: 300;
             text-align: justify; text-justify: inter-word;
+        }
+        .about-text strong {
+            font-weight: 600;  /* Make strong tags actually bold */
+            color: var(--text-primary);
         }
         .about-text a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.3s ease; }
         .about-text a:hover { border-bottom-color: var(--accent); }
@@ -194,7 +198,7 @@
 
         /* ==================== EXPERIENCE SECTION (Timeline - Keep Good) ==================== */
         .experience-section { 
-            padding: 100px 3rem; 
+            padding: 70px 3rem; 
             background: var(--bg-secondary); 
             position: relative; 
             z-index: 2; 
@@ -206,7 +210,7 @@
         }
         
         .section-header { 
-            margin-bottom: 60px; 
+            margin-bottom: 40px; 
         }
         
         .section-title {
@@ -408,7 +412,7 @@
         
         /* Skills */
         .skills-section { padding: 70px 3rem; background: var(--bg-secondary); }
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; max-width: 1200px; margin: 0 auto; }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
         .skill-category h3 { font-size: 1.35rem; font-weight: 400; margin-bottom: 20px; color: var(--text-primary); padding-bottom: 10px; border-bottom: 2px solid var(--accent); }
         .skill-items { display: flex; flex-direction: column; gap: 10px; }
         .skill-item { color: var(--text-secondary); font-size: 1rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding-left: 20px; position: relative; }
@@ -416,7 +420,7 @@
 
         /* Footer */
         footer {
-            padding: 60px 3rem; background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+            padding: 40px 3rem; background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
             text-align: center; color: var(--text-muted); font-size: 0.9rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             border-top: 1px solid var(--border-light);
         }
@@ -507,16 +511,16 @@
                 <div class="about-section">
                     <div class="section-label">About</div>
                     <p class="about-text">
-                        I am a <strong>Postdoctoral Research Fellow</strong> at the <a href="https://www.univr.it" target="_blank" rel="noopener noreferrer">University of Verona</a>, Italy, 
+                        I am a <strong>Postdoctoral Research Fellow</strong> at the University of Verona, Italy, 
                         developing anomaly detection methods for industrial manufacturing systems. 
                         I completed my <strong>PhD in Computer Science</strong> (2025) under the supervision of 
                         <a href="http://www.franzsetti.info/" target="_blank" rel="noopener noreferrer">Francesco Setti</a>, 
                         specializing in meta-learning and unsupervised learning approaches for anomaly detection, 
                         with over 12 publications at leading computer vision conferences including ICCV and ECCV. 
-                        I earned my <strong>Master's degree</strong> from <a href="https://www.bupt.edu.cn" target="_blank" rel="noopener noreferrer">Beijing University of Posts and Telecommunications</a> (2019-2021) 
+                        I earned my <strong>Master's degree</strong> from Beijing University of Posts and Telecommunications(2019-2021) 
                         under <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener noreferrer">Xiaohong Liu</a>, 
                         focusing on Natural Language Processing and sentiment analysis, 
-                        and my <strong>Bachelor's degree</strong> from <a href="https://www.uaar.edu.pk" target="_blank" rel="noopener noreferrer">PMAS Arid Agriculture University</a>, Pakistan (2013-2017). 
+                        and my <strong>Bachelor's degree</strong> from PMAS Arid Agriculture University, Pakistan (2013-2017). 
                         My research bridges theoretical AI and practical industrial applications, 
                         with a focus on developing efficient, scalable unsupervised anomaly detection systems for real-world manufacturing environments.
                     </p>
