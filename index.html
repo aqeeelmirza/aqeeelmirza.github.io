@@ -311,7 +311,7 @@
             font-size: 1.2rem;
         }
 
-        /* Publications */
+        /* ==================== PUBLICATIONS SECTION ==================== */
         .publications-section { 
             padding: 100px 3rem; 
             background: var(--bg-tertiary); 
@@ -320,7 +320,7 @@
         .publications-grid { 
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
             max-width: 1200px;
         }
         
@@ -354,9 +354,8 @@
             border-color: var(--accent);
         }
         
-        /* Remove old pub-card styles */
         .pub-item {
-            padding: 20px 15px;
+            padding: 15px 15px;
             transition: all 0.3s ease;
             position: relative;
             border-left: 3px solid transparent;
@@ -369,20 +368,27 @@
             transform: translateX(5px);
         }
         
+        .pub-header-line {
+            display: flex;
+            gap: 12px;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+        
         .pub-number {
             font-size: 1rem;
             color: var(--accent);
             font-weight: 600;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            margin-bottom: 8px;
+            flex-shrink: 0;
         }
         
         .pub-title {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             font-weight: 500;
             color: var(--text-primary);
-            margin-bottom: 10px;
             line-height: 1.4;
+            flex: 1;
         }
         
         .pub-meta {
@@ -390,6 +396,7 @@
             color: var(--text-secondary);
             margin-bottom: 8px;
             line-height: 1.6;
+            padding-left: 32px; /* Indent to align with title */
         }
         
         .pub-meta .author-highlight {
@@ -400,7 +407,7 @@
         .pub-links {
             display: flex;
             gap: 12px;
-            margin-top: 8px;
+            padding-left: 32px; /* Indent to align with title */
         }
         
         .pub-link {
@@ -420,35 +427,6 @@
             background: var(--accent);
             color: #ffffff;
             transform: translateY(-2px);
-        }
-        .pub-filters {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-            justify-content: center;
-        }
-        
-        .pub-filter-btn {
-            padding: 10px 24px;
-            background: transparent;
-            color: var(--text-secondary);
-            border: 2px solid var(--border-light);
-            cursor: pointer;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            font-weight: 500;
-        }
-        
-        .pub-filter-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-        
-        .pub-filter-btn.active {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
         }
         
         /* Skills */
