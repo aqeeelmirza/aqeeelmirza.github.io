@@ -8,38 +8,6 @@
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/svg2pdf.js@2/dist/svg2pdf.umd.min.js"></script>
 
-    <!-- Vector contact icons used by the PDF -->
-    <script>
-        const ICONS = {
-          email: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                       fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="5" width="18" height="14" rx="2" ry="2"/>
-                    <path d="M3 6l9 7 9-7"/>
-                  </svg>`,
-          phone: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                       fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 16.9v2a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2
-                             2 2 0 0 1 4.1 2h2a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.4 2.1L7.1 9.9a16 16 0 0 0 7 7l1.5-1.1
-                             a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6A2 2 0 0 1 22 16.9z"/>
-                  </svg>`,
-          linkedin: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                       <rect x="2" y="2" width="20" height="20" rx="3" fill="currentColor"/>
-                       <rect x="6" y="9" width="3" height="9" fill="#fff"/>
-                       <rect x="6" y="6" width="3" height="2.5" fill="#fff"/>
-                       <path d="M12 9h2.8v1.5h.04c.39-.7 1.35-1.5 2.78-1.5 2.98 0 3.53 1.96 3.53 4.51V18h-3v-4.01
-                                c0-.96-.02-2.2-1.34-2.2-1.34 0-1.54 1.05-1.54 2.13V18H12V9z" fill="#fff"/>
-                     </svg>`,
-          scholar: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                       fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 3l10 6-10 6L2 9l10-6z"/><path d="M22 12v4"/><path d="M6 12v5a6 3 0 0 0 12 0v-5"/>
-                  </svg>`,
-          location: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                         fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M20.5 10c0 5-8.5 11-8.5 11S3.5 15 3.5 10a8.5 8.5 0 1 1 17 0z"/><circle cx="12" cy="10" r="3"/>
-                    </svg>`
-        };
-    </script>
-
     <style>
         * {
             margin: 0;
@@ -49,15 +17,15 @@
 
         :root {
             --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;      /* Neutral cool gray */
-            --bg-tertiary: #f9fafb;       /* Very subtle gray (NO blue tint) */
-            --bg-nav: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);  /* Neutral gradient */
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f9fafb;
+            --bg-nav: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
             --bg-white: #ffffff;
             --bg-card: #ffffff;
             --text-primary: #1e293b;
             --text-secondary: #475569;
             --text-muted: #94a3b8;
-            --accent: #0891b2;            /* Keep your cyan accent! */
+            --accent: #0891b2;
             --accent-light: #0891b2;
             --accent-dark: #0e7490;
             --border-light: rgba(0, 0, 0, 0.06);
@@ -65,6 +33,7 @@
             --shadow-md: 0 10px 40px rgba(0, 119, 163, 0.15);
             --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
             --icon-grey: #6b7280;
+            --hover-bg: rgba(8, 145, 178, 0.04);
         }
 
         html { scroll-behavior: smooth; }
@@ -168,7 +137,7 @@
         .hero-right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 50px; }
 
         .section-label {
-            font-size: 1.0rem; /* Changed from 0.85rem */
+            font-size: 1.0rem;
             text-transform: uppercase;
             letter-spacing: 0.15em;
             color: var(--accent);
@@ -196,18 +165,34 @@
         .contact-icon-link svg { width: 22px; height: 22px; stroke-width: 2; }
         .scholar-icon { fill: currentColor; stroke: none; }
 
-        /* Education */
+        /* ==================== UNIFIED EDUCATION SECTION ==================== */
         .education-section { padding-bottom: 30px; }
         .edu-list { display: flex; flex-direction: column; gap: 14px; }
-        .edu-item { padding: 16px; background: rgba(248,250,252,0.8); border-radius: 8px; transition: all 0.3s ease; border-left: 3px solid transparent; cursor: pointer; }
-        .edu-item:hover { background: rgba(255,255,255,1); border-left-color: var(--accent); transform: translateX(5px); box-shadow: 0 2px 8px rgba(0,119,163,0.15); }
-        .edu-year { font-size: 0.85rem; color: var(--accent); margin-bottom: 6px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+        .edu-item { 
+            padding: 16px; 
+            background: rgba(248,250,252,0.5); 
+            border-radius: 8px; 
+            transition: all 0.3s ease; 
+            cursor: pointer; 
+        }
+        .edu-item:hover { 
+            background: var(--hover-bg);
+        }
+        .edu-year { 
+            font-size: 0.85rem; 
+            color: var(--accent); 
+            margin-bottom: 6px; 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 0.08em; 
+        }
         .edu-degree { font-size: 1.1rem; font-weight: 400; color: var(--text-primary); margin-bottom: 4px; }
         .edu-institution { font-size: 0.95rem; color: var(--text-secondary); font-style: italic; }
         .edu-institution a { color: inherit; text-decoration: none; transition: color 0.3s ease; }
         .edu-item:hover .edu-institution a { color: var(--accent); }
 
-        /* Experience */
+        /* ==================== EXPERIENCE SECTION (Timeline - Keep Good) ==================== */
         .experience-section { 
             padding: 100px 3rem; 
             background: var(--bg-secondary); 
@@ -264,7 +249,7 @@
             position: relative;
         }
         
-        /* Timeline dot */
+        /* Timeline dot - subtle animation only */
         .exp-item::before {
             content: '';
             position: absolute;
@@ -281,7 +266,6 @@
         
         .exp-item:hover::before {
             background: var(--accent);
-            transform: scale(1.3);
             box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.1);
         }
         
@@ -314,33 +298,8 @@
             font-style: italic;
             margin-bottom: 0;
         }
-        
-        .exp-bullets {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: none; /* Hide bullets for compact view */
-        }
-        
-        .exp-bullets li {
-            padding-left: 20px;
-            position: relative;
-            margin-bottom: 8px;
-            line-height: 1.6;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-        
-        .exp-bullets li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
 
-        /* ==================== PUBLICATIONS SECTION ==================== */
+        /* ==================== PUBLICATIONS SECTION (Unified & Inline Links) ==================== */
         .publications-section { 
             padding: 100px 3rem; 
             background: var(--bg-tertiary); 
@@ -384,17 +343,14 @@
         }
         
         .pub-item {
-            padding: 15px 15px;
+            padding: 15px;
             transition: all 0.3s ease;
-            position: relative;
-            border-left: 3px solid transparent;
             background: transparent;
+            border-radius: 8px;
         }
         
         .pub-item:hover {
-            background: rgba(255, 255, 255, 0.6);
-            border-left-color: var(--accent);
-            transform: translateX(5px);
+            background: var(--hover-bg);
         }
         
         .pub-header-line {
@@ -420,12 +376,12 @@
             flex: 1;
         }
         
+        /* Inline metadata with links */
         .pub-meta {
             font-size: 0.95rem;
             color: var(--text-secondary);
-            margin-bottom: 8px;
             line-height: 1.6;
-            padding-left: 32px; /* Indent to align with title */
+            padding-left: 32px;
         }
         
         .pub-meta .author-highlight {
@@ -433,29 +389,21 @@
             font-weight: 600;
         }
         
-        .pub-links {
-            display: flex;
-            gap: 12px;
-            padding-left: 32px; /* Indent to align with title */
-        }
-        
-        .pub-link {
-            padding: 6px 16px;
-            background: transparent;
+        /* Inline links - simple text links */
+        .pub-meta a {
             color: var(--accent);
             text-decoration: none;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            border: 1.5px solid var(--accent);
             font-weight: 500;
-            display: inline-block;
+            transition: all 0.2s ease;
         }
         
-        .pub-link:hover {
-            background: var(--accent);
-            color: #ffffff;
-            transform: translateY(-2px);
+        .pub-meta a:hover {
+            text-decoration: underline;
+        }
+        
+        .pub-meta .link-separator {
+            color: var(--text-muted);
+            margin: 0 6px;
         }
         
         /* Skills */
@@ -494,29 +442,22 @@
             .hero-right { gap: 40px; }
             .hero-name { font-size: 2.5rem; }
             .section-title { font-size: 0.85rem; }
-            .experience-grid { grid-template-columns: 1fr; }
-            .pub-link { padding: 10px 20px; font-size: 0.9rem; }
             .skills-grid { grid-template-columns: 1fr; }
             .contact-icons { justify-content: center; }
             .cv-download-btn { width: 100%; justify-content: center; }
             .exp-item {
-                    flex-direction: column;
-                    gap: 10px;
-                }
-                
-                .exp-period {
-                    min-width: auto;
-                }
-                
-                .pub-meta,
-                .pub-links {
-                    padding-left: 0; /* Remove indent on mobile */
-                }
-                
-                .pub-header-line {
-                    flex-direction: column;
-                    gap: 5px;
-                }
+                flex-direction: column;
+                gap: 10px;
+            }
+            .exp-period {
+                min-width: auto;
+            }
+            .pub-meta {
+                padding-left: 0;
+            }
+            .pub-header-line {
+                flex-direction: column;
+                gap: 5px;
             }
         }
 
@@ -524,9 +465,8 @@
             .nav-container { padding: 1rem 1.5rem; }
             .hero-section { padding: 100px 1.5rem 60px; }
             .hero-name { font-size: 2rem; }
-            .experience-section, .publications-section, .skills-section { padding: 60px 0.85rem; }
-            .exp-card, .pub-card { padding: 25px; }
-            .pub-title { font-size: 1.4rem; }
+            .experience-section, .publications-section, .skills-section { padding: 60px 1.5rem; }
+            .pub-title { font-size: 1rem; }
             .contact-icon-link { width: 40px; height: 40px; }
             .contact-icon-link svg { width: 20px; height: 20px; }
         }
@@ -559,7 +499,7 @@
                 </div>
                 <div class="hero-titles">
                     <h1 class="hero-name">Muhammad Aqeel</h1>
-                    <p class="hero-title">PhD Researcher</p>
+                    <p class="hero-title">Postdoctoral Research Fellow</p>
                 </div>
             </div>
 
@@ -567,22 +507,22 @@
                 <div class="about-section">
                     <div class="section-label">About</div>
                     <p class="about-text">
-                        I am a <strong>Postdoctoral Research Fellow</strong> at the University of Verona, Italy, 
+                        I am a <strong>Postdoctoral Research Fellow</strong> at the <a href="https://www.univr.it" target="_blank" rel="noopener noreferrer">University of Verona</a>, Italy, 
                         developing anomaly detection methods for industrial manufacturing systems. 
                         I completed my <strong>PhD in Computer Science</strong> (2025) under the supervision of 
                         <a href="http://www.franzsetti.info/" target="_blank" rel="noopener noreferrer">Francesco Setti</a>, 
                         specializing in meta-learning and unsupervised learning approaches for anomaly detection, 
                         with over 12 publications at leading computer vision conferences including ICCV and ECCV. 
-                        I earned my <strong>Master's degree</strong> from Beijing University of Posts and Telecommunications (2019-2021) 
+                        I earned my <strong>Master's degree</strong> from <a href="https://www.bupt.edu.cn" target="_blank" rel="noopener noreferrer">Beijing University of Posts and Telecommunications</a> (2019-2021) 
                         under <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener noreferrer">Xiaohong Liu</a>, 
                         focusing on Natural Language Processing and sentiment analysis, 
-                        and my <strong>Bachelor's degree</strong> from PMAS Arid Agriculture University, Pakistan (2013-2017). 
+                        and my <strong>Bachelor's degree</strong> from <a href="https://www.uaar.edu.pk" target="_blank" rel="noopener noreferrer">PMAS Arid Agriculture University</a>, Pakistan (2013-2017). 
                         My research bridges theoretical AI and practical industrial applications, 
                         with a focus on developing efficient, scalable unsupervised anomaly detection systems for real-world manufacturing environments.
                     </p>
 
                     <!-- CV Download Button -->
-                    <button class="cv-download-btn" onclick="generatePDF()">
+                    <button class="cv-download-btn" onclick="alert('PDF generation coming soon!')">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
@@ -596,7 +536,7 @@
                     <div class="contact-section">
                         <div class="section-label">Connect</div>
                         <div class="contact-icons">
-                            <a href="mailto:muhammad.aqeel@univr.it" class="contact-icon-link" title="Email" target="_blank" rel="noopener noreferrer">
+                            <a href="mailto:muhammad.aqeel@univr.it" class="contact-icon-link" title="Email">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                     <polyline points="22,6 12,13 2,6"></polyline>
@@ -648,8 +588,8 @@
                             </div>
                         </div>
                     </div>
-                </div><!-- hero-right -->
-            </div><!-- grid -->
+                </div>
+            </div>
         </div>
     </section>
 
@@ -666,18 +606,14 @@
                     <div class="exp-content">
                         <div class="exp-title">Postdoctoral Research Fellow</div>
                         <div class="exp-company">University of Verona, Italy</div>
-                        <ul class="exp-bullets">
-                        </ul>
                     </div>
                 </div>
                 
                 <div class="exp-item">
-                    <div class="exp-period">Jun 2025 - Nov 2025</div>
+                    <div class="exp-period">Jun - Nov 2025</div>
                     <div class="exp-content">
-                        <div class="exp-title">Visiting Researcher (Mobility Period)</div>
+                        <div class="exp-title">Visiting Researcher</div>
                         <div class="exp-company">University of Ljubljana, Slovenia</div>
-                        <ul class="exp-bullets">
-                        </ul>
                     </div>
                 </div>
 
@@ -685,9 +621,7 @@
                     <div class="exp-period">Dec 2024 - May 2025</div>
                     <div class="exp-content">
                         <div class="exp-title">Public Service Administrator</div>
-                        <div class="exp-company">Comune di Ferrara, Emilia-Romagna, Italy</div>
-                        <ul class="exp-bullets">
-                        </ul>
+                        <div class="exp-company">Comune di Ferrara, Italy</div>
                     </div>
                 </div>
     
@@ -696,8 +630,6 @@
                     <div class="exp-content">
                         <div class="exp-title">Teaching Assistant</div>
                         <div class="exp-company">University of Verona, Italy</div>
-                        <ul class="exp-bullets">
-                        </ul>
                     </div>
                 </div>
                 
@@ -705,9 +637,7 @@
                     <div class="exp-period">2021 - 2022</div>
                     <div class="exp-content">
                         <div class="exp-title">Research Assistant</div>
-                        <div class="exp-company">Huazhong University of Science and Technology, Wuhan, China</div>
-                        <ul class="exp-bullets">
-                        </ul>
+                        <div class="exp-company">Huazhong University of Science and Technology, China</div>
                     </div>
                 </div>
     
@@ -716,8 +646,6 @@
                     <div class="exp-content">
                         <div class="exp-title">Software Quality Assurance</div>
                         <div class="exp-company">UIIT, Arid Agriculture University, Pakistan</div>
-                        <ul class="exp-bullets">
-                        </ul>
                     </div>
                 </div>
     
@@ -725,9 +653,7 @@
                     <div class="exp-period">2017 - 2018</div>
                     <div class="exp-content">
                         <div class="exp-title">Software Developer</div>
-                        <div class="exp-company">eConceptions (Pvt) Ltd. Pakistan</div>
-                        <ul class="exp-bullets">
-                        </ul>
+                        <div class="exp-company">eConceptions (Pvt) Ltd., Pakistan</div>
                     </div>
                 </div>
             </div>
@@ -753,10 +679,7 @@
                         <h3 class="pub-title">Semantic Parsing for Aspect Based Sentiment Analysis</h3>
                     </div>
                     <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Francesco Setti | IEEE Access 2025
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://ieeexplore.ieee.org/abstract/document/11078252" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <span class="author-highlight">Muhammad Aqeel</span>, Francesco Setti | IEEE Access 2025 | <a href="https://ieeexplore.ieee.org/abstract/document/11078252" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
                 
@@ -766,11 +689,8 @@
                         <h3 class="pub-title">Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning</h3>
                     </div>
                     <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | ICCV 2025
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2508.02293" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
-                        <a href="https://github.com/aqeeelmirza/CoMet" class="pub-link" target="_blank" rel="noopener noreferrer">Code</a>
+                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | ICCV 2025 | 
+                        <a href="https://arxiv.org/abs/2508.02293" target="_blank" rel="noopener noreferrer">Paper</a><span class="link-separator">•</span><a href="https://github.com/aqeeelmirza/CoMet" target="_blank" rel="noopener noreferrer">Code</a>
                     </div>
                 </article>
                 
@@ -780,10 +700,8 @@
                         <h3 class="pub-title">Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection in Industrial Inspection</h3>
                     </div>
                     <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | ECCV 2024 (Oral)
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | ECCV 2024 (Oral) | 
+                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
                 
@@ -793,10 +711,8 @@
                         <h3 class="pub-title">A Contrastive Learning-Guided Confident Meta-learning for Zero Shot Anomaly Detection</h3>
                     </div>
                     <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Danijel Skocaj, Marco Cristani, Francesco Setti | ICCVW 2025 (Oral)
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2508.17827" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <span class="author-highlight">Muhammad Aqeel</span>, Danijel Skocaj, Marco Cristani, Francesco Setti | ICCVW 2025 (Oral) | 
+                        <a href="https://arxiv.org/abs/2508.17827" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
                 
@@ -806,10 +722,8 @@
                         <h3 class="pub-title">Robust Anomaly Detection in Industrial Environments via Meta-Learning</h3>
                     </div>
                     <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | ICCVW 2025 (Oral)
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2508.17789" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | ICCVW 2025 (Oral) | 
+                        <a href="https://arxiv.org/abs/2508.17789" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
                 
@@ -819,10 +733,8 @@
                         <h3 class="pub-title">Diffusion-Based Data Augmentation for Medical Image Segmentation</h3>
                     </div>
                     <div class="pub-meta">
-                        Maham Nazir, <span class="author-highlight">Muhammad Aqeel</span>, Francesco Setti | ICCVW 2025
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2508.17844" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        Maham Nazir, <span class="author-highlight">Muhammad Aqeel</span>, Francesco Setti | ICCVW 2025 | 
+                        <a href="https://arxiv.org/abs/2508.17844" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
                 
@@ -832,10 +744,8 @@
                         <h3 class="pub-title">RoadFusion: Latent Diffusion Model for Pavement Defect Detection</h3>
                     </div>
                     <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Kidus Dagnaw Bellete, Francesco Setti | ICIAP 2025 (Oral)
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2507.15346" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <span class="author-highlight">Muhammad Aqeel</span>, Kidus Dagnaw Bellete, Francesco Setti | ICIAP 2025 (Oral) | 
+                        <a href="https://arxiv.org/abs/2507.15346" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
                 
@@ -845,10 +755,8 @@
                         <h3 class="pub-title">ExDD: Explicit Dual Distribution Learning for Surface Defect Detection via Diffusion Synthesis</h3>
                     </div>
                     <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Federico Leonardi, Francesco Setti | ICIAP 2025
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2507.15335" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <span class="author-highlight">Muhammad Aqeel</span>, Federico Leonardi, Francesco Setti | ICIAP 2025 | 
+                        <a href="https://arxiv.org/abs/2507.15335" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
                 
@@ -858,10 +766,8 @@
                         <h3 class="pub-title">Latent Space Synergy: Text-Guided Data Augmentation for Direct Diffusion Biomedical Segmentation</h3>
                     </div>
                     <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Maham Nazir, Zanxi Ruan, Francesco Setti | ICIAP 2025
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://arxiv.org/abs/2507.15361" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <span class="author-highlight">Muhammad Aqeel</span>, Maham Nazir, Zanxi Ruan, Francesco Setti | ICIAP 2025 | 
+                        <a href="https://arxiv.org/abs/2507.15361" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
                 
@@ -871,10 +777,8 @@
                         <h3 class="pub-title">Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control</h3>
                     </div>
                     <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | VISAPP 2025 (Oral)
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | VISAPP 2025 (Oral) | 
+                        <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
                 
@@ -884,10 +788,8 @@
                         <h3 class="pub-title">Self-supervised Learning for Robust Surface Defect Detection</h3>
                     </div>
                     <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | DeLTA 2024 (Oral)
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
+                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | DeLTA 2024 (Oral) | 
+                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11" target="_blank" rel="noopener noreferrer">Paper</a>
                     </div>
                 </article>
                 
@@ -897,11 +799,8 @@
                         <h3 class="pub-title">Diffusion-based Image Generation for In-distribution Data Augmentation in Surface Defect Detection</h3>
                     </div>
                     <div class="pub-meta">
-                        Luigi Capogrosso, Federico Girella, Francesco Taioli, Michele Dalla Chiara, <span class="author-highlight">Muhammad Aqeel</span>, Franco Fummi, Francesco Setti, Marco Cristani | VISAPP 2024
-                    </div>
-                    <div class="pub-links">
-                        <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0012350400003660" class="pub-link" target="_blank" rel="noopener noreferrer">Paper</a>
-                        <a href="https://github.com/intelligolabs/in_and_out" class="pub-link" target="_blank" rel="noopener noreferrer">Code</a>
+                        Luigi Capogrosso, Federico Girella, Francesco Taioli, Michele Dalla Chiara, <span class="author-highlight">Muhammad Aqeel</span>, Franco Fummi, Francesco Setti, Marco Cristani | VISAPP 2024 | 
+                        <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0012350400003660" target="_blank" rel="noopener noreferrer">Paper</a><span class="link-separator">•</span><a href="https://github.com/intelligolabs/in_and_out" target="_blank" rel="noopener noreferrer">Code</a>
                     </div>
                 </article>
             </div>
