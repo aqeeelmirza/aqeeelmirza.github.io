@@ -460,9 +460,12 @@
             .pub-meta {
                 padding-left: 0;
             }
+            /* Removed .pub-header-line block to keep number and title on same line */
             .pub-header-line {
-                flex-direction: column;
-                gap: 5px;
+                gap: 8px; /* Keep horizontal layout with reduced gap */
+            }
+            .pub-number {
+                font-size: 0.9rem; /* Slightly smaller on mobile */
             }
         }
 
@@ -514,14 +517,14 @@
                     <p class="about-text">
                         I am a <strong>Postdoctoral Research Fellow</strong> at the University of Verona, Italy, 
                         developing anomaly detection methods for industrial manufacturing systems. 
-                        I completed my <strong>PhD in Computer Science</strong> (2025) under the supervision of 
+                        I completed my <strong>PhD in Computer Science</strong> from <strong>University of Verona</strong> under the supervision of 
                         <a href="http://www.franzsetti.info/" target="_blank" rel="noopener noreferrer">Francesco Setti</a>, 
-                        specializing in meta-learning and unsupervised learning approaches for anomaly detection, 
+                        specializing in unsupervised learning approaches for anomaly detection, 
                         with over 12 publications at leading computer vision conferences including ICCV and ECCV. 
-                        I earned my <strong>Master's degree</strong> from Beijing University of Posts and Telecommunications(2019-2021) 
+                        I earned my <strong>Master's degree</strong> from Beijing University of Posts and Telecommunications 
                         under <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener noreferrer">Xiaohong Liu</a>, 
                         focusing on Natural Language Processing and sentiment analysis, 
-                        and my <strong>Bachelor's degree</strong> from PMAS Arid Agriculture University, Pakistan (2013-2017). 
+                        and my <strong>Bachelor's degree</strong> from PMAS Arid Agriculture University, Pakistan. 
                         My research bridges theoretical AI and practical industrial applications, 
                         with a focus on developing efficient, scalable unsupervised anomaly detection systems for real-world manufacturing environments.
                     </p>
@@ -677,7 +680,7 @@
                 <button class="pub-filter-btn" onclick="filterPublications(event,'featured')">Key Publications</button>
             </div>
     
-            <div class="publications-grid">
+            <div class="publications-grid" data-featured="false">
                 <article class="pub-item fade-in">
                     <div class="pub-header-line">
                         <span class="pub-number">[1]</span>
@@ -743,7 +746,7 @@
                     </div>
                 </article>
                 
-                <article class="pub-item fade-in">
+                <article class="pub-item fade-in" data-featured="false">
                     <div class="pub-header-line">
                         <span class="pub-number">[7]</span>
                         <h3 class="pub-title">RoadFusion: Latent Diffusion Model for Pavement Defect Detection</h3>
@@ -754,7 +757,7 @@
                     </div>
                 </article>
                 
-                <article class="pub-item fade-in">
+                <article class="pub-item fade-in" data-featured="false">
                     <div class="pub-header-line">
                         <span class="pub-number">[8]</span>
                         <h3 class="pub-title">ExDD: Explicit Dual Distribution Learning for Surface Defect Detection via Diffusion Synthesis</h3>
@@ -776,7 +779,7 @@
                     </div>
                 </article>
                 
-                <article class="pub-item fade-in">
+                <article class="pub-item fade-in" data-featured="false">
                     <div class="pub-header-line">
                         <span class="pub-number">[10]</span>
                         <h3 class="pub-title">Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control</h3>
@@ -787,7 +790,7 @@
                     </div>
                 </article>
                 
-                <article class="pub-item fade-in">
+                <article class="pub-item fade-in" data-featured="false">
                     <div class="pub-header-line">
                         <span class="pub-number">[11]</span>
                         <h3 class="pub-title">Self-supervised Learning for Robust Surface Defect Detection</h3>
@@ -798,7 +801,7 @@
                     </div>
                 </article>
                 
-                <article class="pub-item fade-in">
+                <article class="pub-item fade-in" data-featured="false">
                     <div class="pub-header-line">
                         <span class="pub-number">[12]</span>
                         <h3 class="pub-title">Diffusion-based Image Generation for In-distribution Data Augmentation in Surface Defect Detection</h3>
@@ -885,13 +888,11 @@
         // ADD THE FILTER FUNCTION HERE
         function filterPublications(evt, filter) {
             const buttons = document.querySelectorAll('.pub-filter-btn');
-            const publications = document.querySelectorAll('.pub-card');
-        
-            // Update active button
+            const publications = document.querySelectorAll('.pub-item'); // Changed from .pub-card to .pub-item
+            
             buttons.forEach(btn => btn.classList.remove('active'));
             if (evt && evt.currentTarget) evt.currentTarget.classList.add('active');
-        
-            // Filter publications
+            
             publications.forEach(pub => {
               if (filter === 'all') {
                 pub.style.display = '';
