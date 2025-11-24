@@ -478,6 +478,41 @@
             .contact-icon-link { width: 40px; height: 40px; }
             .contact-icon-link svg { width: 20px; height: 20px; }
         }
+
+        /* ===== ADD MOBILE TOUCH FEEDBACK HERE ===== */
+        .contact-icon-link:hover,
+        .contact-icon-link:active {
+            background: var(--accent); 
+            color: white; 
+            transform: translateY(-3px); 
+            box-shadow: 0 4px 12px rgba(0,119,163,0.3); 
+            border-color: var(--accent);
+        }
+
+        .cv-download-btn:hover,
+        .cv-download-btn:active {
+            background: var(--accent-dark); 
+            border-color: var(--accent-dark); 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 12px rgba(0,119,163,0.3);
+        }
+
+        .nav-link:hover,
+        .nav-link:active {
+            color: var(--accent);
+        }
+
+        .pub-meta a:hover,
+        .pub-meta a:active {
+            text-decoration: underline;
+        }
+
+        .about-text a:hover,
+        .about-text a:active {
+            border-bottom-color: var(--accent);
+        }
+        /* ===== END MOBILE TOUCH FEEDBACK ===== */
+        
     </style>
 </head>
 <body>
