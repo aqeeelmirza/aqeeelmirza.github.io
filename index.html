@@ -923,20 +923,46 @@
         // ADD THE FILTER FUNCTION HERE
         function filterPublications(evt, filter) {
             const buttons = document.querySelectorAll('.pub-filter-btn');
-            const publications = document.querySelectorAll('.pub-item'); // Changed from .pub-card to .pub-item
-            
+            const publications = document.querySelectorAll('.pub-item');
+        
+            // Update active button
             buttons.forEach(btn => btn.classList.remove('active'));
             if (evt && evt.currentTarget) evt.currentTarget.classList.add('active');
-            
+        
+            // Filter publications and renumber
+            let visibleIndex = 1;
             publications.forEach(pub => {
-              if (filter === 'all') {
-                pub.style.display = '';
-              } else {
-                pub.style.display = (pub.dataset.featured === 'true') ? '' : 'none';
-              }
+                const pubNumber = pub.querySelector('.pub-number');
+                
+                if (filter === 'all') {
+                    pub.style.display = '';
+                    // Restore original numbering
+                    const originalNumber = pub.getAttribute('data-original-number');
+                    if (originalNumber) {
+                        pubNumber.textContent = `[${originalNumber}]`;
+                    } else {
+                        // Store original number if not stored yet
+                        const currentNum = pubNumber.textContent.replace(/[\[\]]/g, '');
+                        pub.setAttribute('data-original-number', currentNum);
+                    }
+                    visibleIndex++;
+                } else {
+                    if (pub.dataset.featured === 'true') {
+                        pub.style.display = '';
+                        // Store original number if not stored yet
+                        if (!pub.getAttribute('data-original-number')) {
+                            const currentNum = pubNumber.textContent.replace(/[\[\]]/g, '');
+                            pub.setAttribute('data-original-number', currentNum);
+                        }
+                        // Renumber for key publications
+                        pubNumber.textContent = `[${visibleIndex}]`;
+                        visibleIndex++;
+                    } else {
+                        pub.style.display = 'none';
+                    }
+                }
             });
         }
-
         // Scroll active link
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
