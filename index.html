@@ -151,7 +151,7 @@
         }
         .about-text strong {
             font-style: italic;
-            font-weight: 300;  /* Make strong tags actually bold */
+            font-weight: 300;
             color: var(--text-primary);
         }
         .about-text a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.3s ease; }
@@ -304,6 +304,73 @@
             margin-bottom: 0;
         }
 
+        /* ==================== FUNDING & GRANTS SECTION (Card-based) ==================== */
+        .funding-section { 
+            padding: 70px 3rem; 
+            background: var(--bg-primary); 
+        }
+        
+        .funding-list { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 18px; 
+            max-width: 1200px;
+        }
+        
+        .funding-item { 
+            padding: 20px; 
+            background: rgba(248,250,252,0.5); 
+            border-radius: 8px; 
+            transition: all 0.3s ease; 
+            cursor: pointer;
+            border-left: 3px solid transparent;
+        }
+        
+        .funding-item:hover { 
+            background: var(--hover-bg);
+            border-left-color: var(--accent);
+            transform: translateX(3px);
+        }
+        
+        .funding-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+            gap: 20px;
+        }
+        
+        .funding-title { 
+            font-size: 1.15rem; 
+            font-weight: 600; 
+            color: var(--text-primary); 
+            flex: 1;
+        }
+        
+        .funding-period { 
+            font-size: 0.85rem; 
+            color: var(--accent); 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+        }
+        
+        .funding-organization { 
+            font-size: 0.95rem; 
+            color: var(--text-secondary); 
+            font-style: italic; 
+            margin-bottom: 6px;
+        }
+        
+        .funding-amount { 
+            font-size: 0.9rem; 
+            color: var(--accent); 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+            font-weight: 500;
+        }
+
         /* ==================== PUBLICATIONS SECTION (Unified & Inline Links) ==================== */
         .publications-section { 
             padding: 70px 3rem; 
@@ -410,14 +477,6 @@
             color: var(--text-muted);
             margin: 0 6px;
         }
-        
-        /* Skills */
-        .skills-section { padding: 70px 3rem; background: var(--bg-secondary); }
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
-        .skill-category h3 { font-size: 1.35rem; font-weight: 400; margin-bottom: 20px; color: var(--text-primary); padding-bottom: 10px; border-bottom: 2px solid var(--accent); }
-        .skill-items { display: flex; flex-direction: column; gap: 10px; }
-        .skill-item { color: var(--text-secondary); font-size: 1rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding-left: 20px; position: relative; }
-        .skill-item::before { content: '▸'; position: absolute; left: 0; color: var(--accent); }
 
         /* Footer */
         footer {
@@ -447,7 +506,6 @@
             .hero-right { gap: 40px; }
             .hero-name { font-size: 2.5rem; }
             .section-title { font-size: 0.85rem; }
-            .skills-grid { grid-template-columns: 1fr; }
             .contact-icons { justify-content: center; }
             .cv-download-btn { width: 100%; justify-content: center; }
             .exp-item {
@@ -457,15 +515,18 @@
             .exp-period {
                 min-width: auto;
             }
-            /* .pub-meta {
-                padding-left: 0;
-            } */
-            /* Removed .pub-header-line block to keep number and title on same line */
             .pub-header-line {
-                gap: 8px; /* Keep horizontal layout with reduced gap */
+                gap: 8px;
             }
             .pub-number {
-                font-size: 0.9rem; /* Slightly smaller on mobile */
+                font-size: 0.9rem;
+            }
+            .funding-header {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .funding-period {
+                align-self: flex-start;
             }
         }
 
@@ -473,13 +534,13 @@
             .nav-container { padding: 1rem 1.5rem; }
             .hero-section { padding: 100px 1.5rem 60px; }
             .hero-name { font-size: 2rem; }
-            .experience-section, .publications-section, .skills-section { padding: 60px 1.5rem; }
+            .experience-section, .funding-section, .publications-section { padding: 60px 1.5rem; }
             .pub-title { font-size: 1rem; }
             .contact-icon-link { width: 40px; height: 40px; }
             .contact-icon-link svg { width: 20px; height: 20px; }
         }
 
-        /* ===== ADD MOBILE TOUCH FEEDBACK HERE ===== */
+        /* ===== MOBILE TOUCH FEEDBACK ===== */
         .contact-icon-link:hover,
         .contact-icon-link:active {
             background: var(--accent); 
@@ -511,7 +572,6 @@
         .about-text a:active {
             border-bottom-color: var(--accent);
         }
-        /* ===== END MOBILE TOUCH FEEDBACK ===== */
         
     </style>
 </head>
@@ -526,8 +586,8 @@
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#funding" class="nav-link">Funding</a></li>
                 <li><a href="#publications" class="nav-link">Publications</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
             </ul>
         </div>
     </nav>
@@ -703,6 +763,44 @@
         </div>
     </section>
 
+    <!-- Funding & Grants Section -->
+    <section class="funding-section" id="funding">
+        <div class="section-container">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Funding & Grants</h2>
+            </div>
+    
+            <div class="funding-list fade-in">
+                <div class="funding-item">
+                    <div class="funding-header">
+                        <div class="funding-title">PNRR PhD Scholarship</div>
+                        <div class="funding-period">2022 - 2025</div>
+                    </div>
+                    <div class="funding-organization">Italian Ministry of University and Research via University of Verona</div>
+                    <div class="funding-amount">Full tuition + €16,500/year stipend (3 years)</div>
+                </div>
+                
+                <div class="funding-item">
+                    <div class="funding-header">
+                        <div class="funding-title">Research Mobility Grant</div>
+                        <div class="funding-period">Jun - Dec 2025</div>
+                    </div>
+                    <div class="funding-organization">University of Ljubljana, Slovenia</div>
+                    <div class="funding-amount">€6,000 for 6-month visiting researcher position</div>
+                </div>
+                
+                <div class="funding-item">
+                    <div class="funding-header">
+                        <div class="funding-title">Chinese Government Scholarship</div>
+                        <div class="funding-period">2019 - 2021</div>
+                    </div>
+                    <div class="funding-organization">China Scholarship Council via Beijing University of Posts and Telecommunications</div>
+                    <div class="funding-amount">Full tuition waiver + monthly living allowance (2 years)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Publications Section -->
     <section class="publications-section" id="publications">
         <div class="section-container">
@@ -846,53 +944,6 @@
                         <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0012350400003660" target="_blank" rel="noopener noreferrer">PDF</a><span class="link-separator">•</span><a href="https://github.com/intelligolabs/in_and_out" target="_blank" rel="noopener noreferrer">Code</a>
                     </div>
                 </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section class="skills-section" id="skills">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Technical Expertise</h2>
-            </div>
-            <div class="skills-grid fade-in">
-                <div class="skill-category">
-                    <h3>Research Areas</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">Machine Learning</div>
-                        <div class="skill-item">Computer Vision</div>
-                        <div class="skill-item">Anomaly Detection</div>
-                        <div class="skill-item">Natural Language Processing</div>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Programming Languages</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">Python</div>
-                        <div class="skill-item">C++</div>
-                        <div class="skill-item">JavaScript</div>
-                        <div class="skill-item">Bash/Shell Scripting</div>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Frameworks & Libraries</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">PyTorch</div>
-                        <div class="skill-item">TensorFlow</div>
-                        <div class="skill-item">Scikit-learn</div>
-                        <div class="skill-item">OpenCV</div>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Tools & Technologies</h3>
-                    <div class="skill-items">
-                        <div class="skill-item">Git/GitHub</div>
-                        <div class="skill-item">LaTeX</div>
-                        <div class="skill-item">Jupyter Notebooks</div>
-                        <div class="skill-item">Linux/Unix</div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -1422,22 +1473,22 @@
             
             const funding = [
                 { 
-                    title: "PNRR Funding for PhD", 
+                    title: "PNRR PhD Scholarship", 
                     period: "2022–2025", 
-                    org: "University of Verona",
-                    amount: "Full tuition + €16,500/year stipend"
+                    org: "Italian Ministry of University and Research via University of Verona",
+                    amount: "Full tuition + €16,500/year stipend (3 years)"
                 },
                 { 
-                    title: "Mobility Research Grant", 
-                    period: "2025", 
-                    org: "University of Ljubljana",
-                    amount: "€6,000"
+                    title: "Research Mobility Grant", 
+                    period: "Jun–Dec 2025", 
+                    org: "University of Ljubljana, Slovenia",
+                    amount: "€6,000 for 6-month visiting researcher position"
                 },
                 { 
                     title: "Chinese Government Scholarship", 
                     period: "2019–2021", 
-                    org: "Beijing University of Posts and Telecommunications",
-                    amount: "Full tuition + living allowance"
+                    org: "China Scholarship Council via Beijing University of Posts and Telecommunications",
+                    amount: "Full tuition waiver + monthly living allowance (2 years)"
                 }
             ];
             
