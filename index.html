@@ -304,7 +304,7 @@
             margin-bottom: 0;
         }
 
-        /* ==================== FUNDING & GRANTS SECTION (Timeline style) ==================== */
+        /* ==================== FUNDING & GRANTS SECTION (Simple bullet list) ==================== */
         .funding-section { 
             padding: 70px 3rem; 
             background: var(--bg-primary); 
@@ -313,72 +313,30 @@
         .funding-list {
             display: flex;
             flex-direction: column;
-            gap: 0;
+            gap: 20px;
             max-width: 1200px;
-            position: relative;
-            padding-left: 50px;
-        }
-        
-        /* Vertical timeline line */
-        .funding-list::before {
-            content: '';
-            position: absolute;
-            left: 20px;
-            top: 20px;
-            bottom: 20px;
-            width: 2px;
-            background: var(--border-light);
         }
         
         .funding-item {
-            display: flex;
-            gap: 30px;
-            padding: 15px 0;
-            transition: all 0.3s ease;
+            padding-left: 25px;
             position: relative;
         }
         
-        /* Timeline dot */
+        /* Bullet point */
         .funding-item::before {
-            content: '';
+            content: '▸';
             position: absolute;
-            left: -36px;
-            top: 20px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: white;
-            border: 3px solid var(--accent);
-            z-index: 1;
-            transition: all 0.3s ease;
-        }
-        
-        .funding-item:hover::before {
-            background: var(--accent);
-            box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.1);
-        }
-        
-        .funding-period {
-            min-width: 140px;
-            font-size: 0.85rem;
+            left: 0;
+            top: 0;
             color: var(--accent);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            flex-shrink: 0;
-            padding-top: 2px;
-        }
-        
-        .funding-content {
-            flex: 1;
+            font-size: 1.1rem;
         }
         
         .funding-title {
             font-size: 1.1rem;
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
         
         .funding-organization {
@@ -389,7 +347,7 @@
         }
         
         .funding-amount {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
@@ -536,13 +494,6 @@
                 gap: 10px;
             }
             .exp-period {
-                min-width: auto;
-            }
-            .funding-item {
-                flex-direction: column;
-                gap: 10px;
-            }
-            .funding-period {
                 min-width: auto;
             }
             .pub-header-line {
@@ -795,30 +746,21 @@
     
             <div class="funding-list fade-in">
                 <div class="funding-item">
-                    <div class="funding-period">2022 - 2025</div>
-                    <div class="funding-content">
-                        <div class="funding-title">PNRR PhD Scholarship</div>
-                        <div class="funding-organization">Italian Ministry of University and Research via University of Verona</div>
-                        <div class="funding-amount">Full tuition + €16,500/year stipend (3 years)</div>
-                    </div>
+                    <div class="funding-title">PNRR PhD Scholarship (2022–2025)</div>
+                    <div class="funding-organization">Italian Ministry of University and Research via University of Verona</div>
+                    <div class="funding-amount">Full tuition + €16,500/year stipend (3 years)</div>
                 </div>
                 
                 <div class="funding-item">
-                    <div class="funding-period">Jun - Dec 2025</div>
-                    <div class="funding-content">
-                        <div class="funding-title">Research Mobility Grant</div>
-                        <div class="funding-organization">University of Ljubljana, Slovenia</div>
-                        <div class="funding-amount">€6,000 for 6-month visiting researcher position</div>
-                    </div>
+                    <div class="funding-title">Research Mobility Grant (Jun–Dec 2025)</div>
+                    <div class="funding-organization">University of Ljubljana, Slovenia</div>
+                    <div class="funding-amount">€6,000 for 6-month visiting researcher position</div>
                 </div>
                 
                 <div class="funding-item">
-                    <div class="funding-period">2019 - 2021</div>
-                    <div class="funding-content">
-                        <div class="funding-title">Chinese Government Scholarship</div>
-                        <div class="funding-organization">China Scholarship Council via Beijing University of Posts and Telecommunications</div>
-                        <div class="funding-amount">Full tuition waiver + monthly living allowance (2 years)</div>
-                    </div>
+                    <div class="funding-title">Chinese Government Scholarship (2019–2021)</div>
+                    <div class="funding-organization">China Scholarship Council via Beijing University of Posts and Telecommunications</div>
+                    <div class="funding-amount">Full tuition waiver + monthly living allowance (2 years)</div>
                 </div>
             </div>
         </div>
