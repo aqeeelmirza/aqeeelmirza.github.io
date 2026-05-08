@@ -6,7 +6,6 @@
     <title>Muhammad Aqeel</title>
     <meta name="description" content="Postdoctoral Research Fellow at the University of Verona working on unsupervised anomaly detection for industrial inspection.">
 
-    <!-- Open Graph for social sharing -->
     <meta property="og:title" content="Muhammad Aqeel">
     <meta property="og:description" content="Postdoctoral Research Fellow at the University of Verona working on unsupervised anomaly detection for industrial inspection.">
     <meta property="og:type" content="website">
@@ -32,8 +31,8 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
             background: var(--bg);
             color: var(--text-primary);
-            line-height: 1.6;
-            font-size: 15px;
+            line-height: 1.65;
+            font-size: 16px;
         }
 
         a {
@@ -52,6 +51,7 @@
             -webkit-backdrop-filter: blur(8px);
             border-bottom: 1px solid var(--border);
             z-index: 100;
+            transition: padding 0.2s ease;
         }
 
         .nav-container {
@@ -64,7 +64,7 @@
         }
 
         .nav-brand {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 500;
             color: var(--text-primary);
             cursor: pointer;
@@ -74,11 +74,13 @@
             display: flex;
             gap: 4px;
             list-style: none;
+            align-items: center;
+            transition: opacity 0.25s ease;
         }
 
         .nav-link {
             color: var(--text-secondary);
-            font-size: 13.5px;
+            font-size: 14px;
             padding: 6px 12px;
             border-radius: 6px;
             transition: all 0.2s ease;
@@ -96,25 +98,61 @@
             font-weight: 500;
         }
 
+        /* Hamburger - hidden by default on desktop, shown when scrolled or on mobile */
         .hamburger {
             display: none;
             flex-direction: column;
             cursor: pointer;
             background: none;
             border: none;
-            padding: 6px;
+            padding: 8px;
+            margin-left: 12px;
         }
         .hamburger span {
-            width: 20px;
+            width: 22px;
             height: 2px;
             background: var(--text-primary);
-            margin: 2px 0;
+            margin: 2.5px 0;
             transition: 0.3s;
             border-radius: 2px;
         }
-        .hamburger.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 5px); }
+
+        /* When body has scrolled-state, hide menu items, show hamburger */
+        body.scrolled .nav-menu .nav-link-item {
+            display: none;
+        }
+        body.scrolled .hamburger {
+            display: flex;
+        }
+
+        /* When hamburger menu is open (scrolled state) */
+        body.scrolled .nav-menu.menu-open {
+            position: absolute;
+            top: 100%;
+            right: 32px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            padding: 8px;
+            flex-direction: column;
+            gap: 0;
+            min-width: 160px;
+            align-items: stretch;
+        }
+        body.scrolled .nav-menu.menu-open .nav-link-item {
+            display: block;
+        }
+        body.scrolled .nav-menu.menu-open .nav-link {
+            display: block;
+            padding: 10px 14px;
+            border-radius: 4px;
+        }
+
+        /* Hamburger icon transformation when menu open */
+        .hamburger.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
         .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-4px, -4px); }
+        .hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
 
         /* ===== Main ===== */
         main {
@@ -165,11 +203,11 @@
             display: inline-flex;
             align-items: center;
             gap: 7px;
-            font-size: 13.5px;
+            font-size: 14px;
             font-weight: 500;
             color: white;
             background: var(--accent);
-            padding: 10px 20px;
+            padding: 10px 22px;
             border-radius: 6px;
             transition: all 0.2s ease;
             box-shadow: 0 1px 2px rgba(30, 111, 186, 0.2);
@@ -180,21 +218,61 @@
             transform: translateY(-1px);
             box-shadow: 0 3px 8px rgba(30, 111, 186, 0.3);
         }
-        .cv-link svg { width: 14px; height: 14px; }
+        .cv-link svg { width: 15px; height: 15px; }
+
+        .header-info {
+            flex: 1;
+            min-width: 0;
+            padding-top: 6px;
+        }
+
+        .name {
+            font-size: 40px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+            line-height: 1.05;
+        }
+
+        .affiliation {
+            font-size: 15.5px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+        .affiliation strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .highlight-banner {
+            display: inline-block;
+            font-size: 14px;
+            color: var(--text-secondary);
+            background: #f4f8fc;
+            border: 1px solid #d8e6f3;
+            padding: 7px 14px;
+            border-radius: 6px;
+            line-height: 1.4;
+            margin-bottom: 18px;
+        }
+        .highlight-banner strong {
+            color: var(--accent);
+            font-weight: 600;
+        }
 
         .contact-icons {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
-            justify-content: center;
         }
 
         .contact-icon {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 36px;
-            height: 36px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             color: var(--text-secondary);
             background: transparent;
@@ -208,58 +286,8 @@
             text-decoration: none;
             transform: translateY(-1px);
         }
-        .contact-icon svg {
-            width: 16px;
-            height: 16px;
-        }
+        .contact-icon svg { width: 17px; height: 17px; }
         .scholar-icon { fill: currentColor; stroke: none; }
-
-        .header-info {
-            flex: 1;
-            min-width: 0;
-            padding-top: 6px;
-        }
-
-        .name {
-            font-size: 38px;
-            font-weight: 500;
-            margin-bottom: 10px;
-            letter-spacing: -0.02em;
-            line-height: 1.05;
-        }
-
-        .tagline {
-            font-size: 17px;
-            color: var(--text-primary);
-            margin-bottom: 14px;
-            line-height: 1.45;
-        }
-
-        .affiliation {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 18px;
-        }
-        .affiliation strong {
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-
-        .highlight-banner {
-            display: inline-block;
-            font-size: 13px;
-            color: var(--text-secondary);
-            background: #f4f8fc;
-            border: 1px solid #d8e6f3;
-            padding: 6px 12px;
-            border-radius: 6px;
-            line-height: 1.4;
-        }
-        .highlight-banner strong {
-            color: var(--accent);
-            font-weight: 600;
-        }
 
         /* ===== Bio ===== */
         .bio {
@@ -267,7 +295,7 @@
         }
 
         .bio p {
-            font-size: 15.5px;
+            font-size: 16.5px;
             line-height: 1.78;
             color: var(--text-primary);
             margin-bottom: 14px;
@@ -276,14 +304,14 @@
 
         /* ===== Section ===== */
         section.content-section {
-            margin-bottom: 44px;
+            margin-bottom: 48px;
         }
 
         .section-title {
-            font-size: 17px;
+            font-size: 19px;
             font-weight: 500;
-            margin-bottom: 18px;
-            padding-bottom: 7px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
             border-bottom: 1px solid var(--border);
         }
 
@@ -291,65 +319,73 @@
         .news-item {
             display: flex;
             gap: 14px;
-            font-size: 14px;
+            font-size: 15px;
             line-height: 1.6;
-            margin-bottom: 9px;
+            margin-bottom: 11px;
+            align-items: flex-start;
         }
         .news-date {
             color: var(--text-tertiary);
             flex-shrink: 0;
             width: 95px;
-            font-size: 13px;
-            padding-top: 1px;
+            font-size: 13.5px;
+            padding-top: 2px;
         }
+        .news-icon {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -1px;
+        }
+        .news-icon svg {
+            width: 14px;
+            height: 14px;
+        }
+        .news-icon.paper { background: #e8f0f9; color: #155a99; }
+        .news-icon.role { background: #e8f5e8; color: #1f6f1f; }
+        .news-icon.visit { background: #f5e8f5; color: #7a2a7a; }
+        .news-icon.degree { background: #fef3e8; color: #92520a; }
+        .news-icon.award { background: #fff5d9; color: #8a6708; }
+        .news-icon.talk { background: #fde8e8; color: #9a2a2a; }
+
         .news-content {
             color: var(--text-primary);
             flex: 1;
+            padding-top: 3px;
         }
-        .news-tag {
-            display: inline-block;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 1px 7px;
-            border-radius: 3px;
-            margin-right: 6px;
-            vertical-align: 1px;
-            letter-spacing: 0.02em;
-        }
-        .tag-paper { background: #e8f0f9; color: #155a99; }
-        .tag-talk { background: #fef3e8; color: #92520a; }
-        .tag-position { background: #e8f5e8; color: #1f6f1f; }
-        .tag-visit { background: #f5e8f5; color: #7a2a7a; }
 
-        .older-news {
-            display: none;
-        }
+        .older-news { display: none; }
         .older-news.show { display: block; }
 
         .toggle-news {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--accent);
             background: none;
             border: none;
             cursor: pointer;
-            padding: 6px 0 0 109px;
+            padding: 8px 0 0 151px;
             font-family: inherit;
+            font-weight: 500;
         }
         .toggle-news:hover { text-decoration: underline; }
 
-        /* ===== Selected Publications ===== */
+        /* ===== Selected Publications - BIGGER thumbnails ===== */
         .pub-entry {
             display: flex;
-            gap: 18px;
-            margin-bottom: 22px;
+            gap: 22px;
+            margin-bottom: 26px;
             align-items: flex-start;
         }
 
         .pub-thumb {
-            width: 160px;
-            height: 100px;
+            width: 200px;
+            height: 130px;
             flex-shrink: 0;
-            border-radius: 6px;
+            border-radius: 8px;
             background: #fafafa;
             border: 1px solid var(--border);
             overflow: hidden;
@@ -357,37 +393,37 @@
             align-items: center;
             justify-content: center;
             color: var(--text-tertiary);
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
         }
         .pub-entry:hover .pub-thumb {
             transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
         }
         .pub-thumb img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        .pub-thumb svg.placeholder { width: 28px; height: 28px; }
 
         .pub-content {
             flex: 1;
             min-width: 0;
+            padding-top: 4px;
         }
 
         .pub-title {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 500;
             line-height: 1.4;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             color: var(--text-primary);
         }
 
         .pub-authors {
-            font-size: 13.5px;
+            font-size: 14.5px;
             color: var(--text-secondary);
             line-height: 1.5;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
         }
         .author-self {
             font-weight: 600;
@@ -395,7 +431,7 @@
         }
 
         .pub-venue {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-secondary);
             line-height: 1.5;
         }
@@ -406,9 +442,9 @@
         }
 
         .see-all {
-            font-size: 13.5px;
-            margin-top: 6px;
-            padding-left: 178px;
+            font-size: 14.5px;
+            margin-top: 8px;
+            padding-left: 222px;
         }
 
         /* ===== Subpages ===== */
@@ -416,46 +452,47 @@
         .page-section.active { display: block; }
 
         .page-title {
-            font-size: 30px;
+            font-size: 32px;
             font-weight: 500;
-            margin-bottom: 22px;
+            margin-bottom: 24px;
             letter-spacing: -0.02em;
         }
 
         .page-intro {
-            font-size: 14px;
+            font-size: 15px;
             color: var(--text-secondary);
-            margin-bottom: 26px;
+            margin-bottom: 28px;
             line-height: 1.6;
         }
 
         .year-heading {
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 500;
-            margin: 28px 0 14px;
-            padding-bottom: 7px;
+            margin: 30px 0 16px;
+            padding-bottom: 8px;
             border-bottom: 1px solid var(--border);
         }
         .year-heading:first-child { margin-top: 0; }
 
-        .pub-entry-flat { margin-bottom: 18px; }
+        .pub-entry-flat { margin-bottom: 20px; }
         .pub-entry-flat:last-child { margin-bottom: 0; }
+        .pub-entry-flat .pub-title { font-size: 15.5px; }
 
         .pub-filters {
             display: flex;
             gap: 8px;
-            margin-bottom: 26px;
+            margin-bottom: 28px;
             flex-wrap: wrap;
         }
 
         .pub-filter-btn {
-            padding: 6px 14px;
+            padding: 7px 16px;
             background: transparent;
             color: var(--text-secondary);
             border: 1px solid var(--border);
             border-radius: 6px;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 14px;
             font-family: inherit;
             transition: all 0.2s ease;
         }
@@ -469,43 +506,43 @@
             border-color: var(--text-primary);
         }
 
-        /* ===== Timeline (Education / Experience / Projects) ===== */
+        /* ===== Timeline ===== */
         .timeline-item {
             display: flex;
-            gap: 20px;
-            margin-bottom: 24px;
+            gap: 22px;
+            margin-bottom: 26px;
         }
         .timeline-item:last-child { margin-bottom: 0; }
 
         .timeline-period {
             color: var(--text-tertiary);
-            font-size: 13px;
+            font-size: 14px;
             flex-shrink: 0;
-            width: 140px;
+            width: 145px;
             padding-top: 2px;
         }
 
         .timeline-content { flex: 1; min-width: 0; }
 
         .timeline-title {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 500;
             color: var(--text-primary);
-            margin-bottom: 3px;
+            margin-bottom: 4px;
         }
 
         .timeline-org {
-            font-size: 13.5px;
+            font-size: 14.5px;
             color: var(--text-secondary);
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
         .timeline-org a { color: inherit; }
         .timeline-org a:hover { color: var(--accent); }
 
         .timeline-detail {
-            font-size: 13px;
+            font-size: 13.5px;
             color: var(--text-tertiary);
-            line-height: 1.55;
+            line-height: 1.6;
         }
 
         /* ===== Footer ===== */
@@ -514,33 +551,38 @@
             margin: 0 auto;
             padding: 32px;
             border-top: 1px solid var(--border);
-            font-size: 12px;
+            font-size: 13px;
             color: var(--text-tertiary);
             text-align: center;
         }
 
         /* ===== Mobile ===== */
         @media (max-width: 760px) {
-            .hamburger { display: flex; }
-            .nav-menu {
+            /* On mobile, always use hamburger */
+            .hamburger { display: flex !important; }
+            .nav-menu .nav-link-item { display: none; }
+            .nav-menu.menu-open {
                 position: absolute;
                 top: 100%;
-                left: 0;
-                right: 0;
-                flex-direction: column;
+                right: 20px;
                 background: var(--bg);
-                border-bottom: 1px solid var(--border);
-                padding: 8px 0;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+                padding: 8px;
+                flex-direction: column;
                 gap: 0;
-                display: none;
+                min-width: 160px;
+                align-items: stretch;
             }
-            .nav-menu.active { display: flex; }
-            .nav-menu li { width: 100%; }
-            .nav-link {
+            .nav-menu.menu-open .nav-link-item { display: block; }
+            .nav-menu.menu-open .nav-link {
                 display: block;
-                padding: 12px 32px;
-                border-radius: 0;
+                padding: 10px 14px;
+                border-radius: 4px;
             }
+            .nav-container { padding: 14px 20px; }
+
             main { padding: 36px 20px 60px; }
             .header {
                 flex-direction: column;
@@ -549,11 +591,11 @@
                 gap: 26px;
             }
             .header-info { padding-top: 0; }
-            .name { font-size: 28px; }
-            .tagline { font-size: 15.5px; }
+            .name { font-size: 30px; }
             .profile-image { width: 140px; height: 140px; font-size: 48px; }
+            .contact-icons { justify-content: center; }
             .pub-entry { flex-direction: column; }
-            .pub-thumb { width: 100%; height: 180px; }
+            .pub-thumb { width: 100%; height: 200px; }
             .see-all { padding-left: 0; }
             .timeline-item { flex-direction: column; gap: 6px; }
             .timeline-period { width: auto; }
@@ -567,16 +609,16 @@
     <nav>
         <div class="nav-container">
             <div class="nav-brand" onclick="showPage('home')">Muhammad Aqeel</div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-link-item"><span class="nav-link active" data-page="home">Home</span></li>
+                <li class="nav-link-item"><span class="nav-link" data-page="publications">Publications</span></li>
+                <li class="nav-link-item"><span class="nav-link" data-page="projects">Projects</span></li>
+                <li class="nav-link-item"><span class="nav-link" data-page="education">Education</span></li>
+                <li class="nav-link-item"><span class="nav-link" data-page="experience">Experience</span></li>
+            </ul>
             <button class="hamburger" id="hamburger" aria-label="Menu">
                 <span></span><span></span><span></span>
             </button>
-            <ul class="nav-menu" id="navMenu">
-                <li><span class="nav-link active" data-page="home">Home</span></li>
-                <li><span class="nav-link" data-page="publications">Publications</span></li>
-                <li><span class="nav-link" data-page="projects">Projects</span></li>
-                <li><span class="nav-link" data-page="education">Education</span></li>
-                <li><span class="nav-link" data-page="experience">Experience</span></li>
-            </ul>
         </div>
     </nav>
 
@@ -599,6 +641,16 @@
                         </svg>
                         Download CV
                     </a>
+                </div>
+                <div class="header-info">
+                    <h1 class="name">Muhammad Aqeel</h1>
+                    <p class="affiliation">
+                        <strong>Postdoctoral Research Fellow</strong><br>
+                        Department of Computer Science · University of Verona, Italy
+                    </p>
+                    <div class="highlight-banner">
+                        <strong>New (2026):</strong> Two papers accepted at ICIP and ICPR.
+                    </div>
                     <div class="contact-icons">
                         <a href="mailto:muhammad.aqeel@univr.it" class="contact-icon" title="Email" aria-label="Email">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -630,17 +682,6 @@
                         </a>
                     </div>
                 </div>
-                <div class="header-info">
-                    <h1 class="name">Muhammad Aqeel</h1>
-                    <p class="tagline">Working on unsupervised and zero-shot anomaly detection for industrial inspection.</p>
-                    <p class="affiliation">
-                        <strong>Postdoctoral Research Fellow</strong><br>
-                        Department of Computer Science · University of Verona, Italy
-                    </p>
-                    <div class="highlight-banner">
-                        <strong>New (2026):</strong> Two papers accepted at ICIP and ICPR.
-                    </div>
-                </div>
             </div>
 
             <div class="bio">
@@ -650,31 +691,88 @@
 
             <section class="content-section">
                 <h2 class="section-title">News</h2>
+
                 <div class="news-item">
                     <span class="news-date">Apr 2026</span>
-                    <span class="news-content"><span class="news-tag tag-paper">Paper</span>AVA-DINO accepted at ICIP 2026.</span>
+                    <span class="news-icon paper" title="Paper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    </span>
+                    <span class="news-content"><strong>AVA-DINO</strong> accepted at ICIP 2026.</span>
                 </div>
+
                 <div class="news-item">
                     <span class="news-date">Mar 2026</span>
-                    <span class="news-content"><span class="news-tag tag-paper">Paper</span>ClipSum accepted at ICPR 2026.</span>
+                    <span class="news-icon paper" title="Paper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    </span>
+                    <span class="news-content"><strong>ClipSum</strong> accepted at ICPR 2026.</span>
                 </div>
+
                 <div class="news-item">
                     <span class="news-date">Mar 2026</span>
-                    <span class="news-content"><span class="news-tag tag-position">New role</span>Started as Postdoctoral Research Fellow at the University of Verona.</span>
+                    <span class="news-icon role" title="New role">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </span>
+                    <span class="news-content">Started as <strong>Postdoctoral Research Fellow</strong> at the University of Verona.</span>
                 </div>
+
                 <div class="news-item">
                     <span class="news-date">Feb 2026</span>
-                    <span class="news-content"><span class="news-tag tag-position">PhD</span>Successfully defended my PhD at the University of Verona.</span>
+                    <span class="news-icon degree" title="PhD">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                    </span>
+                    <span class="news-content">Successfully <strong>defended my PhD</strong> at the University of Verona.</span>
                 </div>
 
                 <div class="older-news" id="olderNews">
                     <div class="news-item">
                         <span class="news-date">Jul 2025</span>
-                        <span class="news-content"><span class="news-tag tag-paper">Paper</span>CoMet accepted at ICCV 2025.</span>
+                        <span class="news-icon paper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        </span>
+                        <span class="news-content"><strong>CoMet</strong> accepted at ICCV 2025; two more papers accepted at ICCV 2025 Workshops (both Oral).</span>
                     </div>
                     <div class="news-item">
                         <span class="news-date">Jun 2025</span>
-                        <span class="news-content"><span class="news-tag tag-visit">Visit</span>Started a 6-month research stay at the University of Ljubljana, Slovenia.</span>
+                        <span class="news-icon visit">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+                        </span>
+                        <span class="news-content">Started a <strong>6-month research stay</strong> at the University of Ljubljana, Slovenia.</span>
+                    </div>
+                    <div class="news-item">
+                        <span class="news-date">Sep 2024</span>
+                        <span class="news-icon paper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        </span>
+                        <span class="news-content">Paper accepted at <strong>ECCV 2024 Workshops (Oral)</strong>.</span>
+                    </div>
+                    <div class="news-item">
+                        <span class="news-date">Jul 2024</span>
+                        <span class="news-icon paper">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                        </span>
+                        <span class="news-content">Paper accepted at <strong>DeLTA 2024 (Oral)</strong>.</span>
+                    </div>
+                    <div class="news-item">
+                        <span class="news-date">Dec 2022</span>
+                        <span class="news-icon role">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        </span>
+                        <span class="news-content">Started <strong>PhD in Computer Science</strong> at the University of Verona, Italy.</span>
+                    </div>
+                    <div class="news-item">
+                        <span class="news-date">Jun 2021</span>
+                        <span class="news-icon degree">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                        </span>
+                        <span class="news-content">Graduated with <strong>Master's in Computer Science</strong> from BUPT, Beijing.</span>
+                    </div>
+                    <div class="news-item">
+                        <span class="news-date">Sep 2019</span>
+                        <span class="news-icon role">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                        </span>
+                        <span class="news-content">Started <strong>Master's in Computer Science</strong> at Beijing University of Posts and Telecommunications, China (CSC scholarship).</span>
                     </div>
                 </div>
 
@@ -701,7 +799,7 @@
                     </div>
                     <div class="pub-content">
                         <p class="pub-title">Multimodal Abstractive Summarization of Instructional Videos with Vision-Language Models</p>
-                        <p class="pub-authors">Maham Nazir, Ruichen Zhang, <span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
+                        <p class="pub-authors">Maham Nazir, Richong Zhang, <span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
                         <p class="pub-venue"><em>ICPR 2026</em></p>
                     </div>
                 </div>
@@ -766,7 +864,7 @@
 
                 <div class="pub-entry-flat" data-featured="true">
                     <p class="pub-title">Multimodal Abstractive Summarization of Instructional Videos with Vision-Language Models</p>
-                    <p class="pub-authors">Maham Nazir, Ruichen Zhang, <span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
+                    <p class="pub-authors">Maham Nazir, Richong Zhang, <span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
                     <p class="pub-venue"><em>International Conference on Pattern Recognition (ICPR) 2026</em></p>
                 </div>
 
@@ -969,10 +1067,34 @@
     <script>
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
-        hamburger.addEventListener('click', () => {
+
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
             hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
+            navMenu.classList.toggle('menu-open');
         });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('menu-open');
+            }
+        });
+
+        // Scroll detection: collapse menu into hamburger after scrolling
+        let scrollThreshold = 80;
+        function handleScroll() {
+            if (window.scrollY > scrollThreshold) {
+                document.body.classList.add('scrolled');
+            } else {
+                document.body.classList.remove('scrolled');
+                // Also close any open menu when going back to top
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('menu-open');
+            }
+        }
+        window.addEventListener('scroll', handleScroll, { passive: true });
 
         function showPage(pageName) {
             document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
@@ -983,7 +1105,7 @@
             });
             window.scrollTo({ top: 0, behavior: 'smooth' });
             hamburger.classList.remove('active');
-            navMenu.classList.remove('active');
+            navMenu.classList.remove('menu-open');
         }
 
         document.querySelectorAll('.nav-link').forEach(link => {
