@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muhammad Aqeel</title>
+    <meta name="description" content="Postdoctoral Research Fellow at the University of Verona working on unsupervised anomaly detection for industrial inspection.">
+
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="Muhammad Aqeel">
+    <meta property="og:description" content="Postdoctoral Research Fellow at the University of Verona working on unsupervised anomaly detection for industrial inspection.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="PPP.JPG">
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -13,6 +21,7 @@
             --text-secondary: #555555;
             --text-tertiary: #888888;
             --accent: #1e6fba;
+            --accent-dark: #155a99;
             --border: rgba(0, 0, 0, 0.08);
             --hover-bg: #fafafa;
         }
@@ -34,16 +43,19 @@
         }
         a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
 
+        /* ===== Nav ===== */
         nav {
             position: sticky;
             top: 0;
-            background: var(--bg);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border-bottom: 1px solid var(--border);
             z-index: 100;
         }
 
         .nav-container {
-            max-width: 860px;
+            max-width: 920px;
             margin: 0 auto;
             padding: 14px 32px;
             display: flex;
@@ -52,9 +64,10 @@
         }
 
         .nav-brand {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 500;
             color: var(--text-primary);
+            cursor: pointer;
         }
 
         .nav-menu {
@@ -65,10 +78,11 @@
 
         .nav-link {
             color: var(--text-secondary);
-            font-size: 13px;
-            padding: 6px 10px;
+            font-size: 13.5px;
+            padding: 6px 12px;
             border-radius: 6px;
             transition: all 0.2s ease;
+            cursor: pointer;
         }
 
         .nav-link:hover {
@@ -102,17 +116,19 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-4px, -4px); }
 
+        /* ===== Main ===== */
         main {
-            max-width: 860px;
+            max-width: 920px;
             margin: 0 auto;
-            padding: 56px 32px 80px;
+            padding: 60px 32px 80px;
         }
 
+        /* ===== Header ===== */
         .header {
             display: flex;
-            gap: 36px;
+            gap: 44px;
             align-items: flex-start;
-            margin-bottom: 36px;
+            margin-bottom: 44px;
         }
 
         .profile-block {
@@ -120,12 +136,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 16px;
+            gap: 18px;
         }
 
         .profile-image {
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             overflow: hidden;
             background: #f0f0f0;
@@ -133,7 +149,7 @@
             align-items: center;
             justify-content: center;
             color: var(--text-tertiary);
-            font-size: 54px;
+            font-size: 60px;
             font-weight: 300;
             position: relative;
             border: 1px solid var(--border);
@@ -153,89 +169,136 @@
             font-weight: 500;
             color: white;
             background: var(--accent);
-            padding: 9px 18px;
+            padding: 10px 20px;
             border-radius: 6px;
             transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(30, 111, 186, 0.2);
         }
         .cv-link:hover {
-            background: #155a99;
+            background: var(--accent-dark);
             text-decoration: none;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(30, 111, 186, 0.3);
         }
         .cv-link svg { width: 14px; height: 14px; }
+
+        .contact-icons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .contact-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            color: var(--text-secondary);
+            background: transparent;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+        .contact-icon:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+        .contact-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+        .scholar-icon { fill: currentColor; stroke: none; }
 
         .header-info {
             flex: 1;
             min-width: 0;
-            padding-top: 4px;
+            padding-top: 6px;
         }
 
         .name {
-            font-size: 32px;
+            font-size: 38px;
             font-weight: 500;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             letter-spacing: -0.02em;
-            line-height: 1.1;
+            line-height: 1.05;
         }
 
         .tagline {
-            font-size: 16px;
+            font-size: 17px;
             color: var(--text-primary);
             margin-bottom: 14px;
-            line-height: 1.4;
+            line-height: 1.45;
         }
 
         .affiliation {
             font-size: 14px;
             color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 16px;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+        .affiliation strong {
+            color: var(--text-primary);
+            font-weight: 500;
         }
 
-        .contact-line {
-            font-size: 14px;
+        .highlight-banner {
+            display: inline-block;
+            font-size: 13px;
             color: var(--text-secondary);
+            background: #f4f8fc;
+            border: 1px solid #d8e6f3;
+            padding: 6px 12px;
+            border-radius: 6px;
+            line-height: 1.4;
         }
-        .contact-line a { color: var(--accent); }
-        .contact-line .sep {
-            color: var(--text-tertiary);
-            margin: 0 8px;
+        .highlight-banner strong {
+            color: var(--accent);
+            font-weight: 600;
         }
 
+        /* ===== Bio ===== */
         .bio {
-            margin-bottom: 44px;
+            margin-bottom: 48px;
         }
 
         .bio p {
             font-size: 15.5px;
-            line-height: 1.75;
+            line-height: 1.78;
             color: var(--text-primary);
             margin-bottom: 14px;
         }
         .bio p:last-child { margin-bottom: 0; }
 
+        /* ===== Section ===== */
         section.content-section {
-            margin-bottom: 40px;
+            margin-bottom: 44px;
         }
 
         .section-title {
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 500;
-            margin-bottom: 16px;
-            padding-bottom: 6px;
+            margin-bottom: 18px;
+            padding-bottom: 7px;
             border-bottom: 1px solid var(--border);
         }
 
+        /* ===== News ===== */
         .news-item {
             display: flex;
             gap: 14px;
             font-size: 14px;
             line-height: 1.6;
-            margin-bottom: 8px;
+            margin-bottom: 9px;
         }
         .news-date {
             color: var(--text-tertiary);
             flex-shrink: 0;
-            width: 90px;
+            width: 95px;
             font-size: 13px;
             padding-top: 1px;
         }
@@ -243,17 +306,48 @@
             color: var(--text-primary);
             flex: 1;
         }
+        .news-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 1px 7px;
+            border-radius: 3px;
+            margin-right: 6px;
+            vertical-align: 1px;
+            letter-spacing: 0.02em;
+        }
+        .tag-paper { background: #e8f0f9; color: #155a99; }
+        .tag-talk { background: #fef3e8; color: #92520a; }
+        .tag-position { background: #e8f5e8; color: #1f6f1f; }
+        .tag-visit { background: #f5e8f5; color: #7a2a7a; }
 
+        .older-news {
+            display: none;
+        }
+        .older-news.show { display: block; }
+
+        .toggle-news {
+            font-size: 13px;
+            color: var(--accent);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px 0 0 109px;
+            font-family: inherit;
+        }
+        .toggle-news:hover { text-decoration: underline; }
+
+        /* ===== Selected Publications ===== */
         .pub-entry {
             display: flex;
-            gap: 16px;
-            margin-bottom: 20px;
+            gap: 18px;
+            margin-bottom: 22px;
             align-items: flex-start;
         }
 
         .pub-thumb {
-            width: 150px;
-            height: 95px;
+            width: 160px;
+            height: 100px;
             flex-shrink: 0;
             border-radius: 6px;
             background: #fafafa;
@@ -263,6 +357,11 @@
             align-items: center;
             justify-content: center;
             color: var(--text-tertiary);
+            transition: all 0.2s ease;
+        }
+        .pub-entry:hover .pub-thumb {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
         .pub-thumb img {
             width: 100%;
@@ -277,10 +376,10 @@
         }
 
         .pub-title {
-            font-size: 14.5px;
+            font-size: 15px;
             font-weight: 500;
             line-height: 1.4;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
             color: var(--text-primary);
         }
 
@@ -288,7 +387,7 @@
             font-size: 13.5px;
             color: var(--text-secondary);
             line-height: 1.5;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
         .author-self {
             font-weight: 600;
@@ -303,47 +402,49 @@
         .pub-venue em { font-style: italic; }
         .pub-venue .sep {
             color: var(--text-tertiary);
-            margin: 0 4px;
+            margin: 0 5px;
         }
 
         .see-all {
-            font-size: 13px;
-            margin-top: 4px;
-            padding-left: 166px;
+            font-size: 13.5px;
+            margin-top: 6px;
+            padding-left: 178px;
         }
 
+        /* ===== Subpages ===== */
         .page-section { display: none; }
         .page-section.active { display: block; }
 
         .page-title {
-            font-size: 28px;
+            font-size: 30px;
             font-weight: 500;
-            margin-bottom: 24px;
+            margin-bottom: 22px;
             letter-spacing: -0.02em;
         }
 
         .page-intro {
-            font-size: 13.5px;
+            font-size: 14px;
             color: var(--text-secondary);
-            margin-bottom: 24px;
+            margin-bottom: 26px;
+            line-height: 1.6;
         }
 
         .year-heading {
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 500;
-            margin: 24px 0 12px;
-            padding-bottom: 6px;
+            margin: 28px 0 14px;
+            padding-bottom: 7px;
             border-bottom: 1px solid var(--border);
         }
         .year-heading:first-child { margin-top: 0; }
 
-        .pub-entry-flat { margin-bottom: 16px; }
+        .pub-entry-flat { margin-bottom: 18px; }
         .pub-entry-flat:last-child { margin-bottom: 0; }
 
         .pub-filters {
             display: flex;
             gap: 8px;
-            margin-bottom: 24px;
+            margin-bottom: 26px;
             flex-wrap: wrap;
         }
 
@@ -368,10 +469,11 @@
             border-color: var(--text-primary);
         }
 
+        /* ===== Timeline (Education / Experience / Projects) ===== */
         .timeline-item {
             display: flex;
-            gap: 18px;
-            margin-bottom: 22px;
+            gap: 20px;
+            margin-bottom: 24px;
         }
         .timeline-item:last-child { margin-bottom: 0; }
 
@@ -379,14 +481,14 @@
             color: var(--text-tertiary);
             font-size: 13px;
             flex-shrink: 0;
-            width: 130px;
+            width: 140px;
             padding-top: 2px;
         }
 
         .timeline-content { flex: 1; min-width: 0; }
 
         .timeline-title {
-            font-size: 14.5px;
+            font-size: 15px;
             font-weight: 500;
             color: var(--text-primary);
             margin-bottom: 3px;
@@ -395,7 +497,7 @@
         .timeline-org {
             font-size: 13.5px;
             color: var(--text-secondary);
-            margin-bottom: 3px;
+            margin-bottom: 4px;
         }
         .timeline-org a { color: inherit; }
         .timeline-org a:hover { color: var(--accent); }
@@ -403,11 +505,12 @@
         .timeline-detail {
             font-size: 13px;
             color: var(--text-tertiary);
-            line-height: 1.5;
+            line-height: 1.55;
         }
 
+        /* ===== Footer ===== */
         footer {
-            max-width: 860px;
+            max-width: 920px;
             margin: 0 auto;
             padding: 32px;
             border-top: 1px solid var(--border);
@@ -416,6 +519,7 @@
             text-align: center;
         }
 
+        /* ===== Mobile ===== */
         @media (max-width: 760px) {
             .hamburger { display: flex; }
             .nav-menu {
@@ -434,7 +538,7 @@
             .nav-menu li { width: 100%; }
             .nav-link {
                 display: block;
-                padding: 10px 32px;
+                padding: 12px 32px;
                 border-radius: 0;
             }
             main { padding: 36px 20px 60px; }
@@ -442,17 +546,19 @@
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
-                gap: 24px;
+                gap: 26px;
             }
             .header-info { padding-top: 0; }
-            .name { font-size: 26px; }
-            .tagline { font-size: 15px; }
-            .profile-image { width: 130px; height: 130px; font-size: 44px; }
+            .name { font-size: 28px; }
+            .tagline { font-size: 15.5px; }
+            .profile-image { width: 140px; height: 140px; font-size: 48px; }
             .pub-entry { flex-direction: column; }
-            .pub-thumb { width: 100%; height: 160px; }
+            .pub-thumb { width: 100%; height: 180px; }
             .see-all { padding-left: 0; }
             .timeline-item { flex-direction: column; gap: 6px; }
             .timeline-period { width: auto; }
+            .toggle-news { padding-left: 0; }
+            .news-date { width: 80px; }
         }
     </style>
 </head>
@@ -460,22 +566,23 @@
 
     <nav>
         <div class="nav-container">
-            <div class="nav-brand">Muhammad Aqeel</div>
+            <div class="nav-brand" onclick="showPage('home')">Muhammad Aqeel</div>
             <button class="hamburger" id="hamburger" aria-label="Menu">
                 <span></span><span></span><span></span>
             </button>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
-                <li><a href="#" class="nav-link" data-page="publications">Publications</a></li>
-                <li><a href="#" class="nav-link" data-page="projects">Projects</a></li>
-                <li><a href="#" class="nav-link" data-page="education">Education</a></li>
-                <li><a href="#" class="nav-link" data-page="experience">Experience</a></li>
+                <li><span class="nav-link active" data-page="home">Home</span></li>
+                <li><span class="nav-link" data-page="publications">Publications</span></li>
+                <li><span class="nav-link" data-page="projects">Projects</span></li>
+                <li><span class="nav-link" data-page="education">Education</span></li>
+                <li><span class="nav-link" data-page="experience">Experience</span></li>
             </ul>
         </div>
     </nav>
 
     <main>
 
+        <!-- ============ HOME ============ -->
         <div class="page-section active" id="page-home">
 
             <div class="header">
@@ -484,7 +591,7 @@
                         <span class="profile-initials">MA</span>
                         <img src="PPP.JPG" alt="Muhammad Aqeel">
                     </div>
-                    <a href="cv.pdf" class="cv-link" target="_blank" rel="noopener">
+                    <a href="https://github.com/aqeeelmirza/aqeeelmirza.github.io/raw/main/Muhammad_Aqeel_CV.pdf" class="cv-link" target="_blank" rel="noopener">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
@@ -492,40 +599,86 @@
                         </svg>
                         Download CV
                     </a>
+                    <div class="contact-icons">
+                        <a href="mailto:muhammad.aqeel@univr.it" class="contact-icon" title="Email" aria-label="Email">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </a>
+                        <a href="https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en" class="contact-icon" title="Google Scholar" target="_blank" rel="noopener" aria-label="Google Scholar">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="scholar-icon">
+                                <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/>
+                            </svg>
+                        </a>
+                        <a href="https://github.com/aqeeelmirza" class="contact-icon" title="GitHub" target="_blank" rel="noopener" aria-label="GitHub">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.807 1.305 3.492.998.108-.776.42-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.93 0-1.31.467-2.38 1.236-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/muhammad-aqeel-4378b9170" class="contact-icon" title="LinkedIn" target="_blank" rel="noopener" aria-label="LinkedIn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                        <a href="https://orcid.org/0009-0000-5095-605X" class="contact-icon" title="ORCID" target="_blank" rel="noopener" aria-label="ORCID">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 01-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 4.022-2.484 4.022-3.722 0-2.016-1.284-3.722-4.097-3.722h-2.222z"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
                 <div class="header-info">
                     <h1 class="name">Muhammad Aqeel</h1>
-                    <p class="tagline">Postdoctoral Research Fellow working on unsupervised anomaly detection for industrial manufacturing.</p>
-                    <p class="affiliation">Department of Computer Science · University of Verona, Italy</p>
-                    <p class="contact-line">
-                        <a href="mailto:muhammad.aqeel@univr.it">Email</a><span class="sep">·</span><a href="https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en" target="_blank" rel="noopener">Scholar</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza" target="_blank" rel="noopener">GitHub</a><span class="sep">·</span><a href="https://www.linkedin.com/in/muhammad-aqeel-4378b9170" target="_blank" rel="noopener">LinkedIn</a>
+                    <p class="tagline">Working on unsupervised and zero-shot anomaly detection for industrial inspection.</p>
+                    <p class="affiliation">
+                        <strong>Postdoctoral Research Fellow</strong><br>
+                        Department of Computer Science · University of Verona, Italy
                     </p>
+                    <div class="highlight-banner">
+                        <strong>New (2026):</strong> Two papers accepted at ICIP and ICPR.
+                    </div>
                 </div>
             </div>
 
             <div class="bio">
-                <p>I am a Postdoctoral Research Fellow at the University of Verona, Italy, developing anomaly detection methods for industrial manufacturing systems. I completed my PhD in Computer Science at the University of Verona under the supervision of <a href="http://www.franzsetti.info/" target="_blank" rel="noopener">Francesco Setti</a>, specializing in unsupervised and meta-learning approaches for anomaly detection.</p>
-                <p>I earned my Master's degree from Beijing University of Posts and Telecommunications under <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener">Xiaohong Liu</a>, focusing on natural language processing and sentiment analysis, and my Bachelor's degree from PMAS Arid Agriculture University, Pakistan. My research bridges theoretical AI and practical industrial applications, with a focus on efficient, scalable anomaly detection for real-world manufacturing environments.</p>
+                <p>My research is centered on <strong>anomaly detection for industrial inspection</strong>, with a focus on unsupervised and zero-shot settings where labeled defect data is unavailable. Over time my work has expanded toward generative models and vision–language approaches, motivated by the need to handle data scarcity and improve generalization across unseen defect categories.</p>
+                <p>Recently I have also been exploring video understanding and multimodal summarization, though anomaly detection remains my primary focus. I completed my PhD at the University of Verona under <a href="http://www.franzsetti.info/" target="_blank" rel="noopener">Francesco Setti</a> and <a href="https://profs.scienze.univr.it/~cristanm/" target="_blank" rel="noopener">Marco Cristani</a>, and earned my Master's at Beijing University of Posts and Telecommunications under <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener">Xiaohong Liu</a>.</p>
             </div>
 
             <section class="content-section">
                 <h2 class="section-title">News</h2>
                 <div class="news-item">
-                    <span class="news-date">Sep 2025</span>
-                    <span class="news-content">Two papers accepted at ICCV 2025 Workshops (both Oral).</span>
+                    <span class="news-date">Apr 2026</span>
+                    <span class="news-content"><span class="news-tag tag-paper">Paper</span>AVA-DINO accepted at ICIP 2026.</span>
                 </div>
                 <div class="news-item">
-                    <span class="news-date">Jul 2025</span>
-                    <span class="news-content">Paper accepted at ICCV 2025: <em>Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning</em>.</span>
+                    <span class="news-date">Mar 2026</span>
+                    <span class="news-content"><span class="news-tag tag-paper">Paper</span>ClipSum accepted at ICPR 2026.</span>
                 </div>
                 <div class="news-item">
-                    <span class="news-date">Jun 2025</span>
-                    <span class="news-content">Started a 6-month visiting research stay at the University of Ljubljana, Slovenia.</span>
+                    <span class="news-date">Mar 2026</span>
+                    <span class="news-content"><span class="news-tag tag-position">New role</span>Started as Postdoctoral Research Fellow at the University of Verona.</span>
                 </div>
                 <div class="news-item">
-                    <span class="news-date">May 2025</span>
-                    <span class="news-content">Successfully defended my PhD thesis at the University of Verona.</span>
+                    <span class="news-date">Feb 2026</span>
+                    <span class="news-content"><span class="news-tag tag-position">PhD</span>Successfully defended my PhD at the University of Verona.</span>
                 </div>
+
+                <div class="older-news" id="olderNews">
+                    <div class="news-item">
+                        <span class="news-date">Jul 2025</span>
+                        <span class="news-content"><span class="news-tag tag-paper">Paper</span>CoMet accepted at ICCV 2025.</span>
+                    </div>
+                    <div class="news-item">
+                        <span class="news-date">Jun 2025</span>
+                        <span class="news-content"><span class="news-tag tag-visit">Visit</span>Started a 6-month research stay at the University of Ljubljana, Slovenia.</span>
+                    </div>
+                </div>
+
+                <button class="toggle-news" onclick="toggleNews(this)">Show older news</button>
             </section>
 
             <section class="content-section">
@@ -533,7 +686,29 @@
 
                 <div class="pub-entry">
                     <div class="pub-thumb">
-                        <svg class="placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                        <img src="spubs/Ava-Dino.png" alt="AVA-DINO">
+                    </div>
+                    <div class="pub-content">
+                        <p class="pub-title">Anomaly-Aware Vision-Language Adapters for Zero-Shot Anomaly Detection</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Maham Nazir, Usama Khan, Marco Cristani, Francesco Setti</p>
+                        <p class="pub-venue"><em>ICIP 2026</em></p>
+                    </div>
+                </div>
+
+                <div class="pub-entry">
+                    <div class="pub-thumb">
+                        <img src="spubs/ClipSum.jpg" alt="ClipSum">
+                    </div>
+                    <div class="pub-content">
+                        <p class="pub-title">Multimodal Abstractive Summarization of Instructional Videos with Vision-Language Models</p>
+                        <p class="pub-authors">Maham Nazir, Ruichen Zhang, <span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
+                        <p class="pub-venue"><em>ICPR 2026</em></p>
+                    </div>
+                </div>
+
+                <div class="pub-entry">
+                    <div class="pub-thumb">
+                        <img src="spubs/CoMet.png" alt="CoMet">
                     </div>
                     <div class="pub-content">
                         <p class="pub-title">Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning</p>
@@ -544,29 +719,7 @@
 
                 <div class="pub-entry">
                     <div class="pub-thumb">
-                        <svg class="placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-                    </div>
-                    <div class="pub-content">
-                        <p class="pub-title">Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection in Industrial Inspection</p>
-                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
-                        <p class="pub-venue"><em>ECCV 2024 Workshops (Oral)</em><span class="sep">·</span><a href="https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28" target="_blank" rel="noopener">PDF</a></p>
-                    </div>
-                </div>
-
-                <div class="pub-entry">
-                    <div class="pub-thumb">
-                        <svg class="placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-                    </div>
-                    <div class="pub-content">
-                        <p class="pub-title">A Contrastive Learning-Guided Confident Meta-learning for Zero Shot Anomaly Detection</p>
-                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Danijel Skocaj, Marco Cristani, Francesco Setti</p>
-                        <p class="pub-venue"><em>ICCV 2025 Workshops (Oral)</em><span class="sep">·</span><a href="https://openaccess.thecvf.com/content/ICCV2025W/VISION'25/papers/Aqeel_A_Contrastive_Learning-Guided_Confident_Meta-learning_for_Zero_Shot_Anomaly_Detection_ICCVW_2025_paper.pdf" target="_blank" rel="noopener">PDF</a></p>
-                    </div>
-                </div>
-
-                <div class="pub-entry">
-                    <div class="pub-thumb">
-                        <svg class="placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                        <img src="spubs/RAD.png" alt="RAD">
                     </div>
                     <div class="pub-content">
                         <p class="pub-title">Robust Anomaly Detection in Industrial Environments via Meta-Learning</p>
@@ -577,12 +730,12 @@
 
                 <div class="pub-entry">
                     <div class="pub-thumb">
-                        <svg class="placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                        <img src="spubs/semantic.jpg" alt="Semantic Parsing">
                     </div>
                     <div class="pub-content">
-                        <p class="pub-title">Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control</p>
-                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
-                        <p class="pub-venue"><em>VISAPP 2025 (Oral)</em><span class="sep">·</span><a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912" target="_blank" rel="noopener">PDF</a></p>
+                        <p class="pub-title">Semantic Parsing for Aspect-Based Sentiment Analysis</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
+                        <p class="pub-venue"><em>IEEE Access 2025</em><span class="sep">·</span><a href="https://ieeexplore.ieee.org/abstract/document/11078252" target="_blank" rel="noopener">PDF</a></p>
                     </div>
                 </div>
 
@@ -591,6 +744,7 @@
 
         </div>
 
+        <!-- ============ PUBLICATIONS ============ -->
         <div class="page-section" id="page-publications">
             <h1 class="page-title">Publications</h1>
             <p class="page-intro">See also <a href="https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a> for citation metrics.</p>
@@ -602,10 +756,24 @@
 
             <div id="publicationsList">
 
+                <h2 class="year-heading">2026</h2>
+
+                <div class="pub-entry-flat" data-featured="true">
+                    <p class="pub-title">Anomaly-Aware Vision-Language Adapters for Zero-Shot Anomaly Detection</p>
+                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Maham Nazir, Usama Khan, Marco Cristani, Francesco Setti</p>
+                    <p class="pub-venue"><em>IEEE International Conference on Image Processing (ICIP) 2026</em></p>
+                </div>
+
+                <div class="pub-entry-flat" data-featured="true">
+                    <p class="pub-title">Multimodal Abstractive Summarization of Instructional Videos with Vision-Language Models</p>
+                    <p class="pub-authors">Maham Nazir, Ruichen Zhang, <span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
+                    <p class="pub-venue"><em>International Conference on Pattern Recognition (ICPR) 2026</em></p>
+                </div>
+
                 <h2 class="year-heading">2025</h2>
 
                 <div class="pub-entry-flat" data-featured="false">
-                    <p class="pub-title">Semantic Parsing for Aspect Based Sentiment Analysis</p>
+                    <p class="pub-title">Semantic Parsing for Aspect-Based Sentiment Analysis</p>
                     <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
                     <p class="pub-venue"><em>IEEE Access 2025</em><span class="sep">·</span><a href="https://ieeexplore.ieee.org/abstract/document/11078252" target="_blank" rel="noopener">PDF</a></p>
                 </div>
@@ -649,10 +817,10 @@
                 <div class="pub-entry-flat" data-featured="false">
                     <p class="pub-title">Latent Space Synergy: Text-Guided Data Augmentation for Direct Diffusion Biomedical Segmentation</p>
                     <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Maham Nazir, Zanxi Ruan, Francesco Setti</p>
-                    <p class="pub-venue"><em>ICIAP 2025</em><span class="sep">·</span><a href="https://arxiv.org/abs/2507.15361" target="_blank" rel="noopener">PDF</a></p>
+                    <p class="pub-venue"><em>ICIAP 2025 Workshops</em><span class="sep">·</span><a href="https://arxiv.org/abs/2507.15361" target="_blank" rel="noopener">PDF</a></p>
                 </div>
 
-                <div class="pub-entry-flat" data-featured="true">
+                <div class="pub-entry-flat" data-featured="false">
                     <p class="pub-title">Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control</p>
                     <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
                     <p class="pub-venue"><em>VISAPP 2025 (Oral)</em><span class="sep">·</span><a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912" target="_blank" rel="noopener">PDF</a></p>
@@ -681,6 +849,7 @@
             </div>
         </div>
 
+        <!-- ============ PROJECTS ============ -->
         <div class="page-section" id="page-projects">
             <h1 class="page-title">Projects</h1>
             <p class="page-intro">Funded research projects and grants.</p>
@@ -690,38 +859,39 @@
                 <div class="timeline-content">
                     <p class="timeline-title">PNRR PhD Scholarship</p>
                     <p class="timeline-org">Italian Ministry of University and Research, via University of Verona</p>
-                    <p class="timeline-detail">Role: PhD Fellow · Full tuition + €16,500/year stipend (3 years). National Recovery and Resilience Plan funded doctoral research on industrial anomaly detection.</p>
+                    <p class="timeline-detail">Role: PhD Fellow · Full tuition + €16,500/year stipend (3 years). National Recovery and Resilience Plan funding for doctoral research on industrial anomaly detection.</p>
                 </div>
             </div>
 
             <div class="timeline-item">
-                <span class="timeline-period">Jun – Dec 2025</span>
+                <span class="timeline-period">Jun – Nov 2025</span>
                 <div class="timeline-content">
-                    <p class="timeline-title">Research Mobility Grant</p>
+                    <p class="timeline-title">Mobility Research Grant</p>
                     <p class="timeline-org">University of Ljubljana, Slovenia</p>
-                    <p class="timeline-detail">Role: Visiting Researcher · €6,000 for a 6-month research stay collaborating with Prof. Danijel Skočaj's group on zero-shot anomaly detection.</p>
+                    <p class="timeline-detail">Role: Visiting Researcher · Grant for a 6-month research stay collaborating with Prof. Danijel Skočaj's group on zero-shot anomaly detection.</p>
                 </div>
             </div>
 
             <div class="timeline-item">
                 <span class="timeline-period">2019 – 2021</span>
                 <div class="timeline-content">
-                    <p class="timeline-title">Chinese Government Scholarship</p>
+                    <p class="timeline-title">Chinese Government Scholarship (CSC)</p>
                     <p class="timeline-org">China Scholarship Council, via Beijing University of Posts and Telecommunications</p>
                     <p class="timeline-detail">Role: Scholarship Recipient · Full tuition waiver + monthly living allowance (2 years). Supported MSc research on natural language processing.</p>
                 </div>
             </div>
         </div>
 
+        <!-- ============ EDUCATION ============ -->
         <div class="page-section" id="page-education">
             <h1 class="page-title">Education</h1>
 
             <div class="timeline-item">
-                <span class="timeline-period">2022 – 2025</span>
+                <span class="timeline-period">2022 – 2026</span>
                 <div class="timeline-content">
                     <p class="timeline-title">Ph.D. in Computer Science</p>
                     <p class="timeline-org"><a href="https://www.univr.it" target="_blank" rel="noopener">University of Verona, Italy</a></p>
-                    <p class="timeline-detail">Advisor: Prof. Francesco Setti · Anomaly detection for industrial manufacturing</p>
+                    <p class="timeline-detail">Supervisors: Prof. Francesco Setti & Prof. Marco Cristani · Anomaly detection for industrial manufacturing</p>
                 </div>
             </div>
 
@@ -730,7 +900,7 @@
                 <div class="timeline-content">
                     <p class="timeline-title">M.Sc. in Computer Science</p>
                     <p class="timeline-org"><a href="https://www.bupt.edu.cn" target="_blank" rel="noopener">Beijing University of Posts and Telecommunications, China</a></p>
-                    <p class="timeline-detail">Advisor: Prof. Xiaohong Liu · Natural language processing and sentiment analysis</p>
+                    <p class="timeline-detail">Supervisor: Prof. Xiaohong Liu · Natural language processing and sentiment analysis</p>
                 </div>
             </div>
 
@@ -743,11 +913,12 @@
             </div>
         </div>
 
+        <!-- ============ EXPERIENCE ============ -->
         <div class="page-section" id="page-experience">
             <h1 class="page-title">Experience</h1>
 
             <div class="timeline-item">
-                <span class="timeline-period">2025 – present</span>
+                <span class="timeline-period">2026 – present</span>
                 <div class="timeline-content">
                     <p class="timeline-title">Postdoctoral Research Fellow</p>
                     <p class="timeline-org">University of Verona, Italy</p>
@@ -763,18 +934,11 @@
             </div>
 
             <div class="timeline-item">
-                <span class="timeline-period">Dec 2024 – May 2025</span>
-                <div class="timeline-content">
-                    <p class="timeline-title">Public Service Administrator</p>
-                    <p class="timeline-org">Comune di Ferrara, Italy</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
                 <span class="timeline-period">2023 – 2025</span>
                 <div class="timeline-content">
                     <p class="timeline-title">Teaching Assistant</p>
                     <p class="timeline-org">University of Verona, Italy</p>
+                    <p class="timeline-detail">Computer Vision and Machine Learning, Department of Engineering for Innovation Medicine</p>
                 </div>
             </div>
 
@@ -782,23 +946,16 @@
                 <span class="timeline-period">2021 – 2022</span>
                 <div class="timeline-content">
                     <p class="timeline-title">Research Assistant</p>
-                    <p class="timeline-org">Huazhong University of Science and Technology, China</p>
+                    <p class="timeline-org">Huazhong University of Science and Technology, Wuhan, China</p>
                 </div>
             </div>
 
             <div class="timeline-item">
-                <span class="timeline-period">2018 – 2019</span>
+                <span class="timeline-period">2017 – 2019</span>
                 <div class="timeline-content">
-                    <p class="timeline-title">Software Quality Assurance</p>
-                    <p class="timeline-org">UIIT, Arid Agriculture University, Pakistan</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <span class="timeline-period">2017 – 2018</span>
-                <div class="timeline-content">
-                    <p class="timeline-title">Software Developer</p>
-                    <p class="timeline-org">eConceptions (Pvt) Ltd., Pakistan</p>
+                    <p class="timeline-title">Industry Roles</p>
+                    <p class="timeline-org">Pakistan</p>
+                    <p class="timeline-detail">Software Quality Assurance Engineer at UIIT, Arid Agriculture University · Earlier, Software Developer at eConceptions (Pvt) Ltd.</p>
                 </div>
             </div>
         </div>
@@ -806,7 +963,7 @@
     </main>
 
     <footer>
-        <p>© 2025 Muhammad Aqeel</p>
+        <p>© 2026 Muhammad Aqeel · Last updated April 2026</p>
     </footer>
 
     <script>
@@ -825,14 +982,14 @@
                 link.classList.toggle('active', link.dataset.page === pageName);
             });
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
         }
 
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 showPage(link.dataset.page);
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
             });
         });
 
@@ -864,6 +1021,13 @@
             });
         }
 
+        function toggleNews(btn) {
+            const older = document.getElementById('olderNews');
+            older.classList.toggle('show');
+            btn.textContent = older.classList.contains('show') ? 'Show fewer' : 'Show older news';
+        }
+
+        // Profile image fallback
         window.addEventListener('DOMContentLoaded', () => {
             const img = document.querySelector('.profile-image img');
             const initials = document.querySelector('.profile-initials');
