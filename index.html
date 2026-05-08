@@ -34,7 +34,6 @@
         }
         a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
 
-        /* ===== Navigation ===== */
         nav {
             position: sticky;
             top: 0;
@@ -103,19 +102,17 @@
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-4px, -4px); }
 
-        /* ===== Main Container ===== */
         main {
             max-width: 860px;
             margin: 0 auto;
-            padding: 48px 32px 80px;
+            padding: 56px 32px 80px;
         }
 
-        /* ===== Header (Profile + Bio) ===== */
         .header {
             display: flex;
-            gap: 32px;
+            gap: 36px;
             align-items: flex-start;
-            margin-bottom: 40px;
+            margin-bottom: 36px;
         }
 
         .profile-block {
@@ -123,12 +120,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 14px;
+            gap: 16px;
         }
 
         .profile-image {
-            width: 130px;
-            height: 130px;
+            width: 160px;
+            height: 160px;
             border-radius: 50%;
             overflow: hidden;
             background: #f0f0f0;
@@ -136,7 +133,7 @@
             align-items: center;
             justify-content: center;
             color: var(--text-tertiary);
-            font-size: 44px;
+            font-size: 54px;
             font-weight: 300;
             position: relative;
             border: 1px solid var(--border);
@@ -151,16 +148,17 @@
         .cv-link {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            font-size: 13px;
-            color: var(--accent);
-            padding: 6px 12px;
-            border: 1px solid var(--border);
+            gap: 7px;
+            font-size: 13.5px;
+            font-weight: 500;
+            color: white;
+            background: var(--accent);
+            padding: 9px 18px;
             border-radius: 6px;
             transition: all 0.2s ease;
         }
         .cv-link:hover {
-            border-color: var(--accent);
+            background: #155a99;
             text-decoration: none;
         }
         .cv-link svg { width: 14px; height: 14px; }
@@ -168,55 +166,53 @@
         .header-info {
             flex: 1;
             min-width: 0;
+            padding-top: 4px;
         }
 
         .name {
-            font-size: 24px;
+            font-size: 32px;
             font-weight: 500;
-            margin-bottom: 4px;
-            letter-spacing: -0.01em;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
         }
 
-        .title-line {
+        .tagline {
+            font-size: 16px;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            line-height: 1.4;
+        }
+
+        .affiliation {
             font-size: 14px;
             color: var(--text-secondary);
-            margin-bottom: 4px;
+            line-height: 1.5;
+            margin-bottom: 16px;
         }
 
-        .contact-icons {
-            display: flex;
-            gap: 16px;
-            margin-top: 14px;
-            flex-wrap: wrap;
+        .contact-line {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        .contact-line a { color: var(--accent); }
+        .contact-line .sep {
+            color: var(--text-tertiary);
+            margin: 0 8px;
         }
 
-        .contact-icon-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--accent);
-            font-size: 13px;
-        }
-        .contact-icon-link svg {
-            width: 15px;
-            height: 15px;
-        }
-        .scholar-icon { fill: currentColor; stroke: none; }
-
-        /* ===== Bio paragraphs ===== */
         .bio {
-            margin-bottom: 40px;
+            margin-bottom: 44px;
         }
 
         .bio p {
-            font-size: 15px;
+            font-size: 15.5px;
             line-height: 1.75;
             color: var(--text-primary);
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
         .bio p:last-child { margin-bottom: 0; }
 
-        /* ===== Section ===== */
         section.content-section {
             margin-bottom: 40px;
         }
@@ -229,7 +225,6 @@
             border-bottom: 1px solid var(--border);
         }
 
-        /* ===== News ===== */
         .news-item {
             display: flex;
             gap: 14px;
@@ -249,7 +244,6 @@
             flex: 1;
         }
 
-        /* ===== Selected Publications (with thumbnails) ===== */
         .pub-entry {
             display: flex;
             gap: 16px;
@@ -306,9 +300,7 @@
             color: var(--text-secondary);
             line-height: 1.5;
         }
-        .pub-venue em {
-            font-style: italic;
-        }
+        .pub-venue em { font-style: italic; }
         .pub-venue .sep {
             color: var(--text-tertiary);
             margin: 0 4px;
@@ -320,19 +312,14 @@
             padding-left: 166px;
         }
 
-        /* ===== Subpages (Publications, Projects, Education, etc.) ===== */
-        .page-section {
-            display: none;
-        }
-        .page-section.active {
-            display: block;
-        }
+        .page-section { display: none; }
+        .page-section.active { display: block; }
 
         .page-title {
-            font-size: 22px;
+            font-size: 28px;
             font-weight: 500;
             margin-bottom: 24px;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
         }
 
         .page-intro {
@@ -341,7 +328,6 @@
             margin-bottom: 24px;
         }
 
-        /* Year heading on Publications page */
         .year-heading {
             font-size: 16px;
             font-weight: 500;
@@ -351,12 +337,9 @@
         }
         .year-heading:first-child { margin-top: 0; }
 
-        .pub-entry-flat {
-            margin-bottom: 16px;
-        }
+        .pub-entry-flat { margin-bottom: 16px; }
         .pub-entry-flat:last-child { margin-bottom: 0; }
 
-        /* Filters on publications page */
         .pub-filters {
             display: flex;
             gap: 8px;
@@ -385,7 +368,6 @@
             border-color: var(--text-primary);
         }
 
-        /* ===== Education / Experience / Funding pattern ===== */
         .timeline-item {
             display: flex;
             gap: 18px;
@@ -401,10 +383,7 @@
             padding-top: 2px;
         }
 
-        .timeline-content {
-            flex: 1;
-            min-width: 0;
-        }
+        .timeline-content { flex: 1; min-width: 0; }
 
         .timeline-title {
             font-size: 14.5px;
@@ -424,55 +403,9 @@
         .timeline-detail {
             font-size: 13px;
             color: var(--text-tertiary);
+            line-height: 1.5;
         }
 
-        /* ===== Projects ===== */
-        .project-entry {
-            display: flex;
-            gap: 18px;
-            margin-bottom: 22px;
-            padding-bottom: 22px;
-            border-bottom: 1px solid var(--border);
-        }
-        .project-entry:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
-        }
-
-        .project-thumb {
-            width: 140px;
-            height: 95px;
-            flex-shrink: 0;
-            border-radius: 6px;
-            background: #fafafa;
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-tertiary);
-        }
-        .project-thumb svg { width: 28px; height: 28px; }
-
-        .project-content { flex: 1; min-width: 0; }
-
-        .project-title {
-            font-size: 14.5px;
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        .project-desc {
-            font-size: 13.5px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 6px;
-        }
-
-        .project-links {
-            font-size: 13px;
-        }
-
-        /* ===== Footer ===== */
         footer {
             max-width: 860px;
             margin: 0 auto;
@@ -483,10 +416,8 @@
             text-align: center;
         }
 
-        /* ===== Mobile ===== */
         @media (max-width: 760px) {
             .hamburger { display: flex; }
-
             .nav-menu {
                 position: absolute;
                 top: 100%;
@@ -506,30 +437,21 @@
                 padding: 10px 32px;
                 border-radius: 0;
             }
-
-            main { padding: 32px 20px 60px; }
-
+            main { padding: 36px 20px 60px; }
             .header {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
-                gap: 20px;
+                gap: 24px;
             }
-            .contact-icons { justify-content: center; }
-
-            .pub-entry, .project-entry {
-                flex-direction: column;
-            }
-            .pub-thumb, .project-thumb {
-                width: 100%;
-                height: 160px;
-            }
+            .header-info { padding-top: 0; }
+            .name { font-size: 26px; }
+            .tagline { font-size: 15px; }
+            .profile-image { width: 130px; height: 130px; font-size: 44px; }
+            .pub-entry { flex-direction: column; }
+            .pub-thumb { width: 100%; height: 160px; }
             .see-all { padding-left: 0; }
-
-            .timeline-item {
-                flex-direction: column;
-                gap: 6px;
-            }
+            .timeline-item { flex-direction: column; gap: 6px; }
             .timeline-period { width: auto; }
         }
     </style>
@@ -548,14 +470,12 @@
                 <li><a href="#" class="nav-link" data-page="projects">Projects</a></li>
                 <li><a href="#" class="nav-link" data-page="education">Education</a></li>
                 <li><a href="#" class="nav-link" data-page="experience">Experience</a></li>
-                <li><a href="#" class="nav-link" data-page="funding">Funding</a></li>
             </ul>
         </div>
     </nav>
 
     <main>
 
-        <!-- ============ HOME PAGE ============ -->
         <div class="page-section active" id="page-home">
 
             <div class="header">
@@ -564,7 +484,7 @@
                         <span class="profile-initials">MA</span>
                         <img src="PPP.jpg" alt="Muhammad Aqeel">
                     </div>
-                    <a href="cv.pdf" class="cv-link" target="_blank" rel="noopener" download>
+                    <a href="cv.pdf" class="cv-link" target="_blank" rel="noopener">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
@@ -575,33 +495,11 @@
                 </div>
                 <div class="header-info">
                     <h1 class="name">Muhammad Aqeel</h1>
-                    <p class="title-line">Postdoctoral Research Fellow · Department of Computer Science</p>
-                    <p class="title-line">University of Verona, Italy</p>
-                    <div class="contact-icons">
-                        <a href="mailto:muhammad.aqeel@univr.it" class="contact-icon-link">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                <polyline points="22,6 12,13 2,6"></polyline>
-                            </svg>Email
-                        </a>
-                        <a href="https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en" class="contact-icon-link" target="_blank" rel="noopener">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="scholar-icon">
-                                <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/>
-                            </svg>Scholar
-                        </a>
-                        <a href="https://github.com/aqeeelmirza" class="contact-icon-link" target="_blank" rel="noopener">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.807 1.305 3.492.998.108-.776.42-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.93 0-1.31.467-2.38 1.236-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
-                            </svg>GitHub
-                        </a>
-                        <a href="https://www.linkedin.com/in/muhammad-aqeel-4378b9170" class="contact-icon-link" target="_blank" rel="noopener">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                                <rect x="2" y="9" width="4" height="12"></rect>
-                                <circle cx="4" cy="4" r="2"></circle>
-                            </svg>LinkedIn
-                        </a>
-                    </div>
+                    <p class="tagline">Postdoctoral Research Fellow working on unsupervised anomaly detection for industrial manufacturing.</p>
+                    <p class="affiliation">Department of Computer Science · University of Verona, Italy</p>
+                    <p class="contact-line">
+                        <a href="mailto:muhammad.aqeel@univr.it">Email</a><span class="sep">·</span><a href="https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en" target="_blank" rel="noopener">Scholar</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza" target="_blank" rel="noopener">GitHub</a><span class="sep">·</span><a href="https://www.linkedin.com/in/muhammad-aqeel-4378b9170" target="_blank" rel="noopener">LinkedIn</a>
+                    </p>
                 </div>
             </div>
 
@@ -693,7 +591,6 @@
 
         </div>
 
-        <!-- ============ PUBLICATIONS PAGE ============ -->
         <div class="page-section" id="page-publications">
             <h1 class="page-title">Publications</h1>
             <p class="page-intro">See also <a href="https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a> for citation metrics.</p>
@@ -784,35 +681,38 @@
             </div>
         </div>
 
-        <!-- ============ PROJECTS PAGE ============ -->
         <div class="page-section" id="page-projects">
             <h1 class="page-title">Projects</h1>
-            <p class="page-intro">Open-source code and tools accompanying my research.</p>
+            <p class="page-intro">Funded research projects and grants.</p>
 
-            <div class="project-entry">
-                <div class="project-thumb">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                </div>
-                <div class="project-content">
-                    <p class="project-title">CoMet — Confident Meta-Learning for Anomaly Detection</p>
-                    <p class="project-desc">Reference implementation of our ICCV 2025 paper on truly unsupervised anomaly detection. A meta-learning framework that selects confident pseudo-labels iteratively, removing the need for clean training data.</p>
-                    <p class="project-links"><a href="https://github.com/aqeeelmirza/CoMet" target="_blank" rel="noopener">GitHub</a></p>
+            <div class="timeline-item">
+                <span class="timeline-period">2022 – 2025</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">PNRR PhD Scholarship</p>
+                    <p class="timeline-org">Italian Ministry of University and Research, via University of Verona</p>
+                    <p class="timeline-detail">Role: PhD Fellow · Full tuition + €16,500/year stipend (3 years). National Recovery and Resilience Plan funded doctoral research on industrial anomaly detection.</p>
                 </div>
             </div>
 
-            <div class="project-entry">
-                <div class="project-thumb">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            <div class="timeline-item">
+                <span class="timeline-period">Jun – Dec 2025</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Research Mobility Grant</p>
+                    <p class="timeline-org">University of Ljubljana, Slovenia</p>
+                    <p class="timeline-detail">Role: Visiting Researcher · €6,000 for a 6-month research stay collaborating with Prof. Danijel Skočaj's group on zero-shot anomaly detection.</p>
                 </div>
-                <div class="project-content">
-                    <p class="project-title">In-and-Out — Diffusion-based Augmentation for Surface Defects</p>
-                    <p class="project-desc">Diffusion-based data augmentation pipeline for surface defect detection (VISAPP 2024). Generates synthetic in-distribution defect images to address the data scarcity problem in industrial inspection.</p>
-                    <p class="project-links"><a href="https://github.com/intelligolabs/in_and_out" target="_blank" rel="noopener">GitHub</a></p>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-period">2019 – 2021</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Chinese Government Scholarship</p>
+                    <p class="timeline-org">China Scholarship Council, via Beijing University of Posts and Telecommunications</p>
+                    <p class="timeline-detail">Role: Scholarship Recipient · Full tuition waiver + monthly living allowance (2 years). Supported MSc research on natural language processing.</p>
                 </div>
             </div>
         </div>
 
-        <!-- ============ EDUCATION PAGE ============ -->
         <div class="page-section" id="page-education">
             <h1 class="page-title">Education</h1>
 
@@ -843,7 +743,6 @@
             </div>
         </div>
 
-        <!-- ============ EXPERIENCE PAGE ============ -->
         <div class="page-section" id="page-experience">
             <h1 class="page-title">Experience</h1>
 
@@ -904,38 +803,6 @@
             </div>
         </div>
 
-        <!-- ============ FUNDING PAGE ============ -->
-        <div class="page-section" id="page-funding">
-            <h1 class="page-title">Funding & grants</h1>
-
-            <div class="timeline-item">
-                <span class="timeline-period">2022 – 2025</span>
-                <div class="timeline-content">
-                    <p class="timeline-title">PNRR PhD Scholarship</p>
-                    <p class="timeline-org">Italian Ministry of University and Research, via University of Verona</p>
-                    <p class="timeline-detail">Full tuition + €16,500/year stipend (3 years)</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <span class="timeline-period">Jun – Dec 2025</span>
-                <div class="timeline-content">
-                    <p class="timeline-title">Research Mobility Grant</p>
-                    <p class="timeline-org">University of Ljubljana, Slovenia</p>
-                    <p class="timeline-detail">€6,000 for 6-month visiting researcher position</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <span class="timeline-period">2019 – 2021</span>
-                <div class="timeline-content">
-                    <p class="timeline-title">Chinese Government Scholarship</p>
-                    <p class="timeline-org">China Scholarship Council, via Beijing University of Posts and Telecommunications</p>
-                    <p class="timeline-detail">Full tuition waiver + monthly living allowance (2 years)</p>
-                </div>
-            </div>
-        </div>
-
     </main>
 
     <footer>
@@ -943,7 +810,6 @@
     </footer>
 
     <script>
-        // Hamburger toggle
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
         hamburger.addEventListener('click', () => {
@@ -951,30 +817,25 @@
             navMenu.classList.toggle('active');
         });
 
-        // Page switching
         function showPage(pageName) {
             document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
             const target = document.getElementById('page-' + pageName);
             if (target) target.classList.add('active');
-
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.toggle('active', link.dataset.page === pageName);
             });
-
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                const page = link.dataset.page;
-                showPage(page);
+                showPage(link.dataset.page);
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
             });
         });
 
-        // "See all publications" link
         document.querySelectorAll('.show-all-pubs').forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -982,20 +843,13 @@
             });
         });
 
-        // Publication filters
         function filterPublications(evt, filter) {
             document.querySelectorAll('.pub-filter-btn').forEach(b => b.classList.remove('active'));
             if (evt && evt.currentTarget) evt.currentTarget.classList.add('active');
-
             document.querySelectorAll('#publicationsList .pub-entry-flat').forEach(pub => {
-                if (filter === 'all') {
-                    pub.style.display = '';
-                } else {
-                    pub.style.display = pub.dataset.featured === 'true' ? '' : 'none';
-                }
+                if (filter === 'all') pub.style.display = '';
+                else pub.style.display = pub.dataset.featured === 'true' ? '' : 'none';
             });
-
-            // Hide year headings that have no visible entries
             document.querySelectorAll('.year-heading').forEach(heading => {
                 let next = heading.nextElementSibling;
                 let hasVisible = false;
@@ -1010,7 +864,6 @@
             });
         }
 
-        // Profile image fallback
         window.addEventListener('DOMContentLoaded', () => {
             const img = document.querySelector('.profile-image img');
             const initials = document.querySelector('.profile-initials');
