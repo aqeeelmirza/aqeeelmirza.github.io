@@ -3,1741 +3,1028 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muhammad Aqeel - Researcher</title>
-    <!-- Include jsPDF for PDF generation -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/svg2pdf.js@2/dist/svg2pdf.umd.min.js"></script>
-
+    <title>Muhammad Aqeel</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-tertiary: #f9fafb;
-            --bg-nav: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
-            --bg-white: #ffffff;
-            --bg-card: #ffffff;
-            --text-primary: #1e293b;
-            --text-secondary: #475569;
-            --text-muted: #94a3b8;
-            --accent: #0891b2;
-            --accent-light: #0891b2;
-            --accent-dark: #0e7490;
-            --border-light: rgba(0, 0, 0, 0.06);
-            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.04);
-            --shadow-md: 0 10px 40px rgba(0, 119, 163, 0.15);
-            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08);
-            --icon-grey: #6b7280;
-            --hover-bg: rgba(8, 145, 178, 0.04);
+            --bg: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #555555;
+            --text-tertiary: #888888;
+            --accent: #1e6fba;
+            --border: rgba(0, 0, 0, 0.08);
+            --hover-bg: #fafafa;
         }
 
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            background: var(--bg-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
             color: var(--text-primary);
             line-height: 1.6;
-            overflow-x: hidden;
+            font-size: 15px;
         }
 
-        /* Navigation */
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+        a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+        /* ===== Navigation ===== */
         nav {
-            position: fixed;
+            position: sticky;
             top: 0;
-            width: 100%;
-            background: var(--bg-nav);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border-light);
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 860px;
             margin: 0 auto;
-            padding: 1.25rem 3rem;
+            padding: 14px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .nav-brand { font-size: 1.5rem; font-weight: 400; letter-spacing: -0.02em; color: var(--text-primary); }
+        .nav-brand {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
 
-        .nav-menu { display: flex; gap: 3rem; list-style: none; }
+        .nav-menu {
+            display: flex;
+            gap: 4px;
+            list-style: none;
+        }
 
         .nav-link {
-            color: var(--text-primary);
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 400;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            position: relative;
-        }
-
-        .nav-link:hover { color: var(--accent); }
-        .nav-link.active { color: var(--accent); }
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: -5px; left: 0; right: 0; height: 2px; background: var(--accent);
-        }
-
-        /* Hamburger Menu */
-        .hamburger { display: none; flex-direction: column; cursor: pointer; z-index: 1001; }
-        .hamburger span { width: 25px; height: 3px; background: var(--text-primary); margin: 3px 0; transition: 0.3s; border-radius: 3px; }
-        .hamburger.active span:nth-child(1) { transform: rotate(-45deg) translate(-6px, 6px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-6px, -6px); }
-
-        /* CV Download Button */
-        .cv-download-btn {
-            display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px;
-            background: var(--accent); color: white; text-decoration: none; font-size: 0.95rem;
-            transition: all 0.3s ease; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            border: 2px solid var(--accent); font-weight: 500; cursor: pointer; margin-top: 25px;
-        }
-        .cv-download-btn:hover { background: var(--accent-dark); border-color: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,119,163,0.3); }
-        .cv-download-btn svg { width: 18px; height: 18px; }
-
-        /* Hero Section */
-        .hero-section {
-            min-height: 90vh; display: flex; align-items: center;
-            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
-            padding: 120px 3rem 80px; position: relative; z-index: 1;
-        }
-        .hero-container { max-width: 1400px; margin: 0 auto; width: 100%; }
-        .hero-header { display: flex; align-items: flex-start; gap: 40px; margin-bottom: 50px; }
-
-        .profile-image {
-            width: 120px; height: 120px; border-radius: 50%; overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            background: linear-gradient(135deg, var(--accent-light), var(--accent));
-            display: flex; align-items: center; justify-content: center; color: white;
-            font-size: 48px; font-weight: 300; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; position: relative;
-        }
-        .profile-image img {
-            width: 100%; height: 100%; object-fit: cover; object-position: center;
-            display: block; position: absolute; top: 0; left: 0;
-        }
-        .profile-initials { z-index: 1; }
-
-        .hero-titles { padding-top: 20px; }
-        .hero-name { font-size: 3rem; font-weight: 300; margin-bottom: 10px; letter-spacing: -0.03em; line-height: 1.1; }
-        .hero-title { font-size: 1.35rem; color: var(--text-secondary); font-weight: 300; }
-        .hero-content-grid { display: flex; gap: 60px; align-items: flex-start; }
-        .about-section { flex: 1.8; min-width: 0; }
-        .hero-right { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 35px; }
-
-        .section-label {
-            font-size: 1.0rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--accent);
-            margin-bottom: 20px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            font-weight: 600;
-        }
-        .about-text {
-            font-size: 1.2rem; line-height: 1.8; color: var(--text-primary); font-weight: 300;
-            text-align: justify; text-justify: inter-word;
-        }
-        .about-text strong {
-            font-style: italic;
-            font-weight: 300;
-            color: var(--text-primary);
-        }
-        .about-text a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; transition: all 0.3s ease; }
-        .about-text a:hover { border-bottom-color: var(--accent); }
-
-        /* Contact */
-        .contact-section { padding-bottom: 30px; }
-        .contact-icons { display: flex; gap: 20px; align-items: center; }
-        .contact-icon-link {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 44px; height: 44px; border-radius: 50%;
-            background: rgba(248,250,252,0.8); color: var(--icon-grey);
-            transition: all 0.3s ease; text-decoration: none; border: 1px solid var(--border-light);
-        }
-        .contact-icon-link:hover { background: var(--accent); color: white; transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,119,163,0.3); border-color: var(--accent); }
-        .contact-icon-link svg { width: 22px; height: 22px; stroke-width: 2; }
-        .scholar-icon { fill: currentColor; stroke: none; }
-
-        /* ==================== UNIFIED EDUCATION SECTION ==================== */
-        .education-section { padding-bottom: 30px; }
-        .edu-list { display: flex; flex-direction: column; gap: 14px; }
-        .edu-item { 
-            padding: 16px; 
-            background: rgba(248,250,252,0.5); 
-            border-radius: 8px; 
-            transition: all 0.3s ease; 
-            cursor: pointer; 
-        }
-        .edu-item:hover { 
-            background: var(--hover-bg);
-        }
-        .edu-year { 
-            font-size: 0.85rem; 
-            color: var(--accent); 
-            margin-bottom: 6px; 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
-            font-weight: 600; 
-            text-transform: uppercase; 
-            letter-spacing: 0.08em; 
-        }
-        .edu-degree { font-size: 1.1rem; font-weight: 400; color: var(--text-primary); margin-bottom: 4px; }
-        .edu-institution { font-size: 0.95rem; color: var(--text-secondary); font-style: italic; }
-        .edu-institution a { color: inherit; text-decoration: none; transition: color 0.3s ease; }
-        .edu-item:hover .edu-institution a { color: var(--accent); }
-
-        /* ==================== EXPERIENCE SECTION (Timeline - Keep Good) ==================== */
-        .experience-section { 
-            padding: 70px 3rem; 
-            background: var(--bg-secondary); 
-            position: relative; 
-            z-index: 2; 
-        }
-        
-        .section-container { 
-            max-width: 1400px; 
-            margin: 0 auto; 
-        }
-        
-        .section-header { 
-            margin-bottom: 40px; 
-        }
-        
-        .section-title {
-            font-size: 1.0rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--accent);
-            margin-bottom: 40px;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            font-weight: 600;
-        }
-        
-        /* Timeline Container */
-        .experience-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            max-width: 1200px;
-            position: relative;
-            padding-left: 50px;
-        }
-        
-        /* Vertical timeline line */
-        .experience-list::before {
-            content: '';
-            position: absolute;
-            left: 20px;
-            top: 20px;
-            bottom: 20px;
-            width: 2px;
-            background: var(--border-light);
-        }
-        
-        /* Timeline Item */
-        .exp-item {
-            display: flex;
-            gap: 30px;
-            padding: 15px 0;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        /* Timeline dot - subtle animation only */
-        .exp-item::before {
-            content: '';
-            position: absolute;
-            left: -36px;
-            top: 20px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: white;
-            border: 3px solid var(--accent);
-            z-index: 1;
-            transition: all 0.3s ease;
-        }
-        
-        .exp-item:hover::before {
-            background: var(--accent);
-            box-shadow: 0 0 0 4px rgba(8, 145, 178, 0.1);
-        }
-        
-        .exp-period {
-            min-width: 140px;
-            font-size: 0.85rem;
-            color: var(--accent);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            flex-shrink: 0;
-            padding-top: 2px;
-        }
-        
-        .exp-content {
-            flex: 1;
-        }
-        
-        .exp-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 2px;
-        }
-        
-        .exp-company {
-            font-size: 0.95rem;
             color: var(--text-secondary);
-            font-style: italic;
-            margin-bottom: 0;
-        }
-
-        /* ==================== FUNDING & GRANTS SECTION (Simple bullet list) ==================== */
-        .funding-section { 
-            padding: 70px 3rem; 
-            background: var(--bg-primary); 
-        }
-        
-        .funding-list {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-width: 1200px;
-        }
-        
-        .funding-item {
-            padding-left: 25px;
-            position: relative;
-        }
-        
-        /* Bullet point */
-        .funding-item::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: var(--accent);
-            font-size: 1.5rem;
-        }
-        
-        .funding-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-        
-        .funding-organization {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            font-style: italic;
-            margin-bottom: 4px;
-        }
-        
-        .funding-amount {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-
-        /* ==================== PUBLICATIONS SECTION (Unified & Inline Links) ==================== */
-        .publications-section { 
-            padding: 70px 3rem; 
-            background: var(--bg-tertiary); 
-        }
-        
-        .publications-grid { 
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-width: 1200px;
-        }
-        
-        .pub-filters {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 40px;
-            justify-content: center;
-        }
-        
-        .pub-filter-btn {
-            padding: 10px 24px;
-            background: transparent;
-            color: var(--text-secondary);
-            border: 2px solid var(--border-light);
-            cursor: pointer;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            font-weight: 500;
-        }
-        
-        .pub-filter-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-        
-        .pub-filter-btn.active {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-        
-        .pub-item {
-            padding: 15px;
-            transition: all 0.3s ease;
-            background: transparent;
-            border-radius: 8px;
-        }
-        
-        .pub-item:hover {
-            background: var(--hover-bg);
-        }
-        
-        .pub-header-line {
-            display: flex;
-            gap: 12px;
-            align-items: baseline;
-            margin-bottom: 8px;
-        }
-        
-        .pub-number {
-            font-size: 1rem;
-            color: var(--accent);
-            font-weight: 600;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            flex-shrink: 0;
-        }
-        
-        .pub-title {
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--text-primary);
-            line-height: 1.4;
-            flex: 1;
-        }
-        
-        /* Inline metadata with links */
-        .pub-meta {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            padding-left: 32px;
-        }
-        
-        .pub-meta .author-highlight {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-        
-        /* Inline links - simple text links */
-        .pub-meta a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
+            font-size: 13px;
+            padding: 6px 10px;
+            border-radius: 6px;
             transition: all 0.2s ease;
         }
-        
-        .pub-meta a:hover {
-            text-decoration: underline;
-        }
-        
-        .pub-meta .link-separator {
-            color: var(--text-muted);
-            margin: 0 6px;
+
+        .nav-link:hover {
+            color: var(--text-primary);
+            background: var(--hover-bg);
+            text-decoration: none;
         }
 
-        /* Footer */
-        footer {
-            padding: 40px 3rem; background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
-            text-align: center; color: var(--text-muted); font-size: 0.9rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            border-top: 1px solid var(--border-light);
+        .nav-link.active {
+            color: var(--text-primary);
+            font-weight: 500;
         }
 
-        /* Animations */
-        .fade-in { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 6px;
+        }
+        .hamburger span {
+            width: 20px;
+            height: 2px;
+            background: var(--text-primary);
+            margin: 2px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-4px, -4px); }
 
-        /* Mobile responsive */
-        @media (max-width: 968px) {
-            .hamburger { display: flex; }
-            .nav-menu {
-                position: fixed; left: -100%; top: 70px; flex-direction: column; background: var(--bg-nav);
-                width: 100%; text-align: center; transition: 0.3s; box-shadow: 0 10px 27px rgba(0,0,0,0.05);
-                padding: 2rem 0; backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-light);
-            }
-            .nav-menu.active { left: 0; }
-            .nav-link { padding: 1rem 0; display: block; }
-            .hero-content-grid { flex-direction: column; gap: 50px; }
-            .hero-header { flex-direction: column; align-items: center; text-align: center; }
-            .hero-titles { padding-top: 0; text-align: center; }
-            .about-section { text-align: center; }
-            .hero-right { gap: 40px; }
-            .hero-name { font-size: 2.5rem; }
-            .section-title { font-size: 0.85rem; }
-            .contact-icons { justify-content: center; }
-            .cv-download-btn { width: 100%; justify-content: center; }
-            .exp-item {
-                flex-direction: column;
-                gap: 10px;
-            }
-            .exp-period {
-                min-width: auto;
-            }
-            .pub-header-line {
-                gap: 8px;
-            }
-            .pub-number {
-                font-size: 0.9rem;
-            }
+        /* ===== Main Container ===== */
+        main {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 48px 32px 80px;
         }
 
-        @media (max-width: 600px) {
-            .nav-container { padding: 1rem 1.5rem; }
-            .hero-section { padding: 100px 1.5rem 60px; }
-            .hero-name { font-size: 2rem; }
-            .experience-section, .funding-section, .publications-section { padding: 60px 1.5rem; }
-            .pub-title { font-size: 1rem; }
-            .contact-icon-link { width: 40px; height: 40px; }
-            .contact-icon-link svg { width: 20px; height: 20px; }
+        /* ===== Header (Profile + Bio) ===== */
+        .header {
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+            margin-bottom: 40px;
         }
 
-        /* ===== MOBILE TOUCH FEEDBACK ===== */
-        .contact-icon-link:hover,
-        .contact-icon-link:active {
-            background: var(--accent); 
-            color: white; 
-            transform: translateY(-3px); 
-            box-shadow: 0 4px 12px rgba(0,119,163,0.3); 
-            border-color: var(--accent);
+        .profile-block {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
         }
 
-        .cv-download-btn:hover,
-        .cv-download-btn:active {
-            background: var(--accent-dark); 
-            border-color: var(--accent-dark); 
-            transform: translateY(-2px); 
-            box-shadow: 0 4px 12px rgba(0,119,163,0.3);
+        .profile-image {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-tertiary);
+            font-size: 44px;
+            font-weight: 300;
+            position: relative;
+            border: 1px solid var(--border);
+        }
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
         }
 
-        .nav-link:hover,
-        .nav-link:active {
+        .cv-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
             color: var(--accent);
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+        .cv-link:hover {
+            border-color: var(--accent);
+            text-decoration: none;
+        }
+        .cv-link svg { width: 14px; height: 14px; }
+
+        .header-info {
+            flex: 1;
+            min-width: 0;
         }
 
-        .pub-meta a:hover,
-        .pub-meta a:active {
-            text-decoration: underline;
+        .name {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            letter-spacing: -0.01em;
         }
 
-        .about-text a:hover,
-        .about-text a:active {
-            border-bottom-color: var(--accent);
+        .title-line {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
         }
-        
+
+        .contact-icons {
+            display: flex;
+            gap: 16px;
+            margin-top: 14px;
+            flex-wrap: wrap;
+        }
+
+        .contact-icon-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--accent);
+            font-size: 13px;
+        }
+        .contact-icon-link svg {
+            width: 15px;
+            height: 15px;
+        }
+        .scholar-icon { fill: currentColor; stroke: none; }
+
+        /* ===== Bio paragraphs ===== */
+        .bio {
+            margin-bottom: 40px;
+        }
+
+        .bio p {
+            font-size: 15px;
+            line-height: 1.75;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        .bio p:last-child { margin-bottom: 0; }
+
+        /* ===== Section ===== */
+        section.content-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* ===== News ===== */
+        .news-item {
+            display: flex;
+            gap: 14px;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .news-date {
+            color: var(--text-tertiary);
+            flex-shrink: 0;
+            width: 90px;
+            font-size: 13px;
+            padding-top: 1px;
+        }
+        .news-content {
+            color: var(--text-primary);
+            flex: 1;
+        }
+
+        /* ===== Selected Publications (with thumbnails) ===== */
+        .pub-entry {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .pub-thumb {
+            width: 150px;
+            height: 95px;
+            flex-shrink: 0;
+            border-radius: 6px;
+            background: #fafafa;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-tertiary);
+        }
+        .pub-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .pub-thumb svg.placeholder { width: 28px; height: 28px; }
+
+        .pub-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .pub-title {
+            font-size: 14.5px;
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .pub-authors {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 4px;
+        }
+        .author-self {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .pub-venue {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .pub-venue em {
+            font-style: italic;
+        }
+        .pub-venue .sep {
+            color: var(--text-tertiary);
+            margin: 0 4px;
+        }
+
+        .see-all {
+            font-size: 13px;
+            margin-top: 4px;
+            padding-left: 166px;
+        }
+
+        /* ===== Subpages (Publications, Projects, Education, etc.) ===== */
+        .page-section {
+            display: none;
+        }
+        .page-section.active {
+            display: block;
+        }
+
+        .page-title {
+            font-size: 22px;
+            font-weight: 500;
+            margin-bottom: 24px;
+            letter-spacing: -0.01em;
+        }
+
+        .page-intro {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Year heading on Publications page */
+        .year-heading {
+            font-size: 16px;
+            font-weight: 500;
+            margin: 24px 0 12px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+        }
+        .year-heading:first-child { margin-top: 0; }
+
+        .pub-entry-flat {
+            margin-bottom: 16px;
+        }
+        .pub-entry-flat:last-child { margin-bottom: 0; }
+
+        /* Filters on publications page */
+        .pub-filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .pub-filter-btn {
+            padding: 6px 14px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+        .pub-filter-btn:hover {
+            border-color: var(--text-secondary);
+            color: var(--text-primary);
+        }
+        .pub-filter-btn.active {
+            background: var(--text-primary);
+            color: white;
+            border-color: var(--text-primary);
+        }
+
+        /* ===== Education / Experience / Funding pattern ===== */
+        .timeline-item {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+
+        .timeline-period {
+            color: var(--text-tertiary);
+            font-size: 13px;
+            flex-shrink: 0;
+            width: 130px;
+            padding-top: 2px;
+        }
+
+        .timeline-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .timeline-title {
+            font-size: 14.5px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 3px;
+        }
+
+        .timeline-org {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            margin-bottom: 3px;
+        }
+        .timeline-org a { color: inherit; }
+        .timeline-org a:hover { color: var(--accent); }
+
+        .timeline-detail {
+            font-size: 13px;
+            color: var(--text-tertiary);
+        }
+
+        /* ===== Projects ===== */
+        .project-entry {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 22px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid var(--border);
+        }
+        .project-entry:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .project-thumb {
+            width: 140px;
+            height: 95px;
+            flex-shrink: 0;
+            border-radius: 6px;
+            background: #fafafa;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-tertiary);
+        }
+        .project-thumb svg { width: 28px; height: 28px; }
+
+        .project-content { flex: 1; min-width: 0; }
+
+        .project-title {
+            font-size: 14.5px;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .project-desc {
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 6px;
+        }
+
+        .project-links {
+            font-size: 13px;
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 32px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-tertiary);
+            text-align: center;
+        }
+
+        /* ===== Mobile ===== */
+        @media (max-width: 760px) {
+            .hamburger { display: flex; }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: var(--bg);
+                border-bottom: 1px solid var(--border);
+                padding: 8px 0;
+                gap: 0;
+                display: none;
+            }
+            .nav-menu.active { display: flex; }
+            .nav-menu li { width: 100%; }
+            .nav-link {
+                display: block;
+                padding: 10px 32px;
+                border-radius: 0;
+            }
+
+            main { padding: 32px 20px 60px; }
+
+            .header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 20px;
+            }
+            .contact-icons { justify-content: center; }
+
+            .pub-entry, .project-entry {
+                flex-direction: column;
+            }
+            .pub-thumb, .project-thumb {
+                width: 100%;
+                height: 160px;
+            }
+            .see-all { padding-left: 0; }
+
+            .timeline-item {
+                flex-direction: column;
+                gap: 6px;
+            }
+            .timeline-period { width: auto; }
+        }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+
     <nav>
         <div class="nav-container">
             <div class="nav-brand">Muhammad Aqeel</div>
-            <div class="hamburger" id="hamburger">
+            <button class="hamburger" id="hamburger" aria-label="Menu">
                 <span></span><span></span><span></span>
-            </div>
+            </button>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#funding" class="nav-link">Funding</a></li>
-                <li><a href="#publications" class="nav-link">Publications</a></li>
+                <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="publications">Publications</a></li>
+                <li><a href="#" class="nav-link" data-page="projects">Projects</a></li>
+                <li><a href="#" class="nav-link" data-page="education">Education</a></li>
+                <li><a href="#" class="nav-link" data-page="experience">Experience</a></li>
+                <li><a href="#" class="nav-link" data-page="funding">Funding</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-   <section class="hero-section" id="home">
-        <div class="hero-container fade-in">
-            <div class="hero-header">
-                <div class="profile-image">
-                    <span class="profile-initials" style="display: flex; align-items: center; justify-content: center;">MA</span>
-                    <img src="PPP.jpg" alt="Muhammad Aqeel" style="display: none;">
-                </div>
-                <div class="hero-titles">
-                    <h1 class="hero-name">Muhammad Aqeel</h1>
-                    <p class="hero-title">Postdoctoral Research Fellow</p>
-                </div>
-            </div>
+    <main>
 
-            <div class="hero-content-grid">
-                <div class="about-section">
-                    <div class="section-label">About</div>
-                    <p class="about-text">
-                        I am a <strong>Postdoctoral Research Fellow</strong> at the University of Verona, Italy, 
-                        developing anomaly detection methods for industrial manufacturing systems. 
-                        I completed my <strong>PhD in Computer Science</strong> from <strong>University of Verona</strong> under the supervision of 
-                        <a href="http://www.franzsetti.info/" target="_blank" rel="noopener noreferrer">Francesco Setti</a>, 
-                        specializing in unsupervised learning approaches for anomaly detection, 
-                        with over 12 publications at leading computer vision conferences including ICCV and ECCV. 
-                        I earned my <strong>Master's degree</strong> from Beijing University of Posts and Telecommunications 
-                        under <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener noreferrer">Xiaohong Liu</a>, 
-                        focusing on Natural Language Processing and sentiment analysis, 
-                        and my <strong>Bachelor's degree</strong> from PMAS Arid Agriculture University, Pakistan. 
-                        My research bridges theoretical AI and practical industrial applications, 
-                        with a focus on developing efficient, scalable unsupervised anomaly detection systems for real-world manufacturing environments.
-                    </p>
+        <!-- ============ HOME PAGE ============ -->
+        <div class="page-section active" id="page-home">
 
-                    <!-- CV Download Button -->
-                    <button class="cv-download-btn" onclick="generatePDF()">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <div class="header">
+                <div class="profile-block">
+                    <div class="profile-image">
+                        <span class="profile-initials">MA</span>
+                        <img src="PPP.jpg" alt="Muhammad Aqeel">
+                    </div>
+                    <a href="cv.pdf" class="cv-link" target="_blank" rel="noopener" download>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
                             <line x1="12" y1="15" x2="12" y2="3"></line>
                         </svg>
                         Download CV
-                    </button>
+                    </a>
                 </div>
-
-               <div class="hero-right">
-                    <div class="contact-section">
-                        <div class="section-label">Connect</div>
-                        <div class="contact-icons">
-                            <a href="mailto:muhammad.aqeel@univr.it" class="contact-icon-link" title="Email">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                    <polyline points="22,6 12,13 2,6"></polyline>
-                                </svg>
-                            </a>
-                            <a href="https://wa.me/8618210133275" class="contact-icon-link" title="WhatsApp" target="_blank" rel="noopener noreferrer">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-                                </svg>
-                            </a>
-                            <a href="https://www.linkedin.com/in/muhammad-aqeel-4378b9170" class="contact-icon-link" title="LinkedIn" target="_blank" rel="noopener noreferrer">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                                    <rect x="2" y="9" width="4" height="12"></rect>
-                                    <circle cx="4" cy="4" r="2"></circle>
-                                </svg>
-                            </a>
-                            <a href="https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en" class="contact-icon-link" title="Google Scholar" target="_blank" rel="noopener noreferrer">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="scholar-icon">
-                                    <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="education-section">
-                        <div class="section-label">Education</div>
-                        <div class="edu-list">
-                            <div class="edu-item">
-                                <div class="edu-year">2022 - 2025</div>
-                                <div class="edu-degree">PhD in Computer Science</div>
-                                <div class="edu-institution">
-                                    <a href="https://www.univr.it" target="_blank" rel="noopener noreferrer">University of Verona, Italy</a>
-                                </div>
-                            </div>
-                            <div class="edu-item">
-                                <div class="edu-year">2019 - 2021</div>
-                                <div class="edu-degree">Master in Computer Science</div>
-                                <div class="edu-institution">
-                                    <a href="https://www.bupt.edu.cn" target="_blank" rel="noopener noreferrer">Beijing University of Posts and Telecommunications, China</a>
-                                </div>
-                            </div>
-                            <div class="edu-item">
-                                <div class="edu-year">2013 - 2017</div>
-                                <div class="edu-degree">Bachelor in Computer Science</div>
-                                <div class="edu-institution">
-                                    <a href="https://www.uaar.edu.pk" target="_blank" rel="noopener noreferrer">PMAS Arid Agriculture University Rawalpindi, Pakistan</a>
-                                </div>
-                            </div>
-                        </div>
+                <div class="header-info">
+                    <h1 class="name">Muhammad Aqeel</h1>
+                    <p class="title-line">Postdoctoral Research Fellow · Department of Computer Science</p>
+                    <p class="title-line">University of Verona, Italy</p>
+                    <div class="contact-icons">
+                        <a href="mailto:muhammad.aqeel@univr.it" class="contact-icon-link">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>Email
+                        </a>
+                        <a href="https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en" class="contact-icon-link" target="_blank" rel="noopener">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="scholar-icon">
+                                <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/>
+                            </svg>Scholar
+                        </a>
+                        <a href="https://github.com/aqeeelmirza" class="contact-icon-link" target="_blank" rel="noopener">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.26.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.385-1.335-1.755-1.335-1.755-1.087-.744.084-.729.084-.729 1.205.085 1.838 1.236 1.838 1.236 1.07 1.835 2.807 1.305 3.492.998.108-.776.42-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.93 0-1.31.467-2.38 1.236-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12z"/>
+                            </svg>GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/muhammad-aqeel-4378b9170" class="contact-icon-link" target="_blank" rel="noopener">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>LinkedIn
+                        </a>
                     </div>
                 </div>
             </div>
+
+            <div class="bio">
+                <p>I am a Postdoctoral Research Fellow at the University of Verona, Italy, developing anomaly detection methods for industrial manufacturing systems. I completed my PhD in Computer Science at the University of Verona under the supervision of <a href="http://www.franzsetti.info/" target="_blank" rel="noopener">Francesco Setti</a>, specializing in unsupervised and meta-learning approaches for anomaly detection.</p>
+                <p>I earned my Master's degree from Beijing University of Posts and Telecommunications under <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener">Xiaohong Liu</a>, focusing on natural language processing and sentiment analysis, and my Bachelor's degree from PMAS Arid Agriculture University, Pakistan. My research bridges theoretical AI and practical industrial applications, with a focus on efficient, scalable anomaly detection for real-world manufacturing environments.</p>
+            </div>
+
+            <section class="content-section">
+                <h2 class="section-title">News</h2>
+                <div class="news-item">
+                    <span class="news-date">Sep 2025</span>
+                    <span class="news-content">Two papers accepted at ICCV 2025 Workshops (both Oral).</span>
+                </div>
+                <div class="news-item">
+                    <span class="news-date">Jul 2025</span>
+                    <span class="news-content">Paper accepted at ICCV 2025: <em>Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning</em>.</span>
+                </div>
+                <div class="news-item">
+                    <span class="news-date">Jun 2025</span>
+                    <span class="news-content">Started a 6-month visiting research stay at the University of Ljubljana, Slovenia.</span>
+                </div>
+                <div class="news-item">
+                    <span class="news-date">May 2025</span>
+                    <span class="news-content">Successfully defended my PhD thesis at the University of Verona.</span>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">Selected publications</h2>
+
+                <div class="pub-entry">
+                    <div class="pub-thumb">
+                        <svg class="placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                    </div>
+                    <div class="pub-content">
+                        <p class="pub-title">Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
+                        <p class="pub-venue"><em>ICCV 2025</em><span class="sep">·</span><a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Aqeel_Towards_Real_Unsupervised_Anomaly_Detection_Via_Confident_Meta-Learning_ICCV_2025_paper.pdf" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza/CoMet" target="_blank" rel="noopener">Code</a></p>
+                    </div>
+                </div>
+
+                <div class="pub-entry">
+                    <div class="pub-thumb">
+                        <svg class="placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                    </div>
+                    <div class="pub-content">
+                        <p class="pub-title">Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection in Industrial Inspection</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
+                        <p class="pub-venue"><em>ECCV 2024 Workshops (Oral)</em><span class="sep">·</span><a href="https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28" target="_blank" rel="noopener">PDF</a></p>
+                    </div>
+                </div>
+
+                <div class="pub-entry">
+                    <div class="pub-thumb">
+                        <svg class="placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                    </div>
+                    <div class="pub-content">
+                        <p class="pub-title">A Contrastive Learning-Guided Confident Meta-learning for Zero Shot Anomaly Detection</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Danijel Skocaj, Marco Cristani, Francesco Setti</p>
+                        <p class="pub-venue"><em>ICCV 2025 Workshops (Oral)</em><span class="sep">·</span><a href="https://openaccess.thecvf.com/content/ICCV2025W/VISION'25/papers/Aqeel_A_Contrastive_Learning-Guided_Confident_Meta-learning_for_Zero_Shot_Anomaly_Detection_ICCVW_2025_paper.pdf" target="_blank" rel="noopener">PDF</a></p>
+                    </div>
+                </div>
+
+                <div class="pub-entry">
+                    <div class="pub-thumb">
+                        <svg class="placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                    </div>
+                    <div class="pub-content">
+                        <p class="pub-title">Robust Anomaly Detection in Industrial Environments via Meta-Learning</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
+                        <p class="pub-venue"><em>ICCV 2025 Workshops (Oral)</em><span class="sep">·</span><a href="https://openaccess.thecvf.com/content/ICCV2025W/VISION'25/papers/Aqeel_Robust_Anomaly_Detection_in_Industrial_Environments_via_Meta-Learning_ICCVW_2025_paper.pdf" target="_blank" rel="noopener">PDF</a></p>
+                    </div>
+                </div>
+
+                <div class="pub-entry">
+                    <div class="pub-thumb">
+                        <svg class="placeholder" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                    </div>
+                    <div class="pub-content">
+                        <p class="pub-title">Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
+                        <p class="pub-venue"><em>VISAPP 2025 (Oral)</em><span class="sep">·</span><a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912" target="_blank" rel="noopener">PDF</a></p>
+                    </div>
+                </div>
+
+                <p class="see-all"><a href="#" class="show-all-pubs">See all publications →</a></p>
+            </section>
+
         </div>
-    </section>
 
-    <!-- Experience Section -->
-    <section class="experience-section" id="experience">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Professional Experience</h2>
-            </div>
-    
-            <div class="experience-list fade-in">
-                <div class="exp-item">
-                    <div class="exp-period">2025 - Present</div>
-                    <div class="exp-content">
-                        <div class="exp-title">Postdoctoral Research Fellow</div>
-                        <div class="exp-company">University of Verona, Italy</div>
-                    </div>
-                </div>
-                
-                <div class="exp-item">
-                    <div class="exp-period">Jun - Nov 2025</div>
-                    <div class="exp-content">
-                        <div class="exp-title">Visiting Researcher</div>
-                        <div class="exp-company">University of Ljubljana, Slovenia</div>
-                    </div>
-                </div>
+        <!-- ============ PUBLICATIONS PAGE ============ -->
+        <div class="page-section" id="page-publications">
+            <h1 class="page-title">Publications</h1>
+            <p class="page-intro">See also <a href="https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a> for citation metrics.</p>
 
-                <div class="exp-item">
-                    <div class="exp-period">Dec 2024 - May 2025</div>
-                    <div class="exp-content">
-                        <div class="exp-title">Public Service Administrator</div>
-                        <div class="exp-company">Comune di Ferrara, Italy</div>
-                    </div>
-                </div>
-    
-                <div class="exp-item">
-                    <div class="exp-period">2023 - 2025</div>
-                    <div class="exp-content">
-                        <div class="exp-title">Teaching Assistant</div>
-                        <div class="exp-company">University of Verona, Italy</div>
-                    </div>
-                </div>
-                
-                <div class="exp-item">
-                    <div class="exp-period">2021 - 2022</div>
-                    <div class="exp-content">
-                        <div class="exp-title">Research Assistant</div>
-                        <div class="exp-company">Huazhong University of Science and Technology, China</div>
-                    </div>
-                </div>
-    
-                <div class="exp-item">
-                    <div class="exp-period">2018 - 2019</div>
-                    <div class="exp-content">
-                        <div class="exp-title">Software Quality Assurance</div>
-                        <div class="exp-company">UIIT, Arid Agriculture University, Pakistan</div>
-                    </div>
-                </div>
-    
-                <div class="exp-item">
-                    <div class="exp-period">2017 - 2018</div>
-                    <div class="exp-content">
-                        <div class="exp-title">Software Developer</div>
-                        <div class="exp-company">eConceptions (Pvt) Ltd., Pakistan</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Funding & Grants Section -->
-    <section class="funding-section" id="funding">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Funding & Grants</h2>
-            </div>
-    
-            <div class="funding-list fade-in">
-                <div class="funding-item">
-                    <div class="funding-title">PNRR PhD Scholarship (2022–2025)</div>
-                    <div class="funding-organization">Italian Ministry of University and Research via University of Verona</div>
-                    <div class="funding-amount">Full tuition + €16,500/year stipend (3 years)</div>
-                </div>
-                
-                <div class="funding-item">
-                    <div class="funding-title">Research Mobility Grant (Jun–Dec 2025)</div>
-                    <div class="funding-organization">University of Ljubljana, Slovenia</div>
-                    <div class="funding-amount">€6,000 for 6-month visiting researcher position</div>
-                </div>
-                
-                <div class="funding-item">
-                    <div class="funding-title">Chinese Government Scholarship (2019–2021)</div>
-                    <div class="funding-organization">China Scholarship Council via Beijing University of Posts and Telecommunications</div>
-                    <div class="funding-amount">Full tuition waiver + monthly living allowance (2 years)</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Publications Section -->
-    <section class="publications-section" id="publications">
-        <div class="section-container">
-            <div class="section-header fade-in">
-                <h2 class="section-title">Research Publications</h2>
-            </div>
-    
             <div class="pub-filters">
-                <button class="pub-filter-btn active" onclick="filterPublications(event,'all')">All Publications</button>
-                <button class="pub-filter-btn" onclick="filterPublications(event,'featured')">Key Publications</button>
+                <button class="pub-filter-btn active" onclick="filterPublications(event, 'all')">All publications</button>
+                <button class="pub-filter-btn" onclick="filterPublications(event, 'featured')">Selected</button>
             </div>
-    
-            <div class="publications-grid" data-featured="false">
-                <article class="pub-item fade-in">
-                    <div class="pub-header-line">
-                        <span class="pub-number">[1]</span>
-                        <h3 class="pub-title">Semantic Parsing for Aspect Based Sentiment Analysis</h3>
-                    </div>
-                    <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Francesco Setti | IEEE Access 2025 | <a href="https://ieeexplore.ieee.org/abstract/document/11078252" target="_blank" rel="noopener noreferrer">PDF</a>
-                    </div>
-                </article>
-                
-                <article class="pub-item fade-in" data-featured="true">
-                    <div class="pub-header-line">
-                        <span class="pub-number">[2]</span>
-                        <h3 class="pub-title">Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning</h3>
-                    </div>
-                    <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | ICCV 2025 | 
-                        <a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Aqeel_Towards_Real_Unsupervised_Anomaly_Detection_Via_Confident_Meta-Learning_ICCV_2025_paper.pdf" target="_blank" rel="noopener noreferrer">PDF</a><span class="link-separator">•</span><a href="https://github.com/aqeeelmirza/CoMet" target="_blank" rel="noopener noreferrer">Code</a>
-                    </div>
-                </article>
-                
-                <article class="pub-item fade-in" data-featured="true">
-                    <div class="pub-header-line">
-                        <span class="pub-number">[3]</span>
-                        <h3 class="pub-title">Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection in Industrial Inspection</h3>
-                    </div>
-                    <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | ECCV 2024 (Oral) | 
-                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28" target="_blank" rel="noopener noreferrer">PDF</a>
-                    </div>
-                </article>
-                
-                <article class="pub-item fade-in" data-featured="true">
-                    <div class="pub-header-line">
-                        <span class="pub-number">[4]</span>
-                        <h3 class="pub-title">A Contrastive Learning-Guided Confident Meta-learning for Zero Shot Anomaly Detection</h3>
-                    </div>
-                    <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Danijel Skocaj, Marco Cristani, Francesco Setti | ICCVW 2025 (Oral) | 
-                        <a href="https://openaccess.thecvf.com/content/ICCV2025W/VISION'25/papers/Aqeel_A_Contrastive_Learning-Guided_Confident_Meta-learning_for_Zero_Shot_Anomaly_Detection_ICCVW_2025_paper.pdf" target="_blank" rel="noopener noreferrer">PDF</a>
-                    </div>
-                </article>
-                
-                <article class="pub-item fade-in" data-featured="true">
-                    <div class="pub-header-line">
-                        <span class="pub-number">[5]</span>
-                        <h3 class="pub-title">Robust Anomaly Detection in Industrial Environments via Meta-Learning</h3>
-                    </div>
-                    <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | ICCVW 2025 (Oral) | 
-                        <a href="https://openaccess.thecvf.com/content/ICCV2025W/VISION'25/papers/Aqeel_Robust_Anomaly_Detection_in_Industrial_Environments_via_Meta-Learning_ICCVW_2025_paper.pdf" target="_blank" rel="noopener noreferrer">PDF</a>
-                    </div>
-                </article>
-                
-                <article class="pub-item fade-in" data-featured="false">
-                    <div class="pub-header-line">
-                        <span class="pub-number">[6]</span>
-                        <h3 class="pub-title">Diffusion-Based Data Augmentation for Medical Image Segmentation</h3>
-                    </div>
-                    <div class="pub-meta">
-                        Maham Nazir, <span class="author-highlight">Muhammad Aqeel</span>, Francesco Setti | ICCVW 2025 | 
-                        <a href="https://openaccess.thecvf.com/content/ICCV2025W/CVAMD/papers/Nazir_Diffusion-Based_Data_Augmentation_for_Medical_Image_Segmentation_ICCVW_2025_paper.pdf" target="_blank" rel="noopener noreferrer">PDF</a>
-                    </div>
-                </article>
-                
-                <article class="pub-item fade-in" data-featured="false">
-                    <div class="pub-header-line">
-                        <span class="pub-number">[7]</span>
-                        <h3 class="pub-title">RoadFusion: Latent Diffusion Model for Pavement Defect Detection</h3>
-                    </div>
-                    <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Kidus Dagnaw Bellete, Francesco Setti | ICIAP 2025 (Oral) | 
-                        <a href="https://arxiv.org/abs/2507.15346" target="_blank" rel="noopener noreferrer">PDF</a>
-                    </div>
-                </article>
-                
-                <article class="pub-item fade-in" data-featured="false">
-                    <div class="pub-header-line">
-                        <span class="pub-number">[8]</span>
-                        <h3 class="pub-title">ExDD: Explicit Dual Distribution Learning for Surface Defect Detection via Diffusion Synthesis</h3>
-                    </div>
-                    <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Federico Leonardi, Francesco Setti | ICIAP 2025 | 
-                        <a href="https://arxiv.org/abs/2507.15335" target="_blank" rel="noopener noreferrer">PDF</a>
-                    </div>
-                </article>
-                
-                <article class="pub-item fade-in">
-                    <div class="pub-header-line">
-                        <span class="pub-number">[9]</span>
-                        <h3 class="pub-title">Latent Space Synergy: Text-Guided Data Augmentation for Direct Diffusion Biomedical Segmentation</h3>
-                    </div>
-                    <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Maham Nazir, Zanxi Ruan, Francesco Setti | ICIAP 2025 | 
-                        <a href="https://arxiv.org/abs/2507.15361" target="_blank" rel="noopener noreferrer">PDF</a>
-                    </div>
-                </article>
-                
-                <article class="pub-item fade-in" data-featured="false">
-                    <div class="pub-header-line">
-                        <span class="pub-number">[10]</span>
-                        <h3 class="pub-title">Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control</h3>
-                    </div>
-                    <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | VISAPP 2025 (Oral) | 
-                        <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912" target="_blank" rel="noopener noreferrer">PDF</a>
-                    </div>
-                </article>
-                
-                <article class="pub-item fade-in" data-featured="false">
-                    <div class="pub-header-line">
-                        <span class="pub-number">[11]</span>
-                        <h3 class="pub-title">Self-supervised Learning for Robust Surface Defect Detection</h3>
-                    </div>
-                    <div class="pub-meta">
-                        <span class="author-highlight">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti | DeLTA 2024 (Oral) | 
-                        <a href="https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11" target="_blank" rel="noopener noreferrer">PDF</a>
-                    </div>
-                </article>
-                
-                <article class="pub-item fade-in" data-featured="false">
-                    <div class="pub-header-line">
-                        <span class="pub-number">[12]</span>
-                        <h3 class="pub-title">Diffusion-based Image Generation for In-distribution Data Augmentation in Surface Defect Detection</h3>
-                    </div>
-                    <div class="pub-meta">
-                        Luigi Capogrosso, Federico Girella, Francesco Taioli, Michele Dalla Chiara, <span class="author-highlight">Muhammad Aqeel</span>, Franco Fummi, Francesco Setti, Marco Cristani | VISAPP 2024 | 
-                        <a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0012350400003660" target="_blank" rel="noopener noreferrer">PDF</a><span class="link-separator">•</span><a href="https://github.com/intelligolabs/in_and_out" target="_blank" rel="noopener noreferrer">Code</a>
-                    </div>
-                </article>
+
+            <div id="publicationsList">
+
+                <h2 class="year-heading">2025</h2>
+
+                <div class="pub-entry-flat" data-featured="false">
+                    <p class="pub-title">Semantic Parsing for Aspect Based Sentiment Analysis</p>
+                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
+                    <p class="pub-venue"><em>IEEE Access 2025</em><span class="sep">·</span><a href="https://ieeexplore.ieee.org/abstract/document/11078252" target="_blank" rel="noopener">PDF</a></p>
+                </div>
+
+                <div class="pub-entry-flat" data-featured="true">
+                    <p class="pub-title">Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning</p>
+                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
+                    <p class="pub-venue"><em>ICCV 2025</em><span class="sep">·</span><a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Aqeel_Towards_Real_Unsupervised_Anomaly_Detection_Via_Confident_Meta-Learning_ICCV_2025_paper.pdf" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza/CoMet" target="_blank" rel="noopener">Code</a></p>
+                </div>
+
+                <div class="pub-entry-flat" data-featured="true">
+                    <p class="pub-title">A Contrastive Learning-Guided Confident Meta-learning for Zero Shot Anomaly Detection</p>
+                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Danijel Skocaj, Marco Cristani, Francesco Setti</p>
+                    <p class="pub-venue"><em>ICCV 2025 Workshops (Oral)</em><span class="sep">·</span><a href="https://openaccess.thecvf.com/content/ICCV2025W/VISION'25/papers/Aqeel_A_Contrastive_Learning-Guided_Confident_Meta-learning_for_Zero_Shot_Anomaly_Detection_ICCVW_2025_paper.pdf" target="_blank" rel="noopener">PDF</a></p>
+                </div>
+
+                <div class="pub-entry-flat" data-featured="true">
+                    <p class="pub-title">Robust Anomaly Detection in Industrial Environments via Meta-Learning</p>
+                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
+                    <p class="pub-venue"><em>ICCV 2025 Workshops (Oral)</em><span class="sep">·</span><a href="https://openaccess.thecvf.com/content/ICCV2025W/VISION'25/papers/Aqeel_Robust_Anomaly_Detection_in_Industrial_Environments_via_Meta-Learning_ICCVW_2025_paper.pdf" target="_blank" rel="noopener">PDF</a></p>
+                </div>
+
+                <div class="pub-entry-flat" data-featured="false">
+                    <p class="pub-title">Diffusion-Based Data Augmentation for Medical Image Segmentation</p>
+                    <p class="pub-authors">Maham Nazir, <span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
+                    <p class="pub-venue"><em>ICCV 2025 Workshops</em><span class="sep">·</span><a href="https://openaccess.thecvf.com/content/ICCV2025W/CVAMD/papers/Nazir_Diffusion-Based_Data_Augmentation_for_Medical_Image_Segmentation_ICCVW_2025_paper.pdf" target="_blank" rel="noopener">PDF</a></p>
+                </div>
+
+                <div class="pub-entry-flat" data-featured="false">
+                    <p class="pub-title">RoadFusion: Latent Diffusion Model for Pavement Defect Detection</p>
+                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Kidus Dagnaw Bellete, Francesco Setti</p>
+                    <p class="pub-venue"><em>ICIAP 2025 (Oral)</em><span class="sep">·</span><a href="https://arxiv.org/abs/2507.15346" target="_blank" rel="noopener">PDF</a></p>
+                </div>
+
+                <div class="pub-entry-flat" data-featured="false">
+                    <p class="pub-title">ExDD: Explicit Dual Distribution Learning for Surface Defect Detection via Diffusion Synthesis</p>
+                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Federico Leonardi, Francesco Setti</p>
+                    <p class="pub-venue"><em>ICIAP 2025</em><span class="sep">·</span><a href="https://arxiv.org/abs/2507.15335" target="_blank" rel="noopener">PDF</a></p>
+                </div>
+
+                <div class="pub-entry-flat" data-featured="false">
+                    <p class="pub-title">Latent Space Synergy: Text-Guided Data Augmentation for Direct Diffusion Biomedical Segmentation</p>
+                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Maham Nazir, Zanxi Ruan, Francesco Setti</p>
+                    <p class="pub-venue"><em>ICIAP 2025</em><span class="sep">·</span><a href="https://arxiv.org/abs/2507.15361" target="_blank" rel="noopener">PDF</a></p>
+                </div>
+
+                <div class="pub-entry-flat" data-featured="true">
+                    <p class="pub-title">Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control</p>
+                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
+                    <p class="pub-venue"><em>VISAPP 2025 (Oral)</em><span class="sep">·</span><a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912" target="_blank" rel="noopener">PDF</a></p>
+                </div>
+
+                <h2 class="year-heading">2024</h2>
+
+                <div class="pub-entry-flat" data-featured="true">
+                    <p class="pub-title">Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection in Industrial Inspection</p>
+                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
+                    <p class="pub-venue"><em>ECCV 2024 Workshops (Oral)</em><span class="sep">·</span><a href="https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28" target="_blank" rel="noopener">PDF</a></p>
+                </div>
+
+                <div class="pub-entry-flat" data-featured="false">
+                    <p class="pub-title">Self-supervised Learning for Robust Surface Defect Detection</p>
+                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
+                    <p class="pub-venue"><em>DeLTA 2024 (Oral)</em><span class="sep">·</span><a href="https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11" target="_blank" rel="noopener">PDF</a></p>
+                </div>
+
+                <div class="pub-entry-flat" data-featured="false">
+                    <p class="pub-title">Diffusion-based Image Generation for In-distribution Data Augmentation in Surface Defect Detection</p>
+                    <p class="pub-authors">Luigi Capogrosso, Federico Girella, Francesco Taioli, Michele Dalla Chiara, <span class="author-self">Muhammad Aqeel</span>, Franco Fummi, Francesco Setti, Marco Cristani</p>
+                    <p class="pub-venue"><em>VISAPP 2024</em><span class="sep">·</span><a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0012350400003660" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/intelligolabs/in_and_out" target="_blank" rel="noopener">Code</a></p>
+                </div>
+
             </div>
         </div>
-    </section>
 
-    <!-- Footer -->
+        <!-- ============ PROJECTS PAGE ============ -->
+        <div class="page-section" id="page-projects">
+            <h1 class="page-title">Projects</h1>
+            <p class="page-intro">Open-source code and tools accompanying my research.</p>
+
+            <div class="project-entry">
+                <div class="project-thumb">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                </div>
+                <div class="project-content">
+                    <p class="project-title">CoMet — Confident Meta-Learning for Anomaly Detection</p>
+                    <p class="project-desc">Reference implementation of our ICCV 2025 paper on truly unsupervised anomaly detection. A meta-learning framework that selects confident pseudo-labels iteratively, removing the need for clean training data.</p>
+                    <p class="project-links"><a href="https://github.com/aqeeelmirza/CoMet" target="_blank" rel="noopener">GitHub</a></p>
+                </div>
+            </div>
+
+            <div class="project-entry">
+                <div class="project-thumb">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                </div>
+                <div class="project-content">
+                    <p class="project-title">In-and-Out — Diffusion-based Augmentation for Surface Defects</p>
+                    <p class="project-desc">Diffusion-based data augmentation pipeline for surface defect detection (VISAPP 2024). Generates synthetic in-distribution defect images to address the data scarcity problem in industrial inspection.</p>
+                    <p class="project-links"><a href="https://github.com/intelligolabs/in_and_out" target="_blank" rel="noopener">GitHub</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ EDUCATION PAGE ============ -->
+        <div class="page-section" id="page-education">
+            <h1 class="page-title">Education</h1>
+
+            <div class="timeline-item">
+                <span class="timeline-period">2022 – 2025</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Ph.D. in Computer Science</p>
+                    <p class="timeline-org"><a href="https://www.univr.it" target="_blank" rel="noopener">University of Verona, Italy</a></p>
+                    <p class="timeline-detail">Advisor: Prof. Francesco Setti · Anomaly detection for industrial manufacturing</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-period">2019 – 2021</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">M.Sc. in Computer Science</p>
+                    <p class="timeline-org"><a href="https://www.bupt.edu.cn" target="_blank" rel="noopener">Beijing University of Posts and Telecommunications, China</a></p>
+                    <p class="timeline-detail">Advisor: Prof. Xiaohong Liu · Natural language processing and sentiment analysis</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-period">2013 – 2017</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">B.Sc. in Computer Science</p>
+                    <p class="timeline-org"><a href="https://www.uaar.edu.pk" target="_blank" rel="noopener">PMAS Arid Agriculture University Rawalpindi, Pakistan</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ EXPERIENCE PAGE ============ -->
+        <div class="page-section" id="page-experience">
+            <h1 class="page-title">Experience</h1>
+
+            <div class="timeline-item">
+                <span class="timeline-period">2025 – present</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Postdoctoral Research Fellow</p>
+                    <p class="timeline-org">University of Verona, Italy</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-period">Jun – Nov 2025</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Visiting Researcher</p>
+                    <p class="timeline-org">University of Ljubljana, Slovenia</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-period">Dec 2024 – May 2025</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Public Service Administrator</p>
+                    <p class="timeline-org">Comune di Ferrara, Italy</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-period">2023 – 2025</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Teaching Assistant</p>
+                    <p class="timeline-org">University of Verona, Italy</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-period">2021 – 2022</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Research Assistant</p>
+                    <p class="timeline-org">Huazhong University of Science and Technology, China</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-period">2018 – 2019</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Software Quality Assurance</p>
+                    <p class="timeline-org">UIIT, Arid Agriculture University, Pakistan</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-period">2017 – 2018</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Software Developer</p>
+                    <p class="timeline-org">eConceptions (Pvt) Ltd., Pakistan</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============ FUNDING PAGE ============ -->
+        <div class="page-section" id="page-funding">
+            <h1 class="page-title">Funding & grants</h1>
+
+            <div class="timeline-item">
+                <span class="timeline-period">2022 – 2025</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">PNRR PhD Scholarship</p>
+                    <p class="timeline-org">Italian Ministry of University and Research, via University of Verona</p>
+                    <p class="timeline-detail">Full tuition + €16,500/year stipend (3 years)</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-period">Jun – Dec 2025</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Research Mobility Grant</p>
+                    <p class="timeline-org">University of Ljubljana, Slovenia</p>
+                    <p class="timeline-detail">€6,000 for 6-month visiting researcher position</p>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="timeline-period">2019 – 2021</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Chinese Government Scholarship</p>
+                    <p class="timeline-org">China Scholarship Council, via Beijing University of Posts and Telecommunications</p>
+                    <p class="timeline-detail">Full tuition waiver + monthly living allowance (2 years)</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
     <footer>
-        <p>&copy; 2025 Muhammad Aqeel. All rights reserved.</p>
+        <p>© 2025 Muhammad Aqeel</p>
     </footer>
 
     <script>
-        // ==========================================
-        // UI SCRIPTS — YOUR ORIGINAL BEHAVIOUR
-        // ==========================================
-        // Hamburger
+        // Hamburger toggle
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
+
+        // Page switching
+        function showPage(pageName) {
+            document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+            const target = document.getElementById('page-' + pageName);
+            if (target) target.classList.add('active');
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.toggle('active', link.dataset.page === pageName);
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const page = link.dataset.page;
+                showPage(page);
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
             });
         });
 
-        // ADD THE FILTER FUNCTION HERE
-        function filterPublications(evt, filter) {
-            const buttons = document.querySelectorAll('.pub-filter-btn');
-            const publications = document.querySelectorAll('.pub-item');
-        
-            // Update active button
-            buttons.forEach(btn => btn.classList.remove('active'));
-            if (evt && evt.currentTarget) evt.currentTarget.classList.add('active');
-        
-            // Filter publications and renumber
-            let visibleIndex = 1;
-            publications.forEach(pub => {
-                const pubNumber = pub.querySelector('.pub-number');
-                
-                if (filter === 'all') {
-                    pub.style.display = '';
-                    // Restore original numbering
-                    const originalNumber = pub.getAttribute('data-original-number');
-                    if (originalNumber) {
-                        pubNumber.textContent = `[${originalNumber}]`;
-                    } else {
-                        // Store original number if not stored yet
-                        const currentNum = pubNumber.textContent.replace(/[\[\]]/g, '');
-                        pub.setAttribute('data-original-number', currentNum);
-                    }
-                    visibleIndex++;
-                } else {
-                    if (pub.dataset.featured === 'true') {
-                        pub.style.display = '';
-                        // Store original number if not stored yet
-                        if (!pub.getAttribute('data-original-number')) {
-                            const currentNum = pubNumber.textContent.replace(/[\[\]]/g, '');
-                            pub.setAttribute('data-original-number', currentNum);
-                        }
-                        // Renumber for key publications
-                        pubNumber.textContent = `[${visibleIndex}]`;
-                        visibleIndex++;
-                    } else {
-                        pub.style.display = 'none';
-                    }
-                }
-            });
-        }
-        // Scroll active link
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-link');
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (scrollY >= (sectionTop - 200)) { current = section.getAttribute('id'); }
-            });
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').slice(1) === current) {
-                    link.classList.add('active');
-                }
+        // "See all publications" link
+        document.querySelectorAll('.show-all-pubs').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showPage('publications');
             });
         });
 
-        // Fade-in observer
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
-        }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        // Publication filters
+        function filterPublications(evt, filter) {
+            document.querySelectorAll('.pub-filter-btn').forEach(b => b.classList.remove('active'));
+            if (evt && evt.currentTarget) evt.currentTarget.classList.add('active');
 
-        // Robust image source attempts
+            document.querySelectorAll('#publicationsList .pub-entry-flat').forEach(pub => {
+                if (filter === 'all') {
+                    pub.style.display = '';
+                } else {
+                    pub.style.display = pub.dataset.featured === 'true' ? '' : 'none';
+                }
+            });
+
+            // Hide year headings that have no visible entries
+            document.querySelectorAll('.year-heading').forEach(heading => {
+                let next = heading.nextElementSibling;
+                let hasVisible = false;
+                while (next && !next.classList.contains('year-heading')) {
+                    if (next.classList.contains('pub-entry-flat') && next.style.display !== 'none') {
+                        hasVisible = true;
+                        break;
+                    }
+                    next = next.nextElementSibling;
+                }
+                heading.style.display = hasVisible ? '' : 'none';
+            });
+        }
+
+        // Profile image fallback
         window.addEventListener('DOMContentLoaded', () => {
             const img = document.querySelector('.profile-image img');
-            const sources = ['PPP.jpg', 'PPP.JPG', './PPP.jpg', './PPP.JPG', 'ppp.jpg', 'profile.jpg'];
-            let currentIndex = 0;
+            const initials = document.querySelector('.profile-initials');
             if (img) {
-                img.style.display = 'none';
-                const tryLoadImage = () => { if (currentIndex < sources.length) img.src = sources[currentIndex]; };
                 img.addEventListener('load', function() {
                     this.style.display = 'block';
-                    const initials = document.querySelector('.profile-initials');
                     if (initials) initials.style.display = 'none';
                 });
                 img.addEventListener('error', function() {
-                    currentIndex++;
-                    if (currentIndex < sources.length) tryLoadImage();
-                    else {
-                        this.style.display = 'none';
-                        const initials = document.querySelector('.profile-initials');
-                        if (initials) initials.style.display = 'flex';
-                    }
+                    this.style.display = 'none';
+                    if (initials) initials.style.display = 'flex';
                 });
-                tryLoadImage();
             }
         });
-
-        // ==========================================
-        // PDF GENERATOR — CLEAN LAYOUT (CV-only)
-        // ==========================================
-
-        // Config toggles
-        const IMAGE_SHAPE = 'circle';    // 'circle' | 'square'  (true crop via canvas, no overlay)
-        const ORAL_PLACEMENT = 'afterVenue'; // 'afterVenue' | 'afterTitle'
-
-        // Publications data (with ORAL flag)
-        const allPublications = [
-            {
-                title: "Semantic Parsing for Aspect Based Sentiment Analysis",
-                authors: ["Muhammad Aqeel", "Francesco Setti"],
-                venue: "IEEE Access 2025",
-                link: "https://ieeexplore.ieee.org/abstract/document/11078252",
-                oral: false
-            },
-            {
-                title: "Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning",
-                authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
-                venue: "ICCV 2025 - International Conference on Computer Vision",
-                link: "https://arxiv.org/abs/2508.02293",
-                oral: false
-            },
-            {
-                title: "Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection in Industrial Inspection",
-                authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
-                venue: "ECCVW 2024 - VISION Workshop at European Conference on Computer Vision",
-                link: "https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28",
-                oral: false
-            },
-            {
-                title: "A Contrastive Learning-Guided Confident Meta-learning for Zero Shot Anomaly Detection",
-                authors: ["Muhammad Aqeel", "Danijel Skocaj", "Marco Cristani", "Francesco Setti"],
-                venue: "ICCVW 2025 - VISION Workshop at International Conference on Computer Vision",
-                link: "https://arxiv.org/abs/2508.17827",
-                oral: false
-            },
-            {
-                title: "Robust Anomaly Detection in Industrial Environments via Meta-Learning",
-                authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
-                venue: "ICCVW 2025 - VISION Workshop at International Conference on Computer Vision",
-                link: "https://arxiv.org/abs/2508.17789",
-                oral: false
-            },
-            {
-                title: "Diffusion-Based Data Augmentation for Medical Image Segmentation",
-                authors: ["Maham Nazir", "Muhammad Aqeel", "Francesco Setti"],
-                venue: "ICCVW 2025 - CVAMD Workshop at International Conference on Computer Vision",
-                link: "https://arxiv.org/abs/2508.17844",
-                oral: false
-            },
-            {
-                title: "RoadFusion: Latent Diffusion Model for Pavement Defect Detection",
-                authors: ["Muhammad Aqeel", "Kidus Dagnaw Bellete", "Francesco Setti"],
-                venue: "ICIAP 2025 - International Conference on Image Analysis and Processing",
-                link: "https://arxiv.org/abs/2507.15346",
-                oral: false
-            },
-            {
-                title: "ExDD: Explicit Dual Distribution Learning for Surface Defect Detection via Diffusion Synthesis",
-                authors: ["Muhammad Aqeel", "Federico Leonardi", "Francesco Setti"],
-                venue: "ICIAP 2025 - International Conference on Image Analysis and Processing",
-                link: "https://arxiv.org/abs/2507.15335",
-                oral: false
-            },
-            {
-                title: "Latent Space Synergy: Text-Guided Data Augmentation for Direct Diffusion Biomedical Segmentation",
-                authors: ["Muhammad Aqeel", "Maham Nazir", "Zanxi Ruan", "Francesco Setti"],
-                venue: "ICIAP 2025 - International Conference on Image Analysis and Processing",
-                link: "https://arxiv.org/abs/2507.15361",
-                oral: false
-            },
-            {
-                title: "Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control",
-                authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
-                venue: "VISAPP 2025 - International Joint Conference on Computer Vision, Imaging and Computer Graphics Theory and Applications",
-                link: "https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912",
-                oral: true
-            },
-            {
-                title: "Self-supervised Learning for Robust Surface Defect Detection",
-                authors: ["Muhammad Aqeel", "Shakiba Sharifi", "Marco Cristani", "Francesco Setti"],
-                venue: "DeLTA 2024 - International Conference on Deep Learning Theory and Applications",
-                link: "https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11",
-                oral: false
-            },
-            {
-                title: "Diffusion-based Image Generation for In-distribution Data Augmentation in Surface Defect Detection",
-                authors: ["Luigi Capogrosso", "Federico Girella", "Francesco Taioli", "Michele Dalla Chiara", "Muhammad Aqeel", "Franco Fummi", "Francesco Setti", "Marco Cristani"],
-                venue: "VISAPP 2024 - International Joint Conference on Computer Vision, Imaging and Computer Graphics Theory and Applications",
-                link: "https://www.scitepress.org/Link.aspx?doi=10.5220/0012350400003660",
-                oral: false
-            }
-        ];
-
-        // References (moved from supervisors)
-        const references = [
-            { name: "Francesco Setti", role: "Associate Professor, University of Verona, Italy", email: "francesco.setti@univr.it", phone: "(+39) 3491959381" },
-            { name: "Xiaohong Liu", role: "Professor, Beijing University of Posts and Telecommunications, China", email: "xiaohongliu@bupt.edu.cn", phone: "(+86) 13910396374" }
-        ];
-
-        // ===== Helper: circular/square masked PNG from <img> (no overlay) =====
-        async function getMaskedImageDataURL(imgEl, sizePx = 512, shape = 'circle') {
-            return new Promise(resolve => {
-                try {
-                    const cvs = document.createElement('canvas');
-                    cvs.width = cvs.height = sizePx;
-                    const ctx = cvs.getContext('2d');
-                    ctx.clearRect(0,0,sizePx,sizePx);
-
-                    if (shape === 'circle') {
-                        ctx.save();
-                        ctx.beginPath();
-                        ctx.arc(sizePx/2, sizePx/2, sizePx/2, 0, Math.PI * 2);
-                        ctx.closePath();
-                        ctx.clip();
-                    }
-
-                    // cover fit
-                    const iw = imgEl.naturalWidth || imgEl.width;
-                    const ih = imgEl.naturalHeight || imgEl.height;
-                    const r = Math.max(sizePx/iw, sizePx/ih);
-                    const nw = iw * r, nh = ih * r;
-                    const dx = (sizePx - nw) / 2, dy = (sizePx - nh) / 2;
-                    ctx.drawImage(imgEl, dx, dy, nw, nh);
-
-                    if (shape === 'circle') ctx.restore();
-                    resolve(cvs.toDataURL('image/png'));
-                } catch (e) {
-                    resolve(null);
-                }
-            });
-        }
-
-        // ===== Helper: draw divider line =====
-        function drawDivider(doc, x1, y, x2) {
-            doc.setLineWidth(0.4);
-            doc.line(x1, y, x2, y);
-        }
-
-        // ===== Helper: justified paragraph (manual), fallback to left if too narrow =====
-        function drawJustifiedParagraph(doc, text, x, y, width, lineHeight) {
-            // Split to lines greedily
-            const words = text.split(/\s+/);
-            let line = '', lines = [];
-            words.forEach(w => {
-                const test = line ? line + ' ' + w : w;
-                if (doc.getTextWidth(test) <= width) line = test;
-                else { lines.push(line); line = w; }
-            });
-            if (line) lines.push(line);
-
-            lines.forEach((ln, idx) => {
-                const isLast = idx === lines.length - 1;
-                if (isLast || !ln.includes(' ')) {
-                    doc.text(ln, x, y); // last line left-aligned
-                } else {
-                    // distribute extra space
-                    const parts = ln.split(' ');
-                    const wordsWidth = parts.reduce((acc, w) => acc + doc.getTextWidth(w), 0);
-                    const gaps = parts.length - 1;
-                    const extra = (width - wordsWidth) / gaps;
-                    let cx = x;
-                    parts.forEach((w, i) => {
-                        doc.text(w, cx, y);
-                        cx += doc.getTextWidth(w) + extra;
-                    });
-                }
-                y += lineHeight;
-            });
-            return y;
-        }
-
-        // ===== Helper: add wrapped clickable lines (black) =====
-        function addWrappedLink(doc, text, x, y, maxWidth, url) {
-            const lines = doc.splitTextToSize(text, maxWidth);
-            lines.forEach((ln, i) => {
-                doc.textWithLink(ln, x, y, { url });
-                y += 4;
-            });
-            return y;
-        }
-
-        // ===== PDF Generation Function (CV ONLY) =====        
-        async function generatePDF() {
-            const jspdfNS = window.jspdf;
-            if (!jspdfNS || !jspdfNS.jsPDF) {
-                alert('PDF library is still loading. Please try again in a moment.');
-                return;
-            }
-            const { jsPDF } = jspdfNS;
-            const doc = new jsPDF({ unit: 'mm', format: 'a4' });
-        
-            // ── Layout
-            const ML = 20, MR = 20, TOP = 20;
-            const CONTENT_W = 210 - ML - MR;
-            const LEFT = ML, RIGHT = 210 - MR;
-        
-            // ── Colors
-            const BLACK  = [20, 20, 20];
-            const ACCENT = [25, 67, 125];   // Oxford Blue
-            const GREY   = [88, 96, 105];
-            const WHITE  = [255, 255, 255];
-            const LIGHT_GREY = [245, 245, 245];
-            const setColor = (c) => doc.setTextColor(...c);
-        
-            // ── Modern Academic Section Header with colored background
-            function drawModernSectionHeader(doc, title, x, y, width = CONTENT_W) {
-                // Add colored background
-                doc.setFillColor(...ACCENT);
-                doc.rect(x, y - 5, width, 7, 'F');
-                
-                // Add white text
-                setColor(WHITE);
-                doc.setFont('helvetica', 'bold');
-                doc.setFontSize(10);
-                doc.text(title.toUpperCase(), x + 2, y);
-                
-                // Reset color
-                setColor(BLACK);
-                return y + 7;
-            }
-        
-            // ── Justify text helper (better than justified for modern look)
-            function drawText(doc, text, x, y, width, lineHeight, color = BLACK) {
-              setColor(color);
-              const lines = doc.splitTextToSize(text, width);
-              const lastIdx = lines.length - 1;
-            
-              lines.forEach((line, i) => {
-                if (y > 270) { doc.addPage(); y = TOP; }
-            
-                // last line: left-align (typical in justification)
-                if (i === lastIdx || !line.includes(' ')) {
-                  doc.text(line, x, y);
-                  y += lineHeight;
-                  return;
-                }
-            
-                // distribute extra space between words
-                const words = line.trim().split(/\s+/);
-                const baseWidths = words.map(w => doc.getTextWidth(w));
-                const spaceW = doc.getTextWidth(' ');
-                const naturalWidth = baseWidths.reduce((a,b)=>a+b,0) + spaceW * (words.length - 1);
-                const extraPerGap = (width - naturalWidth) / (words.length - 1);
-            
-                let cursorX = x;
-                words.forEach((w, j) => {
-                  doc.text(w, cursorX, y);
-                  if (j < words.length - 1) {
-                    cursorX += doc.getTextWidth(w) + spaceW + Math.max(0, extraPerGap);
-                  }
-                });
-            
-                y += lineHeight;
-              });
-            
-              return y;
-            }
-        
-            // ── Header Block with better layout
-            let y = TOP;
-            
-            // Left side - Name and Title
-            setColor(ACCENT);
-            doc.setFont('helvetica', 'bold');
-            doc.setFontSize(26);
-            doc.text("Muhammad Aqeel", LEFT, y);
-            
-            y += 8; 
-            setColor(GREY);
-            doc.setFont('helvetica', 'italic');
-            doc.setFontSize(12);
-            doc.text("Curriculum Vitae", LEFT, y);
-            
-            doc.setFontSize(9);
-            setColor(GREY);
-            doc.setFont('helvetica', 'italic');
-            
-            // Calculate right-aligned position for contact info
-            const contactX = RIGHT - 40;
-            let contactY = TOP + 2;
-            
-            // Profile image (if available)
-            const imgEl = document.querySelector('.profile-image img');
-            if (imgEl && imgEl.style.display !== 'none' && imgEl.naturalWidth > 0) {
-                try {
-                    const masked = await getMaskedImageDataURL(imgEl, 520, IMAGE_SHAPE);
-                    if (masked) {
-                        doc.addImage(masked, 'PNG', RIGHT - 35, TOP - 5, 30, 30);
-                        // Adjust contact info position if image exists
-                        doc.text("University of Verona", contactX, contactY, { align: 'right' });
-                        contactY += 4;
-                        doc.text("Strada le Grazie 15, Italy", contactX, contactY, { align: 'right' });
-                        contactY += 4;
-                        doc.text("muhammad.aqeel@univr.it", contactX, contactY, { align: 'right' });
-                        contactY += 4;
-                        doc.text("+86 182 1013 3275", contactX, contactY, { align: 'right' });
-                        contactY += 4;
-                        doc.text("linkedin.com/in/muhammad-aqeel", contactX, contactY, { align: 'right' });
-                        contactY += 4;
-                        doc.text("https://aqeeelmirza.github.io/", contactX, contactY, { align: 'right' });
-                    }
-                } catch (e) {
-                    console.error('Image loading error:', e);
-                }
-            } else {
-                // If no image, display contact info normally
-                doc.text("University of Verona", RIGHT, contactY, { align: 'right' });
-                contactY += 4;
-                doc.text("Strada le Grazie 15, Italy", RIGHT, contactY, { align: 'right' });
-                contactY += 4;
-                doc.text("muhammad.aqeel@univr.it", RIGHT, contactY, { align: 'right' });
-                contactY += 4;
-                doc.text("+86 182 1013 3275", RIGHT, contactY, { align: 'right' });
-                contactY += 4;
-                doc.text("linkedin.com/in/muhammad-aqeel", RIGHT, contactY, { align: 'right' });
-                contactY += 4;
-                doc.text("https://aqeeelmirza.github.io/", RIGHT, contactY, { align: 'right' });
-            }
-            
-            // Horizontal line under header
-            y = Math.max(y + 15, contactY + 8);
-            doc.setDrawColor(...ACCENT);
-            doc.setLineWidth(2);
-            doc.line(LEFT, y, RIGHT, y);
-            doc.setLineWidth(0.3);
-            doc.setDrawColor(0, 0, 0);
-            
-            y += 10;
-        
-            // ── About Section (Enhanced)
-            y = drawModernSectionHeader(doc, "About", LEFT, y);
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(10);
-            const aboutText = "I am a Postdoctoral Research Fellow at the University of Verona, Italy, developing anomaly detection methods for industrial manufacturing systems. I completed my PhD in Computer Science (2025) under the supervision of Francesco Setti, specializing in meta-learning and unsupervised learning approaches for anomaly detection, with over 12 publications at leading computer vision conferences including ICCV and ECCV. I earned my Master's degree from Beijing University of Posts and Telecommunications (2019-2021) under Xiaohong Liu, focusing on Natural Language Processing and sentiment analysis, and my Bachelor's degree from PMAS Arid Agriculture University, Pakistan (2013-2017). My research bridges theoretical AI and practical industrial applications, with a focus on developing efficient, scalable unsupervised anomaly detection systems for real-world manufacturing environments.";
-            y = drawText(doc, aboutText, LEFT, y, CONTENT_W, 4.8, BLACK);
-            
-            y += 7;
-            
-            // ── Research Interests Section
-            if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawModernSectionHeader(doc, "Research Interests", LEFT, y);
-            doc.setFont('helvetica', 'normal');
-            doc.setFontSize(10);
-            const researchText = "My research centers on developing robust anomaly detection systems for industrial quality control. I am particularly interested in how self-supervised and meta-learning techniques can enable models to detect previously unseen defects without extensive labeled data. Currently, I'm exploring diffusion models for generating synthetic defect data to augment limited industrial datasets. A key focus of my work is ensuring these systems are not just accurate but also interpretable and efficient enough for real-time deployment in manufacturing environments. I'm also investigating zero-shot anomaly detection methods that can generalize across different product types and manufacturing processes. My broader interest lies in making industrial AI systems more accessible and practical for real-world deployment.";
-            y = drawText(doc, researchText, LEFT, y, CONTENT_W, 4.8, BLACK);
-            
-            y += 7;
-        
-            // ── Education Section
-            if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawModernSectionHeader(doc, "Education", LEFT, y);
-            doc.setFontSize(10);
-            const edu = [
-                { 
-                    degree: "Doctor of Philosophy in Computer Science", 
-                    period: "2022–2025", 
-                    inst: "University of Verona, Italy",
-                },
-                { 
-                    degree: "Master of Science in Computer Science", 
-                    period: "2019–2021", 
-                    inst: "Beijing University of Posts and Telecommunications, China",
-                },
-                { 
-                    degree: "Bachelor of Science in Computer Science", 
-                    period: "2013–2017", 
-                    inst: "PMAS Arid Agriculture University, Pakistan",
-                }
-            ];
-            
-            edu.forEach(e => {
-                if (y > 260) { doc.addPage(); y = TOP; }
-                
-                // Degree and period on same line
-                doc.setFont('helvetica', 'bold');
-                setColor(BLACK);
-                const periodWidth = doc.getTextWidth(e.period);
-                doc.text(e.degree, LEFT, y);
-                doc.setFont('helvetica', 'normal');
-                setColor(GREY);
-                doc.text(e.period, RIGHT, y, { align: 'right' });
-                
-                y += 4.5;
-                setColor(GREY);
-                doc.setFont('helvetica', 'normal');
-                doc.text(e.inst, LEFT + 5, y);
-                
-                if (e.details) {
-                    y += 4;
-                    doc.setFont('helvetica', 'italic');
-                    doc.setFontSize(9);
-                    setColor(GREY);
-                    doc.text(e.details, LEFT + 5, y);
-                    doc.setFontSize(10);
-                    doc.setFont('helvetica', 'normal');
-                }
-                y += 7;
-            });
-
-            // ── Funding & Grants Section (NEW)
-            y += 3;
-            if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawModernSectionHeader(doc, "Funding & Grants", LEFT, y);
-            doc.setFontSize(10);
-            
-            const funding = [
-                { 
-                    title: "PNRR PhD Scholarship", 
-                    period: "2022–2025", 
-                    org: "Italian Ministry of University and Research via University of Verona",
-                    amount: "Full tuition + €16,500/year stipend (3 years)"
-                },
-                { 
-                    title: "Research Mobility Grant", 
-                    period: "Jun–Dec 2025", 
-                    org: "University of Ljubljana, Slovenia",
-                    amount: "€6,000 for 6-month visiting researcher position"
-                },
-                { 
-                    title: "Chinese Government Scholarship", 
-                    period: "2019–2021", 
-                    org: "China Scholarship Council via Beijing University of Posts and Telecommunications",
-                    amount: "Full tuition waiver + monthly living allowance (2 years)"
-                }
-            ];
-            
-            funding.forEach(f => {
-                if (y > 260) { doc.addPage(); y = TOP; }
-                
-                doc.setFont('helvetica', 'bold');
-                setColor(BLACK);
-                doc.text(f.title, LEFT, y);
-                doc.setFont('helvetica', 'normal');
-                setColor(GREY);
-                doc.text(f.period, RIGHT, y, { align: 'right' });
-                
-                y += 4.5;
-                setColor(GREY);
-                doc.text(f.org, LEFT + 5, y);
-                
-                if (f.amount) {
-                    y += 4;
-                    doc.setFont('helvetica', 'italic');
-                    doc.setFontSize(9);
-                    doc.text(f.amount, LEFT + 5, y);
-                    doc.setFontSize(10);
-                    doc.setFont('helvetica', 'normal');
-                }
-                y += 7;
-            });
-        
-            // ── Professional Experience
-            y += 3;
-            if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawModernSectionHeader(doc, "Professional Experience", LEFT, y);
-            doc.setFontSize(10);
-            const experiences = [
-
-                { 
-                    title: "Postdoctoral Research Fellow", 
-                    period: "2025–Present", 
-                    org: "University of Verona, Italy",
-                },
-                { 
-                    title: "Visiting Researcher", 
-                    period: "Jun–Dec 2025", 
-                    org: "University of Ljubljana, Slovenia",
-                },
-                { 
-                    title: "Public Service Administrator", 
-                    period: "Dec 2024–May 2025", 
-                    org: "Comune di Ferrara, Italy",
-                },
-                { 
-                    title: "Teaching Assistant", 
-                    period: "2023–2025", 
-                    org: "University of Verona, Italy",
-                },
-                { 
-                    title: "Research Assistant", 
-                    period: "2021–2022", 
-                    org: "Huazhong University of Science and Technology, China",
-                },
-                { 
-                    title: "Software Quality Assurance Engineer", 
-                    period: "2018–2019", 
-                    org: "UIIT, Arid Agriculture University, Pakistan"
-                },
-                { 
-                    title: "Software Developer", 
-                    period: "2017–2018", 
-                    org: "eConceptions (Pvt) Ltd., Pakistan"
-                }
-            ];
-            
-            experiences.forEach(ex => {
-                if (y > 260) { doc.addPage(); y = TOP; }
-                
-                doc.setFont('helvetica', 'bold');
-                setColor(BLACK);
-                doc.text(ex.title, LEFT, y);
-                doc.setFont('helvetica', 'normal');
-                setColor(GREY);
-                doc.text(ex.period, RIGHT, y, { align: 'right' });
-                
-                y += 4.5;
-                setColor(GREY);
-                doc.text(ex.org, LEFT + 5, y);
-                
-                if (ex.desc) {
-                    y += 4;
-                    doc.setFontSize(9);
-                    doc.setFont('helvetica', 'italic');
-                    doc.text(ex.desc, LEFT + 5, y);
-                    doc.setFontSize(10);
-                    doc.setFont('helvetica', 'normal');
-                }
-                y += 7;
-            });
-        
-            // ── Technical Skills (reorganized for better presentation)
-            y += 3;
-            if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawModernSectionHeader(doc, "Technical Skills", LEFT, y);
-            doc.setFontSize(10);
-            
-            const skills = [
-                { category: "Programming:", items: "Python, C++, JavaScript, MATLAB, Bash/Shell" },
-                { category: "ML/DL Frameworks:", items: "PyTorch, TensorFlow, JAX, Scikit-learn, OpenCV" },
-                { category: "Tools & Platforms:", items: "Git, Docker, AWS, LaTeX, Jupyter, Linux/Unix" },
-                { category: "Specializations:", items: "Computer Vision, Anomaly Detection, Meta-Learning, Edge Computing" }
-            ];
-            
-            skills.forEach(s => {
-                if (y > 270) { doc.addPage(); y = TOP; }
-                doc.setFont('helvetica', 'bold');
-                setColor(BLACK);
-                doc.text(s.category, LEFT, y);
-                doc.setFont('helvetica', 'normal');
-                const itemsX = LEFT + doc.getTextWidth(s.category) + 2;
-                const itemsWidth = RIGHT - itemsX;
-                const itemLines = doc.splitTextToSize(s.items, itemsWidth);
-                doc.text(itemLines[0], itemsX, y);
-                if (itemLines.length > 1) {
-                    y += 4;
-                    doc.text(itemLines[1], itemsX, y);
-                }
-                y += 5;
-            });
-        
-            // ── Academic Service
-            y += 3;
-            if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawModernSectionHeader(doc, "Academic Service", LEFT, y);
-            doc.setFontSize(10);
-            
-            doc.setFont('helvetica', 'bold');
-            setColor(BLACK);
-            doc.text("Journal Reviewer:", LEFT, y);
-            y += 5;
-            doc.setFont('helvetica', 'normal');
-            setColor(GREY);
-            doc.text("• IEEE Transactions on Multimedia", LEFT + 5, y);
-            y += 4;
-            doc.text("• Neural Computing and Applications", LEFT + 5, y);
-            y += 4;
-            doc.text("• Applied Soft Computing", LEFT + 5, y);
-            y += 5;
-            
-            doc.setFont('helvetica', 'bold');
-            setColor(BLACK);
-            doc.text("Conference Reviewer:", LEFT, y);
-            y += 5;
-            doc.setFont('helvetica', 'normal');
-            setColor(GREY);
-            doc.text("• ICCV 2025 - International Conference on Computer Vision", LEFT + 5, y);
-            y += 4;
-            doc.text("• VISAPP 2025 - International Conference on Computer Vision Theory and Applications", LEFT + 5, y);
-            y += 8;
-            
-            // ── Languages (Updated to display in separate rows)
-            if (y > 250) { doc.addPage(); y = TOP; }
-            y = drawModernSectionHeader(doc, "Languages", LEFT, y);
-            doc.setFontSize(10);
-            
-            const languages = [
-                { lang: "Punjabi/Urdu", level: "Native" },
-                { lang: "English", level: "Fluent (C2)" },
-                { lang: "Italian", level: "Elementary (A2)" },
-                { lang: "Chinese", level: "Basic (A1)" }
-            ];
-            
-            languages.forEach(l => {
-                if (y > 270) { doc.addPage(); y = TOP; }
-                doc.setFont('helvetica', 'bold');
-                setColor(BLACK);
-                doc.text(l.lang + ":", LEFT, y);
-                doc.setFont('helvetica', 'normal');
-                setColor(GREY);
-                doc.text(l.level, LEFT + doc.getTextWidth(l.lang + ":") + 2, y);
-                y += 4.5;
-            });
-            
-            y += 5;
-
-            // ── References
-            if (y > 240) { doc.addPage(); y = TOP; }
-            y = drawModernSectionHeader(doc, "References", LEFT, y);
-            doc.setFontSize(10);
-            
-            if (typeof references !== 'undefined') {
-                references.forEach(r => {
-                    if (y > 260) { doc.addPage(); y = TOP; }
-                    
-                    doc.setFont('helvetica', 'bold');
-                    setColor(BLACK);
-                    doc.text(r.name, LEFT, y);
-                    y += 4.5;
-                    
-                    doc.setFont('helvetica', 'normal');
-                    setColor(BLACK);
-                    doc.text(r.role, LEFT, y);
-                    y += 4.5;
-                    
-                    setColor(GREY);
-                    doc.setFontSize(9);
-                    doc.text(`${r.email}  •  ${r.phone}`, LEFT, y);
-                    doc.setFontSize(10);
-                    y += 8;
-                });
-            }
-        
-            // ── Research Publications
-            if (y > 240) { doc.addPage(); y = TOP; }
-            y = drawModernSectionHeader(doc, "Research Publications", LEFT, y);
-            doc.setFontSize(9);
-            
-            if (typeof allPublications !== 'undefined') {
-                allPublications.forEach((pub, index) => {
-                    if (y > 260) { doc.addPage(); y = TOP; }
-                    
-                    // Publication number in oxford blue
-                    setColor(ACCENT);
-                    doc.setFont('helvetica', 'bold');
-                    doc.text(`[${index + 1}]`, LEFT, y);
-                    
-                    const titleX = LEFT + 8;
-                    const maxW = RIGHT - titleX;
-                    
-                    // Title in bold black
-                    setColor(BLACK);
-                    doc.setFont('helvetica', 'bold');
-                    let titleTxt = pub.title;
-                    if (pub.oral) titleTxt += " (Oral Presentation)";
-                    
-                    const titleLines = doc.splitTextToSize(titleTxt, maxW);
-                    titleLines.forEach(line => {
-                        doc.text(line, titleX, y);
-                        y += 4;
-                    });
-                    
-                    // Authors in regular
-                    doc.setFont('helvetica', 'normal');
-                    setColor(BLACK);
-                    const authorsStr = pub.authors.join(', ');
-                    const authorLines = doc.splitTextToSize(authorsStr, maxW);
-                    authorLines.forEach(line => {
-                        doc.text(line, titleX, y);
-                        y += 4;
-                    });
-                    
-                    // Venue in italic grey
-                    doc.setFont('helvetica', 'italic');
-                    setColor(GREY);
-                    const venueLines = doc.splitTextToSize(pub.venue, maxW);
-                    venueLines.forEach(line => {
-                        doc.text(line, titleX, y);
-                        y += 4;
-                    });
-                    doc.setFont('helvetica', 'normal');
-                    
-                    y += 4;
-                });
-            }
-        
-            // ── Set PDF properties
-            doc.setProperties({
-                title: 'Muhammad Aqeel - CV',
-                subject: 'Curriculum Vitae',
-                author: 'Muhammad Aqeel',
-                keywords: 'PhD, Computer Science, Anomaly Detection, Machine Learning',
-                creator: 'Muhammad Aqeel'
-            });
-        
-            // ── Open in new tab
-            const pdfBlob = doc.output('blob');
-            const pdfUrl = URL.createObjectURL(pdfBlob);
-            
-            // Open in new tab
-            const newWindow = window.open(pdfUrl, '_blank');
-            
-            // Try to set the document title
-            if (newWindow) {
-                newWindow.document.title = 'Muhammad_Aqeel_CV.pdf';
-            }
-        }
-
     </script>
 </body>
 </html>
