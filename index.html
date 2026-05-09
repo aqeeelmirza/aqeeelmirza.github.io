@@ -22,6 +22,7 @@
             --text-tertiary: #888888;
             --accent: #1e6fba;
             --accent-dark: #155a99;
+            --interest: #0c7a89;
             --border: rgba(0, 0, 0, 0.08);
             --hover-bg: #fafafa;
         }
@@ -43,7 +44,6 @@
         }
         a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
 
-        /* Skip-to-content link for keyboard accessibility */
         .skip-link {
             position: absolute;
             top: -40px;
@@ -64,7 +64,6 @@
             outline-offset: 2px;
         }
 
-        /* ===== Nav ===== */
         nav {
             position: sticky;
             top: 0;
@@ -123,7 +122,6 @@
             font-weight: 500;
         }
 
-        /* Hamburger - hidden by default on desktop, shown when scrolled or on mobile */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -142,7 +140,6 @@
             border-radius: 2px;
         }
 
-        /* When body has scrolled-state, hide menu items, show hamburger */
         body.scrolled .nav-menu .nav-link-item {
             display: none;
         }
@@ -150,7 +147,6 @@
             display: flex;
         }
 
-        /* When hamburger menu is open (scrolled state) */
         body.scrolled .nav-menu.menu-open {
             position: absolute;
             top: 100%;
@@ -174,12 +170,10 @@
             border-radius: 4px;
         }
 
-        /* Hamburger icon transformation when menu open */
         .hamburger.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
         .hamburger.active span:nth-child(2) { opacity: 0; }
         .hamburger.active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
 
-        /* ===== Main ===== */
         main {
             max-width: 920px;
             margin: 0 auto;
@@ -191,7 +185,7 @@
             display: flex;
             gap: 44px;
             align-items: flex-start;
-            margin-bottom: 44px;
+            margin-bottom: 48px;
         }
 
         .profile-block {
@@ -245,7 +239,6 @@
         }
         .cv-link svg { width: 15px; height: 15px; }
 
-        /* Mobile-only CV button (hidden on desktop) */
         .cv-link-mobile {
             display: none;
             margin-top: 18px;
@@ -276,11 +269,24 @@
             font-weight: 500;
         }
 
+        /* Research interests line - muted teal */
+        .interests {
+            font-size: 14.5px;
+            color: var(--interest);
+            line-height: 1.6;
+            margin-bottom: 22px;
+            font-weight: 500;
+        }
+        .interests .sep {
+            color: var(--text-tertiary);
+            font-weight: 400;
+            margin: 0 8px;
+        }
+
         .contact-icons {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
-            justify-content: center;
         }
 
         .contact-icon {
@@ -317,6 +323,10 @@
             margin-bottom: 14px;
         }
         .bio p:last-child { margin-bottom: 0; }
+        .bio strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
 
         /* ===== Section ===== */
         section.content-section {
@@ -332,7 +342,7 @@
             letter-spacing: -0.015em;
         }
 
-        /* ===== News ===== */
+        /* ===== News (home page) ===== */
         .news-item {
             display: flex;
             gap: 14px;
@@ -375,22 +385,13 @@
             padding-top: 3px;
         }
 
-        .older-news { display: none; }
-        .older-news.show { display: block; }
-
-        .toggle-news {
-            font-size: 14px;
-            color: var(--accent);
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 10px 0 0 151px;
-            font-family: inherit;
-            font-weight: 500;
+        .see-all-news {
+            font-size: 14.5px;
+            margin-top: 14px;
+            padding-left: 151px;
         }
-        .toggle-news:hover { text-decoration: underline; }
 
-        /* ===== Selected Publications - BIGGER thumbnails ===== */
+        /* ===== Selected Publications ===== */
         .pub-entry {
             display: flex;
             gap: 22px;
@@ -494,9 +495,28 @@
         }
         .year-heading:first-child { margin-top: 0; }
 
-        .pub-entry-flat { margin-bottom: 20px; }
+        /* ===== Publications page (improved spacing + venue prominence) ===== */
+        .pub-entry-flat {
+            margin-bottom: 24px;
+            padding: 4px 0;
+            transition: background 0.15s ease;
+        }
         .pub-entry-flat:last-child { margin-bottom: 0; }
-        .pub-entry-flat .pub-title { font-size: 15.5px; }
+        .pub-entry-flat .pub-title {
+            font-size: 15.5px;
+            margin-bottom: 5px;
+        }
+        .pub-entry-flat .pub-authors {
+            margin-bottom: 5px;
+        }
+        .pub-entry-flat .pub-venue {
+            margin-top: 3px;
+        }
+        .pub-entry-flat .pub-venue em {
+            font-style: normal;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
 
         .pub-filters {
             display: flex;
@@ -526,7 +546,33 @@
             border-color: var(--text-primary);
         }
 
-        /* ===== Timeline ===== */
+        /* ===== News page (separate) ===== */
+        .news-item-page {
+            display: flex;
+            gap: 16px;
+            font-size: 15.5px;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            align-items: flex-start;
+        }
+        .news-item-page .news-date {
+            width: 100px;
+            font-size: 14px;
+            padding-top: 4px;
+        }
+        .news-item-page .news-icon {
+            width: 32px;
+            height: 32px;
+        }
+        .news-item-page .news-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+        .news-item-page .news-content {
+            padding-top: 5px;
+        }
+
+        /* ===== Timeline (Career, Grants) ===== */
         .timeline-item {
             display: flex;
             gap: 22px;
@@ -565,6 +611,16 @@
             line-height: 1.6;
         }
 
+        .career-subsection-title {
+            font-size: 22px;
+            font-weight: 500;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+            letter-spacing: -0.01em;
+        }
+        .career-subsection-title:first-of-type { margin-top: 0; }
+
         /* ===== Footer ===== */
         footer {
             max-width: 920px;
@@ -576,9 +632,7 @@
             text-align: center;
         }
 
-        /* ===== Mobile ===== */
         @media (max-width: 760px) {
-            /* On mobile, always use hamburger */
             .hamburger { display: flex !important; }
             .nav-menu .nav-link-item { display: none; }
             .nav-menu.menu-open {
@@ -613,17 +667,18 @@
             .header-info { padding-top: 0; }
             .name { font-size: 30px; }
             .profile-image { width: 140px; height: 140px; font-size: 48px; }
+            .interests { font-size: 14px; }
             .contact-icons { justify-content: center; }
-            /* Move CV button below contact icons on mobile */
             .profile-block .cv-link { display: none; }
             .cv-link-mobile { display: inline-flex; }
             .pub-entry { flex-direction: column; }
             .pub-thumb { width: 100%; height: 200px; }
             .see-all { padding-left: 0; }
+            .see-all-news { padding-left: 0; }
             .timeline-item { flex-direction: column; gap: 6px; }
             .timeline-period { width: auto; }
-            .toggle-news { padding-left: 0; }
             .news-date { width: 80px; }
+            .news-item-page .news-date { width: 90px; }
         }
     </style>
 </head>
@@ -637,9 +692,9 @@
             <ul class="nav-menu" id="navMenu">
                 <li class="nav-link-item"><span class="nav-link active" data-page="home">Home</span></li>
                 <li class="nav-link-item"><span class="nav-link" data-page="publications">Publications</span></li>
-                <li class="nav-link-item"><span class="nav-link" data-page="projects">Projects</span></li>
-                <li class="nav-link-item"><span class="nav-link" data-page="education">Education</span></li>
-                <li class="nav-link-item"><span class="nav-link" data-page="experience">Experience</span></li>
+                <li class="nav-link-item"><span class="nav-link" data-page="news">News</span></li>
+                <li class="nav-link-item"><span class="nav-link" data-page="grants">Grants</span></li>
+                <li class="nav-link-item"><span class="nav-link" data-page="career">Career</span></li>
             </ul>
             <button class="hamburger" id="hamburger" aria-label="Menu">
                 <span></span><span></span><span></span>
@@ -672,6 +727,9 @@
                     <p class="affiliation">
                         <strong>Postdoctoral Research Fellow</strong><br>
                         Department of Engineering for Innovation Medicine · University of Verona, Italy
+                    </p>
+                    <p class="interests">
+                        Anomaly detection<span class="sep">·</span>Unsupervised learning<span class="sep">·</span>Vision-language models<span class="sep">·</span>Generative models
                     </p>
                     <div class="contact-icons">
                         <a href="mailto:muhammad.aqeel@univr.it" class="contact-icon" title="Email" aria-label="Email">
@@ -715,8 +773,8 @@
             </div>
 
             <div class="bio">
-                <p><strong>My research is centered on anomaly detection for industrial inspection, with a focus on unsupervised and zero-shot settings where labeled defect data is unavailable.</strong> Over time my work has expanded toward generative models and vision–language approaches, motivated by the need to handle data scarcity and improve generalization across unseen defect categories.</p>
-                <p>Recently I have also been exploring video understanding and multimodal summarization, though anomaly detection remains my primary focus. I completed my PhD at the University of Verona under <a href="http://www.franzsetti.info/" target="_blank" rel="noopener">Francesco Setti</a> and <a href="https://profs.scienze.univr.it/~cristanm/" target="_blank" rel="noopener">Marco Cristani</a>, and earned my Master's at Beijing University of Posts and Telecommunications under <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener">Xiaohong Liu</a>.</p>
+                <p>My research is centered on <strong>anomaly detection for industrial inspection</strong>, with a focus on unsupervised and zero-shot settings where labeled defect data is unavailable. Over time my work has expanded toward <strong>generative models</strong> and <strong>vision–language approaches</strong>, motivated by the need to handle data scarcity and improve generalization across unseen defect categories.</p>
+                <p>Recently I have also been exploring <strong>video understanding</strong> and <strong>multimodal summarization</strong>, though anomaly detection remains my primary focus. I completed my PhD at the University of Verona under <a href="http://www.franzsetti.info/" target="_blank" rel="noopener">Francesco Setti</a> and <a href="https://intelligolabs.net/" target="_blank" rel="noopener">Marco Cristani</a>, and earned my Master's at Beijing University of Posts and Telecommunications under <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener">Xiaohong Liu</a>.</p>
             </div>
 
             <section class="content-section">
@@ -725,7 +783,7 @@
                 <div class="news-item">
                     <span class="news-date">Apr 2026</span>
                     <span class="news-icon paper" title="Paper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                     </span>
                     <span class="news-content"><strong>AVA-DINO</strong> accepted at ICIP 2026.</span>
                 </div>
@@ -733,7 +791,7 @@
                 <div class="news-item">
                     <span class="news-date">Mar 2026</span>
                     <span class="news-icon paper" title="Paper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                     </span>
                     <span class="news-content"><strong>ClipSum</strong> accepted at ICPR 2026.</span>
                 </div>
@@ -741,7 +799,7 @@
                 <div class="news-item">
                     <span class="news-date">Mar 2026</span>
                     <span class="news-icon role" title="New role">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
                     </span>
                     <span class="news-content">Started as <strong>Postdoctoral Research Fellow</strong> at the University of Verona.</span>
                 </div>
@@ -754,59 +812,7 @@
                     <span class="news-content">Successfully <strong>defended my PhD</strong> at the University of Verona.</span>
                 </div>
 
-                <div class="older-news" id="olderNews">
-                    <div class="news-item">
-                        <span class="news-date">Jul 2025</span>
-                        <span class="news-icon paper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                        </span>
-                        <span class="news-content"><strong>CoMet</strong> accepted at ICCV 2025; two more papers accepted at ICCV 2025 Workshops (both Oral).</span>
-                    </div>
-                    <div class="news-item">
-                        <span class="news-date">Jun 2025</span>
-                        <span class="news-icon visit">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
-                        </span>
-                        <span class="news-content">Started a <strong>6-month research stay</strong> at the University of Ljubljana, Slovenia.</span>
-                    </div>
-                    <div class="news-item">
-                        <span class="news-date">Sep 2024</span>
-                        <span class="news-icon paper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                        </span>
-                        <span class="news-content">Paper accepted at <strong>ECCV 2024 Workshops (Oral)</strong>.</span>
-                    </div>
-                    <div class="news-item">
-                        <span class="news-date">Jul 2024</span>
-                        <span class="news-icon paper">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-                        </span>
-                        <span class="news-content">Paper accepted at <strong>DeLTA 2024 (Oral)</strong>.</span>
-                    </div>
-                    <div class="news-item">
-                        <span class="news-date">Dec 2022</span>
-                        <span class="news-icon role">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                        </span>
-                        <span class="news-content">Started <strong>PhD in Computer Science</strong> at the University of Verona, Italy.</span>
-                    </div>
-                    <div class="news-item">
-                        <span class="news-date">Jun 2021</span>
-                        <span class="news-icon degree">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-                        </span>
-                        <span class="news-content">Graduated with <strong>Master's in Computer Science</strong> from BUPT, Beijing.</span>
-                    </div>
-                    <div class="news-item">
-                        <span class="news-date">Sep 2019</span>
-                        <span class="news-icon role">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-                        </span>
-                        <span class="news-content">Started <strong>Master's in Computer Science</strong> at Beijing University of Posts and Telecommunications, China (CSC scholarship).</span>
-                    </div>
-                </div>
-
-                <button class="toggle-news" onclick="toggleNews(this)">Show older news</button>
+                <p class="see-all-news"><a href="#" class="show-all-news">See all news →</a></p>
             </section>
 
             <section class="content-section">
@@ -977,10 +983,114 @@
             </div>
         </div>
 
-        <!-- ============ PROJECTS ============ -->
-        <div class="page-section" id="page-projects">
-            <h1 class="page-title">Projects</h1>
-            <p class="page-intro">Funded research projects and grants.</p>
+        <!-- ============ NEWS PAGE ============ -->
+        <div class="page-section" id="page-news">
+            <h1 class="page-title">News</h1>
+            <p class="page-intro">A timeline of recent updates, paper acceptances, talks, and milestones.</p>
+
+            <h2 class="year-heading">2026</h2>
+
+            <div class="news-item-page">
+                <span class="news-date">Apr 2026</span>
+                <span class="news-icon paper" title="Paper">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </span>
+                <span class="news-content"><strong>AVA-DINO</strong> accepted at ICIP 2026 — Anomaly-Aware Vision-Language Adapters for Zero-Shot Anomaly Detection.</span>
+            </div>
+
+            <div class="news-item-page">
+                <span class="news-date">Mar 2026</span>
+                <span class="news-icon paper" title="Paper">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </span>
+                <span class="news-content"><strong>ClipSum</strong> accepted at ICPR 2026 — Multimodal Abstractive Summarization of Instructional Videos.</span>
+            </div>
+
+            <div class="news-item-page">
+                <span class="news-date">Mar 2026</span>
+                <span class="news-icon role" title="New role">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                </span>
+                <span class="news-content">Started as <strong>Postdoctoral Research Fellow</strong> at the University of Verona.</span>
+            </div>
+
+            <div class="news-item-page">
+                <span class="news-date">Feb 2026</span>
+                <span class="news-icon degree" title="PhD">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                </span>
+                <span class="news-content">Successfully <strong>defended my PhD</strong> at the University of Verona.</span>
+            </div>
+
+            <h2 class="year-heading">2025</h2>
+
+            <div class="news-item-page">
+                <span class="news-date">Jul 2025</span>
+                <span class="news-icon paper">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </span>
+                <span class="news-content"><strong>CoMet</strong> accepted at ICCV 2025; two more papers accepted at ICCV 2025 Workshops (both Oral).</span>
+            </div>
+
+            <div class="news-item-page">
+                <span class="news-date">Jun 2025</span>
+                <span class="news-icon visit">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg>
+                </span>
+                <span class="news-content">Started a <strong>6-month research stay</strong> at the University of Ljubljana, Slovenia.</span>
+            </div>
+
+            <h2 class="year-heading">2024</h2>
+
+            <div class="news-item-page">
+                <span class="news-date">Sep 2024</span>
+                <span class="news-icon paper">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </span>
+                <span class="news-content">Paper accepted at <strong>ECCV 2024 Workshops (Oral)</strong>.</span>
+            </div>
+
+            <div class="news-item-page">
+                <span class="news-date">Jul 2024</span>
+                <span class="news-icon paper">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </span>
+                <span class="news-content">Paper accepted at <strong>DeLTA 2024 (Oral)</strong>.</span>
+            </div>
+
+            <h2 class="year-heading">2022</h2>
+
+            <div class="news-item-page">
+                <span class="news-date">Dec 2022</span>
+                <span class="news-icon role">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                </span>
+                <span class="news-content">Started <strong>PhD in Computer Science</strong> at the University of Verona, Italy.</span>
+            </div>
+
+            <h2 class="year-heading">2019 – 2021</h2>
+
+            <div class="news-item-page">
+                <span class="news-date">Jun 2021</span>
+                <span class="news-icon degree">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                </span>
+                <span class="news-content">Graduated with <strong>Master's in Computer Science</strong> from BUPT, Beijing.</span>
+            </div>
+
+            <div class="news-item-page">
+                <span class="news-date">Sep 2019</span>
+                <span class="news-icon role">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                </span>
+                <span class="news-content">Started <strong>Master's in Computer Science</strong> at Beijing University of Posts and Telecommunications, China (CSC scholarship).</span>
+            </div>
+        </div>
+
+        <!-- ============ GRANTS ============ -->
+        <div class="page-section" id="page-grants">
+            <h1 class="page-title">Grants</h1>
+            <p class="page-intro">Funded research projects and scholarships.</p>
 
             <div class="timeline-item">
                 <span class="timeline-period">2022 – 2025</span>
@@ -1010,9 +1120,11 @@
             </div>
         </div>
 
-        <!-- ============ EDUCATION ============ -->
-        <div class="page-section" id="page-education">
-            <h1 class="page-title">Education</h1>
+        <!-- ============ CAREER (Education + Experience merged) ============ -->
+        <div class="page-section" id="page-career">
+            <h1 class="page-title">Career</h1>
+
+            <h2 class="career-subsection-title">Education</h2>
 
             <div class="timeline-item">
                 <span class="timeline-period">2022 – 2026</span>
@@ -1039,11 +1151,8 @@
                     <p class="timeline-org"><a href="https://www.uaar.edu.pk" target="_blank" rel="noopener">PMAS Arid Agriculture University Rawalpindi, Pakistan</a></p>
                 </div>
             </div>
-        </div>
 
-        <!-- ============ EXPERIENCE ============ -->
-        <div class="page-section" id="page-experience">
-            <h1 class="page-title">Experience</h1>
+            <h2 class="career-subsection-title">Experience</h2>
 
             <div class="timeline-item">
                 <span class="timeline-period">2026 – present</span>
@@ -1104,7 +1213,6 @@
             navMenu.classList.toggle('menu-open');
         });
 
-        // Close menu when clicking outside
         document.addEventListener('click', (e) => {
             if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
                 hamburger.classList.remove('active');
@@ -1112,14 +1220,12 @@
             }
         });
 
-        // Scroll detection: collapse menu into hamburger after scrolling
         let scrollThreshold = 80;
         function handleScroll() {
             if (window.scrollY > scrollThreshold) {
                 document.body.classList.add('scrolled');
             } else {
                 document.body.classList.remove('scrolled');
-                // Also close any open menu when going back to top
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('menu-open');
             }
@@ -1152,6 +1258,13 @@
             });
         });
 
+        document.querySelectorAll('.show-all-news').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showPage('news');
+            });
+        });
+
         function filterPublications(evt, filter) {
             document.querySelectorAll('.pub-filter-btn').forEach(b => b.classList.remove('active'));
             if (evt && evt.currentTarget) evt.currentTarget.classList.add('active');
@@ -1173,13 +1286,6 @@
             });
         }
 
-        function toggleNews(btn) {
-            const older = document.getElementById('olderNews');
-            older.classList.toggle('show');
-            btn.textContent = older.classList.contains('show') ? 'Show fewer' : 'Show older news';
-        }
-
-        // Profile image fallback
         window.addEventListener('DOMContentLoaded', () => {
             const img = document.querySelector('.profile-image img');
             const initials = document.querySelector('.profile-initials');
