@@ -104,17 +104,12 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-html, body {
-  overflow-x: hidden;
+html, body, main, section, article, aside, nav, header, footer {
   border: 0 !important;
   outline: 0 !important;
   box-shadow: none !important;
 }
-
-body, main, section, article, aside, nav, header, footer {
-  border-left: 0 !important;
-  border-right: 0 !important;
-}
+html, body { overflow-x: hidden; }
 
 a {
   color: var(--accent);
