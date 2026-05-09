@@ -104,12 +104,8 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-html, body, main, section, article, aside, nav, header, footer {
-  border: 0 !important;
-  outline: 0 !important;
-  box-shadow: none !important;
-}
 html, body { overflow-x: hidden; }
+main { border: 0; outline: 0; box-shadow: none; }
 
 a {
   color: var(--accent);
@@ -150,12 +146,8 @@ nav {
 }
 body.scrolled nav { border-bottom-color: var(--border); }
 
-/* On scroll, collapse desktop nav links into hamburger alongside the brand */
-body.scrolled .nav-menu { display: none; }
-body.scrolled .hamburger { display: flex; }
-
 /* Anchored sections must clear the sticky nav */
-section, .page-section, [id] { scroll-margin-top: 80px; }
+.page-section, section[id] { scroll-margin-top: 80px; }
 
 .nav-container {
   max-width: 920px;
