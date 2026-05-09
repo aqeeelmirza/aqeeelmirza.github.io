@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muhammad Aqeel</title>
-    <link rel="icon" type="spubs/favicon.svg" href="favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="spubs/favicon.svg">
     <meta name="description" content="Postdoctoral Research Fellow at the University of Verona (Department of Engineering for Innovation Medicine) working on unsupervised anomaly detection for industrial inspection.">
 
     <meta property="og:title" content="Muhammad Aqeel">
@@ -42,6 +42,27 @@
             transition: opacity 0.2s ease;
         }
         a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+        /* Skip-to-content link for keyboard accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--text-primary);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 0 0 6px 0;
+            z-index: 200;
+            font-size: 14px;
+            font-weight: 500;
+            transition: top 0.2s ease;
+        }
+        .skip-link:focus {
+            top: 0;
+            text-decoration: none;
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
 
         /* ===== Nav ===== */
         nav {
@@ -224,6 +245,12 @@
         }
         .cv-link svg { width: 15px; height: 15px; }
 
+        /* Mobile-only CV button (hidden on desktop) */
+        .cv-link-mobile {
+            display: none;
+            margin-top: 18px;
+        }
+
         .header-info {
             flex: 1;
             min-width: 0;
@@ -242,27 +269,11 @@
             font-size: 15.5px;
             color: var(--text-secondary);
             line-height: 1.6;
-            margin-bottom: 18px;
+            margin-bottom: 22px;
         }
         .affiliation strong {
             color: var(--text-primary);
             font-weight: 500;
-        }
-
-        .highlight-banner {
-            display: inline-block;
-            font-size: 14px;
-            color: var(--text-secondary);
-            background: #f4f8fc;
-            border: 1px solid #d8e6f3;
-            padding: 7px 14px;
-            border-radius: 6px;
-            line-height: 1.4;
-            margin-bottom: 18px;
-        }
-        .highlight-banner strong {
-            color: var(--accent);
-            font-weight: 600;
         }
 
         .contact-icons {
@@ -276,8 +287,8 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 38px;
-            height: 38px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
             color: var(--text-secondary);
             background: transparent;
@@ -291,12 +302,12 @@
             text-decoration: none;
             transform: translateY(-1px);
         }
-        .contact-icon svg { width: 17px; height: 17px; }
+        .contact-icon svg { width: 19px; height: 19px; }
         .scholar-icon { fill: currentColor; stroke: none; }
 
         /* ===== Bio ===== */
         .bio {
-            margin-bottom: 48px;
+            margin-bottom: 56px;
         }
 
         .bio p {
@@ -309,7 +320,7 @@
 
         /* ===== Section ===== */
         section.content-section {
-            margin-bottom: 48px;
+            margin-bottom: 56px;
         }
 
         .section-title {
@@ -603,6 +614,9 @@
             .name { font-size: 30px; }
             .profile-image { width: 140px; height: 140px; font-size: 48px; }
             .contact-icons { justify-content: center; }
+            /* Move CV button below contact icons on mobile */
+            .profile-block .cv-link { display: none; }
+            .cv-link-mobile { display: inline-flex; }
             .pub-entry { flex-direction: column; }
             .pub-thumb { width: 100%; height: 200px; }
             .see-all { padding-left: 0; }
@@ -614,6 +628,8 @@
     </style>
 </head>
 <body>
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
     <nav>
         <div class="nav-container">
@@ -631,7 +647,7 @@
         </div>
     </nav>
 
-    <main>
+    <main id="main-content">
 
         <!-- ============ HOME ============ -->
         <div class="page-section active" id="page-home">
@@ -657,9 +673,6 @@
                         <strong>Postdoctoral Research Fellow</strong><br>
                         Department of Engineering for Innovation Medicine · University of Verona, Italy
                     </p>
-                    <div class="highlight-banner">
-                        <strong>New (2026):</strong> Two papers accepted at ICIP and ICPR.
-                    </div>
                     <div class="contact-icons">
                         <a href="mailto:muhammad.aqeel@univr.it" class="contact-icon" title="Email" aria-label="Email">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -690,11 +703,19 @@
                             </svg>
                         </a>
                     </div>
+                    <a href="https://github.com/aqeeelmirza/aqeeelmirza.github.io/raw/main/Muhammad_Aqeel_CV.pdf" class="cv-link cv-link-mobile" target="_blank" rel="noopener">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download CV
+                    </a>
                 </div>
             </div>
 
             <div class="bio">
-                <p>My research is centered on <strong>anomaly detection for industrial inspection</strong>, with a focus on unsupervised and zero-shot settings where labeled defect data is unavailable. Over time my work has expanded toward generative models and vision–language approaches, motivated by the need to handle data scarcity and improve generalization across unseen defect categories.</p>
+                <p><strong>My research is centered on anomaly detection for industrial inspection, with a focus on unsupervised and zero-shot settings where labeled defect data is unavailable.</strong> Over time my work has expanded toward generative models and vision–language approaches, motivated by the need to handle data scarcity and improve generalization across unseen defect categories.</p>
                 <p>Recently I have also been exploring video understanding and multimodal summarization, though anomaly detection remains my primary focus. I completed my PhD at the University of Verona under <a href="http://www.franzsetti.info/" target="_blank" rel="noopener">Francesco Setti</a> and <a href="https://profs.scienze.univr.it/~cristanm/" target="_blank" rel="noopener">Marco Cristani</a>, and earned my Master's at Beijing University of Posts and Telecommunications under <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener">Xiaohong Liu</a>.</p>
             </div>
 
@@ -793,11 +814,22 @@
 
                 <div class="pub-entry">
                     <div class="pub-thumb">
+                        <img src="spubs/CoMet.png" alt="CoMet">
+                    </div>
+                    <div class="pub-content">
+                        <p class="pub-title">Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
+                        <p class="pub-venue"><em>ICCV 2025</em><span class="sep">·</span><a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Aqeel_Towards_Real_Unsupervised_Anomaly_Detection_Via_Confident_Meta-Learning_ICCV_2025_paper.pdf" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza/CoMet" target="_blank" rel="noopener">Code</a></p>
+                    </div>
+                </div>
+
+                <div class="pub-entry">
+                    <div class="pub-thumb">
                         <img src="spubs/Ava-Dino.png" alt="AVA-DINO">
                     </div>
                     <div class="pub-content">
                         <p class="pub-title">Anomaly-Aware Vision-Language Adapters for Zero-Shot Anomaly Detection</p>
-                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Maham Nazir, Usama Khan, Marco Cristani, Francesco Setti</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Maham Nazir, Uzair Khan, Marco Cristani, Francesco Setti</p>
                         <p class="pub-venue"><em>ICIP 2026</em></p>
                     </div>
                 </div>
@@ -810,17 +842,6 @@
                         <p class="pub-title">Multimodal Abstractive Summarization of Instructional Videos with Vision-Language Models</p>
                         <p class="pub-authors">Maham Nazir, Richong Zhang, <span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
                         <p class="pub-venue"><em>ICPR 2026</em></p>
-                    </div>
-                </div>
-
-                <div class="pub-entry">
-                    <div class="pub-thumb">
-                        <img src="spubs/CoMet.png" alt="CoMet">
-                    </div>
-                    <div class="pub-content">
-                        <p class="pub-title">Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning</p>
-                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
-                        <p class="pub-venue"><em>ICCV 2025</em><span class="sep">·</span><a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Aqeel_Towards_Real_Unsupervised_Anomaly_Detection_Via_Confident_Meta-Learning_ICCV_2025_paper.pdf" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza/CoMet" target="_blank" rel="noopener">Code</a></p>
                     </div>
                 </div>
 
@@ -867,7 +888,7 @@
 
                 <div class="pub-entry-flat" data-featured="true">
                     <p class="pub-title">Anomaly-Aware Vision-Language Adapters for Zero-Shot Anomaly Detection</p>
-                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Maham Nazir, Usama Khan, Marco Cristani, Francesco Setti</p>
+                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Maham Nazir, Uzair Khan, Marco Cristani, Francesco Setti</p>
                     <p class="pub-venue"><em>IEEE International Conference on Image Processing (ICIP) 2026</em></p>
                 </div>
 
@@ -1070,7 +1091,7 @@
     </main>
 
     <footer>
-        <p>© 2026 Muhammad Aqeel · Last updated April 2026</p>
+        <p>© 2026 Muhammad Aqeel</p>
     </footer>
 
     <script>
