@@ -222,25 +222,27 @@
         .cv-icon {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--accent);
+            gap: 7px;
+            font-size: 13.5px;
+            font-weight: 500;
             color: white;
+            background: var(--accent);
+            padding: 9px 18px;
+            border-radius: 6px;
             text-decoration: none;
-            font-size: 13px;
-            font-weight: 700;
-            letter-spacing: 0.05em;
             transition: all 0.2s ease;
-            box-shadow: 0 2px 6px rgba(30, 111, 186, 0.25);
+            box-shadow: 0 1px 2px rgba(30, 111, 186, 0.2);
         }
         .cv-icon:hover {
             background: var(--accent-dark);
             text-decoration: none;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(30, 111, 186, 0.35);
             color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 8px rgba(30, 111, 186, 0.3);
+        }
+        .cv-icon svg {
+            width: 14px;
+            height: 14px;
         }
 
         .cv-icon-mobile {
@@ -772,7 +774,14 @@
                         <span class="profile-initials">MA</span>
                         <img src="PPP.JPG" alt="Muhammad Aqeel">
                     </div>
-                    <a href="https://github.com/aqeeelmirza/aqeeelmirza.github.io/raw/main/Muhammad_Aqeel_CV.pdf" class="cv-icon" target="_blank" rel="noopener" title="Download CV">CV</a>
+                    <a href="https://github.com/aqeeelmirza/aqeeelmirza.github.io/raw/main/Muhammad_Aqeel_CV.pdf" class="cv-icon" target="_blank" rel="noopener">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download CV
+                    </a>
                 </div>
                 <div class="header-info">
                     <h1 class="name">Muhammad Aqeel</h1>
@@ -813,7 +822,14 @@
                             </svg>
                         </a>
                     </div>
-                    <a href="https://github.com/aqeeelmirza/aqeeelmirza.github.io/raw/main/Muhammad_Aqeel_CV.pdf" class="cv-icon cv-icon-mobile" target="_blank" rel="noopener" title="Download CV">CV</a>
+                    <a href="https://github.com/aqeeelmirza/aqeeelmirza.github.io/raw/main/Muhammad_Aqeel_CV.pdf" class="cv-icon cv-icon-mobile" target="_blank" rel="noopener">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Download CV
+                    </a>
                 </div>
             </div>
 
