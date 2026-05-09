@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin · Muhammad Aqeel</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- ===== Connection panel ===== -->
+  <div class="conn-wrap" id="connectionPanel">
+    <h1>Sign in</h1>
+    <p class="sub">Connect this admin to your GitHub repo. Your token is stored in this browser only.</p>
+    <form id="connForm">
+      <div class="field">
+        <label>GitHub Personal Access Token</label>
+        <input type="password" name="token" autocomplete="off" placeholder="github_pat_..." required>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>Owner</label>
+          <input type="text" name="owner" placeholder="aqeeelmirza" required>
+        </div>
+        <div class="field">
+          <label>Repo</label>
+          <input type="text" name="repo" placeholder="aqeeelmirza.github.io" required>
+        </div>
+        <div class="field" style="max-width: 110px;">
+          <label>Branch</label>
+          <input type="text" name="branch" value="main">
+        </div>
+      </div>
+      <div class="actions">
+        <button type="submit" class="btn btn-primary">Connect</button>
+        <button type="button" class="btn" id="localOnlyBtn">Edit locally only</button>
+      </div>
+    </form>
+    <div class="help">
+      <strong>How to create a token:</strong><br>
+      Go to GitHub → Settings → Developer settings → <strong>Fine-grained personal access tokens</strong> → Generate new token. Scope it to <em>only</em> this repo, with permission <code>Contents: Read &amp; write</code>. Paste it above.<br><br>
+      The token never leaves your browser. To revoke access, delete the token on GitHub or click <strong>Disconnect</strong> here.
+    </div>
+  </div>
+
+  <!-- ===== App ===== -->
+  <div id="app" style="display:none;">
+    <div class="bar">
+      <div class="bar-left">
+        <span class="bar-title">Site Admin</span>
+        <span class="bar-repo" id="repoLabel"></span>
+      </div>
+      <div class="bar-right">
+        <span class="dirty-dot" id="dirtyDot" title="Unsaved changes"></span>
+        <button class="btn btn-ghost" id="viewSiteBtn">View site ↗</button>
+        <button class="btn" id="exportBtn">Export JSON</button>
+        <button class="btn btn-primary" id="saveBtn">Publish to GitHub</button>
+        <button class="btn btn-ghost" id="disconnectBtn" title="Disconnect">⎋</button>
+      </div>
+    </div>
+
+    <div class="app">
+      <div class="tabs" id="tabs"></div>
+      <div class="editor-wrap" id="editor"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

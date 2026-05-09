@@ -1,0 +1,511 @@
+{
+  "profile": {
+    "name": "Muhammad Aqeel",
+    "title": "Postdoctoral Research Fellow",
+    "affiliation": "Department of Engineering for Innovation Medicine · University of Verona, Italy",
+    "bioParagraphs": [
+      "My research is centered on **anomaly detection for industrial inspection**, with a focus on unsupervised and zero-shot settings where labeled defect data is unavailable. Over time my work has expanded toward **generative models** and **vision–language approaches**, motivated by the need to handle data scarcity and improve generalization across unseen defect categories.",
+      "Recently I have also been exploring **video understanding** and **multimodal summarization**, though anomaly detection remains my primary focus. I completed my PhD at the University of Verona under [Francesco Setti](http://www.franzsetti.info/) and [Marco Cristani](https://intelligolabs.net/), and earned my Master's at Beijing University of Posts and Telecommunications under [Xiaohong Liu](https://ieeexplore.ieee.org/author/37089775983)."
+    ],
+    "interests": [
+      "Anomaly detection",
+      "Unsupervised learning",
+      "Vision-language models",
+      "Generative models"
+    ],
+    "photo": "PPP.JPG",
+    "cvUrl": "https://github.com/aqeeelmirza/aqeeelmirza.github.io/raw/main/Muhammad_Aqeel_CV.pdf",
+    "links": {
+      "email": "muhammad.aqeel@univr.it",
+      "scholar": "https://scholar.google.com/citations?user=ZPUihX0AAAAJ&hl=en",
+      "github": "https://github.com/aqeeelmirza",
+      "linkedin": "https://www.linkedin.com/in/muhammad-aqeel-4378b9170",
+      "orcid": "https://orcid.org/0009-0000-5095-605X"
+    }
+  },
+  "news": [
+    {
+      "id": "n1",
+      "date": "Apr 2026",
+      "type": "paper",
+      "html": "<strong>AVA-DINO</strong> accepted at ICIP 2026."
+    },
+    {
+      "id": "n2",
+      "date": "Mar 2026",
+      "type": "paper",
+      "html": "<strong>ClipSum</strong> accepted at ICPR 2026."
+    },
+    {
+      "id": "n3",
+      "date": "Mar 2026",
+      "type": "role",
+      "html": "Started as <strong>Postdoctoral Research Fellow</strong> at the University of Verona."
+    },
+    {
+      "id": "n4",
+      "date": "Feb 2026",
+      "type": "degree",
+      "html": "Successfully <strong>defended my PhD</strong> at the University of Verona."
+    },
+    {
+      "id": "n5",
+      "date": "Jul 2025",
+      "type": "paper",
+      "html": "<strong>CoMet</strong> accepted at ICCV 2025; two more papers accepted at ICCV 2025 Workshops (both Oral)."
+    },
+    {
+      "id": "n6",
+      "date": "Jun 2025",
+      "type": "visit",
+      "html": "Started a <strong>6-month research stay</strong> at the University of Ljubljana, Slovenia."
+    },
+    {
+      "id": "n7",
+      "date": "Sep 2024",
+      "type": "paper",
+      "html": "Paper accepted at <strong>ECCV 2024 Workshops (Oral)</strong>."
+    },
+    {
+      "id": "n8",
+      "date": "Jul 2024",
+      "type": "paper",
+      "html": "Paper accepted at <strong>DeLTA 2024 (Oral)</strong>."
+    },
+    {
+      "id": "n9",
+      "date": "Dec 2022",
+      "type": "role",
+      "html": "Started <strong>PhD in Computer Science</strong> at the University of Verona, Italy."
+    },
+    {
+      "id": "n10",
+      "date": "Jun 2021",
+      "type": "degree",
+      "html": "Graduated with <strong>Master's in Computer Science</strong> from BUPT, Beijing."
+    },
+    {
+      "id": "n11",
+      "date": "Sep 2019",
+      "type": "role",
+      "html": "Started <strong>Master's in Computer Science</strong> at Beijing University of Posts and Telecommunications, China (CSC scholarship)."
+    }
+  ],
+  "publications": [
+    {
+      "id": "p1",
+      "year": 2026,
+      "featured": true,
+      "selected": false,
+      "title": "Anomaly-Aware Vision-Language Adapters for Zero-Shot Anomaly Detection",
+      "authors": [
+        "*Muhammad Aqeel",
+        "Maham Nazir",
+        "Uzair Khan",
+        "Marco Cristani",
+        "Francesco Setti"
+      ],
+      "venue": "ICIP 2026",
+      "venueTier": "main",
+      "oral": false,
+      "thumb": "spubs/Ava-Dino.png",
+      "links": {},
+      "bibtex": "@inproceedings{aqeel2026avadino,\n  author    = {Aqeel, Muhammad and Nazir, Maham and Khan, Uzair and Cristani, Marco and Setti, Francesco},\n  title     = {Anomaly-Aware Vision-Language Adapters for Zero-Shot Anomaly Detection},\n  booktitle = {IEEE International Conference on Image Processing (ICIP)},\n  year      = {2026},\n  note      = {To appear},\n}"
+    },
+    {
+      "id": "p2",
+      "year": 2026,
+      "featured": true,
+      "selected": true,
+      "title": "Multimodal Abstractive Summarization of Instructional Videos with Vision-Language Models",
+      "authors": [
+        "Maham Nazir",
+        "Richong Zhang",
+        "*Muhammad Aqeel",
+        "Francesco Setti"
+      ],
+      "venue": "ICPR 2026",
+      "venueTier": "main",
+      "oral": false,
+      "thumb": "spubs/ClipSum.jpg",
+      "links": {},
+      "bibtex": "@inproceedings{nazir2026clipsum,\n  author    = {Nazir, Maham and Zhang, Richong and Aqeel, Muhammad and Setti, Francesco},\n  title     = {Multimodal Abstractive Summarization of Instructional Videos with Vision-Language Models},\n  booktitle = {International Conference on Pattern Recognition (ICPR)},\n  year      = {2026},\n}"
+    },
+    {
+      "id": "p3",
+      "year": 2025,
+      "featured": false,
+      "selected": true,
+      "title": "Semantic Parsing for Aspect-Based Sentiment Analysis",
+      "authors": [
+        "*Muhammad Aqeel",
+        "Francesco Setti"
+      ],
+      "venue": "IEEE Access 2025",
+      "venueTier": "main",
+      "oral": false,
+      "thumb": "spubs/semantic.jpg",
+      "links": {
+        "pdf": "https://ieeexplore.ieee.org/abstract/document/11078252"
+      },
+      "bibtex": "@article{aqeel2025semantic,\n  author    = {Aqeel, Muhammad and Setti, Francesco},\n  title     = {Semantic Parsing for Aspect Based Sentiment Analysis},\n  journal   = {IEEE Access},\n  year      = {2025},\n  volume    = {13},\n  pages     = {127322--127334},\n  publisher = {IEEE},\n}"
+    },
+    {
+      "id": "p4",
+      "year": 2025,
+      "featured": true,
+      "selected": true,
+      "title": "Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning",
+      "authors": [
+        "*Muhammad Aqeel",
+        "Shakiba Sharifi",
+        "Marco Cristani",
+        "Francesco Setti"
+      ],
+      "venue": "ICCV 2025",
+      "venueTier": "main",
+      "oral": false,
+      "thumb": "spubs/CoMet.png",
+      "links": {
+        "pdf": "https://openaccess.thecvf.com/content/ICCV2025/papers/Aqeel_Towards_Real_Unsupervised_Anomaly_Detection_Via_Confident_Meta-Learning_ICCV_2025_paper.pdf",
+        "code": "https://github.com/aqeeelmirza/CoMet"
+      },
+      "bibtex": "@inproceedings{aqeel2025comet,\n  author    = {Aqeel, Muhammad and Sharifi, Shakiba and Cristani, Marco and Setti, Francesco},\n  title     = {Towards Real Unsupervised Anomaly Detection via Confident Meta-Learning},\n  booktitle = {IEEE/CVF International Conference on Computer Vision (ICCV)},\n  year      = {2025},\n  publisher = {IEEE/CVF},\n}"
+    },
+    {
+      "id": "p5",
+      "year": 2025,
+      "featured": true,
+      "selected": false,
+      "title": "A Contrastive Learning-Guided Confident Meta-learning for Zero Shot Anomaly Detection",
+      "authors": [
+        "*Muhammad Aqeel",
+        "Danijel Skocaj",
+        "Marco Cristani",
+        "Francesco Setti"
+      ],
+      "venue": "ICCV 2025 Workshops",
+      "venueTier": "workshop",
+      "oral": true,
+      "thumb": "",
+      "links": {
+        "pdf": "https://openaccess.thecvf.com/content/ICCV2025W/VISION'25/papers/Aqeel_A_Contrastive_Learning-Guided_Confident_Meta-learning_for_Zero_Shot_Anomaly_Detection_ICCVW_2025_paper.pdf"
+      },
+      "bibtex": "@inproceedings{aqeel2025contrastive,\n  author    = {Aqeel, Muhammad and Sko{\\v c}aj, Danijel and Cristani, Marco and Setti, Francesco},\n  title     = {A Contrastive Learning-Guided Confident Meta-Learning for Zero-Shot Anomaly Detection},\n  booktitle = {IEEE/CVF International Conference on Computer Vision Workshops (ICCVW)},\n  year      = {2025},\n  publisher = {IEEE/CVF},\n}"
+    },
+    {
+      "id": "p6",
+      "year": 2025,
+      "featured": true,
+      "selected": true,
+      "title": "Robust Anomaly Detection in Industrial Environments via Meta-Learning",
+      "authors": [
+        "*Muhammad Aqeel",
+        "Shakiba Sharifi",
+        "Marco Cristani",
+        "Francesco Setti"
+      ],
+      "venue": "ICCV 2025 Workshops",
+      "venueTier": "workshop",
+      "oral": true,
+      "thumb": "spubs/RAD.png",
+      "links": {
+        "pdf": "https://openaccess.thecvf.com/content/ICCV2025W/VISION'25/papers/Aqeel_Robust_Anomaly_Detection_in_Industrial_Environments_via_Meta-Learning_ICCVW_2025_paper.pdf"
+      },
+      "bibtex": "@inproceedings{aqeel2025robust,\n  author    = {Aqeel, Muhammad and Sharifi, Shakiba and Cristani, Marco and Setti, Francesco},\n  title     = {Robust Anomaly Detection in Industrial Environments via Meta-Learning},\n  booktitle = {IEEE/CVF International Conference on Computer Vision Workshops (ICCVW)},\n  year      = {2025},\n  publisher = {IEEE/CVF},\n}"
+    },
+    {
+      "id": "p7",
+      "year": 2025,
+      "featured": false,
+      "selected": false,
+      "title": "Diffusion-Based Data Augmentation for Medical Image Segmentation",
+      "authors": [
+        "Maham Nazir",
+        "*Muhammad Aqeel",
+        "Francesco Setti"
+      ],
+      "venue": "ICCV 2025 Workshops",
+      "venueTier": "workshop",
+      "oral": false,
+      "thumb": "",
+      "links": {
+        "pdf": "https://openaccess.thecvf.com/content/ICCV2025W/CVAMD/papers/Nazir_Diffusion-Based_Data_Augmentation_for_Medical_Image_Segmentation_ICCVW_2025_paper.pdf"
+      },
+      "bibtex": "@inproceedings{nazir2025diffusion,\n  author    = {Nazir, Maham and Aqeel, Muhammad and Setti, Francesco},\n  title     = {Diffusion-Based Data Augmentation for Medical Image Segmentation},\n  booktitle = {IEEE/CVF International Conference on Computer Vision Workshops (ICCVW)},\n  year      = {2025},\n  publisher = {IEEE/CVF},\n}"
+    },
+    {
+      "id": "p8",
+      "year": 2025,
+      "featured": false,
+      "selected": false,
+      "title": "RoadFusion: Latent Diffusion Model for Pavement Defect Detection",
+      "authors": [
+        "*Muhammad Aqeel",
+        "Kidus Dagnaw Bellete",
+        "Francesco Setti"
+      ],
+      "venue": "ICIAP 2025",
+      "venueTier": "main",
+      "oral": true,
+      "thumb": "",
+      "links": {
+        "pdf": "https://arxiv.org/abs/2507.15346"
+      },
+      "bibtex": "@inproceedings{aqeel2025roadfusion,\n  author    = {Aqeel, Muhammad and Bellete, Kidus Dagnaw and Setti, Francesco},\n  title     = {RoadFusion: Latent Diffusion Model for Pavement Defect Detection},\n  booktitle = {International Conference on Image Analysis and Processing (ICIAP)},\n  year      = {2025},\n  publisher = {Springer},\n}"
+    },
+    {
+      "id": "p9",
+      "year": 2025,
+      "featured": false,
+      "selected": false,
+      "title": "ExDD: Explicit Dual Distribution Learning for Surface Defect Detection via Diffusion Synthesis",
+      "authors": [
+        "*Muhammad Aqeel",
+        "Federico Leonardi",
+        "Francesco Setti"
+      ],
+      "venue": "ICIAP 2025",
+      "venueTier": "main",
+      "oral": false,
+      "thumb": "",
+      "links": {
+        "pdf": "https://arxiv.org/abs/2507.15335"
+      },
+      "bibtex": "@inproceedings{aqeel2025exdd,\n  author    = {Aqeel, Muhammad and Leonardi, Federico and Setti, Francesco},\n  title     = {{ExDD}: Explicit Dual Distribution Learning for Surface Defect Detection via Diffusion Synthesis},\n  booktitle = {International Conference on Image Analysis and Processing (ICIAP)},\n  year      = {2025},\n  publisher = {Springer},\n}"
+    },
+    {
+      "id": "p10",
+      "year": 2025,
+      "featured": false,
+      "selected": false,
+      "title": "Latent Space Synergy: Text-Guided Data Augmentation for Direct Diffusion Biomedical Segmentation",
+      "authors": [
+        "*Muhammad Aqeel",
+        "Maham Nazir",
+        "Zanxi Ruan",
+        "Francesco Setti"
+      ],
+      "venue": "ICIAP 2025 Workshops",
+      "venueTier": "workshop",
+      "oral": false,
+      "thumb": "",
+      "links": {
+        "pdf": "https://arxiv.org/abs/2507.15361"
+      },
+      "bibtex": "@inproceedings{aqeel2025latent,\n  author    = {Aqeel, Muhammad and Nazir, Maham and Ruan, Zanxi and Setti, Francesco},\n  title     = {Latent Space Synergy: Text-Guided Data Augmentation for Direct Diffusion Biomedical Segmentation},\n  booktitle = {International Conference on Image Analysis and Processing Workshops (ICIAP-W)},\n  year      = {2025},\n  publisher = {Springer},\n}"
+    },
+    {
+      "id": "p11",
+      "year": 2025,
+      "featured": false,
+      "selected": false,
+      "title": "Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control",
+      "authors": [
+        "*Muhammad Aqeel",
+        "Shakiba Sharifi",
+        "Marco Cristani",
+        "Francesco Setti"
+      ],
+      "venue": "VISAPP 2025",
+      "venueTier": "main",
+      "oral": true,
+      "thumb": "",
+      "links": {
+        "pdf": "https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912"
+      },
+      "bibtex": "@inproceedings{aqeel2025selfsup,\n  author    = {Aqeel, Muhammad and Sharifi, Shakiba and Cristani, Marco and Setti, Francesco},\n  title     = {Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control},\n  booktitle = {International Conference on Computer Vision Theory and Applications (VISAPP)},\n  year      = {2025},\n  pages     = {173--183},\n  publisher = {SCITEPRESS},\n}"
+    },
+    {
+      "id": "p12",
+      "year": 2024,
+      "featured": true,
+      "selected": false,
+      "title": "Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection in Industrial Inspection",
+      "authors": [
+        "*Muhammad Aqeel",
+        "Shakiba Sharifi",
+        "Marco Cristani",
+        "Francesco Setti"
+      ],
+      "venue": "ECCV 2024 Workshops",
+      "venueTier": "workshop",
+      "oral": true,
+      "thumb": "",
+      "links": {
+        "pdf": "https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28"
+      },
+      "bibtex": "@inproceedings{aqeel2024meta,\n  author    = {Aqeel, Muhammad and Sharifi, Shakiba and Cristani, Marco and Setti, Francesco},\n  title     = {Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection in Industrial Inspection},\n  booktitle = {European Conference on Computer Vision Workshops (ECCVW)},\n  year      = {2024},\n  pages     = {445--460},\n  publisher = {Springer},\n}"
+    },
+    {
+      "id": "p13",
+      "year": 2024,
+      "featured": false,
+      "selected": false,
+      "title": "Self-supervised Learning for Robust Surface Defect Detection",
+      "authors": [
+        "*Muhammad Aqeel",
+        "Shakiba Sharifi",
+        "Marco Cristani",
+        "Francesco Setti"
+      ],
+      "venue": "DeLTA 2024",
+      "venueTier": "main",
+      "oral": true,
+      "thumb": "",
+      "links": {
+        "pdf": "https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11"
+      },
+      "bibtex": "@inproceedings{aqeel2024selfsup,\n  author    = {Aqeel, Muhammad and Sharifi, Shakiba and Cristani, Marco and Setti, Francesco},\n  title     = {Self-Supervised Learning for Robust Surface Defect Detection},\n  booktitle = {International Conference on Deep Learning Theory and Applications (DeLTA)},\n  year      = {2024},\n  pages     = {164--177},\n  publisher = {Springer},\n}"
+    },
+    {
+      "id": "p14",
+      "year": 2024,
+      "featured": false,
+      "selected": false,
+      "title": "Diffusion-based Image Generation for In-distribution Data Augmentation in Surface Defect Detection",
+      "authors": [
+        "Luigi Capogrosso",
+        "Federico Girella",
+        "Francesco Taioli",
+        "Michele Dalla Chiara",
+        "*Muhammad Aqeel",
+        "Franco Fummi",
+        "Francesco Setti",
+        "Marco Cristani"
+      ],
+      "venue": "VISAPP 2024",
+      "venueTier": "main",
+      "oral": false,
+      "thumb": "",
+      "links": {
+        "pdf": "https://www.scitepress.org/Link.aspx?doi=10.5220/0012350400003660",
+        "code": "https://github.com/intelligolabs/in_and_out"
+      },
+      "bibtex": "@inproceedings{capogrosso2024diffusion,\n  author    = {Capogrosso, Luigi and Girella, Federico and Taioli, Francesco and Dalla Chiara, Michele and Aqeel, Muhammad and Fummi, Franco and Setti, Francesco and Cristani, Marco},\n  title     = {Diffusion-Based Image Generation for In-Distribution Data Augmentation in Surface Defect Detection},\n  booktitle = {International Conference on Computer Vision Theory and Applications (VISAPP)},\n  year      = {2024},\n  pages     = {409--416},\n  publisher = {SCITEPRESS},\n}"
+    }
+  ],
+  "research": [
+    {
+      "id": "r1",
+      "title": "Unsupervised Industrial Anomaly Detection",
+      "summary": "Detecting defects on production lines without labeled defect data — using meta-learning, self-supervision, and iterative refinement to bootstrap robust models from clean samples alone.",
+      "papers": [
+        "p4",
+        "p6",
+        "p11",
+        "p12"
+      ]
+    },
+    {
+      "id": "r2",
+      "title": "Vision-Language Models for Zero-Shot Detection",
+      "summary": "Adapting CLIP-style models with anomaly-aware prompts and lightweight adapters so a single model can flag defects across categories it has never seen during training.",
+      "papers": [
+        "p1",
+        "p5"
+      ]
+    },
+    {
+      "id": "r3",
+      "title": "Generative Models for Data Augmentation",
+      "summary": "Using diffusion models to synthesize realistic defective samples and dual-distribution training data, closing the gap when collecting real anomalies is impractical.",
+      "papers": [
+        "p8",
+        "p9",
+        "p10",
+        "p7",
+        "p14"
+      ]
+    }
+  ],
+  "grants": [
+    {
+      "id": "g1",
+      "period": "2022 – 2025",
+      "title": "PNRR PhD Scholarship",
+      "org": "Italian Ministry of University and Research, via University of Verona",
+      "detail": "Role: PhD Fellow · National Recovery and Resilience Plan funding for doctoral research on industrial anomaly detection."
+    },
+    {
+      "id": "g2",
+      "period": "Jun 2025 – Nov 2025",
+      "title": "Mobility Research Grant",
+      "org": "University of Ljubljana, Slovenia",
+      "detail": "Role: Visiting Researcher · Six-month research stay collaborating with Prof. Danijel Skočaj's group on zero-shot anomaly detection."
+    },
+    {
+      "id": "g3",
+      "period": "2019 – 2021",
+      "title": "Chinese Government Scholarship (CSC)",
+      "org": "China Scholarship Council, via Beijing University of Posts and Telecommunications",
+      "detail": "Role: Scholarship Recipient · Supported MSc research on natural language processing."
+    }
+  ],
+  "education": [
+    {
+      "id": "e1",
+      "period": "2022 – 2026",
+      "title": "Ph.D. in Computer Science",
+      "org": "University of Verona, Italy",
+      "orgUrl": "https://www.univr.it",
+      "detail": "Supervisors: Prof. Francesco Setti & Prof. Marco Cristani · Anomaly detection for industrial manufacturing"
+    },
+    {
+      "id": "e2",
+      "period": "2019 – 2021",
+      "title": "M.Sc. in Computer Science",
+      "org": "Beijing University of Posts and Telecommunications, China",
+      "orgUrl": "https://www.bupt.edu.cn",
+      "detail": "Supervisor: Prof. Xiaohong Liu · Natural language processing and sentiment analysis"
+    },
+    {
+      "id": "e3",
+      "period": "2013 – 2017",
+      "title": "B.Sc. in Computer Science",
+      "org": "PMAS Arid Agriculture University Rawalpindi, Pakistan",
+      "orgUrl": "https://www.uaar.edu.pk",
+      "detail": ""
+    }
+  ],
+  "experience": [
+    {
+      "id": "x1",
+      "period": "2026 – present",
+      "title": "Postdoctoral Research Fellow",
+      "org": "University of Verona, Italy",
+      "detail": ""
+    },
+    {
+      "id": "x2",
+      "period": "Jun 2025 – Nov 2025",
+      "title": "Visiting Researcher",
+      "org": "University of Ljubljana, Slovenia",
+      "detail": ""
+    },
+    {
+      "id": "x3",
+      "period": "2023 – 2025",
+      "title": "Teaching Assistant",
+      "org": "University of Verona, Italy",
+      "detail": "Computer Vision and Machine Learning, Department of Engineering for Innovation Medicine"
+    },
+    {
+      "id": "x4",
+      "period": "2021 – 2022",
+      "title": "Research Assistant",
+      "org": "Huazhong University of Science and Technology, Wuhan, China",
+      "detail": ""
+    },
+    {
+      "id": "x5",
+      "period": "2017 – 2019",
+      "title": "Industry Roles",
+      "org": "Pakistan",
+      "detail": "Software Quality Assurance Engineer at UIIT, Arid Agriculture University · Earlier, Software Developer at eConceptions (Pvt) Ltd."
+    }
+  ],
+  "talks": [],
+  "service": [],
+  "mentees": []
+}
