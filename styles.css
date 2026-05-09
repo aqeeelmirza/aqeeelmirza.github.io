@@ -99,7 +99,14 @@ body {
   color: var(--text-primary);
   line-height: 1.65;
   font-size: 16px;
-  transition: background 0.18s ease, color 0.18s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body, main, section, article, aside, nav, header, footer {
+  border-left: 0 !important;
+  border-right: 0 !important;
 }
 
 a {
@@ -134,9 +141,7 @@ a:hover { text-decoration: underline; text-decoration-thickness: 1px; text-under
 nav {
   position: sticky;
   top: 0;
-  background: color-mix(in srgb, var(--bg) 92%, transparent);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: var(--bg);
   z-index: 100;
   border-bottom: 1px solid transparent;
   transition: border-color 0.2s ease;
