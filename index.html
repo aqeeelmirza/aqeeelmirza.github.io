@@ -12,13 +12,11 @@
   <meta property="og:image" content="PPP.JPG">
   <link rel="stylesheet" href="styles.css">
   <script>
-    // Follow system preference automatically
+    // Clear any legacy theme attribute/localStorage so theming is purely CSS-driven (mobile + dark only)
     (function(){
       try {
-        var mq = window.matchMedia('(prefers-color-scheme: dark)');
-        function apply(){ document.documentElement.setAttribute('data-theme', mq.matches ? 'dark' : 'light'); }
-        apply();
-        mq.addEventListener ? mq.addEventListener('change', apply) : mq.addListener(apply);
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.removeItem('theme');
       } catch(_){}
     })();
   </script>

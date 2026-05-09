@@ -30,7 +30,39 @@
   --tier-oral-bg: #fef3e8;     --tier-oral-fg: #92520a;
 }
 
-[data-theme="dark"] {
+@media (max-width: 768px) and (prefers-color-scheme: dark) {
+  :root {
+  --bg: #0e1116;
+  --bg-elev: #161a22;
+  --text-primary: #e8eaed;
+  --text-secondary: #b0b6be;
+  --text-tertiary: #7d848d;
+  --accent: #5ba3e8;
+  --accent-dark: #87bff0;
+  --accent-soft: rgba(91, 163, 232, 0.14);
+  --interest: #5ba3e8;
+  --border: rgba(255, 255, 255, 0.10);
+  --hover-bg: #1c212a;
+  --skeleton-base: #1c212a;
+  --skeleton-shine: #262c36;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md: 0 6px 16px rgba(0,0,0,0.4);
+
+  --badge-paper-bg: rgba(91,163,232,0.16);   --badge-paper-fg: #87bff0;
+  --badge-role-bg: rgba(80,180,100,0.16);    --badge-role-fg: #84d39a;
+  --badge-visit-bg: rgba(180,90,180,0.16);   --badge-visit-fg: #d398d3;
+  --badge-degree-bg: rgba(220,160,80,0.16);  --badge-degree-fg: #e9b577;
+  --badge-award-bg: rgba(220,200,80,0.16);   --badge-award-fg: #e9d577;
+  --badge-talk-bg: rgba(220,90,90,0.16);     --badge-talk-fg: #e08585;
+
+  --tier-main-bg: rgba(91,163,232,0.16);     --tier-main-fg: #87bff0;
+  --tier-workshop-bg: rgba(255,255,255,0.07);--tier-workshop-fg: #b0b6be;
+  --tier-oral-bg: rgba(220,160,80,0.16);     --tier-oral-fg: #e9b577;
+  }
+}
+
+/* unused legacy block (kept inert via attribute that is never set) */
+[data-theme="__never"] {
   --bg: #0e1116;
   --bg-elev: #161a22;
   --text-primary: #e8eaed;
