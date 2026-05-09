@@ -22,7 +22,7 @@
             --text-tertiary: #888888;
             --accent: #1e6fba;
             --accent-dark: #155a99;
-            --interest: #0c7a89;
+            --interest: #1e6fba;
             --border: rgba(0, 0, 0, 0.08);
             --hover-bg: #fafafa;
         }
@@ -184,7 +184,7 @@
         .header {
             display: flex;
             gap: 44px;
-            align-items: flex-start;
+            align-items: stretch;
             margin-bottom: 48px;
         }
 
@@ -194,6 +194,7 @@
             flex-direction: column;
             align-items: center;
             gap: 18px;
+            justify-content: space-between;
         }
 
         .profile-image {
@@ -321,6 +322,9 @@
             line-height: 1.78;
             color: var(--text-primary);
             margin-bottom: 14px;
+            text-align: justify;
+            hyphens: auto;
+            -webkit-hyphens: auto;
         }
         .bio p:last-child { margin-bottom: 0; }
         .bio strong {
@@ -495,27 +499,79 @@
         }
         .year-heading:first-child { margin-top: 0; }
 
-        /* ===== Publications page (improved spacing + venue prominence) ===== */
+        /* ===== Publications page (numbered + venue badges) ===== */
         .pub-entry-flat {
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             padding: 4px 0;
             transition: background 0.15s ease;
+            display: flex;
+            gap: 14px;
         }
         .pub-entry-flat:last-child { margin-bottom: 0; }
+
+        .pub-number {
+            flex-shrink: 0;
+            color: var(--text-tertiary);
+            font-size: 14px;
+            font-weight: 500;
+            min-width: 32px;
+            padding-top: 1px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .pub-body {
+            flex: 1;
+            min-width: 0;
+        }
+
         .pub-entry-flat .pub-title {
             font-size: 15.5px;
             margin-bottom: 5px;
+            font-weight: 600;
         }
         .pub-entry-flat .pub-authors {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
-        .pub-entry-flat .pub-venue {
-            margin-top: 3px;
+
+        /* Venue line with badge */
+        .pub-venue-line {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            font-size: 13.5px;
+            color: var(--text-secondary);
+            line-height: 1.5;
         }
-        .pub-entry-flat .pub-venue em {
-            font-style: normal;
+
+        .venue-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 12.5px;
             font-weight: 500;
-            color: var(--text-primary);
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+        }
+        .venue-badge.tier-main {
+            background: #e8f0f9;
+            color: #155a99;
+        }
+        .venue-badge.tier-workshop {
+            background: #f0f0f0;
+            color: #555555;
+        }
+        .venue-badge.tier-oral {
+            background: #fef3e8;
+            color: #92520a;
+        }
+
+        .pub-links {
+            font-size: 13.5px;
+        }
+        .pub-links .sep {
+            color: var(--text-tertiary);
+            margin: 0 5px;
         }
 
         .pub-filters {
@@ -691,8 +747,8 @@
             <div class="nav-brand" onclick="showPage('home')">Muhammad Aqeel</div>
             <ul class="nav-menu" id="navMenu">
                 <li class="nav-link-item"><span class="nav-link active" data-page="home">Home</span></li>
-                <li class="nav-link-item"><span class="nav-link" data-page="publications">Publications</span></li>
                 <li class="nav-link-item"><span class="nav-link" data-page="news">News</span></li>
+                <li class="nav-link-item"><span class="nav-link" data-page="publications">Publications</span></li>
                 <li class="nav-link-item"><span class="nav-link" data-page="grants">Grants</span></li>
                 <li class="nav-link-item"><span class="nav-link" data-page="career">Career</span></li>
             </ul>
@@ -774,7 +830,7 @@
 
             <div class="bio">
                 <p>My research is centered on <strong>anomaly detection for industrial inspection</strong>, with a focus on unsupervised and zero-shot settings where labeled defect data is unavailable. Over time my work has expanded toward <strong>generative models</strong> and <strong>vision–language approaches</strong>, motivated by the need to handle data scarcity and improve generalization across unseen defect categories.</p>
-                <p>Recently I have also been exploring <strong>video understanding</strong> and <strong>multimodal summarization</strong>, though anomaly detection remains my primary focus. I completed my PhD at the University of Verona under <a href="http://www.franzsetti.info/" target="_blank" rel="noopener">Francesco Setti</a> and <a href="https://intelligolabs.net/" target="_blank" rel="noopener">Marco Cristani</a>, and earned my Master's at Beijing University of Posts and Telecommunications under <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener">Xiaohong Liu</a>.</p>
+                <p>Recently I have also been exploring <strong>video understanding</strong> and <strong>multimodal summarization</strong>, though anomaly detection remains my primary focus. I completed my PhD at the University of Verona under <a href="http://www.franzsetti.info/" target="_blank" rel="noopener">Francesco Setti</a> and <a href="https://profs.scienze.univr.it/~cristanm/" target="_blank" rel="noopener">Marco Cristani</a>, and earned my Master's at Beijing University of Posts and Telecommunications under <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener">Xiaohong Liu</a>.</p>
             </div>
 
             <section class="content-section">
@@ -893,91 +949,179 @@
                 <h2 class="year-heading">2026</h2>
 
                 <div class="pub-entry-flat" data-featured="true">
-                    <p class="pub-title">Anomaly-Aware Vision-Language Adapters for Zero-Shot Anomaly Detection</p>
-                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Maham Nazir, Uzair Khan, Marco Cristani, Francesco Setti</p>
-                    <p class="pub-venue"><em>IEEE International Conference on Image Processing (ICIP) 2026</em></p>
+                    <span class="pub-number">[1]</span>
+                    <div class="pub-body">
+                        <p class="pub-title">Anomaly-Aware Vision-Language Adapters for Zero-Shot Anomaly Detection</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Maham Nazir, Uzair Khan, Marco Cristani, Francesco Setti</p>
+                        <div class="pub-venue-line">
+                            <span class="venue-badge tier-main">ICIP 2026</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="pub-entry-flat" data-featured="true">
-                    <p class="pub-title">Multimodal Abstractive Summarization of Instructional Videos with Vision-Language Models</p>
-                    <p class="pub-authors">Maham Nazir, Richong Zhang, <span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
-                    <p class="pub-venue"><em>International Conference on Pattern Recognition (ICPR) 2026</em></p>
+                    <span class="pub-number">[2]</span>
+                    <div class="pub-body">
+                        <p class="pub-title">Multimodal Abstractive Summarization of Instructional Videos with Vision-Language Models</p>
+                        <p class="pub-authors">Maham Nazir, Richong Zhang, <span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
+                        <div class="pub-venue-line">
+                            <span class="venue-badge tier-main">ICPR 2026</span>
+                        </div>
+                    </div>
                 </div>
 
                 <h2 class="year-heading">2025</h2>
 
                 <div class="pub-entry-flat" data-featured="false">
-                    <p class="pub-title">Semantic Parsing for Aspect-Based Sentiment Analysis</p>
-                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
-                    <p class="pub-venue"><em>IEEE Access 2025</em><span class="sep">·</span><a href="https://ieeexplore.ieee.org/abstract/document/11078252" target="_blank" rel="noopener">PDF</a></p>
+                    <span class="pub-number">[3]</span>
+                    <div class="pub-body">
+                        <p class="pub-title">Semantic Parsing for Aspect-Based Sentiment Analysis</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
+                        <div class="pub-venue-line">
+                            <span class="venue-badge tier-main">IEEE Access 2025</span>
+                            <span class="pub-links"><a href="https://ieeexplore.ieee.org/abstract/document/11078252" target="_blank" rel="noopener">PDF</a></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="pub-entry-flat" data-featured="true">
-                    <p class="pub-title">Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning</p>
-                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
-                    <p class="pub-venue"><em>ICCV 2025</em><span class="sep">·</span><a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Aqeel_Towards_Real_Unsupervised_Anomaly_Detection_Via_Confident_Meta-Learning_ICCV_2025_paper.pdf" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza/CoMet" target="_blank" rel="noopener">Code</a></p>
+                    <span class="pub-number">[4]</span>
+                    <div class="pub-body">
+                        <p class="pub-title">Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
+                        <div class="pub-venue-line">
+                            <span class="venue-badge tier-main">ICCV 2025</span>
+                            <span class="pub-links"><a href="https://openaccess.thecvf.com/content/ICCV2025/papers/Aqeel_Towards_Real_Unsupervised_Anomaly_Detection_Via_Confident_Meta-Learning_ICCV_2025_paper.pdf" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza/CoMet" target="_blank" rel="noopener">Code</a></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="pub-entry-flat" data-featured="true">
-                    <p class="pub-title">A Contrastive Learning-Guided Confident Meta-learning for Zero Shot Anomaly Detection</p>
-                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Danijel Skocaj, Marco Cristani, Francesco Setti</p>
-                    <p class="pub-venue"><em>ICCV 2025 Workshops (Oral)</em><span class="sep">·</span><a href="https://openaccess.thecvf.com/content/ICCV2025W/VISION'25/papers/Aqeel_A_Contrastive_Learning-Guided_Confident_Meta-learning_for_Zero_Shot_Anomaly_Detection_ICCVW_2025_paper.pdf" target="_blank" rel="noopener">PDF</a></p>
+                    <span class="pub-number">[5]</span>
+                    <div class="pub-body">
+                        <p class="pub-title">A Contrastive Learning-Guided Confident Meta-learning for Zero Shot Anomaly Detection</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Danijel Skocaj, Marco Cristani, Francesco Setti</p>
+                        <div class="pub-venue-line">
+                            <span class="venue-badge tier-workshop">ICCV 2025 Workshops</span>
+                            <span class="venue-badge tier-oral">Oral</span>
+                            <span class="pub-links"><a href="https://openaccess.thecvf.com/content/ICCV2025W/VISION'25/papers/Aqeel_A_Contrastive_Learning-Guided_Confident_Meta-learning_for_Zero_Shot_Anomaly_Detection_ICCVW_2025_paper.pdf" target="_blank" rel="noopener">PDF</a></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="pub-entry-flat" data-featured="true">
-                    <p class="pub-title">Robust Anomaly Detection in Industrial Environments via Meta-Learning</p>
-                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
-                    <p class="pub-venue"><em>ICCV 2025 Workshops (Oral)</em><span class="sep">·</span><a href="https://openaccess.thecvf.com/content/ICCV2025W/VISION'25/papers/Aqeel_Robust_Anomaly_Detection_in_Industrial_Environments_via_Meta-Learning_ICCVW_2025_paper.pdf" target="_blank" rel="noopener">PDF</a></p>
+                    <span class="pub-number">[6]</span>
+                    <div class="pub-body">
+                        <p class="pub-title">Robust Anomaly Detection in Industrial Environments via Meta-Learning</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
+                        <div class="pub-venue-line">
+                            <span class="venue-badge tier-workshop">ICCV 2025 Workshops</span>
+                            <span class="venue-badge tier-oral">Oral</span>
+                            <span class="pub-links"><a href="https://openaccess.thecvf.com/content/ICCV2025W/VISION'25/papers/Aqeel_Robust_Anomaly_Detection_in_Industrial_Environments_via_Meta-Learning_ICCVW_2025_paper.pdf" target="_blank" rel="noopener">PDF</a></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="pub-entry-flat" data-featured="false">
-                    <p class="pub-title">Diffusion-Based Data Augmentation for Medical Image Segmentation</p>
-                    <p class="pub-authors">Maham Nazir, <span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
-                    <p class="pub-venue"><em>ICCV 2025 Workshops</em><span class="sep">·</span><a href="https://openaccess.thecvf.com/content/ICCV2025W/CVAMD/papers/Nazir_Diffusion-Based_Data_Augmentation_for_Medical_Image_Segmentation_ICCVW_2025_paper.pdf" target="_blank" rel="noopener">PDF</a></p>
+                    <span class="pub-number">[7]</span>
+                    <div class="pub-body">
+                        <p class="pub-title">Diffusion-Based Data Augmentation for Medical Image Segmentation</p>
+                        <p class="pub-authors">Maham Nazir, <span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
+                        <div class="pub-venue-line">
+                            <span class="venue-badge tier-workshop">ICCV 2025 Workshops</span>
+                            <span class="pub-links"><a href="https://openaccess.thecvf.com/content/ICCV2025W/CVAMD/papers/Nazir_Diffusion-Based_Data_Augmentation_for_Medical_Image_Segmentation_ICCVW_2025_paper.pdf" target="_blank" rel="noopener">PDF</a></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="pub-entry-flat" data-featured="false">
-                    <p class="pub-title">RoadFusion: Latent Diffusion Model for Pavement Defect Detection</p>
-                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Kidus Dagnaw Bellete, Francesco Setti</p>
-                    <p class="pub-venue"><em>ICIAP 2025 (Oral)</em><span class="sep">·</span><a href="https://arxiv.org/abs/2507.15346" target="_blank" rel="noopener">PDF</a></p>
+                    <span class="pub-number">[8]</span>
+                    <div class="pub-body">
+                        <p class="pub-title">RoadFusion: Latent Diffusion Model for Pavement Defect Detection</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Kidus Dagnaw Bellete, Francesco Setti</p>
+                        <div class="pub-venue-line">
+                            <span class="venue-badge tier-main">ICIAP 2025</span>
+                            <span class="venue-badge tier-oral">Oral</span>
+                            <span class="pub-links"><a href="https://arxiv.org/abs/2507.15346" target="_blank" rel="noopener">PDF</a></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="pub-entry-flat" data-featured="false">
-                    <p class="pub-title">ExDD: Explicit Dual Distribution Learning for Surface Defect Detection via Diffusion Synthesis</p>
-                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Federico Leonardi, Francesco Setti</p>
-                    <p class="pub-venue"><em>ICIAP 2025</em><span class="sep">·</span><a href="https://arxiv.org/abs/2507.15335" target="_blank" rel="noopener">PDF</a></p>
+                    <span class="pub-number">[9]</span>
+                    <div class="pub-body">
+                        <p class="pub-title">ExDD: Explicit Dual Distribution Learning for Surface Defect Detection via Diffusion Synthesis</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Federico Leonardi, Francesco Setti</p>
+                        <div class="pub-venue-line">
+                            <span class="venue-badge tier-main">ICIAP 2025</span>
+                            <span class="pub-links"><a href="https://arxiv.org/abs/2507.15335" target="_blank" rel="noopener">PDF</a></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="pub-entry-flat" data-featured="false">
-                    <p class="pub-title">Latent Space Synergy: Text-Guided Data Augmentation for Direct Diffusion Biomedical Segmentation</p>
-                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Maham Nazir, Zanxi Ruan, Francesco Setti</p>
-                    <p class="pub-venue"><em>ICIAP 2025 Workshops</em><span class="sep">·</span><a href="https://arxiv.org/abs/2507.15361" target="_blank" rel="noopener">PDF</a></p>
+                    <span class="pub-number">[10]</span>
+                    <div class="pub-body">
+                        <p class="pub-title">Latent Space Synergy: Text-Guided Data Augmentation for Direct Diffusion Biomedical Segmentation</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Maham Nazir, Zanxi Ruan, Francesco Setti</p>
+                        <div class="pub-venue-line">
+                            <span class="venue-badge tier-workshop">ICIAP 2025 Workshops</span>
+                            <span class="pub-links"><a href="https://arxiv.org/abs/2507.15361" target="_blank" rel="noopener">PDF</a></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="pub-entry-flat" data-featured="false">
-                    <p class="pub-title">Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control</p>
-                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
-                    <p class="pub-venue"><em>VISAPP 2025 (Oral)</em><span class="sep">·</span><a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912" target="_blank" rel="noopener">PDF</a></p>
+                    <span class="pub-number">[11]</span>
+                    <div class="pub-body">
+                        <p class="pub-title">Self-Supervised Iterative Refinement for Anomaly Detection in Industrial Quality Control</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
+                        <div class="pub-venue-line">
+                            <span class="venue-badge tier-main">VISAPP 2025</span>
+                            <span class="venue-badge tier-oral">Oral</span>
+                            <span class="pub-links"><a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0013178100003912" target="_blank" rel="noopener">PDF</a></span>
+                        </div>
+                    </div>
                 </div>
 
                 <h2 class="year-heading">2024</h2>
 
                 <div class="pub-entry-flat" data-featured="true">
-                    <p class="pub-title">Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection in Industrial Inspection</p>
-                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
-                    <p class="pub-venue"><em>ECCV 2024 Workshops (Oral)</em><span class="sep">·</span><a href="https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28" target="_blank" rel="noopener">PDF</a></p>
+                    <span class="pub-number">[12]</span>
+                    <div class="pub-body">
+                        <p class="pub-title">Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection in Industrial Inspection</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
+                        <div class="pub-venue-line">
+                            <span class="venue-badge tier-workshop">ECCV 2024 Workshops</span>
+                            <span class="venue-badge tier-oral">Oral</span>
+                            <span class="pub-links"><a href="https://link.springer.com/chapter/10.1007/978-3-031-92805-5_28" target="_blank" rel="noopener">PDF</a></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="pub-entry-flat" data-featured="false">
-                    <p class="pub-title">Self-supervised Learning for Robust Surface Defect Detection</p>
-                    <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
-                    <p class="pub-venue"><em>DeLTA 2024 (Oral)</em><span class="sep">·</span><a href="https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11" target="_blank" rel="noopener">PDF</a></p>
+                    <span class="pub-number">[13]</span>
+                    <div class="pub-body">
+                        <p class="pub-title">Self-supervised Learning for Robust Surface Defect Detection</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Shakiba Sharifi, Marco Cristani, Francesco Setti</p>
+                        <div class="pub-venue-line">
+                            <span class="venue-badge tier-main">DeLTA 2024</span>
+                            <span class="venue-badge tier-oral">Oral</span>
+                            <span class="pub-links"><a href="https://link.springer.com/chapter/10.1007/978-3-031-66705-3_11" target="_blank" rel="noopener">PDF</a></span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="pub-entry-flat" data-featured="false">
-                    <p class="pub-title">Diffusion-based Image Generation for In-distribution Data Augmentation in Surface Defect Detection</p>
-                    <p class="pub-authors">Luigi Capogrosso, Federico Girella, Francesco Taioli, Michele Dalla Chiara, <span class="author-self">Muhammad Aqeel</span>, Franco Fummi, Francesco Setti, Marco Cristani</p>
-                    <p class="pub-venue"><em>VISAPP 2024</em><span class="sep">·</span><a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0012350400003660" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/intelligolabs/in_and_out" target="_blank" rel="noopener">Code</a></p>
+                    <span class="pub-number">[14]</span>
+                    <div class="pub-body">
+                        <p class="pub-title">Diffusion-based Image Generation for In-distribution Data Augmentation in Surface Defect Detection</p>
+                        <p class="pub-authors">Luigi Capogrosso, Federico Girella, Francesco Taioli, Michele Dalla Chiara, <span class="author-self">Muhammad Aqeel</span>, Franco Fummi, Francesco Setti, Marco Cristani</p>
+                        <div class="pub-venue-line">
+                            <span class="venue-badge tier-main">VISAPP 2024</span>
+                            <span class="pub-links"><a href="https://www.scitepress.org/Link.aspx?doi=10.5220/0012350400003660" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/intelligolabs/in_and_out" target="_blank" rel="noopener">Code</a></span>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -1268,10 +1412,24 @@
         function filterPublications(evt, filter) {
             document.querySelectorAll('.pub-filter-btn').forEach(b => b.classList.remove('active'));
             if (evt && evt.currentTarget) evt.currentTarget.classList.add('active');
-            document.querySelectorAll('#publicationsList .pub-entry-flat').forEach(pub => {
-                if (filter === 'all') pub.style.display = '';
-                else pub.style.display = pub.dataset.featured === 'true' ? '' : 'none';
+
+            let visibleIdx = 0;
+            document.querySelectorAll('#publicationsList .pub-entry-flat').forEach((pub, originalIdx) => {
+                const numberEl = pub.querySelector('.pub-number');
+                if (filter === 'all') {
+                    pub.style.display = '';
+                    if (numberEl) numberEl.textContent = '[' + (originalIdx + 1) + ']';
+                } else {
+                    if (pub.dataset.featured === 'true') {
+                        pub.style.display = '';
+                        visibleIdx++;
+                        if (numberEl) numberEl.textContent = '[' + visibleIdx + ']';
+                    } else {
+                        pub.style.display = 'none';
+                    }
+                }
             });
+
             document.querySelectorAll('.year-heading').forEach(heading => {
                 let next = heading.nextElementSibling;
                 let hasVisible = false;
