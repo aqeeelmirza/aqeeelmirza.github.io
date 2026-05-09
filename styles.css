@@ -428,8 +428,6 @@ section.content-section { margin-bottom: 56px; }
   font-size: 26px;
   font-weight: 500;
   margin-bottom: 24px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
   letter-spacing: -0.015em;
 }
 
@@ -617,8 +615,6 @@ section.content-section { margin-bottom: 56px; }
   font-size: 23px;
   font-weight: 500;
   margin: 34px 0 18px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border);
   letter-spacing: -0.01em;
 }
 .year-heading:first-child { margin-top: 0; }
@@ -775,8 +771,6 @@ section.content-section { margin-bottom: 56px; }
   font-size: 22px;
   font-weight: 500;
   margin: 40px 0 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border);
   letter-spacing: -0.01em;
 }
 .career-subsection-title:first-of-type { margin-top: 0; }
