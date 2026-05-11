@@ -108,11 +108,12 @@
         }
 
         .nav-link {
-            color: var(--text-secondary);
+            color: var(--text-tertiary);
             font-size: 14px;
+            font-weight: 500;
             padding: 6px 12px;
             border-radius: 6px;
-            transition: all 0.2s ease;
+            transition: color 0.2s ease, background 0.2s ease;
             cursor: pointer;
         }
 
@@ -124,7 +125,6 @@
 
         .nav-link.active {
             color: var(--text-primary);
-            font-weight: 500;
         }
 
         .hamburger {
@@ -677,6 +677,49 @@
             line-height: 1.6;
         }
 
+        /* ===== Grants page - card style ===== */
+        .grant-card {
+            display: flex;
+            gap: 22px;
+            padding: 22px 24px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: #fcfcfb;
+            transition: all 0.2s ease;
+        }
+        .grant-card:last-child { margin-bottom: 0; }
+        .grant-card:hover {
+            border-color: rgba(30, 111, 186, 0.18);
+            background: #fafbfd;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+        }
+        .grant-card .timeline-period {
+            padding-top: 4px;
+            font-weight: 500;
+        }
+
+        /* ===== Career page - role badges ===== */
+        .career-badge {
+            display: inline-block;
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 2px 9px;
+            border-radius: 4px;
+            margin-left: 10px;
+            letter-spacing: 0.02em;
+            vertical-align: 2px;
+            white-space: nowrap;
+        }
+        .career-badge.phd { background: #e8f0f9; color: #155a99; }
+        .career-badge.msc { background: #efeafb; color: #4a3a8f; }
+        .career-badge.bsc { background: #fef3e8; color: #92520a; }
+        .career-badge.postdoc { background: #e0eef8; color: #0c4f80; }
+        .career-badge.visiting { background: #f5e8f5; color: #7a2a7a; }
+        .career-badge.teaching { background: #e8f5e8; color: #1f6f1f; }
+        .career-badge.research { background: #fff5d9; color: #8a6708; }
+        .career-badge.industry { background: #f0f0f0; color: #555555; }
+
         .career-subsection-title {
             font-size: 22px;
             font-weight: 500;
@@ -743,6 +786,7 @@
             .see-all-news { padding-left: 0; }
             .timeline-item { flex-direction: column; gap: 6px; }
             .timeline-period { width: auto; }
+            .grant-card { flex-direction: column; gap: 8px; padding: 18px 20px; }
             .news-date { width: 80px; }
             .news-item-page .news-date { width: 90px; }
         }
@@ -1246,7 +1290,7 @@
             <h1 class="page-title">Grants</h1>
             <p class="page-intro">Funded research projects and scholarships.</p>
 
-            <div class="timeline-item">
+            <div class="grant-card">
                 <span class="timeline-period">2022 – 2025</span>
                 <div class="timeline-content">
                     <p class="timeline-title">PNRR PhD Scholarship</p>
@@ -1255,7 +1299,7 @@
                 </div>
             </div>
 
-            <div class="timeline-item">
+            <div class="grant-card">
                 <span class="timeline-period">June 2025 – November 2025</span>
                 <div class="timeline-content">
                     <p class="timeline-title">Mobility Research Grant</p>
@@ -1264,7 +1308,7 @@
                 </div>
             </div>
 
-            <div class="timeline-item">
+            <div class="grant-card">
                 <span class="timeline-period">2019 – 2021</span>
                 <div class="timeline-content">
                     <p class="timeline-title">Chinese Government Scholarship (CSC)</p>
@@ -1283,7 +1327,7 @@
             <div class="timeline-item">
                 <span class="timeline-period">2022 – 2026</span>
                 <div class="timeline-content">
-                    <p class="timeline-title">Ph.D. in Computer Science</p>
+                    <p class="timeline-title">Ph.D. in Computer Science<span class="career-badge phd">PhD</span></p>
                     <p class="timeline-org"><a href="https://www.univr.it" target="_blank" rel="noopener">University of Verona, Italy</a></p>
                     <p class="timeline-detail">Supervisors: Prof. Francesco Setti & Prof. Marco Cristani · Anomaly detection for industrial manufacturing</p>
                 </div>
@@ -1292,7 +1336,7 @@
             <div class="timeline-item">
                 <span class="timeline-period">2019 – 2021</span>
                 <div class="timeline-content">
-                    <p class="timeline-title">M.Sc. in Computer Science</p>
+                    <p class="timeline-title">M.Sc. in Computer Science<span class="career-badge msc">MSc</span></p>
                     <p class="timeline-org"><a href="https://www.bupt.edu.cn" target="_blank" rel="noopener">Beijing University of Posts and Telecommunications, China</a></p>
                     <p class="timeline-detail">Supervisor: Prof. Xiaohong Liu · Natural language processing and sentiment analysis</p>
                 </div>
@@ -1301,7 +1345,7 @@
             <div class="timeline-item">
                 <span class="timeline-period">2013 – 2017</span>
                 <div class="timeline-content">
-                    <p class="timeline-title">B.Sc. in Computer Science</p>
+                    <p class="timeline-title">B.Sc. in Computer Science<span class="career-badge bsc">BSc</span></p>
                     <p class="timeline-org"><a href="https://www.uaar.edu.pk" target="_blank" rel="noopener">PMAS Arid Agriculture University Rawalpindi, Pakistan</a></p>
                 </div>
             </div>
@@ -1311,7 +1355,7 @@
             <div class="timeline-item">
                 <span class="timeline-period">2026 – present</span>
                 <div class="timeline-content">
-                    <p class="timeline-title">Postdoctoral Research Fellow</p>
+                    <p class="timeline-title">Postdoctoral Research Fellow<span class="career-badge postdoc">Postdoc</span></p>
                     <p class="timeline-org">University of Verona, Italy</p>
                 </div>
             </div>
@@ -1319,7 +1363,7 @@
             <div class="timeline-item">
                 <span class="timeline-period">June 2025 – November 2025</span>
                 <div class="timeline-content">
-                    <p class="timeline-title">Visiting Researcher</p>
+                    <p class="timeline-title">Visiting Researcher<span class="career-badge visiting">Visiting</span></p>
                     <p class="timeline-org">University of Ljubljana, Slovenia</p>
                 </div>
             </div>
@@ -1327,7 +1371,7 @@
             <div class="timeline-item">
                 <span class="timeline-period">2023 – 2025</span>
                 <div class="timeline-content">
-                    <p class="timeline-title">Teaching Assistant</p>
+                    <p class="timeline-title">Teaching Assistant<span class="career-badge teaching">Teaching</span></p>
                     <p class="timeline-org">University of Verona, Italy</p>
                     <p class="timeline-detail">Computer Vision and Machine Learning, Department of Engineering for Innovation Medicine</p>
                 </div>
@@ -1336,7 +1380,7 @@
             <div class="timeline-item">
                 <span class="timeline-period">2021 – 2022</span>
                 <div class="timeline-content">
-                    <p class="timeline-title">Research Assistant</p>
+                    <p class="timeline-title">Research Assistant<span class="career-badge research">Research</span></p>
                     <p class="timeline-org">Huazhong University of Science and Technology, Wuhan, China</p>
                 </div>
             </div>
@@ -1344,7 +1388,7 @@
             <div class="timeline-item">
                 <span class="timeline-period">2017 – 2019</span>
                 <div class="timeline-content">
-                    <p class="timeline-title">Industry Roles</p>
+                    <p class="timeline-title">Industry Roles<span class="career-badge industry">Industry</span></p>
                     <p class="timeline-org">Pakistan</p>
                     <p class="timeline-detail">Software Quality Assurance Engineer at UIIT, Arid Agriculture University · Earlier, Software Developer at eConceptions (Pvt) Ltd.</p>
                 </div>
