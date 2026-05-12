@@ -296,30 +296,28 @@
 
         .contact-icons {
             display: flex;
-            gap: 10px;
+            gap: 18px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .contact-icon {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
+            width: 38px;
+            height: 38px;
             color: var(--text-secondary);
             background: transparent;
-            border: 1px solid var(--border);
+            border: none;
             transition: all 0.2s ease;
         }
         .contact-icon:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
+            color: var(--accent);
             text-decoration: none;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
         }
-        .contact-icon svg { width: 19px; height: 19px; }
+        .contact-icon svg { width: 24px; height: 24px; }
         .scholar-icon { fill: currentColor; stroke: none; }
 
         /* ===== Bio ===== */
