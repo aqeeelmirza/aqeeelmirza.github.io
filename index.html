@@ -920,7 +920,7 @@
 
             <div class="bio">
                 <div class="trajectory-embed">
-                    <iframe id="trajectoryFrame" data-src="trajectory_web.html" title="Research trajectory" scrolling="no"></iframe>
+                    <iframe id="trajectoryFrame" src="trajectory_web.html" title="Research trajectory" scrolling="no"></iframe>
                 </div>
                 <p>My research addresses <strong>visual anomaly detection</strong> in industrial settings where defective samples are scarce or unavailable. I work on <strong>unsupervised anomaly detection</strong>, where only normal samples are available for training, and on <strong>zero-shot</strong> and <strong>generalist anomaly detection</strong>, where anomalies must be detected in object categories not seen during training. I approach these problems from three directions: <strong>confident pseudo-labeling</strong>, which stabilizes self-training under distribution shift, allowing the detector to refine what it treats as normal without manual relabeling; <strong>vision-language adapters</strong>, which adapt foundation-model representations to learn a category-agnostic notion of normality that generalizes across object categories; and <strong>diffusion-based defect synthesis</strong>, which leverages pre-trained diffusion models to generate realistic anomalous samples for data augmentation when real defects cannot be collected.</p>
                 <p>A second line extends these methods to <strong>medical image analysis</strong>, where abnormal samples are equally scarce and missed detections carry higher cost. In this domain, I use <strong>text-guided diffusion augmentation</strong> and <strong>representation transfer</strong> to detect abnormalities in biomedical images despite limited annotated data.</p>
@@ -1621,28 +1621,37 @@
                 }
             }
 
-            // --- Trajectory map: load only after the user actually scrolls ---
-            // The iframe has no src until then, so the animation cannot start
-            // while the visitor is still at the top of the page.
-            const trajFrame = document.getElementById('trajectoryFrame');
-            if (trajFrame && trajFrame.dataset.src) {
-                let trajLoaded = false;
+            // --- Trajectory map: renders immediately, animation starts on scroll ---
+            if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+            window.scrollTo(0, 0);
 
-                function maybeLoadTrajectory() {
-                    if (trajLoaded) return;
-                    if (window.scrollY < 60) return;              // must have actually scrolled
+            const trajFrame = document.getElementById('trajectoryFrame');
+            if (trajFrame) {
+                let trajStarted = false;
+                let armed = false;
+
+                function arm() { armed = true; check(); }
+                window.addEventListener('wheel', arm, { passive: true, once: true });
+                window.addEventListener('touchmove', arm, { passive: true, once: true });
+                window.addEventListener('keydown', (e) => {
+                    if (['ArrowDown', 'PageDown', 'End', ' '].includes(e.key)) arm();
+                }, { once: true });
+
+                function check() {
+                    if (trajStarted || !armed) return;
+                    if (window.scrollY < 60) return;
 
                     const r = trajFrame.getBoundingClientRect();
                     if (!r.height) return;
                     const visible = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
-                    if (visible / r.height < 0.35) return;        // must be ~1/3 in view
+                    if (visible / r.height < 0.35) return;
 
-                    trajLoaded = true;
-                    trajFrame.src = trajFrame.dataset.src;
-                    window.removeEventListener('scroll', maybeLoadTrajectory);
+                    trajStarted = true;
+                    trajFrame.contentWindow.postMessage({ type: 'startTrajectory' }, '*');
+                    window.removeEventListener('scroll', check);
                 }
 
-                window.addEventListener('scroll', maybeLoadTrajectory, { passive: true });
+                window.addEventListener('scroll', check, { passive: true });
             }
         });
     </script>
