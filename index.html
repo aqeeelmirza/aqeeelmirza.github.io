@@ -342,18 +342,17 @@
             font-weight: 600;
         }
 
-        /* Trajectory embed floated at top-right of the intro */
+        /* Trajectory map, full width above the intro */
         .trajectory-embed {
-            float: right;
-            width: 300px;
-            margin: 4px 0 18px 28px;
+            width: 100%;
+            margin: 0 0 36px 0;
         }
         .trajectory-embed iframe {
             display: block;
             width: 100%;
-            height: 240px;
+            aspect-ratio: 1280 / 694;
             border: 0;
-            border-radius: 14px;
+            border-radius: 16px;
         }
 
         /* Closing note under the research statement */
@@ -816,12 +815,7 @@
             .grant-card { flex-direction: column; gap: 8px; padding: 18px 20px; }
             .news-date { width: 80px; }
             .news-item-page .news-date { width: 90px; }
-            .trajectory-embed {
-                float: none;
-                width: 100%;
-                margin: 0 0 22px 0;
-            }
-            .trajectory-embed iframe { height: 210px; }
+            .trajectory-embed { margin-bottom: 28px; }
         }
     </style>
 </head>
@@ -915,13 +909,13 @@
                 </div>
             </div>
 
+            <div class="trajectory-embed">
+                <iframe src="trajectory_web.html" title="Research trajectory" loading="lazy" scrolling="no"></iframe>
+            </div>
+
             <div class="bio">
-                <div class="trajectory-embed">
-                    <iframe src="trajectory_web.html" title="Research trajectory" loading="lazy" scrolling="no"></iframe>
-                </div>
-                <p>My research addresses <strong>visual anomaly detection</strong> in settings where defective examples are scarce or entirely absent. This regime dominates real inspection, where collecting representative defects is impractical and the rarest failures are often the most consequential. I work across <strong>unsupervised, zero-shot, and generalist detection</strong>, where a model must flag anomalies in object categories it never saw during training. Across these settings, the central obstacle is one of <em>identifiability</em>: what specifies "normal" when only a handful of reference images are available and no defect labels exist? Most methods answer this implicitly, through models tuned per category; my work treats the specification of normality itself as the object of study.</p>
-                <p>I approach this from three directions. <strong>Confident pseudo-labeling</strong> keeps self-training stable under distribution shift, letting a detector refine what it treats as normal without manual relabeling. <strong>Vision-language adapters</strong> transfer a category-agnostic notion of normality, adapting foundation-model representations to describe the normal state in terms that hold across object categories. <strong>Diffusion-based defect synthesis</strong> builds on pretrained latent models, turning controlled anomaly generation into a conditioning problem rather than a training one, and providing realistic augmentation where genuine defects cannot be collected. The through-line is a shift away from per-category supervision and toward specifications of normality inferred from few normal references.</p>
-                <p>A second line extends these ideas to <strong>medical image analysis</strong>, where abnormal data is equally scarce and a missed detection carries higher cost. Here the target shifts from industrial surface defects to distributional deviations in biomedical images, using text-guided diffusion augmentation and representation transfer to compensate for limited annotated pathology. The longer-term goal is a general framework for specification-driven anomaly detection, in which the reference set itself defines the detection criterion and that criterion transfers across industrial and medical inspection domains without retraining.</p>
+                <p>My research is centered on <strong>visual anomaly detection</strong> for industrial inspection, focusing on unsupervised and zero-shot settings where defective examples are scarce or entirely absent. The question I study is how to specify what counts as <em>normal</em> when only a few reference images exist and no defect labels are available. I approach this through <strong>confident pseudo-labeling</strong>, <strong>vision-language adapters</strong>, and <strong>diffusion-based defect synthesis</strong>, moving away from per-category supervision toward criteria that transfer to object categories a model never saw during training.</p>
+                <p>A second line extends these ideas to <strong>medical imaging</strong>, where abnormal data is equally scarce and missed detections are costly, using text-guided diffusion augmentation and representation transfer to compensate for limited annotated pathology.</p>
                 <p class="bio-note">I completed my PhD at the University of Verona, advised by <a href="http://www.franzsetti.info/" target="_blank" rel="noopener">Francesco Setti</a> and <a href="https://profs.scienze.univr.it/~cristanm/" target="_blank" rel="noopener">Marco Cristani</a>, and my Master's at Beijing University of Posts and Telecommunications, advised by <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener">Xiaohong Liu</a>.</p>
             </div>
 
