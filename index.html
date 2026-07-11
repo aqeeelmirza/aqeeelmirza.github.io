@@ -342,24 +342,37 @@
             font-weight: 600;
         }
 
-        /* Intro row: research statement beside the trajectory map */
-        .intro-row {
-            display: flex;
-            gap: 34px;
-            align-items: center;
-            margin-bottom: 56px;
+        .bio{
+            margin-bottom:56px;
         }
-        .intro-row .bio { margin-bottom: 0; flex: 1 1 auto; min-width: 0; }
-        .trajectory-embed {
-            flex: 0 0 440px;
-            width: 440px;
+        
+        .bio p{
+            font-size:16.5px;
+            line-height:1.8;
+            text-align:justify;
+            margin-bottom:18px;
         }
-        .trajectory-embed iframe {
-            display: block;
-            width: 100%;
-            aspect-ratio: 1280 / 694;
-            border: 0;
-            border-radius: 16px;
+        
+        .bio::after{
+            content:"";
+            display:block;
+            clear:both;
+        }
+        
+        .trajectory-embed{
+            float:right;
+            width:500px;
+            margin:8px 0 18px 30px;
+        }
+        
+        .trajectory-embed iframe{
+            display:block;
+            width:100%;
+            aspect-ratio:1280/694;
+            border:none;
+            outline:none;
+            box-shadow:none;
+            border-radius:0;
         }
 
         /* Closing note under the research statement */
@@ -822,8 +835,8 @@
             .grant-card { flex-direction: column; gap: 8px; padding: 18px 20px; }
             .news-date { width: 80px; }
             .news-item-page .news-date { width: 90px; }
-            .intro-row { flex-direction: column; gap: 24px; margin-bottom: 40px; }
-            .trajectory-embed { flex-basis: auto; width: 100%; order: -1; }
+            .bio { margin-bottom:40px; }
+            .trajectory-embed { float:none; width:100%; margin:0 0 20px 0; }
         }
     </style>
 </head>
@@ -917,8 +930,16 @@
                 </div>
             </div>
 
-            <div class="intro-row">
-                <div class="bio">
+            <div class="bio">
+
+                    <div class="trajectory-embed">
+                        <iframe
+                            src="trajectory_web.html"
+                            title="Research trajectory"
+                            loading="lazy"
+                            scrolling="no">
+                        </iframe>
+                    </div>
                     <p>My research is centered on <strong>visual anomaly detection</strong> for industrial inspection, focusing on unsupervised and zero-shot settings where defective examples are scarce or entirely absent. The question I study is how to specify what counts as <em>normal</em> when only a few reference images exist and no defect labels are available. I approach this through <strong>confident pseudo-labeling</strong>, <strong>vision-language adapters</strong>, and <strong>diffusion-based defect synthesis</strong>, moving away from per-category supervision toward criteria that transfer to object categories a model never saw during training.</p>
                     <p>A second line extends these ideas to <strong>medical imaging</strong>, where abnormal data is equally scarce and missed detections are costly, using text-guided diffusion augmentation and representation transfer to compensate for limited annotated pathology.</p>
                     <p class="bio-note">I completed my PhD at the University of Verona, advised by <a href="http://www.franzsetti.info/" target="_blank" rel="noopener">Francesco Setti</a> and <a href="https://profs.scienze.univr.it/~cristanm/" target="_blank" rel="noopener">Marco Cristani</a>, and my Master's at Beijing University of Posts and Telecommunications, advised by <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener">Xiaohong Liu</a>.</p>
