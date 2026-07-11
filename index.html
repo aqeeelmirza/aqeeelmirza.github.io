@@ -931,11 +931,11 @@
 
             <div class="bio">
                 <div class="trajectory-embed">
-                    <iframe src="trajectory_web.html" title="Research trajectory" loading="lazy" scrolling="no"></iframe>
+                    <iframe id="trajectoryFrame" data-src="trajectory_web.html" title="Research trajectory" scrolling="no"></iframe>
                 </div>
                 <p>My research addresses <strong>visual anomaly detection</strong> in industrial settings where defective samples are scarce or unavailable. I work on <strong>unsupervised anomaly detection</strong>, where only normal samples are available for training, and on <strong>zero-shot</strong> and <strong>generalist anomaly detection</strong>, where anomalies must be detected in object categories not seen during training. I approach these problems from three directions: <strong>confident pseudo-labeling</strong>, which stabilizes self-training under distribution shift, allowing the detector to refine what it treats as normal without manual relabeling; <strong>vision-language adapters</strong>, which adapt foundation-model representations to learn a category-agnostic notion of normality that generalizes across object categories; and <strong>diffusion-based defect synthesis</strong>, which leverages pre-trained diffusion models to generate realistic anomalous samples for data augmentation when real defects cannot be collected.</p>
                 <p>A second line extends these methods to <strong>medical image analysis</strong>, where abnormal samples are equally scarce and missed detections carry higher cost. In this domain, I use <strong>text-guided diffusion augmentation</strong> and <strong>representation transfer</strong> to detect abnormalities in biomedical images despite limited annotated data.</p>
-                <p class="bio-note">I completed my PhD at the University of Verona with <a href="http://www.franzsetti.info/" target="_blank" rel="noopener">Francesco Setti</a> and <a href="https://profs.scienze.univr.it/~cristanm/" target="_blank" rel="noopener">Marco Cristani</a>, and my Master's at the Beijing University of Posts and Telecommunications with <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener">Xiaohong Liu</a>.</p>
+                <p class="bio-note">I completed my PhD at the University of Verona with <a href="http://www.franzsetti.info/" target="_blank" rel="noopener">Francesco Setti</a> and <a href="https://intelligolabs.net/" target="_blank" rel="noopener">Marco Cristani</a>, and my Master's at the Beijing University of Posts and Telecommunications with <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener">Xiaohong Liu</a>.</p>
             </div>
 
             <section class="content-section">
@@ -1618,6 +1618,24 @@
                     this.style.display = 'none';
                     if (initials) initials.style.display = 'flex';
                 });
+            }
+
+            // Load the trajectory iframe only once it scrolls into view
+            const trajFrame = document.getElementById('trajectoryFrame');
+            if (trajFrame && trajFrame.dataset.src) {
+                if ('IntersectionObserver' in window) {
+                    const trajObserver = new IntersectionObserver((entries, obs) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                trajFrame.src = trajFrame.dataset.src;
+                                obs.disconnect();
+                            }
+                        });
+                    }, { threshold: 0.35 });
+                    trajObserver.observe(trajFrame);
+                } else {
+                    trajFrame.src = trajFrame.dataset.src;
+                }
             }
         });
     </script>
