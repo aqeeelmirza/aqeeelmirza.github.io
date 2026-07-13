@@ -261,12 +261,51 @@
             padding-top: 6px;
         }
 
+        /* Name + availability badge on one row */
+        .name-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
         .name {
             font-size: 40px;
             font-weight: 500;
-            margin-bottom: 12px;
             letter-spacing: -0.02em;
             line-height: 1.05;
+        }
+
+        /* Availability badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 5px 13px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            background: transparent;
+            border: 1px solid rgba(31, 111, 31, 0.35);
+            color: #1f6f1f;
+            white-space: nowrap;
+        }
+        .status-badge .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #2e9e2e;
+            flex-shrink: 0;
+            animation: badge-breathe 2.2s ease-in-out infinite;
+        }
+        @keyframes badge-breathe {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50%      { opacity: 0.35; transform: scale(0.85); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .status-badge .dot { animation: none; }
         }
 
         .affiliation {
@@ -809,6 +848,8 @@
             }
             .header-info { padding-top: 0; }
             .name { font-size: 30px; }
+            .name-row { justify-content: center; gap: 10px; }
+            .status-badge { font-size: 12px; padding: 4px 11px; }
             .profile-image { width: 140px; height: 140px; font-size: 48px; }
             .interests { font-size: 14px; }
             .contact-icons { justify-content: center; }
@@ -869,7 +910,12 @@
                     </a>
                 </div>
                 <div class="header-info">
-                    <h1 class="name">Muhammad Aqeel</h1>
+                    <div class="name-row">
+                        <h1 class="name">Muhammad Aqeel</h1>
+                        <span class="status-badge">
+                            <span class="dot"></span>Open to collaborations and positions
+                        </span>
+                    </div>
                     <p class="affiliation">
                         <strong>Postdoctoral Research Fellow</strong><br>
                         Department of Engineering for Innovation Medicine · University of Verona, Italy
@@ -1138,7 +1184,7 @@
                     </div>
                 </div>
 
-                <div class="pub-entry-flat" data-featured="true">
+                <div class="pub-entry-flat" data-featured="false">
                     <span class="pub-number">[8]</span>
                     <div class="pub-body">
                         <p class="pub-title">Diffusion-Based Data Augmentation for Medical Image Segmentation</p>
@@ -1202,7 +1248,7 @@
 
                 <h2 class="year-heading">2024</h2>
 
-                <div class="pub-entry-flat" data-featured="true">
+                <div class="pub-entry-flat" data-featured="false">
                     <span class="pub-number">[3]</span>
                     <div class="pub-body">
                         <p class="pub-title">Meta Learning-Driven Iterative Refinement for Robust Anomaly Detection in Industrial Inspection</p>
