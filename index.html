@@ -7,10 +7,18 @@
     <link rel="icon" type="image/svg+xml" href="spubs/favicon.svg">
     <meta name="description" content="Postdoctoral Research Fellow at the University of Verona (Department of Engineering for Innovation Medicine) working on unsupervised anomaly detection for industrial inspection.">
 
+    <link rel="canonical" href="https://aqeeelmirza.github.io/">
+
     <meta property="og:title" content="Muhammad Aqeel">
     <meta property="og:description" content="Postdoctoral Research Fellow at the University of Verona (Department of Engineering for Innovation Medicine) working on unsupervised anomaly detection for industrial inspection.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="PPP.JPG">
+    <meta property="og:url" content="https://aqeeelmirza.github.io/">
+    <meta property="og:image" content="https://aqeeelmirza.github.io/PPP.JPG">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Muhammad Aqeel">
+    <meta name="twitter:description" content="Postdoctoral Research Fellow at the University of Verona working on unsupervised anomaly detection for industrial inspection.">
+    <meta name="twitter:image" content="https://aqeeelmirza.github.io/PPP.JPG">
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -19,7 +27,7 @@
             --bg: #ffffff;
             --text-primary: #1a1a1a;
             --text-secondary: #555555;
-            --text-tertiary: #888888;
+            --text-tertiary: #6e6e6e;
             --accent: #1e6fba;
             --accent-dark: #155a99;
             --interest: #1e6fba;
@@ -803,6 +811,38 @@
         }
         .career-subsection-title:first-of-type { margin-top: 0; }
 
+        /* ===== Academic service lists ===== */
+        .service-group {
+            margin-bottom: 26px;
+        }
+        .service-group:last-child { margin-bottom: 0; }
+
+        .service-label {
+            font-size: 15.5px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .service-list {
+            list-style: none;
+            padding: 0;
+        }
+        .service-list li {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 6px;
+        }
+        .service-list li:last-child { margin-bottom: 0; }
+
+        .service-year {
+            color: var(--text-tertiary);
+            font-size: 13.5px;
+            margin-left: 8px;
+            font-variant-numeric: tabular-nums;
+        }
+
         /* ===== Footer ===== */
         footer {
             max-width: 920px;
@@ -898,7 +938,7 @@
                 <div class="profile-block">
                     <div class="profile-image">
                         <span class="profile-initials">MA</span>
-                        <img src="PPP.JPG" alt="Muhammad Aqeel">
+                        <img src="PPP.JPG" alt="Muhammad Aqeel" width="180" height="180">
                     </div>
                     <a href="https://github.com/aqeeelmirza/aqeeelmirza.github.io/raw/main/Muhammad_Aqeel_CV.pdf" class="cv-icon" target="_blank" rel="noopener">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1040,7 +1080,7 @@
                     <div class="pub-content">
                         <p class="pub-title">Anomaly-Aware Vision-Language Adapters for Zero-Shot Anomaly Detection</p>
                         <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Maham Nazir, Uzair Khan, Marco Cristani, Francesco Setti</p>
-                        <p class="pub-venue"><em>ICIP 2026</em><span class="sep">·</span><a href="https://arxiv.org/pdf/2605.12069" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza/AVA-DINO" target="_blank" rel="noopener">Code</a></p>
+                        <p class="pub-venue"><em>ICIP 2026</em><span class="sep">·</span><a href="https://arxiv.org/abs/2605.12069" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza/AVA-DINO" target="_blank" rel="noopener">Code</a></p>
                     </div>
                 </div>
 
@@ -1051,7 +1091,7 @@
                     <div class="pub-content">
                         <p class="pub-title">Multimodal Abstractive Summarization of Instructional Videos with Vision-Language Models</p>
                         <p class="pub-authors">Maham Nazir, Richong Zhang, <span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
-                        <p class="pub-venue"><em>ICPR 2026</em><span class="sep">·</span><a href="https://arxiv.org/pdf/2605.11959" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza/clipsum" target="_blank" rel="noopener">Code</a></p>
+                        <p class="pub-venue"><em>ICPR 2026</em><span class="sep">·</span><a href="https://arxiv.org/abs/2605.11959" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza/clipsum" target="_blank" rel="noopener">Code</a></p>
                     </div>
                 </div>
 
@@ -1103,7 +1143,7 @@
                         <p class="pub-authors">Uzair Khan, Luigi Capogrosso, <span class="author-self">Muhammad Aqeel</span>, Francesco Setti, Michele Magno, Marco Cristani</p>
                         <div class="pub-venue-line">
                             <span class="venue-badge tier-main">IEEE COINS 2026</span>
-                            <span class="pub-links"><a href="https://arxiv.org/pdf/2607.01949" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/intelligolabs/LiZAD" target="_blank" rel="noopener">Code</a></span>
+                            <span class="pub-links"><a href="https://arxiv.org/abs/2607.01949" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/intelligolabs/LiZAD" target="_blank" rel="noopener">Code</a></span>
                         </div>
                     </div>
                 </div>
@@ -1115,7 +1155,7 @@
                         <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Maham Nazir, Uzair Khan, Marco Cristani, Francesco Setti</p>
                         <div class="pub-venue-line">
                             <span class="venue-badge tier-main">ICIP 2026</span>
-                            <span class="pub-links"><a href="https://arxiv.org/pdf/2605.12069" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza/AVA-DINO" target="_blank" rel="noopener">Code</a></span>
+                            <span class="pub-links"><a href="https://arxiv.org/abs/2605.12069" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza/AVA-DINO" target="_blank" rel="noopener">Code</a></span>
                         </div>
                     </div>
                 </div>
@@ -1127,7 +1167,7 @@
                         <p class="pub-authors">Maham Nazir, Richong Zhang, <span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
                         <div class="pub-venue-line">
                             <span class="venue-badge tier-main">ICPR 2026</span>
-                            <span class="pub-links"><a href="https://arxiv.org/pdf/2605.11959" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza/clipsum" target="_blank" rel="noopener">Code</a></span>
+                            <span class="pub-links"><a href="https://arxiv.org/abs/2605.11959" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza/clipsum" target="_blank" rel="noopener">Code</a></span>
                         </div>
                     </div>
                 </div>
@@ -1509,6 +1549,50 @@
                     <p class="timeline-detail">Software Quality Assurance Engineer at UIIT, Arid Agriculture University · Earlier, Software Developer at eConceptions (Pvt) Ltd.</p>
                 </div>
             </div>
+
+            <h2 class="career-subsection-title">Awards &amp; honours</h2>
+
+            <div class="timeline-item">
+                <span class="timeline-period">2025</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Certificate of Oral Presentation</p>
+                    <p class="timeline-org">Workshop on Computer Vision and Generative Models for Medical Imaging, ICIAP 2025, Rome, Italy</p>
+                </div>
+            </div>
+
+            <h2 class="career-subsection-title">Academic service</h2>
+
+            <div class="service-group">
+                <p class="service-label">Reviewer — journals</p>
+                <ul class="service-list">
+                    <li>IEEE Transactions on Multimedia <span class="service-year">since 2025</span></li>
+                    <li>IEEE Transactions on Industrial Informatics <span class="service-year">since 2026</span></li>
+                    <li><a href="https://www.sciencedirect.com/journal/computer-vision-and-image-understanding" target="_blank" rel="noopener">Computer Vision and Image Understanding</a> <span class="service-year">since 2026</span></li>
+                    <li>Neural Computing and Applications <span class="service-year">since 2023</span></li>
+                    <li>Applied Soft Computing <span class="service-year">since 2023</span></li>
+                    <li>Array <span class="service-year">since 2026</span></li>
+                    <li>The Mesopotamian Journal of Computer Science <span class="service-year">since 2026</span></li>
+                </ul>
+            </div>
+
+            <div class="service-group">
+                <p class="service-label">Reviewer — conferences</p>
+                <ul class="service-list">
+                    <li>International Joint Conference on Artificial Intelligence (IJCAI–ECAI) <span class="service-year">2026</span></li>
+                    <li>British Machine Vision Conference (BMVC) <span class="service-year">2026</span></li>
+                    <li>International Conference on Computer Vision Theory and Applications (VISAPP)</li>
+                </ul>
+            </div>
+
+            <h2 class="career-subsection-title">Student co-supervision</h2>
+            <p class="page-intro" style="margin-bottom: 18px;">Master's students whose thesis work I have co-supervised.</p>
+
+            <ul class="service-list">
+                <li>Navid Bakzadegan Tabrizi <span class="service-year">2026</span></li>
+                <li>Lokesh Kumar <span class="service-year">2026</span></li>
+                <li>Shakiba Sharifi <span class="service-year">2025</span></li>
+                <li>Farrukh Ullah <span class="service-year">2024</span></li>
+            </ul>
         </div>
 
     </main>
@@ -1547,9 +1631,17 @@
         window.addEventListener('scroll', handleScroll, { passive: true });
 
         const validPages = ['home', 'news', 'publications', 'grants', 'career'];
+        const pageTitles = {
+            home: 'Muhammad Aqeel',
+            news: 'News · Muhammad Aqeel',
+            publications: 'Publications · Muhammad Aqeel',
+            grants: 'Grants · Muhammad Aqeel',
+            career: 'Career · Muhammad Aqeel'
+        };
 
         function showPage(pageName, push = true) {
             if (!validPages.includes(pageName)) pageName = 'home';
+            document.title = pageTitles[pageName];
             document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
             const target = document.getElementById('page-' + pageName);
             if (target) target.classList.add('active');
