@@ -811,37 +811,11 @@
         }
         .career-subsection-title:first-of-type { margin-top: 0; }
 
-        /* ===== Academic service lists ===== */
-        .service-group {
-            margin-bottom: 26px;
-        }
-        .service-group:last-child { margin-bottom: 0; }
-
-        .service-label {
-            font-size: 15.5px;
-            font-weight: 500;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
-
-        .service-list {
-            list-style: none;
-            padding: 0;
-        }
-        .service-list li {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 6px;
-        }
-        .service-list li:last-child { margin-bottom: 0; }
-
-        .service-year {
-            color: var(--text-tertiary);
-            font-size: 13.5px;
-            margin-left: 8px;
-            font-variant-numeric: tabular-nums;
-        }
+        /* Compact timeline rows (academic service, co-supervision) */
+        .timeline-item.compact { margin-bottom: 13px; }
+        .timeline-item.compact .timeline-title { font-weight: 400; }
+        .career-badge.journal { background: #e8f0f9; color: #155a99; }
+        .career-badge.conference { background: #f5e8f5; color: #7a2a7a; }
 
         /* ===== Footer ===== */
         footer {
@@ -1562,37 +1536,105 @@
 
             <h2 class="career-subsection-title">Academic service</h2>
 
-            <div class="service-group">
-                <p class="service-label">Reviewer — journals</p>
-                <ul class="service-list">
-                    <li>IEEE Transactions on Multimedia <span class="service-year">since 2025</span></li>
-                    <li>IEEE Transactions on Industrial Informatics <span class="service-year">since 2026</span></li>
-                    <li><a href="https://www.sciencedirect.com/journal/computer-vision-and-image-understanding" target="_blank" rel="noopener">Computer Vision and Image Understanding</a> <span class="service-year">since 2026</span></li>
-                    <li>Neural Computing and Applications <span class="service-year">since 2023</span></li>
-                    <li>Applied Soft Computing <span class="service-year">since 2023</span></li>
-                    <li>Array <span class="service-year">since 2026</span></li>
-                    <li>The Mesopotamian Journal of Computer Science <span class="service-year">since 2026</span></li>
-                </ul>
+            <div class="timeline-item compact">
+                <span class="timeline-period">Since 2026</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">IEEE Transactions on Industrial Informatics<span class="career-badge journal">Journal</span></p>
+                </div>
             </div>
 
-            <div class="service-group">
-                <p class="service-label">Reviewer — conferences</p>
-                <ul class="service-list">
-                    <li>International Joint Conference on Artificial Intelligence (IJCAI–ECAI) <span class="service-year">2026</span></li>
-                    <li>British Machine Vision Conference (BMVC) <span class="service-year">2026</span></li>
-                    <li>International Conference on Computer Vision Theory and Applications (VISAPP)</li>
-                </ul>
+            <div class="timeline-item compact">
+                <span class="timeline-period">Since 2026</span>
+                <div class="timeline-content">
+                    <p class="timeline-title"><a href="https://www.sciencedirect.com/journal/computer-vision-and-image-understanding" target="_blank" rel="noopener">Computer Vision and Image Understanding</a><span class="career-badge journal">Journal</span></p>
+                </div>
+            </div>
+
+            <div class="timeline-item compact">
+                <span class="timeline-period">Since 2026</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Array<span class="career-badge journal">Journal</span></p>
+                </div>
+            </div>
+
+            <div class="timeline-item compact">
+                <span class="timeline-period">Since 2026</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">The Mesopotamian Journal of Computer Science<span class="career-badge journal">Journal</span></p>
+                </div>
+            </div>
+
+            <div class="timeline-item compact">
+                <span class="timeline-period">2026</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">International Joint Conference on Artificial Intelligence (IJCAI–ECAI)<span class="career-badge conference">Conference</span></p>
+                </div>
+            </div>
+
+            <div class="timeline-item compact">
+                <span class="timeline-period">2026</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">British Machine Vision Conference (BMVC)<span class="career-badge conference">Conference</span></p>
+                </div>
+            </div>
+
+            <div class="timeline-item compact">
+                <span class="timeline-period">2026</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">International Conference on Computer Vision Theory and Applications (VISAPP)<span class="career-badge conference">Conference</span></p>
+                </div>
+            </div>
+
+            <div class="timeline-item compact">
+                <span class="timeline-period">Since 2025</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">IEEE Transactions on Multimedia<span class="career-badge journal">Journal</span></p>
+                </div>
+            </div>
+
+            <div class="timeline-item compact">
+                <span class="timeline-period">Since 2023</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Neural Computing and Applications<span class="career-badge journal">Journal</span></p>
+                </div>
+            </div>
+
+            <div class="timeline-item compact">
+                <span class="timeline-period">Since 2023</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Applied Soft Computing<span class="career-badge journal">Journal</span></p>
+                </div>
             </div>
 
             <h2 class="career-subsection-title">Student co-supervision</h2>
-            <p class="page-intro" style="margin-bottom: 18px;">Master's students whose thesis work I have co-supervised.</p>
 
-            <ul class="service-list">
-                <li>Navid Bakzadegan Tabrizi <span class="service-year">2026</span></li>
-                <li>Lokesh Kumar <span class="service-year">2026</span></li>
-                <li>Shakiba Sharifi <span class="service-year">2025</span></li>
-                <li>Farrukh Ullah <span class="service-year">2024</span></li>
-            </ul>
+            <div class="timeline-item compact">
+                <span class="timeline-period">2026</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Navid Bakzadegan Tabrizi<span class="career-badge msc">MSc thesis</span></p>
+                </div>
+            </div>
+
+            <div class="timeline-item compact">
+                <span class="timeline-period">2026</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Lokesh Kumar<span class="career-badge msc">MSc thesis</span></p>
+                </div>
+            </div>
+
+            <div class="timeline-item compact">
+                <span class="timeline-period">2025</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Shakiba Sharifi<span class="career-badge msc">MSc thesis</span></p>
+                </div>
+            </div>
+
+            <div class="timeline-item compact">
+                <span class="timeline-period">2024</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Farrukh Ullah<span class="career-badge msc">MSc thesis</span></p>
+                </div>
+            </div>
         </div>
 
     </main>
