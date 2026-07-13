@@ -837,8 +837,16 @@
             margin-bottom: 7px;
         }
         .service-group li:last-child { margin-bottom: 0; }
-        .career-badge.journal { background: #e8f0f9; color: #155a99; }
-        .career-badge.conference { background: #f5e8f5; color: #7a2a7a; }
+        .service-col-head {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            margin-bottom: 9px;
+        }
+
+        .career-badge.reviewer { background: #e8f0f9; color: #155a99; }
 
         .timeline-item.compact { margin-bottom: 12px; }
         .timeline-item.compact .timeline-title { font-weight: 400; }
@@ -1563,27 +1571,31 @@
 
             <h2 class="career-subsection-title">Academic service</h2>
 
-            <div class="service-columns">
-                <div class="service-group">
-                    <span class="career-badge journal">Journal</span>
-                    <ul>
-                        <li>IEEE Transactions on Multimedia</li>
-                        <li>IEEE Transactions on Industrial Informatics</li>
-                        <li>Computer Vision and Image Understanding</li>
-                        <li>Neural Computing and Applications</li>
-                        <li>Applied Soft Computing</li>
-                        <li>Array</li>
-                        <li>The Mesopotamian Journal of Computer Science</li>
-                    </ul>
-                </div>
+            <div class="service-group">
+                <span class="career-badge reviewer">Reviewer</span>
 
-                <div class="service-group">
-                    <span class="career-badge conference">Conference</span>
-                    <ul>
-                        <li>International Joint Conference on Artificial Intelligence (IJCAI–ECAI)</li>
-                        <li>British Machine Vision Conference (BMVC)</li>
-                        <li>International Conference on Computer Vision Theory and Applications (VISAPP)</li>
-                    </ul>
+                <div class="service-columns">
+                    <div>
+                        <p class="service-col-head">Journals</p>
+                        <ul>
+                            <li>IEEE Transactions on Multimedia</li>
+                            <li>IEEE Transactions on Industrial Informatics</li>
+                            <li>Computer Vision and Image Understanding</li>
+                            <li>Neural Computing and Applications</li>
+                            <li>Applied Soft Computing</li>
+                            <li>Array</li>
+                            <li>The Mesopotamian Journal of Computer Science</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <p class="service-col-head">Conferences</p>
+                        <ul>
+                            <li>International Joint Conference on Artificial Intelligence (IJCAI–ECAI)</li>
+                            <li>British Machine Vision Conference (BMVC)</li>
+                            <li>International Conference on Computer Vision Theory and Applications (VISAPP)</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
 
