@@ -837,15 +837,15 @@
             margin-bottom: 7px;
         }
         .service-group li:last-child { margin-bottom: 0; }
-        .service-group li .muted-year {
-            color: var(--text-tertiary);
-            font-size: 13.5px;
-            margin-left: 8px;
-            font-variant-numeric: tabular-nums;
-        }
-
         .career-badge.journal { background: #e8f0f9; color: #155a99; }
         .career-badge.conference { background: #f5e8f5; color: #7a2a7a; }
+
+        .career-subsection-title .career-badge {
+            vertical-align: 4px;
+        }
+
+        .timeline-item.compact { margin-bottom: 12px; }
+        .timeline-item.compact .timeline-title { font-weight: 400; }
 
         /* ===== Footer ===== */
         footer {
@@ -1591,16 +1591,34 @@
                 </div>
             </div>
 
-            <h2 class="career-subsection-title">Student co-supervision</h2>
+            <h2 class="career-subsection-title">Student co-supervision<span class="career-badge msc">MSc thesis</span></h2>
 
-            <div class="service-group">
-                <span class="career-badge msc">MSc thesis</span>
-                <ul>
-                    <li>Navid Bakzadegan Tabrizi <span class="muted-year">2026</span></li>
-                    <li>Lokesh Kumar <span class="muted-year">2026</span></li>
-                    <li>Shakiba Sharifi <span class="muted-year">2025</span></li>
-                    <li>Farrukh Ullah <span class="muted-year">2024</span></li>
-                </ul>
+            <div class="timeline-item compact">
+                <span class="timeline-period">2026</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Navid Bakzadegan Tabrizi</p>
+                </div>
+            </div>
+
+            <div class="timeline-item compact">
+                <span class="timeline-period">2026</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Lokesh Kumar</p>
+                </div>
+            </div>
+
+            <div class="timeline-item compact">
+                <span class="timeline-period">2025</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Shakiba Sharifi</p>
+                </div>
+            </div>
+
+            <div class="timeline-item compact">
+                <span class="timeline-period">2024</span>
+                <div class="timeline-content">
+                    <p class="timeline-title">Farrukh Ullah</p>
+                </div>
             </div>
         </div>
 
