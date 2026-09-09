@@ -375,13 +375,11 @@
         }
 
         .bio p {
-            font-size: 16.5px;
-            line-height: 1.8;
+            font-size: 18px;
+            line-height: 1.75;
             color: var(--text-primary);
             margin-bottom: 18px;
             text-align: justify;
-            hyphens: auto;
-            -webkit-hyphens: auto;
         }
         .bio p:last-child { margin-bottom: 0; }
         .bio strong {
@@ -1014,11 +1012,8 @@
             </div>
 
             <div class="bio">
-                <div class="trajectory-embed">
-                    <iframe id="trajectoryFrame" src="trajectory_web.html" title="Research trajectory" scrolling="no"></iframe>
-                </div>
-                <p>My research addresses <strong>visual anomaly detection</strong> in industrial settings where defective samples are scarce or unavailable. I work on <strong>unsupervised anomaly detection</strong>, where only normal samples are available for training, and on <strong>zero-shot</strong> and <strong>generalist anomaly detection</strong>, where anomalies must be detected in object categories not seen during training. I approach these problems from three directions: <strong>confident pseudo-labeling</strong>, which stabilizes self-training under distribution shift, allowing the detector to refine what it treats as normal without manual relabeling; <strong>vision-language adapters</strong>, which adapt foundation-model representations to learn a category-agnostic notion of normality that generalizes across object categories; and <strong>diffusion-based defect synthesis</strong>, which leverages pre-trained diffusion models to generate realistic anomalous samples for data augmentation when real defects cannot be collected.</p>
-                <p>A second line extends these methods to <strong>medical image analysis</strong>, where abnormal samples are equally scarce and missed detections carry higher cost. In this domain, I use <strong>text-guided diffusion augmentation</strong> and <strong>representation transfer</strong> to detect abnormalities in biomedical images despite limited annotated data.</p>
+                <p>My research addresses <strong>visual anomaly detection</strong> in industrial settings where defective samples are scarce or unavailable. It asks how a model can learn what <strong>normal</strong> looks like from a few defect-free references. I started with <strong>unsupervised detectors</strong> trained on normal samples only, using self-supervised and meta-learning to let a model refine its own notion of normal under distribution shift. From there I moved to <strong>few- and zero-shot inspection</strong>, where vision-language models carry that notion to object categories never seen in training and diffusion models synthesize the defects that cannot be collected. My current focus is <strong>generalist anomaly detection</strong>: inducing explicit <strong>normative specifications</strong> from few normal samples and disentangling anomaly from domain shift.</p>
+                <p>A second line extends these methods to <strong>medical image analysis</strong>, where abnormal samples are equally scarce and missed detections carry higher cost. Here I use text-guided diffusion augmentation and representation transfer to detect abnormalities with minimal annotation.</p>
                 <p class="bio-note">I completed my PhD at the University of Verona with <a href="http://www.franzsetti.info/" target="_blank" rel="noopener">Francesco Setti</a> and <a href="https://intelligolabs.net/" target="_blank" rel="noopener">Marco Cristani</a>, and my Master's at the Beijing University of Posts and Telecommunications with <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener">Xiaohong Liu</a>.</p>
             </div>
 
