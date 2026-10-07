@@ -509,6 +509,11 @@
             transform: scale(1.02);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
         }
+        .pub-thumb picture {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
         .pub-thumb img {
             width: 100%;
             height: 100%;
@@ -1122,7 +1127,10 @@
 
                 <div class="pub-entry">
                     <div class="pub-thumb">
-                        <img src="spubs/DART.png" alt="DART" loading="lazy" decoding="async">
+                        <picture>
+                            <source media="(min-width: 761px)" srcset="spubs/DART-thumb.png 1x, spubs/DART-thumb-2x.png 2x">
+                            <img src="spubs/DART.png" alt="DART" loading="lazy" decoding="async">
+                        </picture>
                     </div>
                     <div class="pub-content">
                         <p class="pub-title">DART: Domain-Agnostic Residual Transfer for Generalist Anomaly Detection</p>
@@ -1133,7 +1141,10 @@
 
                 <div class="pub-entry">
                     <div class="pub-thumb">
-                        <img src="spubs/CoMet.png" alt="CoMet" loading="lazy" decoding="async">
+                        <picture>
+                            <source media="(min-width: 761px)" srcset="spubs/CoMet-thumb.png 1x, spubs/CoMet-thumb-2x.png 2x">
+                            <img src="spubs/CoMet.png" alt="CoMet" loading="lazy" decoding="async">
+                        </picture>
                     </div>
                     <div class="pub-content">
                         <p class="pub-title">Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning</p>
@@ -1144,7 +1155,10 @@
 
                 <div class="pub-entry">
                     <div class="pub-thumb">
-                        <img src="spubs/Ava-Dino.png" alt="AVA-DINO" loading="lazy" decoding="async">
+                        <picture>
+                            <source media="(min-width: 761px)" srcset="spubs/Ava-Dino-thumb.png 1x, spubs/Ava-Dino-thumb-2x.png 2x">
+                            <img src="spubs/Ava-Dino.png" alt="AVA-DINO" loading="lazy" decoding="async">
+                        </picture>
                     </div>
                     <div class="pub-content">
                         <p class="pub-title">Anomaly-Aware Vision-Language Adapters for Zero-Shot Anomaly Detection</p>
@@ -1155,7 +1169,10 @@
 
                 <div class="pub-entry">
                     <div class="pub-thumb">
-                        <img src="spubs/ClipSum.jpg" alt="ClipSum" loading="lazy" decoding="async">
+                        <picture>
+                            <source media="(min-width: 761px)" srcset="spubs/ClipSum-thumb.png 1x, spubs/ClipSum-thumb-2x.png 2x">
+                            <img src="spubs/ClipSum.jpg" alt="ClipSum" loading="lazy" decoding="async">
+                        </picture>
                     </div>
                     <div class="pub-content">
                         <p class="pub-title">Multimodal Abstractive Summarization of Instructional Videos with Vision-Language Models</p>
@@ -1166,7 +1183,10 @@
 
                 <div class="pub-entry">
                     <div class="pub-thumb">
-                        <img src="spubs/RAD.png" alt="RAD" loading="lazy" decoding="async">
+                        <picture>
+                            <source media="(min-width: 761px)" srcset="spubs/RAD-thumb.png 1x, spubs/RAD-thumb-2x.png 2x">
+                            <img src="spubs/RAD.png" alt="RAD" loading="lazy" decoding="async">
+                        </picture>
                     </div>
                     <div class="pub-content">
                         <p class="pub-title">Robust Anomaly Detection in Industrial Environments via Meta-Learning</p>
