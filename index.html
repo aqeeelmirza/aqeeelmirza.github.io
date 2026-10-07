@@ -20,6 +20,28 @@
     <meta name="twitter:description" content="Postdoctoral Research Fellow at the University of Verona working on unsupervised anomaly detection for industrial inspection.">
     <meta name="twitter:image" content="https://aqeeelmirza.github.io/PPP.JPG">
 
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Muhammad Aqeel",
+        "url": "https://aqeeelmirza.github.io/",
+        "image": "https://aqeeelmirza.github.io/PPP.JPG",
+        "jobTitle": "Postdoctoral Research Fellow",
+        "affiliation": { "@type": "CollegeOrUniversity", "name": "University of Verona", "url": "https://www.univr.it" },
+        "alumniOf": [
+            { "@type": "CollegeOrUniversity", "name": "University of Verona" },
+            { "@type": "CollegeOrUniversity", "name": "Beijing University of Posts and Telecommunications" }
+        ],
+        "sameAs": [
+            "https://scholar.google.com/citations?user=ZPUihX0AAAAJ",
+            "https://github.com/aqeeelmirza",
+            "https://www.linkedin.com/in/muhammad-aqeel-4378b9170",
+            "https://orcid.org/0009-0000-5095-605X"
+        ]
+    }
+    </script>
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -106,6 +128,7 @@
             color: var(--text-primary);
             cursor: pointer;
         }
+        .nav-brand:hover { text-decoration: none; }
 
         .nav-menu {
             display: flex;
@@ -387,29 +410,6 @@
             font-weight: 600;
         }
 
-        .bio::after{
-            content:"";
-            display:block;
-            clear:both;
-        }
-
-        .trajectory-embed{
-            float:right;
-            width:500px;
-            margin:8px 0 18px 30px;
-        }
-
-        .trajectory-embed iframe{
-            display:block;
-            width:100%;
-            aspect-ratio:1280/694;
-            border:0;
-            outline:none;
-            box-shadow:none;
-            border-radius:0;
-            background:transparent;
-        }
-
         /* Closing note under the research statement */
         .bio-note {
             text-align: left;
@@ -417,7 +417,6 @@
             color: var(--text-secondary);
             line-height: 1.7;
             margin-top: 20px;
-            clear: both;
         }
         .bio-note strong { color: var(--text-primary); font-weight: 500; }
 
@@ -514,8 +513,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
         }
 
         .pub-content {
@@ -799,15 +796,49 @@
         .career-badge.research { background: #fff5d9; color: #8a6708; }
         .career-badge.industry { background: #f0f0f0; color: #555555; }
 
+        /* Collapsible sections: only the titles show until one is clicked */
+        .career-section {
+            border-bottom: 1px solid var(--border);
+        }
+        .career-section > summary {
+            position: relative;
+            display: block;
+            padding: 18px 40px 18px 0;
+            cursor: pointer;
+            list-style: none;
+        }
+        .career-section > summary::-webkit-details-marker { display: none; }
+        .career-section > summary:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
         .career-subsection-title {
             font-size: 22px;
             font-weight: 500;
-            margin: 40px 0 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border);
             letter-spacing: -0.01em;
         }
-        .career-subsection-title:first-of-type { margin-top: 0; }
+
+        .career-chevron {
+            position: absolute;
+            right: 4px;
+            top: 50%;
+            width: 18px;
+            height: 18px;
+            margin-top: -9px;
+            color: var(--text-tertiary);
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+        .career-section > summary:hover .career-chevron { color: var(--text-primary); }
+        .career-section[open] .career-chevron { transform: rotate(180deg); }
+        @media (prefers-reduced-motion: reduce) {
+            .career-chevron { transition: none; }
+        }
+
+        .career-section-body {
+            padding: 6px 0 32px;
+        }
 
         /* Badge-headed groups (academic service, co-supervision) */
         .service-columns {
@@ -912,7 +943,6 @@
             .news-date { width: 80px; }
             .news-item-page .news-date { width: 90px; }
             .bio { margin-bottom:40px; }
-            .trajectory-embed { float:none; width:100%; margin:0 0 20px 0; }
         }
     </style>
 </head>
@@ -922,15 +952,15 @@
 
     <nav>
         <div class="nav-container">
-            <div class="nav-brand" onclick="showPage('home')">Muhammad Aqeel</div>
+            <a class="nav-brand" href="#home" data-page="home">Muhammad Aqeel</a>
             <ul class="nav-menu" id="navMenu">
-                <li class="nav-link-item"><span class="nav-link active" data-page="home">Home</span></li>
-                <li class="nav-link-item"><span class="nav-link" data-page="news">News</span></li>
-                <li class="nav-link-item"><span class="nav-link" data-page="publications">Publications</span></li>
-                <li class="nav-link-item"><span class="nav-link" data-page="grants">Grants</span></li>
-                <li class="nav-link-item"><span class="nav-link" data-page="career">Career</span></li>
+                <li class="nav-link-item"><a class="nav-link active" href="#home" data-page="home" aria-current="page">Home</a></li>
+                <li class="nav-link-item"><a class="nav-link" href="#news" data-page="news">News</a></li>
+                <li class="nav-link-item"><a class="nav-link" href="#publications" data-page="publications">Publications</a></li>
+                <li class="nav-link-item"><a class="nav-link" href="#grants" data-page="grants">Grants</a></li>
+                <li class="nav-link-item"><a class="nav-link" href="#career" data-page="career">Career</a></li>
             </ul>
-            <button class="hamburger" id="hamburger" aria-label="Menu">
+            <button class="hamburger" id="hamburger" aria-label="Menu" aria-controls="navMenu" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
         </div>
@@ -947,7 +977,7 @@
                         <span class="profile-initials">MA</span>
                         <img src="PPP.JPG" alt="Muhammad Aqeel" width="180" height="180">
                     </div>
-                    <a href="https://github.com/aqeeelmirza/aqeeelmirza.github.io/raw/main/Muhammad_Aqeel_CV.pdf" class="cv-icon" target="_blank" rel="noopener">
+                    <a href="Muhammad_Aqeel_CV.pdf" class="cv-icon" download>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
@@ -1000,7 +1030,7 @@
                             </svg>
                         </a>
                     </div>
-                    <a href="https://github.com/aqeeelmirza/aqeeelmirza.github.io/raw/main/Muhammad_Aqeel_CV.pdf" class="cv-icon cv-icon-mobile" target="_blank" rel="noopener">
+                    <a href="Muhammad_Aqeel_CV.pdf" class="cv-icon cv-icon-mobile" download>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
@@ -1021,12 +1051,28 @@
                 <h2 class="section-title">News</h2>
 
                 <div class="news-item">
+                    <span class="news-date">Sep 2026</span>
+                    <span class="news-icon paper" title="Paper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    </span>
+                    <span class="news-content"><strong>DART</strong> accepted at NeurIPS 2026.</span>
+                </div>
+
+                <div class="news-item">
+                    <span class="news-date">Aug 2026</span>
+                    <span class="news-icon paper" title="Paper">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    </span>
+                    <span class="news-content"><strong>KGMMS</strong> accepted in Neural Computing and Applications.</span>
+                </div>
+
+                <!-- <div class="news-item">
                     <span class="news-date">Jul 2026</span>
                     <span class="news-icon paper" title="Paper">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                     </span>
                     <span class="news-content"><strong>Auditing the Auditor</strong> accepted in RRPR Workshop at ICPR 2026.</span>
-                </div>
+                </div> -->
 
                 <div class="news-item">
                     <span class="news-date">Jun 2026</span>
@@ -1068,7 +1114,7 @@
                     <span class="news-content">Successfully <strong>defended my PhD</strong> at the University of Verona.</span>
                 </div> -->
 
-                <p class="see-all-news"><a href="#" class="show-all-news">See all news →</a></p>
+                <p class="see-all-news"><a href="#news" data-page="news">See all news →</a></p>
             </section>
 
             <section class="content-section">
@@ -1076,7 +1122,18 @@
 
                 <div class="pub-entry">
                     <div class="pub-thumb">
-                        <img src="spubs/CoMet.png" alt="CoMet">
+                        <img src="spubs/DART.png" alt="DART" loading="lazy" decoding="async">
+                    </div>
+                    <div class="pub-content">
+                        <p class="pub-title">DART: Domain-Agnostic Residual Transfer for Generalist Anomaly Detection</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Maham Nazir, Marco Cristani, Francesco Setti</p>
+                        <p class="pub-venue"><em>NeurIPS 2026</em><span class="sep">·</span><a href="https://github.com/aqeeelmirza/DART" target="_blank" rel="noopener">Code</a></p>
+                    </div>
+                </div>
+
+                <div class="pub-entry">
+                    <div class="pub-thumb">
+                        <img src="spubs/CoMet.png" alt="CoMet" loading="lazy" decoding="async">
                     </div>
                     <div class="pub-content">
                         <p class="pub-title">Towards Real Unsupervised Anomaly Detection Via Confident Meta-Learning</p>
@@ -1087,7 +1144,7 @@
 
                 <div class="pub-entry">
                     <div class="pub-thumb">
-                        <img src="spubs/Ava-Dino.png" alt="AVA-DINO">
+                        <img src="spubs/Ava-Dino.png" alt="AVA-DINO" loading="lazy" decoding="async">
                     </div>
                     <div class="pub-content">
                         <p class="pub-title">Anomaly-Aware Vision-Language Adapters for Zero-Shot Anomaly Detection</p>
@@ -1098,7 +1155,7 @@
 
                 <div class="pub-entry">
                     <div class="pub-thumb">
-                        <img src="spubs/ClipSum.jpg" alt="ClipSum">
+                        <img src="spubs/ClipSum.jpg" alt="ClipSum" loading="lazy" decoding="async">
                     </div>
                     <div class="pub-content">
                         <p class="pub-title">Multimodal Abstractive Summarization of Instructional Videos with Vision-Language Models</p>
@@ -1109,7 +1166,7 @@
 
                 <div class="pub-entry">
                     <div class="pub-thumb">
-                        <img src="spubs/RAD.png" alt="RAD">
+                        <img src="spubs/RAD.png" alt="RAD" loading="lazy" decoding="async">
                     </div>
                     <div class="pub-content">
                         <p class="pub-title">Robust Anomaly Detection in Industrial Environments via Meta-Learning</p>
@@ -1118,18 +1175,18 @@
                     </div>
                 </div>
 
-                <div class="pub-entry">
+                <!-- <div class="pub-entry">
                     <div class="pub-thumb">
-                        <img src="spubs/semantic.jpg" alt="Semantic Parsing">
+                        <img src="spubs/semantic.jpg" alt="Semantic Parsing" loading="lazy" decoding="async">
                     </div>
                     <div class="pub-content">
                         <p class="pub-title">Semantic Parsing for Aspect-Based Sentiment Analysis</p>
                         <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Francesco Setti</p>
                         <p class="pub-venue"><em>IEEE Access 2025</em><span class="sep">·</span><a href="https://ieeexplore.ieee.org/abstract/document/11078252" target="_blank" rel="noopener">PDF</a></p>
                     </div>
-                </div>
+                </div> -->
 
-                <p class="see-all"><a href="#" class="show-all-pubs">See all publications →</a></p>
+                <p class="see-all"><a href="#publications" data-page="publications">See all publications →</a></p>
             </section>
 
         </div>
@@ -1148,6 +1205,30 @@
 
                 <h2 class="year-heading">2026</h2>
 
+                <div class="pub-entry-flat" data-featured="true">
+                    <span class="pub-number">[18]</span>
+                    <div class="pub-body">
+                        <p class="pub-title">DART: Domain-Agnostic Residual Transfer for Generalist Anomaly Detection</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Maham Nazir, Marco Cristani, Francesco Setti</p>
+                        <div class="pub-venue-line">
+                            <span class="venue-badge tier-main">NeurIPS 2026</span>
+                            <span class="pub-links"><a href="https://github.com/aqeeelmirza/DART" target="_blank" rel="noopener">Code</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pub-entry-flat" data-featured="false">
+                    <span class="pub-number">[17]</span>
+                    <div class="pub-body">
+                        <p class="pub-title">Knowledge Graph Attention Mechanism for Factually Consistent Multimodal Summarization</p>
+                        <p class="pub-authors">Maham Nazir, <span class="author-self">Muhammad Aqeel</span></p>
+                        <div class="pub-venue-line">
+                            <span class="venue-badge tier-main">Neural Computing and Applications 2026</span>
+                            <span class="pub-links"><a href="https://github.com/aqeeelmirza/KGMMS" target="_blank" rel="noopener">Code</a></span>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="pub-entry-flat" data-featured="false">
                     <span class="pub-number">[16]</span>
                     <div class="pub-body">
@@ -1156,7 +1237,7 @@
                         <div class="pub-venue-line">
                             <span class="venue-badge tier-workshop">ICPR 2026 Workshop</span>
                             <span class="venue-badge tier-oral">Oral</span>
-                            <span class="pub-links"><a href="" target="_blank" rel="noopener">PDF</a><span class="sep">·</span><a href="https://github.com/aqeeelmirza/GroundXum" target="_blank" rel="noopener">Code</a></span>
+                            <span class="pub-links"><a href="https://github.com/aqeeelmirza/GroundXum" target="_blank" rel="noopener">Code</a></span>
                         </div>
                     </div>
                 </div>
@@ -1199,7 +1280,7 @@
 
                 <h2 class="year-heading">2025</h2>
 
-                <div class="pub-entry-flat" data-featured="true">
+                <div class="pub-entry-flat" data-featured="false">
                     <span class="pub-number">[12]</span>
                     <div class="pub-body">
                         <p class="pub-title">Semantic Parsing for Aspect-Based Sentiment Analysis</p>
@@ -1227,7 +1308,7 @@
                     <span class="pub-number">[10]</span>
                     <div class="pub-body">
                         <p class="pub-title">A Contrastive Learning-Guided Confident Meta-learning for Zero Shot Anomaly Detection</p>
-                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Danijel Skocaj, Marco Cristani, Francesco Setti</p>
+                        <p class="pub-authors"><span class="author-self">Muhammad Aqeel</span>, Danijel Skočaj, Marco Cristani, Francesco Setti</p>
                         <div class="pub-venue-line">
                             <span class="venue-badge tier-workshop">ICCV 2025 Workshops</span>
                             <span class="venue-badge tier-oral">Oral</span>
@@ -1362,11 +1443,27 @@
             <h2 class="year-heading">2026</h2>
 
             <div class="news-item-page">
+                <span class="news-date">Sep 2026</span>
+                <span class="news-icon paper" title="Paper">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </span>
+                <span class="news-content"><strong>DART</strong> accepted at NeurIPS 2026. Domain-agnostic residual transfer for generalist anomaly detection.</span>
+            </div>
+
+            <div class="news-item-page">
+                <span class="news-date">Aug 2026</span>
+                <span class="news-icon paper" title="Paper">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                </span>
+                <span class="news-content"><strong>KGMMS</strong> accepted in Neural Computing and Applications. A knowledge graph attention mechanism for factually consistent multimodal summarization.</span>
+            </div>
+
+            <div class="news-item-page">
                 <span class="news-date">Jul 2026</span>
                 <span class="news-icon paper" title="Paper">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
                 </span>
-                <span class="news-content"><strong>Auditing the Auditor</strong> accepted in RRPR Workshop at ICPR 2026. Auditing the Auditor: A Reproducibility Study of Grounded Hallucination Auditing in Video Summarization.</span>
+                <span class="news-content"><strong>Auditing the Auditor</strong> accepted in RRPR Workshop at ICPR 2026. A reproducibility study of grounded hallucination auditing in video summarization.</span>
             </div>
 
             <div class="news-item-page">
@@ -1489,7 +1586,7 @@
             </div>
 
             <div class="grant-card">
-                <span class="timeline-period">June 2025 - November 2025</span>
+                <span class="timeline-period">Jun - Nov 2025</span>
                 <div class="timeline-content">
                     <p class="timeline-title">Mobility Research Grant</p>
                     <p class="timeline-org">University of Ljubljana, Slovenia</p>
@@ -1511,158 +1608,188 @@
         <div class="page-section" id="page-career">
             <h1 class="page-title">Career</h1>
 
-            <h2 class="career-subsection-title">Education</h2>
-
-            <div class="timeline-item">
-                <span class="timeline-period">2022 - 2026</span>
-                <div class="timeline-content">
-                    <p class="timeline-title">Ph.D. in Computer Science<span class="career-badge phd">PhD</span></p>
-                    <p class="timeline-org"><a href="https://www.univr.it" target="_blank" rel="noopener">University of Verona, Italy</a></p>
-                    <p class="timeline-detail">Supervisors: Prof. Francesco Setti &amp; Prof. Marco Cristani · Anomaly detection for industrial manufacturing</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <span class="timeline-period">2019 - 2021</span>
-                <div class="timeline-content">
-                    <p class="timeline-title">M.Sc. in Computer Science<span class="career-badge msc">MSc</span></p>
-                    <p class="timeline-org"><a href="https://www.bupt.edu.cn" target="_blank" rel="noopener">Beijing University of Posts and Telecommunications, China</a></p>
-                    <p class="timeline-detail">Supervisor: Prof. Xiaohong Liu · Natural language processing and sentiment analysis</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <span class="timeline-period">2013 - 2017</span>
-                <div class="timeline-content">
-                    <p class="timeline-title">B.Sc. in Computer Science<span class="career-badge bsc">BSc</span></p>
-                    <p class="timeline-org"><a href="https://www.uaar.edu.pk" target="_blank" rel="noopener">PMAS Arid Agriculture University Rawalpindi, Pakistan</a></p>
-                </div>
-            </div>
-
-            <h2 class="career-subsection-title">Experience</h2>
-
-            <div class="timeline-item">
-                <span class="timeline-period">2026 - present</span>
-                <div class="timeline-content">
-                    <p class="timeline-title">Postdoctoral Research Fellow<span class="career-badge postdoc">Postdoc</span></p>
-                    <p class="timeline-org">University of Verona, Italy</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <span class="timeline-period">June 2025 - November 2025</span>
-                <div class="timeline-content">
-                    <p class="timeline-title">Visiting Researcher<span class="career-badge visiting">Visiting</span></p>
-                    <p class="timeline-org">University of Ljubljana, Slovenia</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <span class="timeline-period">2023 - 2025</span>
-                <div class="timeline-content">
-                    <p class="timeline-title">Teaching Assistant<span class="career-badge teaching">Teaching</span></p>
-                    <p class="timeline-org">University of Verona, Italy</p>
-                    <p class="timeline-detail">Computer Vision and Machine Learning, Department of Engineering for Innovation Medicine</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <span class="timeline-period">2021 - 2022</span>
-                <div class="timeline-content">
-                    <p class="timeline-title">Research Assistant<span class="career-badge research">Research</span></p>
-                    <p class="timeline-org">Huazhong University of Science and Technology, Wuhan, China</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <span class="timeline-period">2017 - 2019</span>
-                <div class="timeline-content">
-                    <p class="timeline-title">Industry Roles<span class="career-badge industry">Industry</span></p>
-                    <p class="timeline-org">Pakistan</p>
-                    <p class="timeline-detail">Software Quality Assurance Engineer at UIIT, Arid Agriculture University · Earlier, Software Developer at eConceptions (Pvt) Ltd.</p>
-                </div>
-            </div>
-
-            <h2 class="career-subsection-title">Awards &amp; honours</h2>
-
-            <div class="timeline-item">
-                <span class="timeline-period">2025</span>
-                <div class="timeline-content">
-                    <p class="timeline-title">Certificate of Oral Presentation</p>
-                    <p class="timeline-org">Workshop on Computer Vision and Generative Models for Medical Imaging, ICIAP 2025, Rome, Italy</p>
-                </div>
-            </div>
-
-            <h2 class="career-subsection-title">Academic service</h2>
-
-            <div class="service-group">
-                <span class="career-badge reviewer">Reviewer</span>
-
-                <div class="service-columns">
-                    <div>
-                        <p class="service-col-head">Journals</p>
-                        <ul>
-                            <li>IEEE Transactions on Multimedia</li>
-                            <li>IEEE Transactions on Industrial Informatics</li>
-                            <li>Computer Vision and Image Understanding</li>
-                            <li>Neural Computing and Applications</li>
-                            <li>Applied Soft Computing</li>
-                            <!-- <li>Array</li>
-                            <li>The Mesopotamian Journal of Computer Science</li> -->
-                        </ul>
+            <details class="career-section">
+                <summary>
+                    <h2 class="career-subsection-title">Education</h2>
+                    <svg class="career-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="career-section-body">
+                    <div class="timeline-item">
+                        <span class="timeline-period">2022 - 2026</span>
+                        <div class="timeline-content">
+                            <p class="timeline-title">Ph.D. in Computer Science<span class="career-badge phd">PhD</span></p>
+                            <p class="timeline-org"><a href="https://www.univr.it" target="_blank" rel="noopener">University of Verona, Italy</a></p>
+                            <p class="timeline-detail">Supervisors: Prof. Francesco Setti &amp; Prof. Marco Cristani · Anomaly detection for industrial manufacturing</p>
+                        </div>
                     </div>
 
-                    <div>
-                        <p class="service-col-head">Conferences</p>
-                        <ul>
-                            <li>International Joint Conference on Artificial Intelligence (IJCAI–ECAI)</li>
-                            <li>British Machine Vision Conference (BMVC)</li>
-                            <li>International Conference on Computer Vision Theory and Applications (VISAPP)</li>
-                        </ul>
+                    <div class="timeline-item">
+                        <span class="timeline-period">2019 - 2021</span>
+                        <div class="timeline-content">
+                            <p class="timeline-title">M.Sc. in Computer Science<span class="career-badge msc">MSc</span></p>
+                            <p class="timeline-org"><a href="https://www.bupt.edu.cn" target="_blank" rel="noopener">Beijing University of Posts and Telecommunications, China</a></p>
+                            <p class="timeline-detail">Supervisor: Prof. Xiaohong Liu · Natural language processing and sentiment analysis</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-period">2013 - 2017</span>
+                        <div class="timeline-content">
+                            <p class="timeline-title">B.Sc. in Computer Science<span class="career-badge bsc">BSc</span></p>
+                            <p class="timeline-org"><a href="https://www.uaar.edu.pk" target="_blank" rel="noopener">PMAS Arid Agriculture University Rawalpindi, Pakistan</a></p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </details>
 
-            <h2 class="career-subsection-title">Student co-supervision</h2>
+            <details class="career-section">
+                <summary>
+                    <h2 class="career-subsection-title">Experience</h2>
+                    <svg class="career-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="career-section-body">
+                    <div class="timeline-item">
+                        <span class="timeline-period">2026 - present</span>
+                        <div class="timeline-content">
+                            <p class="timeline-title">Postdoctoral Research Fellow<span class="career-badge postdoc">Postdoc</span></p>
+                            <p class="timeline-org">University of Verona, Italy</p>
+                        </div>
+                    </div>
 
-            <div class="service-group">
-                <span class="career-badge msc">MSc thesis</span>
+                    <div class="timeline-item">
+                        <span class="timeline-period">Jun - Nov 2025</span>
+                        <div class="timeline-content">
+                            <p class="timeline-title">Visiting Researcher<span class="career-badge visiting">Visiting</span></p>
+                            <p class="timeline-org">University of Ljubljana, Slovenia</p>
+                        </div>
+                    </div>
 
-                <div class="timeline-item compact">
-                    <span class="timeline-period">2025 - Present</span>
-                    <div class="timeline-content">
-                        <p class="timeline-title">Fateh Ali</p>
+                    <div class="timeline-item">
+                        <span class="timeline-period">2023 - 2025</span>
+                        <div class="timeline-content">
+                            <p class="timeline-title">Teaching Assistant<span class="career-badge teaching">Teaching</span></p>
+                            <p class="timeline-org">University of Verona, Italy</p>
+                            <p class="timeline-detail">Computer Vision and Machine Learning, Department of Engineering for Innovation Medicine</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-period">2021 - 2022</span>
+                        <div class="timeline-content">
+                            <p class="timeline-title">Research Assistant<span class="career-badge research">Research</span></p>
+                            <p class="timeline-org">Huazhong University of Science and Technology, Wuhan, China</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <span class="timeline-period">2017 - 2019</span>
+                        <div class="timeline-content">
+                            <p class="timeline-title">Industry Roles<span class="career-badge industry">Industry</span></p>
+                            <p class="timeline-org">Pakistan</p>
+                            <p class="timeline-detail">Software Quality Assurance Engineer at UIIT, Arid Agriculture University · Earlier, Software Developer at eConceptions (Pvt) Ltd.</p>
+                        </div>
                     </div>
                 </div>
+            </details>
 
-                <div class="timeline-item compact">
-                    <span class="timeline-period">2025 - 2026</span>
-                    <div class="timeline-content">
-                        <p class="timeline-title">Navid Bakzadegan Tabrizi</p>
+            <details class="career-section">
+                <summary>
+                    <h2 class="career-subsection-title">Awards &amp; honours</h2>
+                    <svg class="career-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="career-section-body">
+                    <div class="timeline-item">
+                        <span class="timeline-period">2025</span>
+                        <div class="timeline-content">
+                            <p class="timeline-title">Certificate of Oral Presentation</p>
+                            <p class="timeline-org">Workshop on Computer Vision and Generative Models for Medical Imaging, ICIAP 2025, Rome, Italy</p>
+                        </div>
                     </div>
                 </div>
+            </details>
 
-                <div class="timeline-item compact">
-                    <span class="timeline-period">2025 - 2026</span>
-                    <div class="timeline-content">
-                        <p class="timeline-title">Lokesh Kumar</p>
+            <details class="career-section">
+                <summary>
+                    <h2 class="career-subsection-title">Academic service</h2>
+                    <svg class="career-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="career-section-body">
+                    <div class="service-group">
+                        <span class="career-badge reviewer">Reviewer</span>
+
+                        <div class="service-columns">
+                            <div>
+                                <p class="service-col-head">Journals</p>
+                                <ul>
+                                    <li>IEEE Transactions on Multimedia</li>
+                                    <li>IEEE Transactions on Industrial Informatics</li>
+                                    <li>Computer Vision and Image Understanding</li>
+                                    <li>Neural Computing and Applications</li>
+                                    <li>Applied Soft Computing</li>
+                                    <!-- <li>Array</li>
+                                    <li>The Mesopotamian Journal of Computer Science</li> -->
+                                </ul>
+                            </div>
+
+                            <div>
+                                <p class="service-col-head">Conferences</p>
+                                <ul>
+                                    <li>International Joint Conference on Artificial Intelligence (IJCAI–ECAI)</li>
+                                    <li>British Machine Vision Conference (BMVC)</li>
+                                    <li>International Conference on Computer Vision Theory and Applications (VISAPP)</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </details>
 
-                <div class="timeline-item compact">
-                    <span class="timeline-period">2024 - 2025</span>
-                    <div class="timeline-content">
-                        <p class="timeline-title">Shakiba Sharifi</p>
+            <details class="career-section">
+                <summary>
+                    <h2 class="career-subsection-title">Student co-supervision</h2>
+                    <svg class="career-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="career-section-body">
+                    <div class="service-group">
+                        <span class="career-badge msc">MSc thesis</span>
+
+                        <div class="timeline-item compact">
+                            <span class="timeline-period">2025 - Present</span>
+                            <div class="timeline-content">
+                                <p class="timeline-title">Fateh Ali</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item compact">
+                            <span class="timeline-period">2025 - 2026</span>
+                            <div class="timeline-content">
+                                <p class="timeline-title">Navid Bakzadegan Tabrizi</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item compact">
+                            <span class="timeline-period">2025 - 2026</span>
+                            <div class="timeline-content">
+                                <p class="timeline-title">Lokesh Kumar</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item compact">
+                            <span class="timeline-period">2024 - 2025</span>
+                            <div class="timeline-content">
+                                <p class="timeline-title">Shakiba Sharifi</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item compact">
+                            <span class="timeline-period">2023 - 2024</span>
+                            <div class="timeline-content">
+                                <p class="timeline-title">Farrukh Ullah</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="timeline-item compact">
-                    <span class="timeline-period">2023 - 2024</span>
-                    <div class="timeline-content">
-                        <p class="timeline-title">Farrukh Ullah</p>
-                    </div>
-                </div>
-            </div>
+            </details>
         </div>
 
     </main>
@@ -1675,17 +1802,23 @@
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
 
+        function setMenu(open) {
+            hamburger.classList.toggle('active', open);
+            navMenu.classList.toggle('menu-open', open);
+            hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+
         hamburger.addEventListener('click', (e) => {
             e.stopPropagation();
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('menu-open');
+            setMenu(!navMenu.classList.contains('menu-open'));
         });
 
         document.addEventListener('click', (e) => {
-            if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('menu-open');
-            }
+            if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) setMenu(false);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') setMenu(false);
         });
 
         let scrollThreshold = 80;
@@ -1694,8 +1827,7 @@
                 document.body.classList.add('scrolled');
             } else {
                 document.body.classList.remove('scrolled');
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('menu-open');
+                setMenu(false);
             }
         }
         window.addEventListener('scroll', handleScroll, { passive: true });
@@ -1709,6 +1841,11 @@
             career: 'Career · Muhammad Aqeel'
         };
 
+        // Home keeps the plain address; other sections use #news, #publications, ...
+        function urlFor(pageName) {
+            return pageName === 'home' ? location.pathname + location.search : '#' + pageName;
+        }
+
         function showPage(pageName, push = true) {
             if (!validPages.includes(pageName)) pageName = 'home';
             document.title = pageTitles[pageName];
@@ -1716,13 +1853,15 @@
             const target = document.getElementById('page-' + pageName);
             if (target) target.classList.add('active');
             document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.toggle('active', link.dataset.page === pageName);
+                const current = link.dataset.page === pageName;
+                link.classList.toggle('active', current);
+                if (current) link.setAttribute('aria-current', 'page');
+                else link.removeAttribute('aria-current');
             });
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            hamburger.classList.remove('active');
-            navMenu.classList.remove('menu-open');
-            if (push) {
-                history.pushState({ page: pageName }, '', '#' + pageName);
+            setMenu(false);
+            if (push && !(history.state && history.state.page === pageName)) {
+                history.pushState({ page: pageName }, '', urlFor(pageName));
             }
         }
 
@@ -1732,32 +1871,13 @@
             showPage(page, false);
         });
 
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.setAttribute('role', 'button');
-            link.setAttribute('tabindex', '0');
+        // Section links are real links: a plain click switches section in place,
+        // Ctrl/Cmd/middle click still opens the section in a new tab.
+        document.querySelectorAll('a[data-page]').forEach(link => {
             link.addEventListener('click', (e) => {
+                if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
                 e.preventDefault();
                 showPage(link.dataset.page);
-            });
-            link.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    showPage(link.dataset.page);
-                }
-            });
-        });
-
-        document.querySelectorAll('.show-all-pubs').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                showPage('publications');
-            });
-        });
-
-        document.querySelectorAll('.show-all-news').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                showPage('news');
             });
         });
 
@@ -1801,10 +1921,11 @@
 
         window.addEventListener('DOMContentLoaded', () => {
             // Route to the section named in the URL hash (supports refresh & deep links)
+            if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
             const initial = location.hash ? location.hash.slice(1) : 'home';
             const startPage = validPages.includes(initial) ? initial : 'home';
             showPage(startPage, false);
-            history.replaceState({ page: startPage }, '', '#' + startPage);
+            history.replaceState({ page: startPage }, '', urlFor(startPage));
 
             // --- Profile photo: handle the cached-image case ---
             // If the image is already in cache it finishes loading BEFORE this
@@ -1827,39 +1948,6 @@
                     img.addEventListener('load', showPhoto);
                     img.addEventListener('error', showInitials);
                 }
-            }
-
-            // --- Trajectory map: renders immediately, animation starts on scroll ---
-            if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-            window.scrollTo(0, 0);
-
-            const trajFrame = document.getElementById('trajectoryFrame');
-            if (trajFrame) {
-                let trajStarted = false;
-                let armed = false;
-
-                function arm() { armed = true; check(); }
-                window.addEventListener('wheel', arm, { passive: true, once: true });
-                window.addEventListener('touchmove', arm, { passive: true, once: true });
-                window.addEventListener('keydown', (e) => {
-                    if (['ArrowDown', 'PageDown', 'End', ' '].includes(e.key)) arm();
-                }, { once: true });
-
-                function check() {
-                    if (trajStarted || !armed) return;
-                    if (window.scrollY < 60) return;
-
-                    const r = trajFrame.getBoundingClientRect();
-                    if (!r.height) return;
-                    const visible = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
-                    if (visible / r.height < 0.35) return;
-
-                    trajStarted = true;
-                    trajFrame.contentWindow.postMessage({ type: 'startTrajectory' }, '*');
-                    window.removeEventListener('scroll', check);
-                }
-
-                window.addEventListener('scroll', check, { passive: true });
             }
         });
     </script>
