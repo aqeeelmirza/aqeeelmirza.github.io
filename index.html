@@ -1002,8 +1002,11 @@
                         <strong>Postdoctoral Research Fellow</strong><br>
                         Department of Engineering for Innovation Medicine · University of Verona, Italy
                     </p>
-                    <p class="interests">
+                    <!-- <p class="interests">
                         Anomaly detection<span class="sep">·</span>Unsupervised learning<span class="sep">·</span>Vision-language models<span class="sep">·</span>Generative models
+                    </p> -->
+                    <p class="interests">
+                        Anomaly detection<span class="sep">·</span>Domain generalization<span class="sep">·</span>Vision-language models<span class="sep">·</span>Generative models
                     </p>
                     <div class="contact-icons">
                         <a href="mailto:muhammad.aqeel@univr.it" class="contact-icon" title="Email" aria-label="Email">
@@ -1046,9 +1049,15 @@
                 </div>
             </div>
 
-            <div class="bio">
+            <!-- <div class="bio">
                 <p>My research addresses <strong>visual anomaly detection</strong> in industrial settings where defective samples are scarce or unavailable. It asks how a model can learn what <strong>normal</strong> looks like from a few defect-free references. I started with <strong>unsupervised detectors</strong> trained on normal samples only, using self-supervised and meta-learning to let a model refine its own notion of normal under distribution shift. From there I moved to <strong>few- and zero-shot inspection</strong>, where vision-language models carry that notion to object categories never seen in training and diffusion models synthesize the defects that cannot be collected. My current focus is <strong>generalist anomaly detection</strong>: inducing explicit <strong>normative specifications</strong> from few normal samples and disentangling anomaly from domain shift.</p>
                 <p>A second line extends these methods to <strong>medical image analysis</strong>, where abnormal samples are equally scarce and missed detections carry higher cost. Here I use text-guided diffusion augmentation and representation transfer to detect abnormalities with minimal annotation.</p>
+                <p class="bio-note">I completed my PhD at the University of Verona with <a href="http://www.franzsetti.info/" target="_blank" rel="noopener">Francesco Setti</a> and <a href="https://intelligolabs.net/" target="_blank" rel="noopener">Marco Cristani</a>, and my Master's at the Beijing University of Posts and Telecommunications with <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener">Xiaohong Liu</a>.</p>
+            </div> -->
+            <div class="bio">
+                <p>My research addresses <strong>visual anomaly detection</strong> where defective samples are scarce or unavailable: how a model can learn what <strong>normal</strong> looks like and recognize what deviates from it. I started with <strong>unsupervised detectors</strong> trained on normal images only, using self-supervised and meta-learning to stay reliable even when the training data hides defects. I then moved to <strong>few- and zero-shot inspection</strong>, where vision-language models carry the notion of normal to categories never seen in training and diffusion models synthesize the defects that cannot be collected.</p>
+                <p>My current focus is <strong>generalist anomaly detection</strong>: a single model that inspects new products and domains from a few reference images, without retraining, by separating anomaly cues from domain shift and inducing explicit specifications of normality.</p>
+                <p>I also apply these ideas to <strong>medical imaging</strong>, where abnormal samples are equally scarce, and work on <strong>vision-language models</strong> for video summarization, including auditing hallucinations in generated summaries.</p>
                 <p class="bio-note">I completed my PhD at the University of Verona with <a href="http://www.franzsetti.info/" target="_blank" rel="noopener">Francesco Setti</a> and <a href="https://intelligolabs.net/" target="_blank" rel="noopener">Marco Cristani</a>, and my Master's at the Beijing University of Posts and Telecommunications with <a href="https://ieeexplore.ieee.org/author/37089775983" target="_blank" rel="noopener">Xiaohong Liu</a>.</p>
             </div>
 
